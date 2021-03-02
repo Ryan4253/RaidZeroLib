@@ -22,10 +22,9 @@ std::vector<pros::Motor> baseRight = {RB, RF};
 
 std::map<std::string, std::unique_ptr<pros::Task>> Robot::tasks;
 
-PID Drive::drivePID(1, 0, 0);
-PID Drive::turnPID(1, 0, 0);
+PID Drive::drivePID;
+PID Drive::turnPID;
 SlewController Drive::driveSlew(9, 256);
-int x = 0;
 
 void Robot::setPower(std::vector<pros::Motor> motor, double power){
   for(int i = 0; i < motor.size(); i++){
@@ -48,12 +47,6 @@ void Robot::setBrakeMode(std::vector<pros::Motor> motor, std::string mode){
   }
 }
 
-void Robot::startTask(std::string name, void (*func)(void *)) {
-	if (!taskExists(name)) {
-		Robot::tasks.insert(std::pair<std::string, std::unique_ptr<pros::Task>>(name, std::move(std::make_unique<pros::Task>(func, &x ,TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, ""))));
-	}
-}
-
 void Robot::displayPosition(void* ptr){
   while(true){
     pros::lcd::print(2, "X: %lf", Odom::getX());
@@ -63,6 +56,12 @@ void Robot::displayPosition(void* ptr){
     //std::cout << "X: " << Odom::getX() << " Y: " << Odom::getY() << " A: " << Odom::getAngleDeg() << std::endl;
     pros::delay(3);
   }
+}
+
+void Robot::startTask(std::string name, void (*func)(void *)) {
+	if (!taskExists(name)) {
+		Robot::tasks.insert(std::pair<std::string, std::unique_ptr<pros::Task>>(name, std::move(std::make_unique<pros::Task>(func, (void*)0 ,TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, ""))));
+	}
 }
 
 bool Robot::taskExists(std::string name) {

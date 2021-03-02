@@ -1,14 +1,6 @@
 #include "main.h"
 
-
-void initialize() {
-  pros::lcd::initialize();
-  pros::lcd::print(1, "INITIALIZE");
-  Robot::setBrakeMode(base, "coast");
-  Drive::resetEncoders();
-  Drive::resetIMU();
-
-  /*
+void autonSelector(){
   int lPreValue = 0;
   int rPreValue = 0;
   int time = 0;
@@ -45,7 +37,18 @@ void initialize() {
 
     pros::delay(75);
   }
-  */
+}
+
+void initialize() {
+  pros::lcd::initialize();
+  pros::lcd::print(1, "INITIALIZE");
+  Robot::setBrakeMode(base, "coast");
+  Drive::resetEncoders(); Drive::resetIMU();
+
+  Drive::drivePID.withGain(1, 0, 0).withIGain(500, 12).withEMAGain(1).initialize();
+  Drive::turnPID.withGain(1, 0, 0).withIGain(500, 12).withEMAGain(1).initialize();
+
+  autonSelector();
 }
 
 void competition_initialize(){}

@@ -35,12 +35,11 @@ class Robot{
 };
 
 class Drive{
-  private:
+  public:
     static PID drivePID;
     static PID turnPID;
     static SlewController driveSlew;
 
-  public:
     static void resetEncoders();
     static void resetIMU();
     static double getDistance();

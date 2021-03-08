@@ -26,6 +26,12 @@ PID Drive::drivePID;
 PID Drive::turnPID;
 SlewController Drive::driveSlew(9, 256);
 
+std::shared_ptr<ChassisController> Drive::chassis
+  = ChassisControllerBuilder()
+    .withMotors({9, 10}, {7, 8})
+    .withDimensions({AbstractMotor::gearset::blue, 7.0 / 3.0}, {{4.00_in, 12.25_in}, imev5GreenTPR})
+    .build();
+
 void Robot::setPower(std::vector<pros::Motor> motor, double power){
   for(int i = 0; i < motor.size(); i++){
     motor[i] = power;
@@ -108,7 +114,8 @@ Vector Drive::scaleSpeed(double drivePower, double turnPower, double turnScale){
 
 void Drive::moveDistance(double dist, QTime timeLimit) {
   Pose currentPos = Odom::getPos();
-  Vector target = (currentPos.toVector()).add({currentPos.x * cos(currentPos.angle), currentPos.y * sin(currentPos.angle)});
+  Vector displacement = {dist * cos(currentPos.angle), dist * sin(currentPos.angle)};
+  Vector target = currentPos.toVector() + displacement;
   moveTo(target, 1, timeLimit);
 }
 

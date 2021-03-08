@@ -190,10 +190,10 @@ bin/lib4253/PID.cpp.o: src/lib4253/PID.cpp include/main.h include/api.h \
  include/okapi/api/units/QPressure.hpp \
  include/okapi/api/units/QTorque.hpp include/okapi/api/units/QVolume.hpp \
  include/okapi/impl/util/rate.hpp include/display/lvgl.h \
- include/lib4253/Math.hpp include/lib4253/emaFilter.hpp \
- include/lib4253/PID.hpp include/lib4253/Slew.hpp \
- include/lib4253/Odometry.hpp include/lib4253/PurePursuit.hpp \
- include/lib4253/Robot.hpp
+ include/lib4253/Node.hpp include/lib4253/Math.hpp \
+ include/lib4253/emaFilter.hpp include/lib4253/PID.hpp \
+ include/lib4253/Slew.hpp include/lib4253/Odometry.hpp \
+ include/lib4253/PurePursuit.hpp include/lib4253/Robot.hpp
 
 include/main.h:
 
@@ -732,6 +732,8 @@ include/okapi/api/units/QVolume.hpp:
 include/okapi/impl/util/rate.hpp:
 
 include/display/lvgl.h:
+
+include/lib4253/Node.hpp:
 
 include/lib4253/Math.hpp:
 

@@ -40,6 +40,16 @@ class Drive{
     static PID turnPID;
     static SlewController driveSlew;
 
+    static std::shared_ptr<ChassisController> chassis;
+    static std::shared_ptr<AsyncMotionProfileController> profileController;
+    /*
+     = ChassisControllerBuilder()
+      .withMotors({9, 10}, {7, 8})
+      .withDimensions(AbstractMotor::gearset::green, {{4.32_in, 12.25_in}, imev5GreenTPR})
+      .withSensors(ADIEncoder{'A', 'B', true}, ADIEncoder{'C', 'D'})
+      .build();
+      */
+
     static void resetEncoders();
     static void resetIMU();
     static double getDistance();

@@ -33,20 +33,20 @@ void PID::initialize() {
 
 double PID::update(double err) {
   // P calculation
-  error = err;
+  error = err; // error
 
   // D calculation
   time = pros::millis();
-  derivative = dEMA.filter((error - prevError) / (time - prevTime));
+  derivative = dEMA.filter((error - prevError) / (time - prevTime)); // dE / dT, filtered with an EMA filter
   prevTime = time;
   prevError = error;
 
   // I calculation
-  integral += error * (error < minDist);
-  integral *= (((int)error ^ (int)prevError) >= 0);
-  integral = fmax(integral, maxIntegral);
+  integral += error * (error < minDist); // where to start collecting
+  integral *= (((int)error ^ (int)prevError) >= 0); // set to 0 once passes setpoint
+  integral = fmin(integral, maxIntegral); // cap integral to a limit
 
-  return error * kP + integral * kI + derivative * kD;
+  return error * kP + integral * kI + derivative * kD; // final power output
 }
 
 bool PID::settleUtil(double errorThresh, int timeThresh) {

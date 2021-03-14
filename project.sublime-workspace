@@ -1,0 +1,413 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"testEdgeDe",
+				"testEdgeDetection2"
+			],
+			[
+				"m",
+				"map\tstd::map"
+			],
+			[
+				"r",
+				"readfile\tRead File Into Vector"
+			],
+			[
+				"b",
+				"beginend\t$1.begin(), $1.end()"
+			],
+			[
+				"i",
+				"if\tIf Condition"
+			],
+			[
+				"n",
+				"ns\tNamespace"
+			],
+			[
+				"void",
+				"void"
+			],
+			[
+				"sol",
+				"sol"
+			],
+			[
+				"quad",
+				"quadC"
+			],
+			[
+				"qu",
+				"quadA"
+			],
+			[
+				"print",
+				"printASmallBox"
+			],
+			[
+				"printTw",
+				"printTwentyDashes"
+			],
+			[
+				"array",
+				"array"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "Packages/User/C++.sublime-build",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "RunInCommand",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: in\t",
+				"Package Control: Install Package"
+			],
+			[
+				"Snippet: ",
+				"Snippet: C++_One_Case"
+			],
+			[
+				"color",
+				"Colorsublime: Install Theme"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"c\t",
+				"ChangeQuotes"
+			],
+			[
+				"install\t",
+				"Package Control: Install Package"
+			],
+			[
+				"cpp",
+				"Snippet: cpp_default_code"
+			],
+			[
+				"Package Control: insta\t",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: inst",
+				"Package Control: Install Package"
+			],
+			[
+				"install ",
+				"Install Package Control"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/23ryanl/Desktop/RMQ_Treap.cpp",
+		"/C/Users/23ryanl/Desktop/CF/D.cpp",
+		"/C/Users/23ryanl/Desktop/CF/C.cpp",
+		"/C/Users/23ryanl/Desktop/B.cpp",
+		"/C/Users/23ryanl/Desktop/CF/A.cpp",
+		"/C/Users/23ryanl/Desktop/D.cpp",
+		"/C/Users/23ryanl/Desktop/1472B.cpp",
+		"/C/Users/23ryanl/Desktop/C.cpp",
+		"/C/Users/23ryanl/Desktop/Round/A.cpp",
+		"/C/Users/23ryanl/Desktop/270A.cpp",
+		"/C/Users/23ryanl/Desktop/68-steg-lab/Steganography.java",
+		"/C/Users/23ryanl/Desktop/test.cpp",
+		"/C/Users/23ryanl/Desktop/68-steg-lab/ColorChooser.java",
+		"/C/Users/23ryanl/Desktop/67-picture-lab-activities-5-9/classes/PictureTester.java",
+		"/C/Users/23ryanl/Desktop/158b.cpp",
+		"/C/Users/23ryanl/Desktop/67-picture-lab-activities-5-9/classes/Picture.java",
+		"/C/Users/23ryanl/Desktop/USACO_BRONZE/A.cpp",
+		"/C/Users/23ryanl/Desktop/USACO_BRONZE/C.cpp",
+		"/C/Users/23ryanl/Desktop/USACO_BRONZE/B.cpp",
+		"/C/Users/23ryanl/Desktop/67-picture-lab-activities-1-4/classes/Picture.java",
+		"/C/Users/23ryanl/Desktop/67-picture-lab-activities-1-4/classes/PictureTester.java",
+		"/C/Users/23ryanl/Desktop/67-picture-lab-activities-1-4/classes/PictureExplorer.java",
+		"/C/Users/23ryanl/Desktop/USACO/C.cpp",
+		"/C/Users/23ryanl/Desktop/USACO/B.cpp",
+		"/C/Users/23ryanl/Desktop/USACO/C2.cpp",
+		"/C/Users/23ryanl/Desktop/USACO/A.cpp",
+		"/C/Users/23ryanl/Desktop/67-picture-lab-activities-1-4/classes/SimplePicture.java",
+		"/C/Users/23ryanl/Desktop/Codes/ZeroJudge/d539.cpp",
+		"/C/Users/23ryanl/Desktop/d539.cpp",
+		"/C/Users/23ryanl/Desktop/63-matrices-labs/PascalsTriangleRunner.java",
+		"/C/Users/23ryanl/Desktop/67-pixLab/classes/IntArrayWorkerTester.java",
+		"/C/Users/23ryanl/Desktop/67-pixLab/classes/PictureExplorer.java",
+		"/C/Users/23ryanl/Desktop/67-pixLab/classes/ColorChooser.java",
+		"/C/Users/23ryanl/Desktop/63-matrices-labs/PascalsTriangle.java",
+		"/C/Users/23ryanl/Desktop/63-matrices-labs/MatrixSumming.java",
+		"/C/Users/23ryanl/Desktop/d539_sparse.cpp",
+		"/C/Users/23ryanl/Desktop/67-pixLab/classes/IntArrayWorker.java",
+		"/C/Users/23ryanl/Desktop/stfu",
+		"/C/Users/23ryanl/Desktop/d539(sqrt).cpp",
+		"/C/Users/23ryanl/Desktop/63-matrices-labs/MatrixSummingRunner.java",
+		"/C/Users/23ryanl/Desktop/63-matrices-labs/magic1.dat",
+		"/C/Users/23ryanl/Desktop/63-matrices-labs/fancyword.dat",
+		"/C/Users/23ryanl/Desktop/63-matrices-labs/triangle.dat",
+		"/C/Users/23ryanl/Desktop/63-matrices-labs/TicTacToeRunner.java",
+		"/C/Users/23ryanl/Desktop/63-matrices-labs/TicTacToe.java",
+		"/C/Users/23ryanl/Desktop/63-matrices-labs/tictactoe.dat",
+		"/C/Users/23ryanl/Desktop/63-matrices-labs/mofancyword.dat",
+		"/C/Users/23ryanl/Desktop/63-matrices-labs/matsum.dat",
+		"/C/Users/23ryanl/Desktop/63-matrices-labs/GridRunner.java",
+		"/C/Users/23ryanl/Desktop/63-matrices-labs/Grid.java",
+		"/C/Users/23ryanl/Desktop/structTest.cpp",
+		"/C/Users/23ryanl/Desktop/OthelloGenerator.cpp",
+		"/C/Users/23ryanl/Desktop/VEX/Code/Change-Up-master/src/subsystems/drive.cpp",
+		"/C/Users/23ryanl/Desktop/VEX/Code/Change-Up-master/src/subsystems/intakes.cpp",
+		"/C/Users/23ryanl/Desktop/VEX/Code/Change-Up-master/src/subsystems/control.cpp",
+		"/C/Users/23ryanl/Desktop/VEX/Code/Change-Up-master/src/autonomus.cpp",
+		"/C/Users/23ryanl/Desktop/chef4.cpp",
+		"/C/Users/23ryanl/Desktop/chefC.cpp",
+		"/C/Users/23ryanl/Desktop/chefA.cpp",
+		"/C/Users/23ryanl/Desktop/MAXFUN.cpp",
+		"/C/Users/23ryanl/Desktop/acsl.cpp",
+		"/C/Users/23ryanl/Desktop/Stuff/It.java",
+		"/C/Users/23ryanl/Desktop/Stuff/Runner.java",
+		"/C/Users/23ryanl/Desktop/v5code-project-skillsChangeUp_1/src/main.cpp",
+		"/C/Users/23ryanl/Desktop/v5code-project-skillsChangeUp_1/src/odom.cpp",
+		"/C/Users/23ryanl/Desktop/2021-2022/src/lib4253/Math.cpp",
+		"/C/Users/23ryanl/Desktop/7842F-Competition-Code-master/include/7842FMain/Display/OdomDisplay.hpp",
+		"/C/Users/23ryanl/Desktop/7842F-Competition-Code-master/src/7842FMain/Display/OdomDisplay.cpp",
+		"/C/Users/23ryanl/Desktop/School/G10/AP Computer Science/61-sorting-labs/selection-sort_string_by_length/StringStuff.java",
+		"/C/Users/23ryanl/Desktop/vexCodeSkillsPID/src/main.cpp",
+		"/C/Users/23ryanl/Desktop/sort.cpp",
+		"/C/Users/23ryanl/Desktop/61-sorting-labs/insertion-sort_string_by_length/StringStuffRunner.java",
+		"/C/Users/23ryanl/Desktop/61-sorting-labs/selection-sort_string_by_length/StringStuff.java",
+		"/C/Users/23ryanl/Desktop/61-sorting-labs/insertion-sort_string_by_length/StringStuff.java",
+		"/C/Users/23ryanl/Desktop/61-sorting-labs/selection-sort_string_by_length/StringStuffRunner.java",
+		"/C/Users/23ryanl/Desktop/atantest.cpp",
+		"/C/Users/23ryanl/Desktop/forkner-public-master/include/libforkner/drive.hpp",
+		"/C/Users/23ryanl/Desktop/forkner-public-master/include/robot.h",
+		"/C/Users/23ryanl/Desktop/forkner-public-master/include/main.h",
+		"/C/Users/23ryanl/Desktop/global.hpp",
+		"/C/Users/23ryanl/Desktop/global.cpp",
+		"/C/Users/23ryanl/Desktop/robot.hpp",
+		"/C/Users/23ryanl/Desktop/60-search-for-greatnesss/GreatestSearch.java",
+		"/C/Users/23ryanl/Desktop/60-search-for-greatnesss/GreatestRunner.java",
+		"/C/Users/23ryanl/Desktop/School/G10/AP Computer Science/60-search-for-greatness/LinearSearch.java",
+		"/C/Users/23ryanl/Desktop/School/G10/AP Computer Science/60-search-for-greatness/BinarySearch.java",
+		"/C/Users/23ryanl/Desktop/PurePursuitAlgorithm-master/PurePursuitAlgorithm-master/src/main/PurePursuit.java",
+		"/C/Users/23ryanl/Desktop/BinarySearch.java",
+		"/C/Users/23ryanl/Desktop/odometry.cpp",
+		"/C/Users/23ryanl/Desktop/pp.cpp",
+		"/C/Users/23ryanl/Desktop/LinearSearch.java",
+		"/C/Users/23ryanl/Desktop/60-search-for-greatness/BinarySearch.java",
+		"/C/Users/23ryanl/Desktop/60-search-for-greatness/LinearSearch.java",
+		"/C/Users/23ryanl/Desktop/59-arraylist-game-project/Enemies.java",
+		"/C/Users/23ryanl/Desktop/59-arraylist-game-project/Enemy.java",
+		"/C/Users/23ryanl/Desktop/59-arraylist-game-project/GroundRunner.java",
+		"/C/Users/23ryanl/Desktop/59-arraylist-game-project/Ground.java",
+		"/C/Users/23ryanl/Desktop/59-arraylist-game-project/Person.java",
+		"/C/Users/23ryanl/Desktop/59-arraylist-game-project/PersonRunner.java",
+		"/C/Users/23ryanl/Desktop/59-arraylist-game-project/Game.java",
+		"/C/Users/23ryanl/Desktop/PurePursuitAlgorithm-master/PurePursuitAlgorithm-master/src/main/PathFollower.java",
+		"/C/Users/23ryanl/Desktop/USACO_2021_Jan/B2.cpp",
+		"/C/Users/23ryanl/Desktop/USACO_2021_Jan/B.cpp",
+		"/C/Users/23ryanl/Desktop/USACO_2021_Jan/A.cpp",
+		"/C/Users/23ryanl/Desktop/USACO_2021_Jan/C.cpp",
+		"/C/Users/23ryanl/Desktop/math.cpp",
+		"/C/Users/23ryanl/Desktop/School/G10/AP Computer Science/53-blackjack-project/blackjack lab student files/BlackjackRunner.java",
+		"/C/Users/23ryanl/Desktop/School/G10/AP Computer Science/57-arraylist-labs/1.arrayList_flowergarden/FlowerGarden.java",
+		"/C/Users/23ryanl/Desktop/betterbinaryconvertor.java",
+		"/C/Users/23ryanl/Desktop/57-arraylist-labs/1.arrayList_flowergarden/FlowerGarden.java",
+		"/C/Users/23ryanl/Desktop/57-arraylist-labs/2.arrayList_digitDrome/DigitDromeRunner.java",
+		"/C/Users/23ryanl/Desktop/57-arraylist-labs/2.arrayList_digitDrome/DigitDrome.java",
+		"/C/Users/23ryanl/Desktop/57-arraylist-labs/1.arrayList_flowergarden/FlowerGardenRunner.java",
+		"/C/Users/23ryanl/Desktop/55-decimal-to-binary/BinaryConversion.java",
+		"/C/Users/23ryanl/Desktop/Codes/Green Judge/B/b032 binary search.cpp",
+		"/C/Users/23ryanl/Desktop/Codes/NEOJ/140.cpp",
+		"/C/Users/23ryanl/Desktop/Codes/NEOJ/138.cpp",
+		"/C/Users/23ryanl/Desktop/Codes/NEOJ/47.cpp",
+		"/C/Users/23ryanl/Desktop/USACO2019JanBB.cpp",
+		"/C/Users/23ryanl/Desktop/USACO2019JanB.cpp",
+		"/C/Users/23ryanl/Desktop/f608.cpp",
+		"/C/Users/23ryanl/Desktop/f607.cpp",
+		"/C/Users/23ryanl/Desktop/44.cpp",
+		"/C/Users/23ryanl/Desktop/42.cpp",
+		"/C/Users/23ryanl/Desktop/USACO2019JanC.cpp",
+		"/C/Users/23ryanl/Desktop/Codes/Green Judge/B/b032 temp.cpp",
+		"/C/Users/23ryanl/Desktop/Codes/Personal/dp.cpp",
+		"/C/Users/23ryanl/Desktop/Codes/NEOJ/1101V2.cpp"
+	],
+	"find":
+	{
+		"height": 31.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"keepOnly",
+			"getPixels2D",
+			"getPixel",
+			"move",
+			"render",
+			"cin",
+			"void solve(){\n\tint n; cin >> n;\n\tfor(int i = 0; i < 2 * n; i++){\n\t\tcin >> a[i];\n\t}\n\n\tbuild(0, n+1, 0);\n\n\t\n\tll int sol = 0;\n\n\tfor(int i = 0; i < 2 * n; i++){\n\t\tif(!visit[a[i]]){\n\t\t\tsol -= query(0, a[i], 0);\n\t\t}\n\t\telse{\n\t\t\tsol += query(0, a[i]+1, 0)-1;\n\t\t}\n\t\tincrement(a[i], 0);\n\t\tvisit[a[i]] = true;\n\t}\n\n\tcout << sol << endl;\n}\n\nint main(){\n\tpog champ\n\tsolve();\n}",
+			"void solve(){\n\tint n; cin >> n;\n\tfor(int i = 0; i < 2 * n; i++){\n\t\tcin >> a[i];\n\t}\n\n\tbuild(0, n+1, 0);\n\t\n\t\n\tll int sol = 0;\n\n\tfor(int i = 0; i < 2 * n; i++){\n\t\tif(!visit[a[i]]){\n\t\t\tsol -= query(0, a[i], 0);\n\t\t}\n\t\telse{\n\t\t\tsol += query(0, a[i]+1, 0)-1;\n\t\t}\n\t\tincrement(a[i], 0);\n\t\tvisit[a[i]] = true;\n\t}\n\n\tcout << sol << endl;\n}\n\nint main(){\n\tpog champ\n\tsolve();\n}",
+			"void solve(){\n\tint n; cin >> n;\n\tfor(int i = 0; i < 2 * n; i++){\n\t\tcin >> a[i];\n\t}\n\n\tbuild(0, n+1, 0);\n\t\n\tll int sol = 0;\n\n\tfor(int i = 0; i < 2 * n; i++){\n\t\tif(!visit[a[i]]){\n\t\t\tsol -= query(0, a[i], 0);\n\t\t}\n\t\telse{\n\t\t\tsol += query(0, a[i]+1, 0)-1;\n\t\t}\n\t\tincrement(a[i], 0);\n\t\tvisit[a[i]] = true;\n\t}\n\n\tcout << sol << endl;\n}\n\nint main(){\n\tpog champ\n\tsolve();\n}",
+			"void solve(){\n\tint n; cin >> n;\n\tfor(int i = 0; i < 2 * n; i++){\n\t\tcin >> a[i];\n\t}\n\n\tbuild(0, n+1, 0);\n\n\tll int sol = 0;\n\n\tfor(int i = 0; i < 2 * n; i++){\n\t\tif(!visit[a[i]]){\n\t\t\tsol -= query(0, a[i], 0);\n\t\t}\n\t\telse{\n\t\t\tsol += query(0, a[i]+1, 0)-1;\n\t\t}\n\t\tincrement(a[i], 0);\n\t\tvisit[a[i]] = true;\n\t}\n\n\tcout << sol << endl;\n}\n\nint main(){\n\tpog champ\n\tsolve();\n}",
+			"void solve(){\n\tint n; cin >> n;\n\tfor(int i = 0; i < 2 * n; i++){\n\t\tcin >> a[i];\n\t}\n\n\tbuild(0, n+1, 0);\n\t//cout << \"BUILD COMPLETE\" << endl;\n\n\tll int sol = 0;\n\n\tfor(int i = 0; i < 2 * n; i++){\n\t\tif(!visit[a[i]]){\n\t\t\tsol -= query(0, a[i], 0);\n\t\t}\n\t\telse{\n\t\t\tsol += query(0, a[i]+1, 0)-1;\n\t\t}\n\t\tincrement(a[i], 0);\n\t\tvisit[a[i]] = true;\n\t}\n\n\tcout << sol << endl;\n}\n\nint main(){\n\tpog champ\n\tsolve();\n}",
+			"#include<bits/stdc++.h>\nusing namespace std;\n\n//#define endl '\\n'\n#define ll long long\n#define pii pair<int, int>\n#define mp make_pair\n#define F first\n#define S second\n#define pb push_back\n#define pog ios::sync_with_stdio(0);\n#define champ cin.tie(0);\n#define inf 2147483647\n\nstruct Node{\n\tint val;\n\tint l, r;\n\tint lson, rson;\n};\n\nconst int N = 100000 + 5;\nNode st[2*N];\nint a[2*N];\nint st_ptr = 0;\nint visit[N];\n\n\nvoid build(int l, int r, int index){\n\tst[index].l = l; st[index].r = r;\n\tif(l + 1 == r){\n\t\tst[index].val = 0;\n\t\treturn;\n\t}\n\n\tint mid = (l + r) / 2;\n\tst[index].lson = ++st_ptr;\n\tst[index].rson = ++st_ptr;\n\n\tbuild(l, mid, st[index].lson);\n\tbuild(mid, r, st[index].rson);\n\n\tst[index].val = st[st[index].lson].val + st[st[index].rson].val;\n}\n\nvoid increment(int x, int index){\n\tif(st[index].l + 1 == st[index].r){\n\t\tst[index].val++;\n\t\treturn;\n\t}\n\n\tint mid = (st[index].l + st[index].r)/2;\n\n\tif(x>=mid){\n\t\tincrement(x, st[index].rson);\n\t}\n\telse{\n\t\tincrement(x, st[index].lson);\n\t}\n\n\tst[index].val = st[st[index].lson].val + st[st[index].rson].val;\n}\n\nint query(int l, int r, int index){\n\tif(st[index].l == l && st[index].r == r){\n\t\treturn st[index].val;\n\t}\n\n\tint mid = (st[index].l + st[index].r) / 2;\n\n\tif(r <= mid){\n\t\treturn query(l, r, st[index].lson);\n\t}\n\telse if(l >= mid){\n\t\treturn query(l, r, st[index].rson);\n\t}\n\telse{\n\t\treturn query(l, mid, st[index].lson) + query(mid, r, st[index].rson);\n\t}\n\n}\nvoid solve(){\n\tint n; cin >> n;\n\tfor(int i = 0; i < 2 * n; i++){\n\t\tcin >> a[i];\n\t}\n\n\tbuild(0, n+1, 0);\n\t//cout << \"BUILD COMPLETE\" << endl;\n\n\tll int sol = 0;\n\n\tfor(int i = 0; i < 2 * n; i++){\n\t\tif(!visit[a[i]]){\n\t\t\tsol -= query(0, a[i], 0);\n\t\t}\n\t\telse{\n\t\t\tsol += query(0, a[i]+1, 0)-1;\n\t\t}\n\t\tincrement(a[i], 0);\n\t\tvisit[a[i]] = true;\n\t}\n\n\tcout << sol << endl;\n}\n\nint main(){\n\tpog champ\n\tsolve();\n}",
+			"for(int i = 0; i < 2 * n; i++){\n\tif(!visit[a[i]]){\n\t\tsol -= query(0, a[i], 0);\n\t}\n\telse{\n\t\tsol += query(0, a[i], 0)-1;\n\t}\n\tincrement(a[i], 0);\n\tvisit[a[i]] = true;\n}",
+			"for(int i = 0; i < 2 * n; i++){\n\tif(!visit[a[i]]){\n\t\tsol -= query(0, a[i], 0);\n\t}\n\telse{\n\t\tsol += query(0, a[i]+1, 0)-1;\n\t}\n\tincrement(a[i], 0);\n\tvisit[a[i]] = true;\n}",
+			"for(int i = 0; i < 2 * n; i++){\n\t\tif(!visit[a[i]]){\n\t\t\tsol -= query(0, a[i], 0);\n\t\t}\n\t\telse{\n\t\t\tsol += query(0, a[i]+1, 0)-1;\n\t\t}\n\t\tincrement(a[i], 0);\n\t\tvisit[a[i]] = true;\n\t}",
+			"void build(int l, int r, int index){\n\tst[index].l = l; st[index].r = r;\n\n\tif(l + 1 == r){\n\t\tst[index].val = 0;\n\t\treturn;\n\t}\n\n\tst[index].lson = ++st_ptr;\n\tst[index].rson = ++st_ptr;\n\n\tint mid = (l + r) / 2;\n\tbuild(l, mid, st[index].lson);\n\tbuild(mid, r, st[index].rson);\n\n\tst[index].val = st[st[index].lson].val + st[st[index].rson].val;\n}",
+			"void increment(int x, int index){\n\tif(st[index].l + 1 == st[index].r){\n\t\tst[index].val++;\n\t\treturn;\n\t}\n\n\tint mid = (st[index].l + st[index].r) / 2;\n\n\tif(x <= mid){\n\t\tincrement(x, st[index].lson);\n\t}\n\telse{\n\t\tincrement(x, st[index].rson);\n\t}\n\n\tst[index].val = st[st[index].lson].val + st[st[index].rson].val;\n}",
+			"int query(int l, int r, int index){\n\tif(st[index].l == l && st[index].r == r){\n\t\treturn st[index].val;\n\t}\n\n\tint mid = (st[index].l + st[index].r) / 2;\n\n\tif(r <= mid){\n\t\treturn query(l, r, st[index].lson);\n\t}\n\telse if(l >= mid){\n\t\treturn query(l, r, st[index].rson);\n\t}\n\telse{\n\t\treturn query(l, mid, st[index].lson) + query(mid, r, st[index].rson);\n\t}\n}",
+			"dice",
+			"response",
+			"}",
+			";\n",
+			");\n",
+			"s",
+			");\n"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 31.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 160.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/User/C++.sublime-build",
+	"project": "project.sublime-project",
+	"replace":
+	{
+		"height": 58.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 133.333333333,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 592.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

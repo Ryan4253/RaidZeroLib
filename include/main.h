@@ -82,7 +82,7 @@ void opcontrol(void);
  * You can add C++-only headers here
  */
 
-#include "lib4253/Node.hpp"
+#include "lib4253/Path.hpp"
 #include "lib4253/Math.hpp"
 #include "lib4253/emaFilter.hpp"
 #include "lib4253/PID.hpp"

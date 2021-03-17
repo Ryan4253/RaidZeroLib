@@ -47,6 +47,7 @@ void initialize() {
 
   Drive::drivePID.withGain(1, 0, 0).withIGain(500, 12).withEMAGain(1).initialize();
   Drive::turnPID.withGain(1, 0, 0).withIGain(500, 12).withEMAGain(1).initialize();
+  Drive::PPTenshi.withGain(0, 0, 0).withMaxVel(1).withMaxAccel(1).withTurnGain(2).initialize();
 
   autonSelector();
 }

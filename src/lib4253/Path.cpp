@@ -160,7 +160,7 @@ void Path::updateCurvature(){
     double a = k1 - k2 * b;
 
     double r = sqrt((x1-a)*(x1-a)+(y1-b)*(y1-b));
-    r = std::isnan(r) ? 0 : r;
+    r = std::isnan(r) ? 0.0000000001 : r;
 
     curvature.push_back(r);
   }
@@ -183,8 +183,12 @@ void Path::clearPath(){
   curvature.clear();
 }
 
-std::vector<Vector> Path::getPath(){
+std::vector<Vector> Path::getWaypoint(){
   return waypoint;
+}
+
+Vector Path::getWaypoint(int index){
+  return waypoint[index];
 }
 
 double Path::getDistance(int index){
@@ -196,6 +200,10 @@ double Path::getDistance(int index){
   }
 }
 
+std::vector<double> Path::getDistance(){
+  return distance;
+}
+
 double Path::getCurvature(int index){
   if(index > curvature.size()){
     return 0;
@@ -203,4 +211,8 @@ double Path::getCurvature(int index){
   else{
     return curvature[index];
   }
+}
+
+std::vector<double> Path::getCurvature(){
+  return curvature;
 }

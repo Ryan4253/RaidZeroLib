@@ -73,8 +73,10 @@ struct Path{
     void generatePath(double a, double b, double tolerance);
     void clearPath();
 
-    std::vector<Vector> getPath();
     Vector getWaypoint(int index);
+    std::vector<Vector> getWaypoint();
     double getDistance(int index);
+    std::vector<double> getDistance();
     double getCurvature(int index);
+    std::vector<double> getCurvature();
 };

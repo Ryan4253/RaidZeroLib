@@ -35,6 +35,8 @@ void Odom::updatePos(void *ptr){
     else{
       h = right;
       h2 = mid;
+
+      
     }
 
     double endAngle = theta / 2 + globalPos.angle;

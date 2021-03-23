@@ -5,6 +5,10 @@ SlewController::SlewController(int accel, int decel){
   accStep = accel, decStep = decel, speed = 0;
 }
 
+SlewController::SlewController(){
+  accStep = 0; decStep = 0; speed =0 ;
+}
+
 // To put simply, slew sets a threshold on how fast your motors can go.
 // The steps increase / decreasing over time, making your robot able to accelerate smoothly
 void SlewController::reset(){

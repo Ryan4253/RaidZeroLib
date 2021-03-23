@@ -2,6 +2,8 @@
 
 class Drive{
   public:
+    std::vector<pros::Motor> left;
+    std::vector<pros::Motor> right;
     PID drivePID;
     PID turnPID;
     SlewController driveSlew;
@@ -17,6 +19,8 @@ class Drive{
       .build();
       */
 
+    Drive(std::vector<pros::Motor> l, std::vector<pros::Motor> r);
+
     void resetEncoders();
     void resetIMU();
     double getDistance();
@@ -28,7 +32,9 @@ class Drive{
     void turnAngle(double angle, QTime timeLimit);
     void turnToAngle(double angle, QTime timeLimit);
 
-    void driverControl(void *ptr);
+    void driverControl();
+    static void taskFnc(void *bruh);
 };
 
-Drive drive;
+//extern int lmao;
+//extern Drive drive;

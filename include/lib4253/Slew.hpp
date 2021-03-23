@@ -8,6 +8,7 @@ class SlewController{
 
   public:
     SlewController(int accel, int decel);
+    SlewController();
     void reset();
     int step(double target);
 };

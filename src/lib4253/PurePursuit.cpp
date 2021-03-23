@@ -1,5 +1,9 @@
 #include "main.h"
 
+PurePursuitFollower::PurePursuitFollower(){
+
+}
+
 void PurePursuitFollower::generateVelocity(){
     std::vector<double> curvature = path.getCurvature();
     std::vector<Vector> waypoint = path.getWaypoint();
@@ -16,14 +20,18 @@ void PurePursuitFollower::generateVelocity(){
 
 }
 
+void PurePursuitFollower::initialize(){
+
+}
+
 void PurePursuitFollower::closestPoint(){
     std::vector<Vector> waypoint = path.getWaypoint();
     Vector currentPos = (Odom::getPos()).toVector();
 
-    double minDist = currentPos.distanceTo(waypoint[prevClosestPoint]);
-    double minIndex = prevClosestPoint;
+    double minDist = currentPos.distanceTo(waypoint[prevClosestPt]);
+    double minIndex = prevClosestPt;
 
-    for(int i = prevClosestPoint; i < waypoint.size(); i++){
+    for(int i = prevClosestPt; i < waypoint.size(); i++){
         double dist = currentPos.distanceTo(waypoint[i]);
         if(dist < minDist){
           minDist = dist;
@@ -51,9 +59,9 @@ PurePursuitFollower& PurePursuitFollower::withTurnGain(double k){
     return *this;
 }
 
-PurePursuitFollower& PurePutsuitFollower::withMaxVel(double v){
+PurePursuitFollower& PurePursuitFollower::withMaxVel(double v){
     kV = v;
-    return *this
+    return *this;
 }
 
 PurePursuitFollower& PurePursuitFollower::withMaxAccel(double a){
@@ -65,4 +73,3 @@ PurePursuitFollower& PurePursuitFollower::withGain(double v, double a, double p)
     kV = v; kA = a; kP = p;
     return *this;
 }
-

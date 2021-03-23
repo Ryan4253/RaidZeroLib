@@ -25,7 +25,7 @@ class Robot{
     static void setPower(std::vector<pros::Motor> motor, double power);
     static void setBrakeMode(std::vector<pros::Motor> motor, std::string mode);
 
-    static void startTask(std::string name, void (*func)(void *));
+    static void startTask(std::string name, void (*func)(void *), void *param);
     static bool taskExists(std::string name);
     static void endTask(std::string name);
 

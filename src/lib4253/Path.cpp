@@ -1,4 +1,4 @@
-  ㄇ#include "main.h"
+#include "main.h"
 
 ////////////////////////////// VECTOR ////////////////////////////////
 
@@ -14,6 +14,10 @@ double Vector::angleTo(Vector target){
   double deltay = y - target.y;
 
   return (deltax == 0 && deltay == 0) ? 0 : atan2(deltax, deltay);
+}
+
+Vector Vector::operator=(Vector a){
+  return {a.x, a.y};
 }
 
 Vector Vector::operator+(Vector a){
@@ -80,6 +84,10 @@ double Pose::angleTo(Vector target){
 
 /////////////////////////////// PATH /////////////////////////////////
 
+Path::Path(){
+  
+}
+
 Path::Path(Vector v){
   rawPoint.push_back(v);
 }
@@ -88,7 +96,7 @@ Path::Path(std::vector<Vector> v){
   for(int i = 0; i < v.size(); i++){
     rawPoint.push_back(v[i]);
   }
-  generatePath();
+  generatePath(0, 0, 0);
 }
 
 void Path::injectPoint(Vector v){

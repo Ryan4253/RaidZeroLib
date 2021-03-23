@@ -87,13 +87,18 @@ void opcontrol(void);
 #include "lib4253/emaFilter.hpp"
 #include "lib4253/PID.hpp"
 #include "lib4253/Slew.hpp"
-#include "lib4253/Odometry.hpp"
-#include "lib4253/PurePursuit.hpp"
 #include "Subsystems/Robot.hpp"
+
+#include "lib4253/PurePursuit.hpp"
 #include "Subsystems/Drive.hpp"
+extern Drive drive;
+#include "lib4253/Odometry.hpp"
+
+
 #include "Subsystems/Flywheel.hpp"
 #include "Subsystems/Lift.hpp"
 static int auton = 0;
+
 
 //#include <iostream>
 #endif

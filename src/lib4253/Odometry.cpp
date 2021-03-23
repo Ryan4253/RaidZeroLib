@@ -8,7 +8,7 @@ Odom::Odom(Pose initial){
   globalPos.y = (double)initial.y;
   globalPos.angle = Math::degToRad(initial.angle);
   lPrev = 0, rPrev = 0, mPrev = 0;
-  Drive::resetEncoders();
+  drive.resetEncoders();
 }
 
 void Odom::updatePos(void *ptr){
@@ -36,7 +36,7 @@ void Odom::updatePos(void *ptr){
       h = right;
       h2 = mid;
 
-      
+
     }
 
     double endAngle = theta / 2 + globalPos.angle;
@@ -56,7 +56,7 @@ void Odom::setPos(Pose newPos){
 }
 
 void Odom::resetSensors(){
-  Drive::resetEncoders();
+  drive.resetEncoders();
   lPrev = 0; rPrev = 0, mPrev = 0;
 }
 

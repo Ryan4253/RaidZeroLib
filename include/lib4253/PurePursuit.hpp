@@ -13,8 +13,8 @@ class PurePursuitFollower{
     void generateVelocity();
 
   public:
+    PurePursuitFollower();
     void followPath(Path path);
-
     void initialize();
     PurePursuitFollower& withTurnGain(double k);
     PurePursuitFollower& withMaxVel(double v);

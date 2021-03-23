@@ -11,6 +11,7 @@ struct Vector{
     x = (double)p2.x, y = (double)p2.y;
   }
 
+  Vector operator=(Vector a);
   Vector operator+(Vector a);
   Vector operator+(std::initializer_list<int>);
   Vector operator-(Vector a);
@@ -64,6 +65,7 @@ struct Path{
     void updateCurvature();
 
   public:
+    Path();
     Path(std::vector<Vector> v);
     Path(Vector v);
 

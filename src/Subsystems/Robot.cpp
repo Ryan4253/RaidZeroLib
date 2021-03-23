@@ -22,16 +22,14 @@ std::vector<pros::Motor> baseRight = {RB, RF};
 
 std::map<std::string, std::unique_ptr<pros::Task>> Robot::tasks;
 
-PID Drive::drivePID;
-PID Drive::turnPID;
-SlewController Drive::driveSlew(9, 256);
 
+/*
 std::shared_ptr<ChassisController> Drive::chassis
   = ChassisControllerBuilder()
     .withMotors({9, 10}, {7, 8})
     .withDimensions({AbstractMotor::gearset::blue, 7.0 / 3.0}, {{4.00_in, 12.25_in}, imev5GreenTPR})
     .build();
-
+*/
 void Robot::setPower(std::vector<pros::Motor> motor, double power){
   for(int i = 0; i < motor.size(); i++){
     motor[i] = power;
@@ -64,9 +62,9 @@ void Robot::displayPosition(void* ptr){
   }
 }
 
-void Robot::startTask(std::string name, void (*func)(void *)) {
+void Robot::startTask(std::string name, void (*func)(void *), void *param) {
 	if (!taskExists(name)) {
-		Robot::tasks.insert(std::pair<std::string, std::unique_ptr<pros::Task>>(name, std::move(std::make_unique<pros::Task>(func, (void*)0 ,TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, ""))));
+		Robot::tasks.insert(std::pair<std::string, std::unique_ptr<pros::Task>>(name, std::move(std::make_unique<pros::Task>(func, param ,TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, ""))));
 	}
 }
 

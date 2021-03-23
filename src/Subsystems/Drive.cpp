@@ -1,4 +1,19 @@
 #include "main.h"
+/*
+PID Drive::drivePID;
+PID Drive::turnPID;
+SlewController Drive::driveSlew(9, 256);
+PurePursuitFollower Drive::PPTenshi;
+*/
+
+Drive::Drive(std::vector<pros::Motor> l, std::vector<pros::Motor> r){
+	for(int i = 0; i < l.size(); i++){
+		left.push_back(l[i]);
+	}
+	for(int i = 0; i < r.size(); i++){
+		right.push_back(r[i]);
+	}
+}
 
 void Drive::resetEncoders() {
 	leftEncoder.reset();
@@ -71,8 +86,8 @@ void Drive::moveTo(Vector target, double turnScale, QTime timeLimit){
     pros::lcd::print(7, "Turn Power: %lf", turnPower);
     Vector driveSpeed = Drive::scaleSpeed(drivePower, turnPower, 0.3);
 
-    Robot::setPower(baseLeft, driveSpeed.x);
-    Robot::setPower(baseRight, driveSpeed.y);
+    Robot::setPower(left, driveSpeed.x);
+    Robot::setPower(right, driveSpeed.y);
     pros::delay(10);
 
 
@@ -94,8 +109,8 @@ void Drive::turnAngle(double angle, QTime timeLimit){
     power = turnPID.update(error);
     power = Drive::driveSlew.step(power);
 
-    Robot::setPower(baseLeft, power);
-    Robot::setPower(baseRight, -power);
+    Robot::setPower(left, power);
+    Robot::setPower(right, -power);
     pros::delay(10);
   }while((error >= 2) && timeLimit > (timer.millis()-startTime));
 
@@ -113,24 +128,33 @@ void Drive::turnToAngle(double angle, QTime timeLimit){
     power = turnPID.update(error);
     power = Drive::driveSlew.step(power);
 
-    Robot::setPower(baseLeft, power);
-    Robot::setPower(baseRight, -power);
+    Robot::setPower(left, power);
+    Robot::setPower(right, -power);
     pros::delay(10);
   }while((error >= 2) && timeLimit > (timer.millis()-startTime));
 
   Robot::setPower(base, 0);
 }
 
-void Drive::driverControl(void* ptr){
+void Drive::driverControl(){
   while(true){
   	 //double leftPower = Math::cubicControl(master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
   	 //double rightPower = Math::cubicControl(master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y));
 
   	double leftPower = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
   	double rightPower = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
-  	Robot::setPower(baseLeft, leftPower);
-    Robot::setPower(baseRight, rightPower);
+  	Robot::setPower(left, leftPower);
+    Robot::setPower(right, rightPower);
 
     pros::delay(3);
   }
 }
+
+void Drive::taskFnc(void* ptr){
+	pros::delay(500);
+	Drive* that = static_cast<Drive*>(ptr);
+	that->driverControl();
+}
+
+
+Drive drive(baseLeft, baseRight);

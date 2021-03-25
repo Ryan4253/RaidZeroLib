@@ -37,4 +37,4 @@ class Drive{
 };
 
 //extern int lmao;
-//extern Drive drive;
+extern Drive drive;

@@ -29,3 +29,7 @@ void emaFilter::reset(){
   output = 0, prevOutput = 0;
   run = false;
 }
+
+double emaFilter::getOutput(){
+  return output;
+}

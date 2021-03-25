@@ -11,4 +11,5 @@ class emaFilter{
       void setGains(double a);
       double filter(double input);
       void reset();
+      double getOutput();
 };

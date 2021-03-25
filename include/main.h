@@ -82,21 +82,27 @@ void opcontrol(void);
  * You can add C++-only headers here
  */
 
-#include "lib4253/Path.hpp"
-#include "lib4253/Math.hpp"
-#include "lib4253/emaFilter.hpp"
-#include "lib4253/PID.hpp"
-#include "lib4253/Slew.hpp"
-#include "Subsystems/Robot.hpp"
+#include "lib4253/Utility/Path.hpp"
+#include "lib4253/Utility/Math.hpp"
+#include "lib4253/Utility/Matrix.hpp"
 
-#include "lib4253/PurePursuit.hpp"
-#include "Subsystems/Drive.hpp"
-extern Drive drive;
-#include "lib4253/Odometry.hpp"
+#include "lib4253/Filter/emaFilter.hpp"
+#include "lib4253/Filter/avgFilter.hpp"
+#include "lib4253/Filter/kalmanFilter.hpp"
+#include "lib4253/Filter/biquadFilter.hpp"
 
+#include "lib4253/Controller/PID.hpp"
+#include "lib4253/Controller/Slew.hpp"
+#include "lib4253/Controller/PurePursuit.hpp"
+#include "lib4253/Controller/BangBang.hpp"
 
-#include "Subsystems/Flywheel.hpp"
-#include "Subsystems/Lift.hpp"
+#include "lib4253/Subsystems/Robot.hpp"
+#include "lib4253/Subsystems/Drive.hpp"
+#include "lib4253/Subsystems/Flywheel.hpp"
+#include "lib4253/Subsystems/Lift.hpp"
+
+#include "lib4253/Utility/Odometry.hpp"
+
 static int auton = 0;
 
 

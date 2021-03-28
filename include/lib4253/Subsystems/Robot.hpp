@@ -1,29 +1,29 @@
 #include "main.h"
 
-extern pros::Controller master;
+extern Controller master;
 
-extern pros::Motor LF;
-extern pros::Motor LB;
-extern pros::Motor RF;
-extern pros::Motor RB;
+extern Motor LF;
+extern Motor LB;
+extern Motor RF;
+extern Motor RB;
 
-extern pros::ADIEncoder leftEncoder;
-extern pros::ADIEncoder rightEncoder;
-extern pros::ADIEncoder midEncoder;
-extern pros::ADIButton leftAutonSelector;
-extern pros::ADIButton rightAutonSelector;
+extern ADIEncoder leftEncoder;
+extern ADIEncoder rightEncoder;
+extern ADIEncoder midEncoder;
+extern ADIButton leftAutonSelector;
+extern ADIButton rightAutonSelector;
 
 extern pros::Imu imuTop;
 extern pros::Imu imuBottom;
 
-extern std::vector<pros::Motor> base;
-extern std::vector<pros::Motor> baseLeft;
-extern std::vector<pros::Motor> baseRight;
+extern std::vector<Motor> base;
+extern std::vector<Motor> baseLeft;
+extern std::vector<Motor> baseRight;
 
 class Robot{
   public:
-    static void setPower(std::vector<pros::Motor> motor, double power);
-    static void setBrakeMode(std::vector<pros::Motor> motor, std::string mode);
+    static void setPower(std::vector<Motor> motor, double power);
+    static void setBrakeMode(std::vector<Motor> motor, std::string mode);
 
     static void startTask(std::string name, void (*func)(void *), void *param);
     static bool taskExists(std::string name);
@@ -33,3 +33,9 @@ class Robot{
 
     static std::map<std::string, std::unique_ptr<pros::Task>> tasks;
 };
+
+enum competition{
+  OPCONTROL, AUTONOMOUS, INITIALIZE, DISABLED
+};
+
+extern competition matchState;

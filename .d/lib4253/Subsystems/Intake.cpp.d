@@ -1,4 +1,4 @@
-bin/lib4253/Filter/emaFilter.cpp.o: src/lib4253/Filter/emaFilter.cpp \
+bin/lib4253/Subsystems/Intake.cpp.o: src/lib4253/Subsystems/Intake.cpp \
  include/main.h include/api.h include/pros/adi.h include/pros/colors.h \
  include/pros/distance.h include/pros/ext_adi.h include/pros/adi.h \
  include/pros/adi.h include/pros/imu.h include/pros/llemu.h \
@@ -198,10 +198,13 @@ bin/lib4253/Filter/emaFilter.cpp.o: src/lib4253/Filter/emaFilter.cpp \
  include/lib4253/Controller/PID.hpp include/lib4253/Controller/Slew.hpp \
  include/lib4253/Controller/PurePursuit.hpp \
  include/lib4253/Controller/BangBang.hpp \
+ include/lib4253/Controller/LinearMotionProfile.hpp \
  include/lib4253/Subsystems/Robot.hpp \
  include/lib4253/Subsystems/Drive.hpp \
  include/lib4253/Subsystems/Flywheel.hpp \
- include/lib4253/Subsystems/Lift.hpp include/lib4253/Utility/Odometry.hpp
+ include/lib4253/Subsystems/Lift.hpp \
+ include/lib4253/subsystems/Intake.hpp \
+ include/lib4253/Utility/Odometry.hpp
 
 include/main.h:
 
@@ -763,6 +766,8 @@ include/lib4253/Controller/PurePursuit.hpp:
 
 include/lib4253/Controller/BangBang.hpp:
 
+include/lib4253/Controller/LinearMotionProfile.hpp:
+
 include/lib4253/Subsystems/Robot.hpp:
 
 include/lib4253/Subsystems/Drive.hpp:
@@ -770,5 +775,7 @@ include/lib4253/Subsystems/Drive.hpp:
 include/lib4253/Subsystems/Flywheel.hpp:
 
 include/lib4253/Subsystems/Lift.hpp:
+
+include/lib4253/subsystems/Intake.hpp:
 
 include/lib4253/Utility/Odometry.hpp:

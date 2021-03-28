@@ -95,11 +95,13 @@ void opcontrol(void);
 #include "lib4253/Controller/Slew.hpp"
 #include "lib4253/Controller/PurePursuit.hpp"
 #include "lib4253/Controller/BangBang.hpp"
+#include "lib4253/Controller/LinearMotionProfile.hpp"
 
 #include "lib4253/Subsystems/Robot.hpp"
 #include "lib4253/Subsystems/Drive.hpp"
 #include "lib4253/Subsystems/Flywheel.hpp"
 #include "lib4253/Subsystems/Lift.hpp"
+#include "lib4253/subsystems/Intake.hpp"
 
 #include "lib4253/Utility/Odometry.hpp"
 

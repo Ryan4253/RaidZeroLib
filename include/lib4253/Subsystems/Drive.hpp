@@ -1,13 +1,19 @@
 #include "main.h"
 
+class DriveStateMachine{
+  enum states{
+    off, idle, busy, driverControlTank, driverControlArcade
+  };
+};
+
 class Drive{
   public:
-    std::vector<pros::Motor> left;
-    std::vector<pros::Motor> right;
-    PID drivePID;
-    PID turnPID;
+    std::vector<pros::Motor> left; std::vector<pros::Motor> right;
+    PID drivePID; PID turnPID;
     SlewController driveSlew;
     PurePursuitFollower PPTenshi;
+
+    double maxVelocity, maxAcceleration;
 
     std::shared_ptr<ChassisController> chassis;
     std::shared_ptr<AsyncMotionProfileController> profileController;
@@ -20,6 +26,8 @@ class Drive{
       */
 
     Drive(std::vector<pros::Motor> l, std::vector<pros::Motor> r);
+    Drive& withMaxVelocity();
+    Drive& withMaxAcceleration();
 
     void resetEncoders();
     void resetIMU();

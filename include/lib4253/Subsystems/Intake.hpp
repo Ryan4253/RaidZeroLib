@@ -1,47 +1,49 @@
 #include "main.h"
 
-enum intakeState{
-  iOff, iIn, iOut, iAutoIndex
-};
-
-enum rollerState{
-  rOff, rIn, rOut, rAutoIndex, rEject
-};
-
-class Intakes{
+class Roller{
   public:
-    struct Roller{
-
-
-      rollerState state;
-      rollerState getState();
-      void setState(rollerState i);
-      void eject();
-
-      Motor top;
-      Motor bottom;
+    enum State{
+      In, Out, Eject, Autoindex, Off
     };
 
-    struct Intake{
+    Roller(Motor a, Motor b);
+    State getState();
+    void setState(State s);
+    void rollerTask(void *ptr);
 
+  protected:
+    Motor top, bottom;
 
-      void setMotor(Motor l, Motor r){
-        left = l, right = r;
-      }
+  private:
+    State rollerState;
+    void eject();
+    void autoindex();
+    void updateState();
+    void run();
 
-      intakeState state;
-      intakeState getState();
-      void setState(intakeState i);
-
-      Motor left;
-      Motor right;
-    };
-
-    Intakes(Motor rollerTop, Motor RollerBottom, Motor intakeLeft, Motor intakeRight);
-    void autoIndex();
-    Roller roller;
-    Intake intake;
-    void intakeTask(void* ptr);
+    friend class Intake;
 };
 
-extern Intakes intakeSystem;
+class Intake{
+  public:
+    enum State{
+      Off, In, Out, Autoindex
+    };
+
+    Intake(Motor a, Motor b);
+    State getState();
+    void setState(State s);
+    void intakeTask(void *ptr);
+
+  protected:
+    Motor left, right;
+
+  private:
+    State intakeState;
+    void updateState();
+    void run();
+    friend void Roller::autoindex();
+};
+
+extern Roller roller;
+extern Intake intake;

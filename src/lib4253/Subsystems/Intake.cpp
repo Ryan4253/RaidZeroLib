@@ -1,51 +1,138 @@
 #include "main.h"
 
-void Intakes::Roller::setState(rollerState i){
-  state = i;
+Roller::Roller(Motor a, Motor b):
+  top(a.getPort(), a.isReversed(), a.getGearing(), a.getEncoderUnits(), Logger::getDefaultLogger()),
+  bottom(b.getPort(), b.isReversed(), b.getGearing(), b.getEncoderUnits(), Logger::getDefaultLogger())
+{
 }
 
-rollerState Intakes::Roller::getState(){
-  return state;
+void Roller::setState(State i){
+  if(rollerState != i){
+      rollerState = i;
+  }
 }
 
-void Intakes::Roller::eject(){
-  Robot::setPower({Roller::top}, -127);
-  Robot::setPower({Roller::bottom}, 127);
+Roller::State Roller::getState(){
+  return rollerState;
 }
 
-intakeState Intakes::Intake::getState(){
-  return state;
+void Roller::eject(){
+  Robot::setPower({top}, -127);
+  Robot::setPower({bottom}, 127);
 }
 
-void Intakes::Intake::setState(intakeState i){
-  state = i;
+void Roller::autoindex(){
+
 }
 
-void Intakes::intakeTask(void *ptr){
+void Roller::updateState(){
   if(matchState == OPCONTROL){
     if(true){
-      intake.setState(iIn);
+      rollerState = In;
     }
     else if(true){
-      intake.setState(iOut);
+      rollerState = Out;
     }
     else if(true){
-      intake.setState(iAutoIndex);
+      rollerState = Autoindex;
+    }
+    else if(true){
+      rollerState = Eject;
+    }
+    else{
+      rollerState = Off;
     }
   }
+}
 
-  switch(intake.getState()){
-    case iIn:
+void Roller::run(){
+  switch(rollerState){
+    case In:
+      Robot::setPower({top, bottom}, 127);
+      break;
+
+    case Out:
+      Robot::setPower({top, bottom}, -127);
+      break;
+
+    case Eject:
+      eject();
+      break;
+
+    case Autoindex:
+      autoindex();
+      break;
+
+    case Off:
+      Robot::setPower({top, bottom}, 0);
+      break;
+  }
+}
+
+void Roller::rollerTask(void *ptr){
+  while(true){
+    Roller* that = static_cast<Roller*>(ptr);
+    that->updateState();
+    that->run();
+    pros::delay(10);
+  }
+}
+
+Intake::Intake(Motor a, Motor b):
+  left(a.getPort(), a.isReversed(), a.getGearing(), a.getEncoderUnits(), Logger::getDefaultLogger()),
+  right(b.getPort(), b.isReversed(), b.getGearing(), b.getEncoderUnits(), Logger::getDefaultLogger())
+{
+}
+
+Intake::State Intake::getState(){
+  return intakeState;
+}
+
+void Intake::setState(State i){
+  if(intakeState != i){
+      intakeState = i;
+  }
+}
+
+void Intake::updateState(){
+  if(matchState == OPCONTROL){
+    if(true){
+      intakeState = In;
+    }
+    else if(true){
+      intakeState = Out;
+    }
+    else if(true){
+      intakeState = Autoindex;
+    }
+    else{
+      intakeState = Off;
+    }
+  }
+}
+
+void Intake::run(){
+  switch(intakeState){
+    case In:
       Robot::setPower({intake.left, intake.right}, 127);
       break;
-    case iOut:
+    case Out:
       Robot::setPower({intake.left, intake.right}, -127);
       break;
-    case iAutoIndex:
-      intakeSystem.autoIndex();
+    case Autoindex:
       break;
-    case iOff:
+    case Off:
       Robot::setPower({intake.left, intake.right}, 0);
       break;
+  }
+}
+
+
+void Intake::intakeTask(void *ptr){
+  while(true){
+    Intake* that = static_cast<Intake*>(ptr);
+    that->updateState();
+    that->run();
+    pros::delay(10);
   }
 }

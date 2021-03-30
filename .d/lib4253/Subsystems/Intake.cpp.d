@@ -203,7 +203,7 @@ bin/lib4253/Subsystems/Intake.cpp.o: src/lib4253/Subsystems/Intake.cpp \
  include/lib4253/Subsystems/Drive.hpp \
  include/lib4253/Subsystems/Flywheel.hpp \
  include/lib4253/Subsystems/Lift.hpp \
- include/lib4253/subsystems/Intake.hpp \
+ include/lib4253/Subsystems/Intake.hpp \
  include/lib4253/Utility/Odometry.hpp
 
 include/main.h:
@@ -776,6 +776,6 @@ include/lib4253/Subsystems/Flywheel.hpp:
 
 include/lib4253/Subsystems/Lift.hpp:
 
-include/lib4253/subsystems/Intake.hpp:
+include/lib4253/Subsystems/Intake.hpp:
 
 include/lib4253/Utility/Odometry.hpp:

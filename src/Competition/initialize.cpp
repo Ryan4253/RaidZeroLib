@@ -6,8 +6,8 @@ void autonSelector(){
   int time = 0;
 
   while(true){
-    int lState = leftAutonSelector.get_value();
-    int rState = rightAutonSelector.get_value();
+    bool lState = leftAutonSelector.isPressed();
+    bool rState = rightAutonSelector.isPressed();
 
     if(lState && rState){
      time += 75;
@@ -42,7 +42,7 @@ void autonSelector(){
 void initialize() {
   pros::lcd::initialize();
   pros::lcd::print(1, "INITIALIZE");
-  Robot::setBrakeMode(base, "coast");
+  Robot::setBrakeMode(base, coast);
   //drive.resetEncoders(); drive.resetIMU();
 
   //drive.drivePID.withGain(1, 0, 0).withIGain(500, 12).withEMAGain(1).initialize();

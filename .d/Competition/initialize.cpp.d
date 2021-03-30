@@ -1,4 +1,4 @@
-bin/lib4253/Subsystems/Robot.cpp.o: src/lib4253/Subsystems/Robot.cpp \
+bin/Competition/initialize.cpp.o: src/Competition/initialize.cpp \
  include/main.h include/api.h include/pros/adi.h include/pros/colors.h \
  include/pros/distance.h include/pros/ext_adi.h include/pros/adi.h \
  include/pros/adi.h include/pros/imu.h include/pros/llemu.h \

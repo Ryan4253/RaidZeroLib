@@ -8,7 +8,7 @@ class DriveStateMachine{
 
 class Drive{
   public:
-    std::vector<pros::Motor> left; std::vector<pros::Motor> right;
+    std::vector<Motor> left; std::vector<Motor> right;
     PID drivePID; PID turnPID;
     SlewController driveSlew;
     PurePursuitFollower PPTenshi;
@@ -25,7 +25,7 @@ class Drive{
       .build();
       */
 
-    Drive(std::vector<pros::Motor> l, std::vector<pros::Motor> r);
+    Drive(std::vector<Motor> l, std::vector<Motor> r);
     Drive& withMaxVelocity();
     Drive& withMaxAcceleration();
 

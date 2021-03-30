@@ -20,10 +20,14 @@ extern std::vector<Motor> base;
 extern std::vector<Motor> baseLeft;
 extern std::vector<Motor> baseRight;
 
+enum brakeType{
+  coast, brake, hold
+};
+
 class Robot{
   public:
     static void setPower(std::vector<Motor> motor, double power);
-    static void setBrakeMode(std::vector<Motor> motor, std::string mode);
+    static void setBrakeMode(std::vector<Motor> motor, brakeType mode);
 
     static void startTask(std::string name, void (*func)(void *), void *param);
     static bool taskExists(std::string name);

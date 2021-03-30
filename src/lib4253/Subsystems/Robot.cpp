@@ -37,15 +37,20 @@ void Robot::setPower(std::vector<Motor> motor, double power){
   }
 }
 
-void Robot::setBrakeMode(std::vector<Motor> motor, std::string mode){
+void Robot::setBrakeMode(std::vector<Motor> motor, brakeType mode){
   AbstractMotor::brakeMode brakeMode;
 
-  if(mode == "coast")
-    brakeMode = AbstractMotor::brakeMode::coast;
-  else if(mode == "brake")
-    brakeMode = AbstractMotor::brakeMode::brake;
-  else
-    brakeMode = AbstractMotor::brakeMode::hold;
+  switch(mode){
+    case coast:
+      brakeMode = AbstractMotor::brakeMode::coast;
+      break;
+    case brake:
+      brakeMode = AbstractMotor::brakeMode::brake;
+      break;
+    case hold:
+      brakeMode = AbstractMotor::brakeMode::hold;
+      break;
+  }
 
   for(int i = 0; i < motor.size(); i++){
     motor[i].setBrakeMode(brakeMode);

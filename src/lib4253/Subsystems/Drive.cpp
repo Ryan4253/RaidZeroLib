@@ -6,7 +6,7 @@ SlewController Drive::driveSlew(9, 256);
 PurePursuitFollower Drive::PPTenshi;
 */
 
-Drive::Drive(std::vector<pros::Motor> l, std::vector<pros::Motor> r){
+Drive::Drive(std::vector<Motor> l, std::vector<Motor> r){
 	for(int i = 0; i < l.size(); i++){
 		left.push_back(l[i]);
 	}
@@ -32,7 +32,7 @@ double Drive::getAngle() {
 }
 
 double Drive::getDistance(){
-  return (leftEncoder.get_value() + rightEncoder.get_value())/2;
+  return (leftEncoder.get() + rightEncoder.get())/2;
 }
 
 Vector Drive::scaleSpeed(double drivePower, double turnPower, double turnScale){
@@ -141,8 +141,8 @@ void Drive::driverControl(){
   	 //double leftPower = Math::cubicControl(master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
   	 //double rightPower = Math::cubicControl(master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y));
 
-  	double leftPower = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-  	double rightPower = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
+  	double leftPower = master.getAnalog(ControllerAnalog::leftY);
+  	double rightPower = master.getAnalog(ControllerAnalog::rightY);
   	Robot::setPower(left, leftPower);
     Robot::setPower(right, rightPower);
 

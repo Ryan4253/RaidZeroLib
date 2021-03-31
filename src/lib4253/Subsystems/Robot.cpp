@@ -17,44 +17,54 @@ ADIEncoder midEncoder('C', 'D', false);
 ADIButton leftAutonSelector('G');
 ADIButton rightAutonSelector('H');
 
-std::vector<Motor> base = {LF, LB, RF, RB};
-std::vector<Motor> baseLeft = {LB, LF};
-std::vector<Motor> baseRight = {RB, RF};
+MotorGroup baseLeft({LF, LB});
+MotorGroup baseRight({RF, RB});
+MotorGroup base({LF, LB, RF, RB});
 
 std::map<std::string, std::unique_ptr<pros::Task>> Robot::tasks;
 
-
-/*
-std::shared_ptr<ChassisController> Drive::chassis
-  = ChassisControllerBuilder()
-    .withMotors({9, 10}, {7, 8})
-    .withDimensions({AbstractMotor::gearset::blue, 7.0 / 3.0}, {{4.00_in, 12.25_in}, imev5GreenTPR})
-    .build();
-*/
-void Robot::setPower(std::vector<Motor> motor, double power){
-  for(int i = 0; i < motor.size(); i++){
-    motor[i] = power;
-  }
+void Robot::setPower(MotorGroup motor, double power){
+  motor.moveVoltage(power / 127 * 12000);
 }
 
-void Robot::setBrakeMode(std::vector<Motor> motor, brakeType mode){
+void Robot::setPower(Motor motor, double power){
+  motor = power;
+}
+
+void Robot::setBrakeMode(MotorGroup motor, brakeType mode){
   AbstractMotor::brakeMode brakeMode;
 
   switch(mode){
-    case coast:
+    case COAST:
       brakeMode = AbstractMotor::brakeMode::coast;
       break;
-    case brake:
+    case BRAKE:
       brakeMode = AbstractMotor::brakeMode::brake;
       break;
-    case hold:
+    case HOLD:
       brakeMode = AbstractMotor::brakeMode::hold;
       break;
   }
 
-  for(int i = 0; i < motor.size(); i++){
-    motor[i].setBrakeMode(brakeMode);
+  motor.setBrakeMode(brakeMode);
+}
+
+void Robot::setBrakeMode(Motor motor, brakeType mode){
+  AbstractMotor::brakeMode brakeMode;
+
+  switch(mode){
+    case COAST:
+      brakeMode = AbstractMotor::brakeMode::coast;
+      break;
+    case BRAKE:
+      brakeMode = AbstractMotor::brakeMode::brake;
+      break;
+    case HOLD:
+      brakeMode = AbstractMotor::brakeMode::hold;
+      break;
   }
+
+  motor.setBrakeMode(brakeMode);
 }
 
 void Robot::displayPosition(void* ptr){

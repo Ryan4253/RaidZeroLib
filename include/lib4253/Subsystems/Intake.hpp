@@ -3,7 +3,7 @@
 class Roller{
   public:
     enum State{
-      In, Out, Eject, Autoindex, Off
+      IN, OUT, EJECT, AUTOINDEX, OFF
     };
 
     Roller(Motor a, Motor b);
@@ -15,10 +15,11 @@ class Roller{
     Motor top, bottom;
 
   private:
-    State rollerState;
+    State rollerState = OFF;
     void eject();
     void autoindex();
     void updateState();
+    void execute();
     void run();
 
     friend class Intake;
@@ -27,7 +28,7 @@ class Roller{
 class Intake{
   public:
     enum State{
-      Off, In, Out, Autoindex
+      OFF, IN, OUT, AUTOINDEX
     };
 
     Intake(Motor a, Motor b);
@@ -41,9 +42,7 @@ class Intake{
   private:
     State intakeState;
     void updateState();
+    void execute();
     void run();
     friend void Roller::autoindex();
 };
-
-extern Roller roller;
-extern Intake intake;

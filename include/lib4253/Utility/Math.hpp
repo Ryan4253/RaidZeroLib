@@ -13,6 +13,8 @@ namespace Math{
 
     Vector toPolar(Vector cart);
     Vector toCart(Vector polar);
+
+    double clamp(double val, double mn, double mx);
 };
 
 const double WHEEL_CIRCUM = 2.75 * M_PI;

@@ -44,3 +44,10 @@ double Math::wrapAngle90(double angle){
   angle = wrapAngle180(angle);
   return wrapAngle180(angle + (abs(angle) > 90) * 180);
 }
+
+double Math::clamp(double val, double mn, double mx){
+  val = fmax(mn, val);
+  val = fmin(mx, val);
+
+  return val;
+}

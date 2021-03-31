@@ -28,54 +28,59 @@ void Roller::autoindex(){
 void Roller::updateState(){
   if(matchState == OPCONTROL){
     if(true){
-      rollerState = In;
+      rollerState = IN;
     }
     else if(true){
-      rollerState = Out;
+      rollerState = OUT;
     }
     else if(true){
-      rollerState = Autoindex;
+      rollerState = AUTOINDEX;
     }
     else if(true){
-      rollerState = Eject;
+      rollerState = EJECT;
     }
     else{
-      rollerState = Off;
+      rollerState = OFF;
     }
   }
 }
 
-void Roller::run(){
+void Roller::execute(){
   switch(rollerState){
-    case In:
+    case IN:
       Robot::setPower({top, bottom}, 127);
       break;
 
-    case Out:
+    case OUT:
       Robot::setPower({top, bottom}, -127);
       break;
 
-    case Eject:
+    case EJECT:
       eject();
       break;
 
-    case Autoindex:
+    case AUTOINDEX:
       autoindex();
       break;
 
-    case Off:
+    case OFF:
       Robot::setPower({top, bottom}, 0);
       break;
   }
 }
 
-void Roller::rollerTask(void *ptr){
+void Roller::run(){
   while(true){
-    Roller* that = static_cast<Roller*>(ptr);
-    that->updateState();
-    that->run();
-    pros::delay(10);
+    updateState();
+    execute();
+    pros::delay(3);
   }
+}
+
+void Roller::rollerTask(void *ptr){
+  pros::delay(10);
+  Roller* that = static_cast<Roller*>(ptr);
+  that->run();
 }
 
 Intake::Intake(Motor a, Motor b):
@@ -97,42 +102,47 @@ void Intake::setState(State i){
 void Intake::updateState(){
   if(matchState == OPCONTROL){
     if(true){
-      intakeState = In;
+      intakeState = IN;
     }
     else if(true){
-      intakeState = Out;
+      intakeState = OUT;
     }
     else if(true){
-      intakeState = Autoindex;
+      intakeState = AUTOINDEX;
     }
     else{
-      intakeState = Off;
+      intakeState = OFF;
     }
   }
 }
 
-void Intake::run(){
+void Intake::execute(){
   switch(intakeState){
-    case In:
-      Robot::setPower({intake.left, intake.right}, 127);
+    case IN:
+      Robot::setPower({left, right}, 127);
       break;
-    case Out:
-      Robot::setPower({intake.left, intake.right}, -127);
+    case OUT:
+      Robot::setPower({left, right}, -127);
       break;
-    case Autoindex:
+    case AUTOINDEX:
       break;
-    case Off:
-      Robot::setPower({intake.left, intake.right}, 0);
+    case OFF:
+      Robot::setPower(left, 0);
       break;
+  }
+}
+
+void Intake::run(){
+  while(true){
+    updateState();
+    execute();
+    pros::delay(3);
   }
 }
 
 
 void Intake::intakeTask(void *ptr){
-  while(true){
-    Intake* that = static_cast<Intake*>(ptr);
-    that->updateState();
-    that->run();
-    pros::delay(10);
-  }
+  pros::delay(10);
+  Intake* that = static_cast<Intake*>(ptr);
+  that->run();
 }

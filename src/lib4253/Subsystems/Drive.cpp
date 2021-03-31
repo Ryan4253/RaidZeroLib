@@ -1,18 +1,8 @@
 #include "main.h"
-/*
-PID Drive::drivePID;
-PID Drive::turnPID;
-SlewController Drive::driveSlew(9, 256);
-PurePursuitFollower Drive::PPTenshi;
-*/
 
-Drive::Drive(std::vector<Motor> l, std::vector<Motor> r){
-	for(int i = 0; i < l.size(); i++){
-		left.push_back(l[i]);
-	}
-	for(int i = 0; i < r.size(); i++){
-		right.push_back(r[i]);
-	}
+Drive::Drive(const std::initializer_list<Motor> &l, const std::initializer_list<Motor> &r):
+ left(l), right(r)
+{
 }
 
 void Drive::resetEncoders() {
@@ -136,25 +126,77 @@ void Drive::turnToAngle(double angle, QTime timeLimit){
   Robot::setPower(base, 0);
 }
 
-void Drive::driverControl(){
+Drive::State Drive::getState(){
+  return driveState;
+}
+
+void Drive::setState(State s){
+  driveState = s;
+}
+
+void Drive::updateState(){
+  // currently no need
+}
+
+void Drive::tank(){
+  //double leftPower = Math::cubicControl(master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
+  //double rightPower = Math::cubicControl(master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y));
+
+ double leftPower = master.getAnalog(ControllerAnalog::leftY);
+ double rightPower = master.getAnalog(ControllerAnalog::rightY);
+ Robot::setPower(left, leftPower);
+ Robot::setPower(right, rightPower);
+
+ pros::delay(3);
+}
+
+void Drive::arcade(){
+  int power = master.getAnalog(ControllerAnalog::leftY);
+  int turn = master.getAnalog(ControllerAnalog::rightX);
+  int left = power + turn;
+  int right = power - turn;
+  Robot::setPower(left, Math::clamp(power + turn, -127, 127));
+  Robot::setPower(right, Math::clamp(power-turn, -127, 127));
+
+    pros::delay(2);
+}
+
+void Drive::execute(){
+  switch(driveState){
+    case TANK:
+      tank();
+      break;
+
+    case ARCADE:
+      arcade();
+      break;
+
+    default:
+      break;
+  }
+}
+
+void Drive::run(){
   while(true){
-  	 //double leftPower = Math::cubicControl(master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
-  	 //double rightPower = Math::cubicControl(master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y));
-
-  	double leftPower = master.getAnalog(ControllerAnalog::leftY);
-  	double rightPower = master.getAnalog(ControllerAnalog::rightY);
-  	Robot::setPower(left, leftPower);
-    Robot::setPower(right, rightPower);
-
+    updateState();
+    execute();
     pros::delay(3);
   }
 }
 
-void Drive::taskFnc(void* ptr){
-	pros::delay(500);
+void Drive::driveTask(void* ptr){
+	pros::delay(10);
 	Drive* that = static_cast<Drive*>(ptr);
-	that->driverControl();
+	that->run();
 }
 
 
-Drive drive(baseLeft, baseRight);
+Drive drive({LF, LB}, {RF, RB});
+
+/*
+ = ChassisControllerBuilder()
+  .withMotors({9, 10}, {7, 8})
+  .withDimensions(AbstractMotor::gearset::green, {{4.32_in, 12.25_in}, imev5GreenTPR})
+  .withSensors(ADIEncoder{'A', 'B', true}, ADIEncoder{'C', 'D'})
+  .build();
+  */

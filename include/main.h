@@ -104,6 +104,7 @@ void opcontrol(void);
 #include "lib4253/Subsystems/Intake.hpp"
 
 #include "lib4253/Utility/Odometry.hpp"
+#include "lib4253/Utility/auton.hpp"
 
 static int auton = 0;
 

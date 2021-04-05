@@ -1,4 +1,5 @@
-	#include "main.h"
+#pragma once
+#include "main.h"
 
 class Flywheel{
   std::vector<pros::Motor> flywheel;

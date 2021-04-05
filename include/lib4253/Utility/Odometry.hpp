@@ -1,12 +1,14 @@
+#pragma once
 #include "main.h"
 
-class Odom{
+class OdomController{
   private:
     static Pose globalPos;
     static double lPrev, rPrev, mPrev;
+    ADIEncoder left, mid, right;
 
   public:
-    Odom(Pose initial);
+    OdomController(char lTop, char lBot, char mTop, char mBot, char rTop, char rBot);
     static void updatePos(void *ptr);
 
     static void resetSensors();

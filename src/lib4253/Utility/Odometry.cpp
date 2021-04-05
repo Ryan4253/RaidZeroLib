@@ -1,19 +1,21 @@
 #include "main.h"
 
-Pose Odom::globalPos = {0, 0, 0};
-double Odom::lPrev = 0, Odom::rPrev = 0, Odom::mPrev = 0;
+Pose OdomController::globalPos = {0, 0, 0};
+double OdomController::lPrev = 0, OdomController::rPrev = 0, OdomController::mPrev = 0;
 
-Odom::Odom(Pose initial){
-  globalPos.x = (double)initial.x;
-  globalPos.y = (double)initial.y;
-  globalPos.angle = Math::degToRad(initial.angle);
+OdomController::OdomController(char lTop, char lBot, char mTop, char mBot, char rTop, char rBot):
+  left(lTop, lBot), mid(mTop, mBot), right(rTop, rBot)
+{
+  globalPos.x = 0;
+  globalPos.y = 0;
+  globalPos.angle = 0;
   lPrev = 0, rPrev = 0, mPrev = 0;
   drive.resetEncoders();
 }
 
-void Odom::updatePos(void *ptr){
+void OdomController::updatePos(void *ptr){
   while(true){
-    double lVal = leftEncoder.get_value(), mVal = midEncoder.get_value(), rVal = rightEncoder.get_value();
+    double lVal = leftEncoder.get(), mVal = midEncoder.get(), rVal = rightEncoder.get();
 
     double left = Math::tickToInch(lVal - lPrev);
     double right = Math::tickToInch(rVal - rPrev);
@@ -49,42 +51,42 @@ void Odom::updatePos(void *ptr){
   }
 }
 
-void Odom::setPos(Pose newPos){
+void OdomController::setPos(Pose newPos){
     globalPos.x = (double)newPos.angle;
     globalPos.y = (double)newPos.angle;
     globalPos.angle = Math::degToRad(newPos.angle);
 }
 
-void Odom::resetSensors(){
+void OdomController::resetSensors(){
   drive.resetEncoders();
   lPrev = 0; rPrev = 0, mPrev = 0;
 }
 
-void Odom::resetState(){
+void OdomController::resetState(){
   globalPos.x = 0; globalPos.y = 0; globalPos.angle = 0;
 }
 
-void Odom::reset(){
-  Odom::resetState();
-  Odom::resetSensors();
+void OdomController::reset(){
+  OdomController::resetState();
+  OdomController::resetSensors();
 }
 
-Pose Odom::getPos(){
+Pose OdomController::getPos(){
   return globalPos;
 }
 
-double Odom::getX(){
+double OdomController::getX(){
   return globalPos.x;
 }
 
-double Odom::getY(){
+double OdomController::getY(){
   return globalPos.y;
 }
 
-double Odom::getAngleRad(){
+double OdomController::getAngleRad(){
   return globalPos.angle;
 }
 
-double Odom::getAngleDeg(){
+double OdomController::getAngleDeg(){
   return Math::radToDeg(globalPos.angle);
 }

@@ -1,6 +1,6 @@
 #include "main.h"
-//#include "auton.cpp"
+#include "lib4253/Utility/auton.hpp"
 
 void autonomous() {
-  //run[0]();
+  bruh[auton]();
 }

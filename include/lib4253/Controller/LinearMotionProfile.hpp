@@ -1,4 +1,6 @@
+#pragma once
 #include "main.h"
+
 
 class LinearMotionProfileController{
   private:

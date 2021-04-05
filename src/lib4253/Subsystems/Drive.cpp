@@ -38,7 +38,7 @@ Vector Drive::scaleSpeed(double drivePower, double turnPower, double turnScale){
 }
 
 void Drive::moveDistance(double dist, QTime timeLimit) {
-  Pose currentPos = Odom::getPos();
+  Pose currentPos = OdomController::getPos();
   Vector displacement = {dist * cos(currentPos.angle), dist * sin(currentPos.angle)};
   Vector target = currentPos.toVector() + displacement;
   moveTo(target, 1, timeLimit);
@@ -52,7 +52,7 @@ void Drive::moveTo(Vector target, double turnScale, QTime timeLimit){
   double distToTarget; QTime startTime = timer.millis();
 
   do{
-    Pose currentPos = Odom::getPos();
+    Pose currentPos = OdomController::getPos();
     Vector closestPoint = currentPos.closest(target);
     pros::lcd::print(0, "CURRENT X: %lf", (double)currentPos.x);
     pros::lcd::print(1, "CURRENT Y: %lf", (double)currentPos.y);
@@ -69,8 +69,8 @@ void Drive::moveTo(Vector target, double turnScale, QTime timeLimit){
     pros::lcd::print(4, "Drive Error: %lf", driveError);
     pros::lcd::print(5, "Turn Error: %lf", turnError);
 
-    double drivePower = Drive::drivePID.update(-driveError);
-    double turnPower = Drive::turnPID.update(-turnError);
+    double drivePower = drivePID.update(-driveError);
+    double turnPower = turnPID.update(-turnError);
 
     pros::lcd::print(6, "Drive Power: %lf", drivePower);
     pros::lcd::print(7, "Turn Power: %lf", turnPower);
@@ -86,18 +86,18 @@ void Drive::moveTo(Vector target, double turnScale, QTime timeLimit){
 }
 
 void Drive::turnAngle(double angle, QTime timeLimit){
-  Drive::turnPID.initialize();
+  turnPID.initialize();
   driveSlew.reset();
-  double initAngle = Odom::getAngleDeg(), error, power;
+  double initAngle = OdomController::getAngleDeg(), error, power;
   angle = Math::wrapAngle180(angle);
   Timer timer = Timer();
   QTime startTime = timer.millis();
 
 
   do{
-    error = (angle - (Odom::getAngleDeg()-initAngle));
+    error = (angle - (OdomController::getAngleDeg()-initAngle));
     power = turnPID.update(error);
-    power = Drive::driveSlew.step(power);
+    power = driveSlew.step(power);
 
     Robot::setPower(left, power);
     Robot::setPower(right, -power);
@@ -108,15 +108,15 @@ void Drive::turnAngle(double angle, QTime timeLimit){
 }
 
 void Drive::turnToAngle(double angle, QTime timeLimit){
-  Drive::turnPID.initialize();
-  Drive::driveSlew.reset();
+  turnPID.initialize();
+  driveSlew.reset();
   angle = Math::wrapAngle180(angle); double error, power;
   Timer timer = Timer(); QTime startTime = timer.millis();
 
   do{
-    error = Math::wrapAngle180(angle - (Odom::getAngleDeg()));
+    error = Math::wrapAngle180(angle - (OdomController::getAngleDeg()));
     power = turnPID.update(error);
-    power = Drive::driveSlew.step(power);
+    power = driveSlew.step(power);
 
     Robot::setPower(left, power);
     Robot::setPower(right, -power);

@@ -1,3 +1,4 @@
+#pragma once
 #include "main.h"
 
 class SlewController{
@@ -9,6 +10,7 @@ class SlewController{
   public:
     SlewController(int accel, int decel);
     SlewController();
+    SlewController& withStep(double a, double d);
     void reset();
     int step(double target);
 };

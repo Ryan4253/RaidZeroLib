@@ -142,12 +142,17 @@ void Drive::tank(){
   //double leftPower = Math::cubicControl(master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
   //double rightPower = Math::cubicControl(master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y));
 
- double leftPower = master.getAnalog(ControllerAnalog::leftY);
- double rightPower = master.getAnalog(ControllerAnalog::rightY);
- Robot::setPower(left, leftPower);
- Robot::setPower(right, rightPower);
+  while(true){
+    std::cout<<"CHICKEN" << std::endl;
+    double leftPower = master.getAnalog(ControllerAnalog::leftY)*127;
+    double rightPower = master.getAnalog(ControllerAnalog::rightY)*127;
 
- pros::delay(3);
+    Robot::setPower(left, leftPower);
+    Robot::setPower(right, rightPower);
+
+    pros::delay(3);
+  }
+
 }
 
 void Drive::arcade(){
@@ -176,20 +181,29 @@ void Drive::execute(){
 
 void Drive::run(){
   while(true){
+    /*
     updateState();
     execute();
     pros::delay(3);
+    */
+    tank();
   }
 }
 
 void Drive::driveTask(void* ptr){
+  /*
 	pros::delay(10);
 	Drive* that = static_cast<Drive*>(ptr);
+  std::cout << "I WAS HERE" << std::endl;
 	that->run();
+  */
+  Drive* that = static_cast<Drive*>(ptr);
+  //std::cout << "CHIEKCN" << std::endl;
+  that->tank();
+  //pros::delay(3);
 }
 
 
-Drive drive({LF, LB}, {RF, RB});
 
 /*
  = ChassisControllerBuilder()
@@ -198,3 +212,5 @@ Drive drive({LF, LB}, {RF, RB});
   .withSensors(ADIEncoder{'A', 'B', true}, ADIEncoder{'C', 'D'})
   .build();
   */
+
+Drive drive({-10, 9}, {8, -7});

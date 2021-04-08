@@ -4,8 +4,8 @@ Controller master(ControllerId::master);
 
 //Motor LF(10, pros::E_MOTOR_GEARSET_06, true);
 Motor LF(10, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-Motor LB(9, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-Motor RF(8, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
+Motor LB(9, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
+Motor RF(8, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
 Motor RB(7, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
 
 pros::Imu imuBottom(11);
@@ -22,6 +22,10 @@ MotorGroup baseRight({RF, RB});
 MotorGroup base({LF, LB, RF, RB});
 
 std::map<std::string, std::unique_ptr<pros::Task>> Robot::tasks;
+
+
+
+
 
 void Robot::setPower(MotorGroup motor, double power){
   motor.moveVoltage(power / 127 * 12000);
@@ -75,6 +79,7 @@ void Robot::displayPosition(void* ptr){
 
     //std::cout << "X: " << Odom::getX() << " Y: " << Odom::getY() << " A: " << Odom::getAngleDeg() << std::endl;
     pros::delay(3);
+    //std::cout << "OHBOYITSALLCOMINGTOGETHER" << std::endl;
   }
 }
 

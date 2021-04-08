@@ -11,7 +11,7 @@ class Biquad{
     HIGHPASS, LOWPASS
   };
 
-  Biquad(double a1_, double a2_, double b0_, double b1_, double b2_, double sampleFreq, double cutoffFreq, double initValue);
+  Biquad(Biquad::state type, double sampleFreq, double cutoffFreq, double initValue);
   void initialize();
   double filter(double input);
 };

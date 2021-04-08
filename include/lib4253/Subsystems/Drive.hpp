@@ -33,7 +33,8 @@ class Drive{
     static void driveTask(void *ptr);
 
   protected:
-    MotorGroup left, right;
+    MotorGroup left;
+    MotorGroup right;
 
   private:
     double maxVelocity, maxAcceleration;
@@ -50,5 +51,4 @@ class Drive{
     void driverControl();
 };
 
-//extern int lmao;
 extern Drive drive;

@@ -2,5 +2,5 @@
 #include "lib4253/Utility/auton.hpp"
 
 void autonomous() {
-  bruh[auton]();
+
 }

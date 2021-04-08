@@ -6,7 +6,7 @@ Biquad::Biquad(Biquad::state type, double sampleFreq, double cutoffFreq, double 
   double sinw0 = sin(w0);
 
   double q = 0.707;
-  double alpha = sinw0 / (2 * Q);
+  double alpha = sinw0 / (2 * q);
   double a0;
 
   switch (type){
@@ -46,7 +46,7 @@ void Biquad::initialize(){
   prevOutput[0] = prevOutput[1] = initVal;
 }
 
-void Biquad::filter(double input){
+double Biquad::filter(double input){
   double output = b0 * input + b1 * prevInput[0] + b2 * prevInput[1] - a1 * prevOutput[0] - a2 * prevOutput[1];
   prevInput[1] = prevInput[0]; prevInput[0] = input;
   prevOutput[1] = prevOutput[0]; prevOutput[0] = output;

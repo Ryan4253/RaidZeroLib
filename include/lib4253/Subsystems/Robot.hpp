@@ -25,6 +25,8 @@ enum brakeType{
   COAST, BRAKE, HOLD
 };
 
+
+
 class Robot{
   public:
     static void setPower(MotorGroup motor, double power);

@@ -1,7 +1,7 @@
 #pragma once
 #include "main.h"
 
-typedef void(*chicken)();
+//typedef void(*chicken)();
 
 void debug();
 
@@ -15,4 +15,4 @@ void rR();
 
 void skill();
 
-chicken bruh[6] = {debug, rL, rR, bL, bR, skill};;
+//chicken bruh[6] = {debug, rL, rR, bL, bR, skill};;

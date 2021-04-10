@@ -1,27 +1,44 @@
 #include "main.h"
 
-class TakeBackHalf{
-  double targetRPM;
-  double currentRPM, prevRPM;
-  double error, prevError;
-  double power, prevPower;
-  double TBHGain;
+TakeBackHalf::TakeBackHalf(double g){
+  gain = g;
+}
 
-  void setGain(double gain){
-    TBHGain = gain;
+void TakeBackHalf::setGain(double g){
+  gain = g;
+}
+
+void TakeBackHalf::setTargetVel(double target){
+  targetVel = target;
+}
+
+void TakeBackHalf::setApproxVel(double approx){
+  approxVel = approx;
+}
+
+void TakeBackHalf::initialize(){
+  firstCross = true;
+  output = 0, tbhVal = 0;
+  error = targetVel, prevError = targetVel;
+}
+
+double TakeBackHalf::step(double rpm){
+  error = targetVel - rpm;
+  output += error * gain;
+  output = Math::clamp(output, 0, 127);
+
+  if(signbit(error) != signbit(prevError)){
+    if(firstCross){
+      output = approxVel;
+      firstCross = false;
+    }
+    else{
+      output = 0.5 * (output + tbhVal);
+    }
+
+    tbhVal = output;
   }
 
-  void setRPM(double target){
-    targetRPM = target;
-  }
-
-  void initialize(){
-    
-  }
-
-  double step(double rpm){
-
-  }
-
-
-};
+  prevError = error;
+  return output;
+}

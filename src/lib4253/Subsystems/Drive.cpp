@@ -1,9 +1,13 @@
 #include "main.h"
 
+/* CONSTRUCTOR */
+
 Drive::Drive(const std::initializer_list<Motor> &l, const std::initializer_list<Motor> &r):
  left(l), right(r)
 {
 }
+
+/* SENSOR FUNCTION */
 
 void Drive::resetEncoders() {
 	leftEncoder.reset();
@@ -24,6 +28,77 @@ double Drive::getAngle() {
 double Drive::getDistance(){
   return (leftEncoder.get() + rightEncoder.get())/2;
 }
+
+/* STATE FUNCTION */
+
+Drive::State Drive::getState(){
+  return driveState;
+}
+
+void Drive::setState(State s){
+  driveState = s;
+}
+
+void Drive::updateState(){
+  // currently no need
+}
+
+/* TASK FUNCTION */
+
+void Drive::tank(){
+  //double leftPower = Math::cubicControl(master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
+  //double rightPower = Math::cubicControl(master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y));
+
+  while(true){
+    std::cout<<"CHICKEN" << std::endl;
+    double leftPower = master.getAnalog(ControllerAnalog::leftY)*127;
+    double rightPower = master.getAnalog(ControllerAnalog::rightY)*127;
+
+    Robot::setPower(left, leftPower);
+    Robot::setPower(right, rightPower);
+
+    pros::delay(3);
+  }
+
+}
+
+void Drive::arcade(){
+  int power = master.getAnalog(ControllerAnalog::leftY);
+  int turn = master.getAnalog(ControllerAnalog::rightX);
+  Robot::setPower(left, Math::clamp(power + turn, -127, 127));
+  Robot::setPower(right, Math::clamp(power-turn, -127, 127));
+
+  pros::delay(3);
+}
+
+void Drive::run(){
+  while(true){
+    updateState();
+
+    switch(driveState){
+      case TANK:
+        tank();
+        break;
+
+      case ARCADE:
+        arcade();
+        break;
+
+      default:
+        break;
+    }
+
+    pros::delay(3);
+  }
+}
+
+void Drive::driveTask(void* ptr){
+
+  Drive* that = static_cast<Drive*>(ptr);
+  that->run();
+}
+
+/* AUTON FUNCTIONS */
 
 Vector Drive::scaleSpeed(double drivePower, double turnPower, double turnScale){
   double leftPower = drivePower - turnPower * turnScale;
@@ -125,85 +200,6 @@ void Drive::turnToAngle(double angle, QTime timeLimit){
 
   Robot::setPower(base, 0);
 }
-
-Drive::State Drive::getState(){
-  return driveState;
-}
-
-void Drive::setState(State s){
-  driveState = s;
-}
-
-void Drive::updateState(){
-  // currently no need
-}
-
-void Drive::tank(){
-  //double leftPower = Math::cubicControl(master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
-  //double rightPower = Math::cubicControl(master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y));
-
-  while(true){
-    std::cout<<"CHICKEN" << std::endl;
-    double leftPower = master.getAnalog(ControllerAnalog::leftY)*127;
-    double rightPower = master.getAnalog(ControllerAnalog::rightY)*127;
-
-    Robot::setPower(left, leftPower);
-    Robot::setPower(right, rightPower);
-
-    pros::delay(3);
-  }
-
-}
-
-void Drive::arcade(){
-  int power = master.getAnalog(ControllerAnalog::leftY);
-  int turn = master.getAnalog(ControllerAnalog::rightX);
-  Robot::setPower(left, Math::clamp(power + turn, -127, 127));
-  Robot::setPower(right, Math::clamp(power-turn, -127, 127));
-
-  pros::delay(3);
-}
-
-void Drive::execute(){
-  switch(driveState){
-    case TANK:
-      tank();
-      break;
-
-    case ARCADE:
-      arcade();
-      break;
-
-    default:
-      break;
-  }
-}
-
-void Drive::run(){
-  while(true){
-    /*
-    updateState();
-    execute();
-    pros::delay(3);
-    */
-    tank();
-  }
-}
-
-void Drive::driveTask(void* ptr){
-  /*
-	pros::delay(10);
-	Drive* that = static_cast<Drive*>(ptr);
-  std::cout << "I WAS HERE" << std::endl;
-	that->run();
-  */
-  Drive* that = static_cast<Drive*>(ptr);
-  //std::cout << "CHIEKCN" << std::endl;
-  that->tank();
-  //pros::delay(3);
-}
-
-
 
 /*
  = ChassisControllerBuilder()

@@ -198,6 +198,7 @@ bin/Competition/opcontrol.cpp.o: src/Competition/opcontrol.cpp \
  include/lib4253/Controller/PID.hpp include/lib4253/Controller/Slew.hpp \
  include/lib4253/Controller/PurePursuit.hpp \
  include/lib4253/Controller/BangBang.hpp \
+ include/lib4253/Controller/TakeBackHalf.hpp \
  include/lib4253/Controller/LinearMotionProfile.hpp \
  include/lib4253/Subsystems/Robot.hpp \
  include/lib4253/Subsystems/Drive.hpp \
@@ -765,6 +766,8 @@ include/lib4253/Controller/Slew.hpp:
 include/lib4253/Controller/PurePursuit.hpp:
 
 include/lib4253/Controller/BangBang.hpp:
+
+include/lib4253/Controller/TakeBackHalf.hpp:
 
 include/lib4253/Controller/LinearMotionProfile.hpp:
 

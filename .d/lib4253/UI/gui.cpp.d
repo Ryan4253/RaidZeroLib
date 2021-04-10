@@ -1,4 +1,4 @@
-bin/Competition/auton.cpp.o: src/Competition/auton.cpp include/main.h \
+bin/lib4253/UI/gui.cpp.o: src/lib4253/UI/gui.cpp include/main.h \
  include/api.h include/pros/adi.h include/pros/colors.h \
  include/pros/distance.h include/pros/ext_adi.h include/pros/adi.h \
  include/pros/adi.h include/pros/imu.h include/pros/llemu.h \

@@ -11,4 +11,4 @@ Features:
 - Custom task declaration using maps -> easily start/end-able
 - Very clean code, even idiots like Andre can read it /s
 
-**The code currently have no comments, since I'm lazy
+**The code currently have no comments, since I'm lazy**

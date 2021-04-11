@@ -13,9 +13,10 @@ class PID {
   public:
     PID();
     PID(double a, double b, double c);
-    PID& withGain(double a, double b, double c);
-    PID& withIGain(double windup, double dist);
-    PID& withEMAGain(double alpha);
+
+    void setGain(double a, double b, double c);
+    void setIGain(double windup, double dist);
+    void setEMAGain(double alpha);
 
     void initialize();
     double update(double error);
@@ -27,7 +28,7 @@ class FPID:PID{
     double kF, target;
 
   public:
-    FPID& withFGain(double f);
+    void setFGain(double f);
     void setTarget(double t);
     double fUpdate(double error);
 };

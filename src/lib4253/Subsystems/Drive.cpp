@@ -7,6 +7,32 @@ Drive::Drive(const std::initializer_list<Motor> &l, const std::initializer_list<
 {
 }
 
+Drive& Drive::withDrivePID(std::tuple<double, double, double> gain, std::tuple<double, double> IGain, std::tuple<double> emaGain){
+  drivePID.setGain(std::get<0>(gain), std::get<1>(gain), std::get<2>(gain));
+  drivePID.setIGain(std::get<0>(IGain), std::get<1>(IGain));
+  drivePID.setEMAGain(std::get<0>(emaGain));
+  return *this;
+}
+
+Drive& Drive::withTurnPID(std::tuple<double, double, double> gain, std::tuple<double, double> IGain, std::tuple<double> emaGain){
+  turnPID.setGain(std::get<0>(gain), std::get<1>(gain), std::get<2>(gain));
+  turnPID.setIGain(std::get<0>(IGain), std::get<1>(IGain));
+  turnPID.setEMAGain(std::get<0>(emaGain));
+  return *this;
+}
+
+Drive& Drive::withPurePursuit(std::tuple<double, double, double> gain, std::tuple<double> turnGain, std::tuple<double, double> kinematics){
+  PPTenshi.setGain(std::get<0>(gain), std::get<1>(gain), std::get<2>(gain));
+  PPTenshi.setTurnGain(std::get<0>(turnGain));
+  PPTenshi.setKinematics(std::get<0>(kinematics), std::get<1>(kinematics));
+  return *this;
+}
+
+Drive& Drive::withSlew(int acc, int dec){
+  driveSlew.setStep(acc, dec);
+  return *this;
+}
+
 /* SENSOR FUNCTION */
 
 void Drive::resetEncoders() {

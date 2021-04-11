@@ -8,7 +8,7 @@ emaFilter::emaFilter(){
   alpha = 1;
 }
 
-void emaFilter::setGains(double a){
+void emaFilter::setGain(double a){
   alpha = a;
 }
 

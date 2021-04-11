@@ -11,19 +11,16 @@ PID::PID(){
   maxIntegral = 1000000000, minDist = 1000000000;
 }
 
-PID& PID::withGain(double a, double b, double c){
+void PID::setGain(double a, double b, double c){
   kP = a, kI = b, kD = c;
-  return *this;
 }
 
-PID& PID::withIGain(double windup, double dist){
+void PID::setIGain(double windup, double dist){
   maxIntegral = windup, minDist = dist;
-  return *this;
 }
 
-PID& PID::withEMAGain(double alpha){
-  dEMA.setGains(alpha);
-  return *this;
+void PID::setEMAGain(double alpha){
+  dEMA.setGain(alpha);
 }
 
 void PID::initialize() {
@@ -54,9 +51,8 @@ bool PID::settleUtil(double errorThresh, int timeThresh) {
   return !((std::abs(error) <= errorThresh));
 };
 
-FPID& FPID::withFGain(double f){
+void FPID::setFGain(double f){
   kF = f;
-  return *this;
 }
 
 void FPID::setTarget(double t){

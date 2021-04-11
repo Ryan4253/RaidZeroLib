@@ -5,7 +5,7 @@
 class PurePursuitFollower{
   private:
     std::vector<double> velocity;
-    double maxAccel = 0, maxVel = 0;
+    double maxAcceleration = 0, maxVelocity = 0;
     double kT, kV, kA, kP;
     int prevClosestPt = 0, closestPt = 0;
     Path path;
@@ -18,9 +18,9 @@ class PurePursuitFollower{
     PurePursuitFollower();
     void followPath(Path path);
     void initialize();
-    PurePursuitFollower& withTurnGain(double k);
-    PurePursuitFollower& withMaxVel(double v);
-    PurePursuitFollower& withMaxAccel(double a);
-    PurePursuitFollower& withGain(double v, double a, double p);
+
+    void setTurnGain(double k);
+    void setKinematics(double v, double a);
+    void setGain(double v, double a, double p);
 
 };

@@ -10,7 +10,7 @@ class SlewController{
   public:
     SlewController(int accel, int decel);
     SlewController();
-    SlewController& withStep(double a, double d);
+    void setStep(double a, double d);
     void reset();
-    int step(double target);
+    double step(double target);
 };

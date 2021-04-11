@@ -9,7 +9,7 @@ class emaFilter{
   public:
       emaFilter(double a);
       emaFilter();
-      void setGains(double a);
+      void setGain(double a);
       double filter(double input);
       void reset();
       double getOutput();

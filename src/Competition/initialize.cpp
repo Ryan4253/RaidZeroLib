@@ -42,14 +42,16 @@ void autonSelector(){
 void initialize() {
   pros::lcd::initialize();
   pros::lcd::print(1, "INITIALIZE");
-  Robot::setBrakeMode(base, COAST);
-  drive.resetEncoders(); drive.resetIMU();
 
   OdomController('A', 'B', 'C', 'D', 'E', 'F');
-  drive.drivePID.withGain(1, 0, 0).withIGain(500, 12).withEMAGain(0.35).initialize();
-  drive.turnPID.withGain(1, 0, 0).withIGain(500, 12).withEMAGain(0.35).initialize();
-  drive.PPTenshi.withGain(0, 0, 0).withMaxVel(1).withMaxAccel(1).withTurnGain(2).initialize();
-  drive.driveSlew.withStep(256, 9);
+
+  drive
+    .withDrivePID({0, 0, 0}, {1, 1}, {1})
+    .withTurnPID({0, 0, 0}, {1, 1}, {1})
+    .withPurePursuit({0, 0, 0}, {2}, {1, 1})
+    .withSlew(256, 9);
+  drive.resetEncoders(); drive.resetIMU();
+  Robot::setBrakeMode(base, COAST);
 
   autonSelector();
 }

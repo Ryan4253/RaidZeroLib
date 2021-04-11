@@ -7,15 +7,11 @@ class Drive{
       BUSY, IDLE, TANK, ARCADE
     };
 
-    PID drivePID; PID turnPID;
-    SlewController driveSlew;
-    PurePursuitFollower PPTenshi;
-    std::shared_ptr<ChassisController> chassis;
-    std::shared_ptr<AsyncMotionProfileController> profileController;
-
     Drive(const std::initializer_list<Motor> &l, const std::initializer_list<Motor> &r);
-    Drive& withMaxVelocity();
-    Drive& withMaxAcceleration();
+    Drive& withDrivePID(std::tuple<double, double, double> gain, std::tuple<double, double> IGain, std::tuple<double> emaGain);
+    Drive& withTurnPID(std::tuple<double, double, double> gain, std::tuple<double, double> IGain, std::tuple<double> emaGain);
+    Drive& withSlew(int acc, int dec);
+    Drive& withPurePursuit(std::tuple<double, double, double> gain, std::tuple<double> turnGain, std::tuple<double, double> kinematics);
 
     State getState();
     void setState(State s);
@@ -37,8 +33,14 @@ class Drive{
     MotorGroup right;
 
   private:
+    PID drivePID; PID turnPID;
+    SlewController driveSlew;
+    PurePursuitFollower PPTenshi;
+    std::shared_ptr<ChassisController> chassis;
+    std::shared_ptr<AsyncMotionProfileController> profileController;
+
     double maxVelocity, maxAcceleration;
-    State driveState = IDLE;
+    State driveState = TANK;
 
     Vector scaleSpeed(double linear, double turn, double turnScale);
 

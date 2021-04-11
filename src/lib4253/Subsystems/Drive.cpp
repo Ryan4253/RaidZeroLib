@@ -33,6 +33,12 @@ Drive& Drive::withSlew(int acc, int dec){
   return *this;
 }
 
+void Drive::initialize(){
+  Robot::setBrakeMode(base, COAST);
+  resetEncoders();
+  resetIMU();
+}
+
 /* SENSOR FUNCTION */
 
 void Drive::resetEncoders() {
@@ -66,35 +72,41 @@ void Drive::setState(State s){
 }
 
 void Drive::updateState(){
-  // currently no need
+  int AState = master.getDigital(ControllerDigital::A);
+
+  if(AState && !prevAState){
+    if(driveState == TANK){
+      driveState = ARCADE;
+    }
+    else{
+      driveState = TANK;
+    }
+  }
+
+  prevAState = AState;
 }
 
 /* TASK FUNCTION */
 
 void Drive::tank(){
-  //double leftPower = Math::cubicControl(master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
-  //double rightPower = Math::cubicControl(master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y));
+  //std::cout<<"TANK" << std::endl;
 
-  while(true){
-    std::cout<<"CHICKEN" << std::endl;
-    double leftPower = master.getAnalog(ControllerAnalog::leftY)*127;
-    double rightPower = master.getAnalog(ControllerAnalog::rightY)*127;
+  double leftPower = master.getAnalog(ControllerAnalog::leftY)*127;
+  double rightPower = master.getAnalog(ControllerAnalog::rightY)*127;
 
-    Robot::setPower(left, leftPower);
-    Robot::setPower(right, rightPower);
-
-    pros::delay(3);
-  }
-
+  Robot::setPower(left, leftPower);
+  Robot::setPower(right, rightPower);
 }
 
 void Drive::arcade(){
-  int power = master.getAnalog(ControllerAnalog::leftY);
-  int turn = master.getAnalog(ControllerAnalog::rightX);
-  Robot::setPower(left, Math::clamp(power + turn, -127, 127));
-  Robot::setPower(right, Math::clamp(power-turn, -127, 127));
+  //std::cout << "ARCADE" << std::endl;
 
-  pros::delay(3);
+  int power = master.getAnalog(ControllerAnalog::leftY)*127;
+  int turn = master.getAnalog(ControllerAnalog::rightX)*-127;
+
+  Vector finalPower = scaleSpeed(power, turn, 1);
+  Robot::setPower(left, finalPower.x);
+  Robot::setPower(right, finalPower.y);
 }
 
 void Drive::run(){
@@ -109,9 +121,6 @@ void Drive::run(){
       case ARCADE:
         arcade();
         break;
-
-      default:
-        break;
     }
 
     pros::delay(3);
@@ -119,7 +128,6 @@ void Drive::run(){
 }
 
 void Drive::driveTask(void* ptr){
-
   Drive* that = static_cast<Drive*>(ptr);
   that->run();
 }

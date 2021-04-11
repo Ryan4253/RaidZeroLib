@@ -49,11 +49,10 @@ void initialize() {
     .withDrivePID({0, 0, 0}, {1, 1}, {1})
     .withTurnPID({0, 0, 0}, {1, 1}, {1})
     .withPurePursuit({0, 0, 0}, {2}, {1, 1})
-    .withSlew(256, 9);
-  drive.resetEncoders(); drive.resetIMU();
-  Robot::setBrakeMode(base, COAST);
+    .withSlew(256, 9)
+    .initialize();
 
-  autonSelector();
+  //autonSelector();
 }
 
 void competition_initialize(){}

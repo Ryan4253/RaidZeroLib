@@ -1,19 +1,100 @@
 #include "main.h"
 
-Pose OdomController::globalPos = {0, 0, 0};
-double OdomController::lPrev = 0, OdomController::rPrev = 0, OdomController::mPrev = 0;
+CustomOdometry::CustomOdometry():globalPos(0, 0, 0){
+}
 
-OdomController::OdomController(char lTop, char lBot, char mTop, char mBot, char rTop, char rBot):
-  left(lTop, lBot), mid(mTop, mBot), right(rTop, rBot)
-{
+Pose CustomOdometry::getPos(){
+  return globalPos;
+}
+
+double CustomOdometry::getX(){
+  return globalPos.x;
+}
+
+QLength CustomOdometry::getQX(){
+  return globalPos.x * inch;
+}
+
+double CustomOdometry::getY(){
+  return globalPos.y;
+}
+
+QLength CustomOdometry::getQY(){
+  return globalPos.y * inch;
+}
+
+double CustomOdometry::getAngleDeg(){
+  return Math::radToDeg(globalPos.angle);
+}
+
+double CustomOdometry::getAngleRad(){
+  return globalPos.angle;
+}
+
+void CustomOdometry::setPos(Pose newPos){
+  globalPos.x = (double)newPos.x;
+  globalPos.y = (double)newPos.y;
+  globalPos.angle = Math::degToRad(newPos.angle);
+}
+
+void CustomOdometry::setX(double x){
+  globalPos.x = x;
+}
+
+void CustomOdometry::setX(QLength x){
+  globalPos.x = x.convert(inch);
+}
+
+void CustomOdometry::setY(double y){
+  globalPos.y = y;
+}
+
+void CustomOdometry::setY(QLength y){
+  globalPos.y = y.convert(inch);
+}
+
+void CustomOdometry::setAngleDeg(double theta){
+  globalPos.angle = Math::radToDeg(theta);
+}
+
+void CustomOdometry::setAngleRad(double theta){
+  globalPos.angle = theta;
+}
+
+void CustomOdometry::resetState(){
   globalPos.x = 0;
   globalPos.y = 0;
   globalPos.angle = 0;
-  lPrev = 0, rPrev = 0, mPrev = 0;
-  drive.resetEncoders();
 }
 
-void OdomController::updatePos(void *ptr){
+void CustomOdometry::reset(){
+  resetState();
+  resetSensors();
+}
+
+void CustomOdometry::odomTask(void* ptr){
+  pros::delay(10);
+  CustomOdometry* that = static_cast<CustomOdometry*>(ptr);
+  that->updatePos();
+}
+
+/* THREE WHEEL ADI ENCODER ODOMETRY */
+
+ADIThreeWheelOdometry::ADIThreeWheelOdometry(std::tuple<char, char, bool> l, std::tuple<char, char, bool> m, std::tuple<char, char, bool> r)
+:left(std::get<0>(l), std::get<1>(l), std::get<2>(l)), mid(std::get<0>(m), std::get<1>(m), std::get<2>(m)), right(std::get<0>(r), std::get<1>(r), std::get<2>(r))
+{
+  resetSensors();
+}
+
+ADIThreeWheelOdometry& ADIThreeWheelOdometry::withDimensions(std::tuple<double, double, double> dimension){
+  lDist = std::get<0>(dimension);
+  mDist = std::get<1>(dimension);
+  rDist = std::get<2>(dimension);
+
+  return *this;
+}
+
+void ADIThreeWheelOdometry::updatePos(){
   while(true){
     double lVal = leftEncoder.get(), mVal = midEncoder.get(), rVal = rightEncoder.get();
 
@@ -37,8 +118,6 @@ void OdomController::updatePos(void *ptr){
     else{
       h = right;
       h2 = mid;
-
-
     }
 
     double endAngle = theta / 2 + globalPos.angle;
@@ -51,42 +130,8 @@ void OdomController::updatePos(void *ptr){
   }
 }
 
-void OdomController::setPos(Pose newPos){
-    globalPos.x = (double)newPos.angle;
-    globalPos.y = (double)newPos.angle;
-    globalPos.angle = Math::degToRad(newPos.angle);
+void ADIThreeWheelOdometry::resetSensors(){
+  left.reset(); mid.reset(); right.reset();
 }
 
-void OdomController::resetSensors(){
-  drive.resetEncoders();
-  lPrev = 0; rPrev = 0, mPrev = 0;
-}
-
-void OdomController::resetState(){
-  globalPos.x = 0; globalPos.y = 0; globalPos.angle = 0;
-}
-
-void OdomController::reset(){
-  OdomController::resetState();
-  OdomController::resetSensors();
-}
-
-Pose OdomController::getPos(){
-  return globalPos;
-}
-
-double OdomController::getX(){
-  return globalPos.x;
-}
-
-double OdomController::getY(){
-  return globalPos.y;
-}
-
-double OdomController::getAngleRad(){
-  return globalPos.angle;
-}
-
-double OdomController::getAngleDeg(){
-  return Math::radToDeg(globalPos.angle);
-}
+CustomOdometry* tracker = new ADIThreeWheelOdometry({'A', 'B', true}, {'C', 'D', false}, {'E', 'F', false});

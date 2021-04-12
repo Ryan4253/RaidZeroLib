@@ -20,7 +20,6 @@ class Roller{
     void eject();
     void autoindex();
     void updateState();
-    void execute();
     void run();
 
     friend class Intake;
@@ -43,7 +42,6 @@ class Intake{
   private:
     State intakeState;
     void updateState();
-    void execute();
     void run();
-    friend void Roller::autoindex();
+    friend class Roller;
 };

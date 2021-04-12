@@ -1,4 +1,4 @@
-bin/lib4253/Subsystems/Drive.cpp.o: src/lib4253/Subsystems/Drive.cpp \
+bin/lib4253/UI/OdomDisplay.cpp.o: src/lib4253/UI/OdomDisplay.cpp \
  include/main.h include/api.h include/pros/adi.h include/pros/colors.h \
  include/pros/distance.h include/pros/ext_adi.h include/pros/adi.h \
  include/pros/adi.h include/pros/imu.h include/pros/llemu.h \
@@ -205,7 +205,8 @@ bin/lib4253/Subsystems/Drive.cpp.o: src/lib4253/Subsystems/Drive.cpp \
  include/lib4253/Subsystems/Drive.hpp \
  include/lib4253/Subsystems/Flywheel.hpp \
  include/lib4253/Subsystems/Lift.hpp \
- include/lib4253/Subsystems/Intake.hpp include/lib4253/Utility/auton.hpp
+ include/lib4253/Subsystems/Intake.hpp include/lib4253/Utility/auton.hpp \
+ include/lib4253/Display/OdomDisplay.hpp
 
 include/main.h:
 
@@ -784,3 +785,5 @@ include/lib4253/Subsystems/Lift.hpp:
 include/lib4253/Subsystems/Intake.hpp:
 
 include/lib4253/Utility/auton.hpp:
+
+include/lib4253/Display/OdomDisplay.hpp:

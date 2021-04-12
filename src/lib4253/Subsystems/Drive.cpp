@@ -7,6 +7,11 @@ Drive::Drive(const std::initializer_list<Motor> &l, const std::initializer_list<
 {
 }
 
+Drive& Drive::withOdometry(CustomOdometry* tracker){
+  odom = tracker;
+  return *this;
+}
+
 Drive& Drive::withDrivePID(std::tuple<double, double, double> gain, std::tuple<double, double> IGain, std::tuple<double> emaGain){
   drivePID.setGain(std::get<0>(gain), std::get<1>(gain), std::get<2>(gain));
   drivePID.setIGain(std::get<0>(IGain), std::get<1>(IGain));
@@ -103,8 +108,8 @@ void Drive::arcade(){
 
   int power = master.getAnalog(ControllerAnalog::leftY)*127;
   int turn = master.getAnalog(ControllerAnalog::rightX)*-127;
-
   Vector finalPower = scaleSpeed(power, turn, 1);
+
   Robot::setPower(left, finalPower.x);
   Robot::setPower(right, finalPower.y);
 }
@@ -128,6 +133,7 @@ void Drive::run(){
 }
 
 void Drive::driveTask(void* ptr){
+  pros::delay(10);
   Drive* that = static_cast<Drive*>(ptr);
   that->run();
 }
@@ -147,7 +153,7 @@ Vector Drive::scaleSpeed(double drivePower, double turnPower, double turnScale){
 }
 
 void Drive::moveDistance(double dist, QTime timeLimit) {
-  Pose currentPos = OdomController::getPos();
+  Pose currentPos = odom->getPos();
   Vector displacement = {dist * cos(currentPos.angle), dist * sin(currentPos.angle)};
   Vector target = currentPos.toVector() + displacement;
   moveTo(target, 1, timeLimit);
@@ -161,7 +167,7 @@ void Drive::moveTo(Vector target, double turnScale, QTime timeLimit){
   double distToTarget; QTime startTime = timer.millis();
 
   do{
-    Pose currentPos = OdomController::getPos();
+    Pose currentPos = odom->getPos();
     Vector closestPoint = currentPos.closest(target);
     pros::lcd::print(0, "CURRENT X: %lf", (double)currentPos.x);
     pros::lcd::print(1, "CURRENT Y: %lf", (double)currentPos.y);
@@ -197,14 +203,14 @@ void Drive::moveTo(Vector target, double turnScale, QTime timeLimit){
 void Drive::turnAngle(double angle, QTime timeLimit){
   turnPID.initialize();
   driveSlew.reset();
-  double initAngle = OdomController::getAngleDeg(), error, power;
+  double initAngle = odom->getAngleDeg(), error, power;
   angle = Math::wrapAngle180(angle);
   Timer timer = Timer();
   QTime startTime = timer.millis();
 
 
   do{
-    error = (angle - (OdomController::getAngleDeg()-initAngle));
+    error = (angle - (odom->getAngleDeg()-initAngle));
     power = turnPID.update(error);
     power = driveSlew.step(power);
 
@@ -223,7 +229,7 @@ void Drive::turnToAngle(double angle, QTime timeLimit){
   Timer timer = Timer(); QTime startTime = timer.millis();
 
   do{
-    error = Math::wrapAngle180(angle - (OdomController::getAngleDeg()));
+    error = Math::wrapAngle180(angle - (odom->getAngleDeg()));
     power = turnPID.update(error);
     power = driveSlew.step(power);
 
@@ -234,13 +240,5 @@ void Drive::turnToAngle(double angle, QTime timeLimit){
 
   Robot::setPower(base, 0);
 }
-
-/*
- = ChassisControllerBuilder()
-  .withMotors({9, 10}, {7, 8})
-  .withDimensions(AbstractMotor::gearset::green, {{4.32_in, 12.25_in}, imev5GreenTPR})
-  .withSensors(ADIEncoder{'A', 'B', true}, ADIEncoder{'C', 'D'})
-  .build();
-  */
 
 Drive drive({-10, 9}, {8, -7});

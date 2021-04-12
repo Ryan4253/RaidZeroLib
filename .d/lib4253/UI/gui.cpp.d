@@ -1,5 +1,5 @@
-bin/lib4253/Subsystems/Drive.cpp.o: src/lib4253/Subsystems/Drive.cpp \
- include/main.h include/api.h include/pros/adi.h include/pros/colors.h \
+bin/lib4253/UI/gui.cpp.o: src/lib4253/UI/gui.cpp include/main.h \
+ include/api.h include/pros/adi.h include/pros/colors.h \
  include/pros/distance.h include/pros/ext_adi.h include/pros/adi.h \
  include/pros/adi.h include/pros/imu.h include/pros/llemu.h \
  include/display/lvgl.h include/display/lv_version.h \

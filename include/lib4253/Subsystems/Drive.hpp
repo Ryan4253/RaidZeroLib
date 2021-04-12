@@ -8,10 +8,11 @@ class Drive{
     };
 
     Drive(const std::initializer_list<Motor> &l, const std::initializer_list<Motor> &r);
+    Drive& withOdometry(CustomOdometry* tracker);
     Drive& withDrivePID(std::tuple<double, double, double> gain, std::tuple<double, double> IGain, std::tuple<double> emaGain);
     Drive& withTurnPID(std::tuple<double, double, double> gain, std::tuple<double, double> IGain, std::tuple<double> emaGain);
-    Drive& withSlew(int acc, int dec);
     Drive& withPurePursuit(std::tuple<double, double, double> gain, std::tuple<double> turnGain, std::tuple<double, double> kinematics);
+    Drive& withSlew(int acc, int dec);
     void initialize();
 
     State getState();
@@ -39,6 +40,7 @@ class Drive{
     PurePursuitFollower PPTenshi;
     std::shared_ptr<ChassisController> chassis;
     std::shared_ptr<AsyncMotionProfileController> profileController;
+    CustomOdometry* odom;
 
     double maxVelocity, maxAcceleration;
     State driveState = TANK;

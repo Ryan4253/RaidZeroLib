@@ -26,6 +26,9 @@ enum brakeType{
 };
 
 
+enum competition{
+  OPCONTROL, AUTONOMOUS, INITIALIZE, DISABLED
+};
 
 class Robot{
   public:
@@ -43,8 +46,5 @@ class Robot{
     static std::map<std::string, std::unique_ptr<pros::Task>> tasks;
 };
 
-enum competition{
-  OPCONTROL, AUTONOMOUS, INITIALIZE, DISABLED
-};
 
 extern competition matchState;

@@ -4,9 +4,9 @@ void opcontrol() {
 	int x;
 	pros::lcd::clear_line(5);
 	pros::lcd::print(1, "OPCONTROL");
-	OdomController::setPos({0, 0, 0});
+	tracker->setPos({0, 0, 0});
 
-  Robot::startTask("Odometry", OdomController::updatePos, &x);
+  Robot::startTask("Odometry", CustomOdometry::odomTask, tracker);
   Robot::startTask("Display", Robot::displayPosition, &x);
 	Robot::startTask("OPControl", Drive::driveTask, &drive);
 

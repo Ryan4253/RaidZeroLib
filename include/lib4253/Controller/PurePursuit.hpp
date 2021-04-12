@@ -10,7 +10,7 @@ class PurePursuitFollower{
     int prevClosestPt = 0, closestPt = 0;
     Path path;
 
-    void closestPoint();
+    void closestPoint(Vector currentPoint);
     Vector lookAhead();
     void generateVelocity();
 

@@ -73,6 +73,7 @@ void Robot::setBrakeMode(Motor motor, brakeType mode){
 
 void Robot::displayPosition(void* ptr){
   while(true){
+    /*
     pros::lcd::print(2, "X: %lf", OdomController::getX());
     pros::lcd::print(3, "Y: %lf", OdomController::getY());
     pros::lcd::print(4, "A: %lf", OdomController::getAngleDeg());
@@ -80,6 +81,7 @@ void Robot::displayPosition(void* ptr){
     //std::cout << "X: " << Odom::getX() << " Y: " << Odom::getY() << " A: " << Odom::getAngleDeg() << std::endl;
     pros::delay(3);
     //std::cout << "OHBOYITSALLCOMINGTOGETHER" << std::endl;
+    */
   }
 }
 

@@ -45,34 +45,32 @@ void Roller::updateState(){
   }
 }
 
-void Roller::execute(){
-  switch(rollerState){
-    case IN:
-      Robot::setPower({top, bottom}, 127);
-      break;
-
-    case OUT:
-      Robot::setPower({top, bottom}, -127);
-      break;
-
-    case EJECT:
-      eject();
-      break;
-
-    case AUTOINDEX:
-      autoindex();
-      break;
-
-    case OFF:
-      Robot::setPower({top, bottom}, 0);
-      break;
-  }
-}
-
 void Roller::run(){
   while(true){
     updateState();
-    execute();
+
+    switch(rollerState){
+      case IN:
+        Robot::setPower({top, bottom}, 127);
+        break;
+
+      case OUT:
+        Robot::setPower({top, bottom}, -127);
+        break;
+
+      case EJECT:
+        eject();
+        break;
+
+      case AUTOINDEX:
+        autoindex();
+        break;
+
+      case OFF:
+        Robot::setPower({top, bottom}, 0);
+        break;
+    }
+
     pros::delay(3);
   }
 }
@@ -116,26 +114,24 @@ void Intake::updateState(){
   }
 }
 
-void Intake::execute(){
-  switch(intakeState){
-    case IN:
-      Robot::setPower({left, right}, 127);
-      break;
-    case OUT:
-      Robot::setPower({left, right}, -127);
-      break;
-    case AUTOINDEX:
-      break;
-    case OFF:
-      Robot::setPower(left, 0);
-      break;
-  }
-}
-
 void Intake::run(){
   while(true){
     updateState();
-    execute();
+
+    switch(intakeState){
+      case IN:
+        Robot::setPower({left, right}, 127);
+        break;
+      case OUT:
+        Robot::setPower({left, right}, -127);
+        break;
+      case AUTOINDEX:
+        break;
+      case OFF:
+        Robot::setPower(left, 0);
+        break;
+    }
+
     pros::delay(3);
   }
 }

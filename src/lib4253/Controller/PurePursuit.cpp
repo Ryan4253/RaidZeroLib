@@ -24,9 +24,8 @@ void PurePursuitFollower::initialize(){
 
 }
 
-void PurePursuitFollower::closestPoint(){
+void PurePursuitFollower::closestPoint(Vector currentPos){
     std::vector<Vector> waypoint = path.getWaypoint();
-    Vector currentPos = (OdomController::getPos()).toVector();
 
     double minDist = currentPos.distanceTo(waypoint[prevClosestPt]);
     double minIndex = prevClosestPt;

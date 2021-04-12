@@ -98,9 +98,8 @@ void opcontrol(void);
 #include "lib4253/Controller/TakeBackHalf.hpp" // done
 #include "lib4253/Controller/LinearMotionProfile.hpp"
 
-#include "lib4253/Utility/Odometry.hpp" // done
-
 #include "lib4253/Subsystems/Robot.hpp" // done
+#include "lib4253/Subsystems/Odometry.hpp" // done
 #include "lib4253/Subsystems/Drive.hpp" // done
 #include "lib4253/Subsystems/Flywheel.hpp"
 #include "lib4253/Subsystems/Lift.hpp"

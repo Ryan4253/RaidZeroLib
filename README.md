@@ -10,5 +10,7 @@ Features:
 - Everything written in classes, easily instantiable by entering motor & sensor ports
 - Custom task declaration using maps -> easily start/end-able
 - Very clean code, even idiots like Andre can read it /s
+- OPPA GANGNAM STYLE
+- autism
 
 **The code currently have no comments, since I'm lazy**

@@ -152,6 +152,27 @@ Vector Drive::scaleSpeed(double drivePower, double turnPower, double turnScale){
   return {leftPower, rightPower};
 }
 
+void Drive::moveDistanceLMP(double distance){
+  Timer timer;
+  bruhMobile->setDistance(distance);
+  double initTime = timer.millis().convert(second), timeElapsed;
+  double initAngle = getAngle();
+  do{
+    timeElapsed = timer.millis().convert(second) - initTime;
+    double velocity = bruhMobile->getVelocityTime(timeElapsed);
+    double angle = getAngle() - initAngle;
+
+    double rpm = velocity / 2 / M_PI * 60 / 4.15;
+
+    left.moveVelocity(velocity + angle * 5);
+    right.moveVelocity(velocity - angle * 5);
+
+  }while(timeElapsed <= bruhMobile->getTotalTime());
+
+  Robot::setPower(left, 0);
+  Robot::setPower(right, 0);
+}
+
 void Drive::moveDistance(double dist, QTime timeLimit) {
   Pose currentPos = odom->getPos();
   Vector displacement = {dist * cos(currentPos.angle), dist * sin(currentPos.angle)};

@@ -28,6 +28,8 @@ class Drive{
     void turnAngle(double angle, QTime timeLimit);
     void turnToAngle(double angle, QTime timeLimit);
 
+    void moveDistanceLMP(double distance);
+
     static void driveTask(void *ptr);
 
   protected:
@@ -35,12 +37,13 @@ class Drive{
     MotorGroup right;
 
   private:
+    CustomOdometry* odom;
     PID drivePID; PID turnPID;
     SlewController driveSlew;
     PurePursuitFollower PPTenshi;
+    LinearMotionProfileController* bruhMobile;
     std::shared_ptr<ChassisController> chassis;
     std::shared_ptr<AsyncMotionProfileController> profileController;
-    CustomOdometry* odom;
 
     double maxVelocity, maxAcceleration;
     State driveState = TANK;

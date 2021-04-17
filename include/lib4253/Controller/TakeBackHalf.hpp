@@ -1,5 +1,4 @@
 #pragma once
-#include "main.h"
 
 class TakeBackHalf{
   private:

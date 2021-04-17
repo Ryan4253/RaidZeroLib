@@ -1,4 +1,4 @@
-#include "main.h"
+#include "avgFilter.hpp"
 
 avgFilter::avgFilter(){
   maxSize = 1000;

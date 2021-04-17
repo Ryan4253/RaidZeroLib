@@ -1,5 +1,4 @@
 #pragma once
-#include "main.h"
 #include "lib4253/Utility/Path.hpp"
 
 class PurePursuitFollower{

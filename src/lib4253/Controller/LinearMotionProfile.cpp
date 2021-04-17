@@ -1,4 +1,5 @@
 #include "main.h"
+#include "lib4253/Controller/LinearMotionProfile.hpp"
 
 LinearMotionProfileController::LinearMotionProfileController(double a, double maxV){
     maxAcc = a,  maxVel = maxV;

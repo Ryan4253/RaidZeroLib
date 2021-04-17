@@ -217,9 +217,9 @@ void OdomDisplay::run() {
     std::string text = "X: " + std::to_string(tracker->getX()/12) + "\n" +
                        "Y: " + std::to_string(tracker->getY()/12) + "\n" +
                        "Theta: " + std::to_string(tracker->getAngleDeg()) + "\n" +
-                       "Left: " + std::to_string(leftEncoder.get()) + "\n" +
-                       "Right: " + std::to_string(rightEncoder.get()) + "\n" +
-                       "Mid: " + std::to_string(midEncoder.get());
+                       "Left: " + std::to_string(tracker->getEncoderLeft()) + "\n" +
+                       "Right: " + std::to_string(tracker->getEncoderMid()) + "\n" +
+                       "Mid: " + std::to_string(tracker->getEncoderRight());
     lv_label_set_text(label, text.c_str());
     lv_obj_align(label, container, LV_ALIGN_CENTER,
                  -lv_obj_get_width(container) / 2 + (lv_obj_get_width(container) - fieldDim) / 2,

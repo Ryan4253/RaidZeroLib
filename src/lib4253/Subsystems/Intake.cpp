@@ -1,4 +1,6 @@
 #include "main.h"
+#include "Intake.hpp"
+#include "Robot.hpp"
 
 Roller::Roller(int tPort, int bPort):
   top(tPort), bottom(bPort)

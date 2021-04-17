@@ -1,5 +1,8 @@
 #pragma once
 #include "main.h"
+#include "lib4253/Utility/Path.hpp"
+#include "lib4253/Utility/Math.hpp"
+
 
 class CustomOdometry{
   protected:
@@ -19,6 +22,10 @@ class CustomOdometry{
     double getAngleDeg();
     double getAngleRad();
 
+    virtual double getEncoderLeft();
+    virtual double getEncoderRight();
+    virtual double getEncoderMid();
+
     void setPos(Pose newPos);
     void setX(double x);
     void setX(QLength );
@@ -26,6 +33,8 @@ class CustomOdometry{
     void setY(QLength inch);
     void setAngleDeg(double theta);
     void setAngleRad(double theta);
+
+    void displayPosition();
 
     void resetState();
     virtual void resetSensors() = 0;
@@ -36,6 +45,7 @@ class CustomOdometry{
 class ADIThreeWheelOdometry:public CustomOdometry{
   private:
     void updatePos();
+    double lVal, mVal, rVal;
     double lPrev, mPrev, rPrev;
     double lDist, rDist, mDist;
     ADIEncoder left, mid, right;
@@ -43,12 +53,17 @@ class ADIThreeWheelOdometry:public CustomOdometry{
   public:
     ADIThreeWheelOdometry(std::tuple<char, char, bool> l, std::tuple<char, char, bool> m, std::tuple<char, char, bool> r);
     void withDimensions(std::tuple<double, double, double> dimension);
+
     void resetSensors();
+    double getEncoderLeft();
+    double getEncoderRight();
+    double getEncoderMid();
 };
 
 class ADITwoWheelIMUOdometry:public CustomOdometry{
   private:
     void updatePos();
+    double mVal, sVal, aVal;
     double mPrev, sPrev, aPrev;
     double mDist, sDist;
     ADIEncoder mid, side; IMU imu;
@@ -56,5 +71,8 @@ class ADITwoWheelIMUOdometry:public CustomOdometry{
   public:
     ADITwoWheelIMUOdometry(std::tuple<char, char, bool> s, std::tuple<char, char, bool> m, int port);
     void withDimensions(std::tuple<double, double> dimension);
+
     void resetSensors();
+    double getEncoderLeft();
+    double getEncoderMid();
 };

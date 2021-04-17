@@ -30,6 +30,9 @@ enum competition{
 };
 
 class Robot{
+  private:
+    static std::map<std::string, std::unique_ptr<pros::Task>> tasks;
+
   public:
     static void setPower(MotorGroup motor, double power);
     static void setPower(Motor motor, double power);
@@ -40,10 +43,6 @@ class Robot{
     static bool taskExists(std::string name);
     static void endTask(std::string name);
 
-    static void displayPosition(void *ptr);
-
-    static std::map<std::string, std::unique_ptr<pros::Task>> tasks;
 };
-
 
 extern competition matchState;

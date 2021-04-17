@@ -1,4 +1,5 @@
-#include "main.h"
+#include "Drive.hpp"
+#include "Robot.hpp"
 
 /* CONSTRUCTOR */
 
@@ -41,17 +42,10 @@ Drive& Drive::withSlew(int acc, int dec){
 void Drive::initialize(){
   Robot::setBrakeMode(left, COAST);
   Robot::setBrakeMode(right, COAST);
-  resetEncoders();
   resetIMU();
 }
 
 /* SENSOR FUNCTION */
-
-void Drive::resetEncoders() {
-	leftEncoder.reset();
-	rightEncoder.reset();
-  midEncoder.reset();
-}
 
 void Drive::resetIMU(){
   imuTop.reset();
@@ -61,10 +55,6 @@ void Drive::resetIMU(){
 
 double Drive::getAngle() {
   return (imuTop.get_rotation() + imuBottom.get_rotation()) / 2;
-}
-
-double Drive::getDistance(){
-  return (leftEncoder.get() + rightEncoder.get())/2;
 }
 
 /* STATE FUNCTION */

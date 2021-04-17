@@ -1,5 +1,4 @@
 #pragma once
-#include "main.h"
 
 class Biquad{
   double prevInput[2];

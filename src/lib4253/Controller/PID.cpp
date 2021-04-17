@@ -1,4 +1,4 @@
-#include "main.h"
+#include "lib4253/Controller/PID.hpp"
 //#include "lib4253/Filter/emaFilter.hpp"
 
 PID::PID(double a, double b, double c){
@@ -46,10 +46,6 @@ double PID::update(double err) {
 
   return error * kP + integral * kI + derivative * kD; // final power output
 }
-
-bool PID::settleUtil(double errorThresh, int timeThresh) {
-  return !((std::abs(error) <= errorThresh));
-};
 
 void FPID::setFGain(double f){
   kF = f;

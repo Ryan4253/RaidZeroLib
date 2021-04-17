@@ -1,4 +1,4 @@
-#include "main.h"
+#include "Odometry.hpp"
 
 CustomOdometry::CustomOdometry():globalPos(0, 0, 0){
 }
@@ -35,6 +35,10 @@ double CustomOdometry::getAngleRad(){
   return globalPos.angle;
 }
 
+double CustomOdometry::getEncoderLeft(){}
+double CustomOdometry::getEncoderMid(){}
+double CustomOdometry::getEncoderRight(){}
+
 void CustomOdometry::setPos(Pose newPos){
   globalPos.x = (double)newPos.x;
   globalPos.y = (double)newPos.y;
@@ -63,6 +67,13 @@ void CustomOdometry::setAngleDeg(double theta){
 
 void CustomOdometry::setAngleRad(double theta){
   globalPos.angle = theta;
+}
+
+void CustomOdometry::displayPosition(){
+  std::cout << "X: " << globalPos.x << " Y: " << globalPos.y << " A: " << globalPos.angle;
+  pros::lcd::print(2, "X: %lf", globalPos.x);
+  pros::lcd::print(3, "Y: %lf", globalPos.y);
+  pros::lcd::print(4, "A: %lf", Math::radToDeg(globalPos.angle));
 }
 
 void CustomOdometry::resetState(){
@@ -100,9 +111,21 @@ void ADIThreeWheelOdometry::resetSensors(){
   left.reset(); mid.reset(); right.reset();
 }
 
+double ADIThreeWheelOdometry::getEncoderLeft(){
+  return lVal;
+}
+
+double ADIThreeWheelOdometry::getEncoderMid(){
+  return mVal;
+}
+
+double ADIThreeWheelOdometry::getEncoderRight(){
+  return rVal;
+}
+
 void ADIThreeWheelOdometry::updatePos(){
   while(true){
-    double lVal = left.get(), mVal = mid.get(), rVal = right.get();
+    lVal = left.get(), mVal = mid.get(), rVal = right.get();
 
     double left = Math::tickToInch(lVal - lPrev);
     double right = Math::tickToInch(rVal - rPrev);
@@ -152,9 +175,17 @@ void ADITwoWheelIMUOdometry::resetSensors(){
   imu.reset();
 }
 
+double ADITwoWheelIMUOdometry::getEncoderLeft(){
+  return sVal;
+}
+
+double ADITwoWheelIMUOdometry::getEncoderMid(){
+  return mVal;
+}
+
 void ADITwoWheelIMUOdometry::updatePos(){
   while(true){
-    double sVal = side.get(), mVal = mid.get(), aVal = imu.get();
+    sVal = side.get(), mVal = mid.get(), aVal = imu.get();
 
     double side = Math::tickToInch(sVal - sPrev);
     double mid = Math::tickToInch(mVal - mPrev);

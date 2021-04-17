@@ -1,5 +1,4 @@
 #pragma once
-#include "main.h"
 
 class BangBang{
   double highPower, lowPower, targetVel;

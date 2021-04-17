@@ -81,7 +81,7 @@ void opcontrol(void);
 /**
  * You can add C++-only headers here
  */
-
+/*
 #include "lib4253/Utility/Path.hpp" // done
 #include "lib4253/Utility/Math.hpp" // done
 #include "lib4253/Utility/Matrix.hpp"
@@ -106,6 +106,7 @@ void opcontrol(void);
 #include "lib4253/Subsystems/Intake.hpp" // done
 
 #include "lib4253/Utility/auton.hpp" // done
+*/
 
 static int auton = 0;
 

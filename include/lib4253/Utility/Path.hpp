@@ -2,8 +2,8 @@
 #include "main.h"
 
 struct Vector{
-  std::atomic<double> x;
-  std::atomic<double> y;
+  double x;
+  double y;
 
   Vector(double a, double b){
     x = a, y = b;
@@ -31,9 +31,9 @@ struct Vector{
 };
 
 struct Pose{
-  std::atomic<double> x;
-  std::atomic<double> y;
-  std::atomic<double> angle;
+  double x;
+  double y;
+  double angle;
 
   Pose(double a, double b){
     x = a, y = b, angle = 0;

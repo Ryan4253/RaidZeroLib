@@ -1,6 +1,4 @@
 #pragma once
-#include "main.h"
-
 
 class LinearMotionProfileController{
   private:
@@ -13,14 +11,8 @@ class LinearMotionProfileController{
 
     LinearMotionProfileController();
     LinearMotionProfileController(double maxA, double maxVel);
+
   public:
-    /*
-    LinearMotionProfileController& withStartingVelocity(double v);
-    LinearMotionProfileController& withEndingVelocity(double v);
-    LinearMotionProfileController& withMaxVelocity(double v);
-    LinearMotionProfileController& withMaxAcceleration(double a);
-    LinearMotionProfileController& withMaxDeceleration(double a);
-    */
 
     void setKinematics(double maxV, double maxA);
     void setDistance(double d);

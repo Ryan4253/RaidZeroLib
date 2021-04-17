@@ -1,5 +1,11 @@
 #pragma once
 #include "main.h"
+#include "Odometry.hpp"
+#include "lib4253/Controller/PID.hpp"
+#include "lib4253/Controller/Slew.hpp"
+#include "lib4253/Controller/PurePursuit.hpp"
+#include "lib4253/Controller/LinearMotionProfile.hpp"
+
 
 class Drive{
   public:
@@ -18,9 +24,7 @@ class Drive{
     State getState();
     void setState(State s);
 
-    void resetEncoders();
     void resetIMU();
-    double getDistance();
     double getAngle();
 
     void moveDistance(double distance, QTime timeLimit);

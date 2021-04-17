@@ -1,4 +1,6 @@
 #include "main.h"
+#include "Path.hpp"
+#include "lib4253/Utility/Math.hpp"
 
 ////////////////////////////// VECTOR ////////////////////////////////
 
@@ -85,7 +87,7 @@ double Pose::angleTo(Vector target){
 /////////////////////////////// PATH /////////////////////////////////
 
 Path::Path(){
-  
+
 }
 
 Path::Path(Vector v){

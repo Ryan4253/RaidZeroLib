@@ -1,5 +1,7 @@
 #pragma once
 #include "main.h"
+#include "lib4253/Subsystems/Odometry.hpp"
+
 
 // credits to Theo Lemay from team 7842F for coding this display
 // original repo: https://github.com/theol0403/7842F-Competition-Code

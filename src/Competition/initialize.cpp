@@ -1,4 +1,5 @@
 #include "main.h"
+#include "declarations.hpp"
 
 void autonSelector(){
   int lPreValue = 0;
@@ -40,12 +41,13 @@ void autonSelector(){
 }
 
 void initialize() {
-  pros::lcd::initialize();
-  pros::lcd::print(1, "INITIALIZE");
+  pros::lcd::initialize(); pros::lcd::print(1, "INITIALIZE");
+  matchState = INITIALIZE;
 
-  
+  initSubsystems();
+  initThreads();
 
-  //autonSelector();
+  autonSelector();
 }
 
 void competition_initialize(){}

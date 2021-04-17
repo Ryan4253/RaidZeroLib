@@ -1,5 +1,4 @@
 #pragma once
-#include "main.h"
 
 class emaFilter{
   private:

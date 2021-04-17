@@ -1,4 +1,5 @@
 #include "main.h"
+#include "Math.hpp"
 
 double Math::degToRad(double deg){
   return deg * M_PI / 180;
@@ -9,11 +10,20 @@ double Math::radToDeg(double rad){
 }
 
 double Math::tickToInch(double tick){
-  return tick * WHEEL_CIRCUM / 360;
+  return tick * 2.75*M_PI / 360;
 }
 
+double Math::tickToInch(double tick, double rad, double ticksPerRotation){
+  return tick * (rad * M_PI) / ticksPerRotation;
+}
+
+
 double Math::inchToTick(double inch){
-  return (inch * (360/WHEEL_CIRCUM));
+  return (inch / (2.75*M_PI) * 360);
+}
+
+double Math::inchToTick(double inch, double rad, double ticksPerRotation){
+  return inch / (rad * M_PI) * ticksPerRotation;
 }
 
 double Math::cubicControl(double power){

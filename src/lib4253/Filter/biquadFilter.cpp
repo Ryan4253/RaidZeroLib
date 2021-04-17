@@ -1,4 +1,5 @@
-#include "main.h"
+#include "lib4253/Utility/Math.hpp"
+#include "biquadFilter.hpp"
 
 Biquad::Biquad(Biquad::state type, double sampleFreq, double cutoffFreq, double initValue){
   double w0 =  2 * M_PI * cutoffFreq / sampleFreq;

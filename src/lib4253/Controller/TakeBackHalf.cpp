@@ -1,4 +1,6 @@
 #include "main.h"
+#include "lib4253/Controller/TakeBackHalf.hpp"
+#include "lib4253/Utility/Math.hpp"
 
 TakeBackHalf::TakeBackHalf(double g){
   gain = g;

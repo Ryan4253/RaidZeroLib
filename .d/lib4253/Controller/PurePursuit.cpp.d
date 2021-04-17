@@ -1,16 +1,19 @@
-bin/lib4253/Subsystems/Intake.cpp.o: src/lib4253/Subsystems/Intake.cpp \
- include/main.h include/api.h include/pros/adi.h include/pros/colors.h \
- include/pros/distance.h include/pros/ext_adi.h include/pros/adi.h \
- include/pros/adi.h include/pros/imu.h include/pros/llemu.h \
- include/display/lvgl.h include/display/lv_version.h \
- include/display/lv_misc/lv_log.h include/display/lv_conf.h \
- include/display/lv_conf_checker.h include/display/lv_misc/lv_task.h \
- include/display/lv_misc/lv_mem.h include/display/lv_misc/lv_log.h \
- include/display/lv_misc/lv_ll.h include/display/lv_hal/lv_hal.h \
- include/display/lv_hal/lv_hal_disp.h include/display/lv_hal/lv_hal.h \
- include/display/lv_misc/lv_color.h include/display/lv_misc/lv_area.h \
- include/display/lv_hal/lv_hal_indev.h include/display/lv_core/lv_obj.h \
- include/display/lv_core/lv_style.h include/display/lv_misc/lv_font.h \
+bin/lib4253/Controller/PurePursuit.cpp.o: \
+ src/lib4253/Controller/PurePursuit.cpp \
+ include/lib4253/Controller/PurePursuit.hpp \
+ include/lib4253/Utility/Path.hpp include/main.h include/api.h \
+ include/pros/adi.h include/pros/colors.h include/pros/distance.h \
+ include/pros/ext_adi.h include/pros/adi.h include/pros/adi.h \
+ include/pros/imu.h include/pros/llemu.h include/display/lvgl.h \
+ include/display/lv_version.h include/display/lv_misc/lv_log.h \
+ include/display/lv_conf.h include/display/lv_conf_checker.h \
+ include/display/lv_misc/lv_task.h include/display/lv_misc/lv_mem.h \
+ include/display/lv_misc/lv_log.h include/display/lv_misc/lv_ll.h \
+ include/display/lv_hal/lv_hal.h include/display/lv_hal/lv_hal_disp.h \
+ include/display/lv_hal/lv_hal.h include/display/lv_misc/lv_color.h \
+ include/display/lv_misc/lv_area.h include/display/lv_hal/lv_hal_indev.h \
+ include/display/lv_core/lv_obj.h include/display/lv_core/lv_style.h \
+ include/display/lv_misc/lv_font.h \
  include/display/lv_misc/lv_symbol_def.h \
  include/display/lv_fonts/lv_font_builtin.h \
  include/display/lv_misc/lv_anim.h include/display/lv_misc/lv_mem.h \
@@ -189,9 +192,11 @@ bin/lib4253/Subsystems/Intake.cpp.o: src/lib4253/Subsystems/Intake.cpp \
  include/okapi/api/units/QMass.hpp include/okapi/api/units/QJerk.hpp \
  include/okapi/api/units/QPressure.hpp \
  include/okapi/api/units/QTorque.hpp include/okapi/api/units/QVolume.hpp \
- include/okapi/impl/util/rate.hpp include/display/lvgl.h \
- include/lib4253/Subsystems/Intake.hpp \
- include/lib4253/Subsystems/Robot.hpp
+ include/okapi/impl/util/rate.hpp include/display/lvgl.h
+
+include/lib4253/Controller/PurePursuit.hpp:
+
+include/lib4253/Utility/Path.hpp:
 
 include/main.h:
 
@@ -730,7 +735,3 @@ include/okapi/api/units/QVolume.hpp:
 include/okapi/impl/util/rate.hpp:
 
 include/display/lvgl.h:
-
-include/lib4253/Subsystems/Intake.hpp:
-
-include/lib4253/Subsystems/Robot.hpp:

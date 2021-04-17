@@ -1,11 +1,14 @@
 #pragma once
 #include "main.h"
+#include "Path.hpp"
 
 namespace Math{
     double degToRad(double deg);
     double radToDeg(double rad);
     double tickToInch(double tick);
+    double tickToInch(double tick, double rad, double ticksPerRotation);
     double inchToTick(double inch);
+    double inchToTick(double tick, double rad, double ticksPerRotation);
     double cubicControl(double power);
 
     double wrapAngle360(double angle);
@@ -17,8 +20,3 @@ namespace Math{
 
     double clamp(double val, double mn, double mx);
 };
-
-const double WHEEL_CIRCUM = 2.75 * M_PI;
-const double LDIST = 3.389;
-const double RDIST = 3.389;
-const double MDIST = 5.748;

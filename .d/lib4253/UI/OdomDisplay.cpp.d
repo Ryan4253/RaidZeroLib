@@ -1,4 +1,4 @@
-bin/lib4253/Subsystems/Intake.cpp.o: src/lib4253/Subsystems/Intake.cpp \
+bin/lib4253/UI/OdomDisplay.cpp.o: src/lib4253/UI/OdomDisplay.cpp \
  include/main.h include/api.h include/pros/adi.h include/pros/colors.h \
  include/pros/distance.h include/pros/ext_adi.h include/pros/adi.h \
  include/pros/adi.h include/pros/imu.h include/pros/llemu.h \
@@ -190,8 +190,9 @@ bin/lib4253/Subsystems/Intake.cpp.o: src/lib4253/Subsystems/Intake.cpp \
  include/okapi/api/units/QPressure.hpp \
  include/okapi/api/units/QTorque.hpp include/okapi/api/units/QVolume.hpp \
  include/okapi/impl/util/rate.hpp include/display/lvgl.h \
- include/lib4253/Subsystems/Intake.hpp \
- include/lib4253/Subsystems/Robot.hpp
+ include/lib4253/Display/OdomDisplay.hpp \
+ include/lib4253/Subsystems/Odometry.hpp include/lib4253/Utility/Path.hpp \
+ include/lib4253/Utility/Math.hpp
 
 include/main.h:
 
@@ -731,6 +732,10 @@ include/okapi/impl/util/rate.hpp:
 
 include/display/lvgl.h:
 
-include/lib4253/Subsystems/Intake.hpp:
+include/lib4253/Display/OdomDisplay.hpp:
 
-include/lib4253/Subsystems/Robot.hpp:
+include/lib4253/Subsystems/Odometry.hpp:
+
+include/lib4253/Utility/Path.hpp:
+
+include/lib4253/Utility/Math.hpp:

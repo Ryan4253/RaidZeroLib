@@ -20,7 +20,6 @@ class PID {
 
     void initialize();
     double update(double error);
-    bool settleUtil(double errorThresh, int timeThresh);
 };
 
 class FPID:PID{

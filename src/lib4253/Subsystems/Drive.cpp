@@ -39,7 +39,8 @@ Drive& Drive::withSlew(int acc, int dec){
 }
 
 void Drive::initialize(){
-  Robot::setBrakeMode(base, COAST);
+  Robot::setBrakeMode(left, COAST);
+  Robot::setBrakeMode(right, COAST);
   resetEncoders();
   resetIMU();
 }
@@ -167,10 +168,16 @@ void Drive::moveDistanceLMP(double distance){
     left.moveVelocity(velocity + angle * 5);
     right.moveVelocity(velocity - angle * 5);
 
+
+
   }while(timeElapsed <= bruhMobile->getTotalTime());
 
   Robot::setPower(left, 0);
   Robot::setPower(right, 0);
+}
+
+void Drive::moveDistanceLMPD(double dist){
+
 }
 
 void Drive::moveDistance(double dist, QTime timeLimit) {
@@ -218,7 +225,8 @@ void Drive::moveTo(Vector target, double turnScale, QTime timeLimit){
 
 
   }while((distToTarget >= 0.125) && timeLimit > (timer.millis()-startTime));
-  Robot::setPower(base, 0);
+  Robot::setPower(left, 0);
+  Robot::setPower(right, 0);
 }
 
 void Drive::turnAngle(double angle, QTime timeLimit){
@@ -240,7 +248,8 @@ void Drive::turnAngle(double angle, QTime timeLimit){
     pros::delay(10);
   }while((error >= 2) && timeLimit > (timer.millis()-startTime));
 
-  Robot::setPower(base, 0);
+  Robot::setPower(left, 0);
+  Robot::setPower(right, 0);
 }
 
 void Drive::turnToAngle(double angle, QTime timeLimit){
@@ -259,7 +268,6 @@ void Drive::turnToAngle(double angle, QTime timeLimit){
     pros::delay(10);
   }while((error >= 2) && timeLimit > (timer.millis()-startTime));
 
-  Robot::setPower(base, 0);
+  Robot::setPower(left, 0);
+  Robot::setPower(right, 0);
 }
-
-Drive drive({-10, 9}, {8, -7});

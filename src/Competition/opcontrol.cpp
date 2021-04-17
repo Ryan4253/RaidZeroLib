@@ -1,4 +1,5 @@
 #include "main.h"
+#include "declarations.hpp"
 
 void opcontrol() {
 	int x;

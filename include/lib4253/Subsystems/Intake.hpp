@@ -7,7 +7,7 @@ class Roller{
       IN, OUT, EJECT, AUTOINDEX, OFF
     };
 
-    Roller(Motor a, Motor b);
+    Roller(int tPort, int bPort);
     State getState();
     void setState(State s);
     void rollerTask(void *ptr);
@@ -31,7 +31,7 @@ class Intake{
       OFF, IN, OUT, AUTOINDEX
     };
 
-    Intake(Motor a, Motor b);
+    Intake(int lPort, int rPort);
     State getState();
     void setState(State s);
     void intakeTask(void *ptr);
@@ -40,7 +40,7 @@ class Intake{
     Motor left, right;
 
   private:
-    State intakeState;
+    State intakeState = OFF;
     void updateState();
     void run();
     friend class Roller;

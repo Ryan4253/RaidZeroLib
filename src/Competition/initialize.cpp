@@ -43,13 +43,7 @@ void initialize() {
   pros::lcd::initialize();
   pros::lcd::print(1, "INITIALIZE");
 
-  drive
-    .withOdometry(tracker)
-    .withDrivePID({0, 0, 0}, {1, 1}, {1})
-    .withTurnPID({0, 0, 0}, {1, 1}, {1})
-    .withPurePursuit({0, 0, 0}, {2}, {1, 1})
-    .withSlew(256, 9)
-    .initialize();
+  
 
   //autonSelector();
 }

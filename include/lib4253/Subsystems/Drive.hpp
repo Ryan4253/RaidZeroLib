@@ -29,6 +29,7 @@ class Drive{
     void turnToAngle(double angle, QTime timeLimit);
 
     void moveDistanceLMP(double distance);
+    void moveDistanceLMPD(double distance);
 
     static void driveTask(void *ptr);
 
@@ -57,5 +58,3 @@ class Drive{
     void tank();
     void arcade();
 };
-
-extern Drive drive;

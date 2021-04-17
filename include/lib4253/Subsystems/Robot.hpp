@@ -25,7 +25,6 @@ enum brakeType{
   COAST, BRAKE, HOLD
 };
 
-
 enum competition{
   OPCONTROL, AUTONOMOUS, INITIALIZE, DISABLED
 };

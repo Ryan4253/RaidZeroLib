@@ -1,31 +1,29 @@
 #include "main.h"
 
 Controller master(ControllerId::master);
-
-//Motor LF(10, pros::E_MOTOR_GEARSET_06, true);
+/*
 Motor LF(10, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
 Motor LB(9, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
 Motor RF(8, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
 Motor RB(7, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
 
-pros::Imu imuBottom(11);
-pros::Imu imuTop(12);
-
-ADIEncoder leftEncoder('A', 'B', true);
-ADIEncoder rightEncoder('E', 'F', false);
-ADIEncoder midEncoder('C', 'D', false);
-ADIButton leftAutonSelector('G');
-ADIButton rightAutonSelector('H');
-
 MotorGroup baseLeft({LF, LB});
 MotorGroup baseRight({RF, RB});
 MotorGroup base({LF, LB, RF, RB});
 
+ADIEncoder leftEncoder('A', 'B', true);
+ADIEncoder rightEncoder('E', 'F', false);
+ADIEncoder midEncoder('C', 'D', false);
+*/
+pros::Imu imuBottom(11);
+pros::Imu imuTop(12);
+
+ADIButton leftAutonSelector('G');
+ADIButton rightAutonSelector('H');
+
+
+
 std::map<std::string, std::unique_ptr<pros::Task>> Robot::tasks;
-
-
-
-
 
 void Robot::setPower(MotorGroup motor, double power){
   motor.moveVoltage(power / 127 * 12000);

@@ -8,6 +8,8 @@ class CustomOdometry{
 
   public:
     CustomOdometry();
+    virtual void withDimensions(std::tuple<double, double> dimension);
+    virtual void withDimensions(std::tuple<double, double, double> dimension);
 
     Pose getPos();
     double getX();
@@ -39,9 +41,20 @@ class ADIThreeWheelOdometry:public CustomOdometry{
     ADIEncoder left, mid, right;
 
   public:
-    ADIThreeWheelOdometry& withDimensions(std::tuple<double, double, double> dimension);
     ADIThreeWheelOdometry(std::tuple<char, char, bool> l, std::tuple<char, char, bool> m, std::tuple<char, char, bool> r);
+    void withDimensions(std::tuple<double, double, double> dimension);
     void resetSensors();
 };
 
-extern CustomOdometry* tracker;
+class ADITwoWheelIMUOdometry:public CustomOdometry{
+  private:
+    void updatePos();
+    double mPrev, sPrev, aPrev;
+    double mDist, sDist;
+    ADIEncoder mid, side; IMU imu;
+
+  public:
+    ADITwoWheelIMUOdometry(std::tuple<char, char, bool> s, std::tuple<char, char, bool> m, int port);
+    void withDimensions(std::tuple<double, double> dimension);
+    void resetSensors();
+};

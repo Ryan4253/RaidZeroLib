@@ -1,10 +1,8 @@
 #include "main.h"
 
-Roller::Roller(Motor a, Motor b):
-  top(a.getPort(), a.isReversed(), a.getGearing(), a.getEncoderUnits(), Logger::getDefaultLogger()),
-  bottom(b.getPort(), b.isReversed(), b.getGearing(), b.getEncoderUnits(), Logger::getDefaultLogger())
-{
-}
+Roller::Roller(int tPort, int bPort):
+  top(tPort), bottom(bPort)
+{}
 
 void Roller::setState(State i){
   if(rollerState != i){
@@ -81,11 +79,9 @@ void Roller::rollerTask(void *ptr){
   that->run();
 }
 
-Intake::Intake(Motor a, Motor b):
-  left(a.getPort(), a.isReversed(), a.getGearing(), a.getEncoderUnits(), Logger::getDefaultLogger()),
-  right(b.getPort(), b.isReversed(), b.getGearing(), b.getEncoderUnits(), Logger::getDefaultLogger())
-{
-}
+Intake::Intake(int lPort, int rPort):
+  left(lPort), right(rPort)
+{}
 
 Intake::State Intake::getState(){
   return intakeState;

@@ -1,5 +1,5 @@
-bin/Competition/auton.cpp.o: src/Competition/auton.cpp include/main.h \
- include/api.h include/pros/adi.h include/pros/colors.h \
+bin/lib4253/Splines/SimplePath.cpp.o: src/lib4253/Splines/SimplePath.cpp \
+ include/main.h include/api.h include/pros/adi.h include/pros/colors.h \
  include/pros/distance.h include/pros/ext_adi.h include/pros/adi.h \
  include/pros/adi.h include/pros/imu.h include/pros/llemu.h \
  include/display/lvgl.h include/display/lv_version.h \
@@ -190,15 +190,23 @@ bin/Competition/auton.cpp.o: src/Competition/auton.cpp include/main.h \
  include/okapi/api/units/QPressure.hpp \
  include/okapi/api/units/QTorque.hpp include/okapi/api/units/QVolume.hpp \
  include/okapi/impl/util/rate.hpp include/display/lvgl.h \
- include/declarations.hpp include/main.h \
- include/lib4253/Subsystems/Drive.hpp \
- include/lib4253/Subsystems/Odometry.hpp include/lib4253/Utility/Path.hpp \
- include/lib4253/Utility/Math.hpp include/lib4253/Controller/PID.hpp \
- include/lib4253/Filter/emaFilter.hpp include/lib4253/Controller/Slew.hpp \
+ include/lib4253/Splines/Point2D.hpp \
+ include/lib4253/Splines/SimplePath.hpp include/lib4253/Utility/Math.hpp \
+ include/lib4253/Utility/Matrix.hpp include/lib4253/Filter/emaFilter.hpp \
+ include/lib4253/Filter/avgFilter.hpp \
+ include/lib4253/Filter/kalmanFilter.hpp \
+ include/lib4253/Filter/biquadFilter.hpp \
+ include/lib4253/Controller/PID.hpp include/lib4253/Controller/Slew.hpp \
  include/lib4253/Controller/PurePursuit.hpp \
+ include/lib4253/Controller/BangBang.hpp \
+ include/lib4253/Controller/TakeBackHalf.hpp \
  include/lib4253/Controller/LinearMotionProfile.hpp \
  include/lib4253/Subsystems/Robot.hpp \
- include/lib4253/Subsystems/Intake.hpp
+ include/lib4253/Subsystems/Odometry.hpp \
+ include/lib4253/Subsystems/Drive.hpp \
+ include/lib4253/Subsystems/Flywheel.hpp \
+ include/lib4253/Subsystems/Lift.hpp \
+ include/lib4253/Subsystems/Intake.hpp include/lib4253/Utility/auton.hpp
 
 include/main.h:
 
@@ -738,28 +746,44 @@ include/okapi/impl/util/rate.hpp:
 
 include/display/lvgl.h:
 
-include/declarations.hpp:
+include/lib4253/Splines/Point2D.hpp:
 
-include/main.h:
-
-include/lib4253/Subsystems/Drive.hpp:
-
-include/lib4253/Subsystems/Odometry.hpp:
-
-include/lib4253/Utility/Path.hpp:
+include/lib4253/Splines/SimplePath.hpp:
 
 include/lib4253/Utility/Math.hpp:
 
-include/lib4253/Controller/PID.hpp:
+include/lib4253/Utility/Matrix.hpp:
 
 include/lib4253/Filter/emaFilter.hpp:
+
+include/lib4253/Filter/avgFilter.hpp:
+
+include/lib4253/Filter/kalmanFilter.hpp:
+
+include/lib4253/Filter/biquadFilter.hpp:
+
+include/lib4253/Controller/PID.hpp:
 
 include/lib4253/Controller/Slew.hpp:
 
 include/lib4253/Controller/PurePursuit.hpp:
 
+include/lib4253/Controller/BangBang.hpp:
+
+include/lib4253/Controller/TakeBackHalf.hpp:
+
 include/lib4253/Controller/LinearMotionProfile.hpp:
 
 include/lib4253/Subsystems/Robot.hpp:
 
+include/lib4253/Subsystems/Odometry.hpp:
+
+include/lib4253/Subsystems/Drive.hpp:
+
+include/lib4253/Subsystems/Flywheel.hpp:
+
+include/lib4253/Subsystems/Lift.hpp:
+
 include/lib4253/Subsystems/Intake.hpp:
+
+include/lib4253/Utility/auton.hpp:

@@ -1,3 +1,4 @@
+#include "main.h"
 #include "lib4253/Controller/BangBang.hpp"
 
 BangBang::BangBang(double h, double l, double t){

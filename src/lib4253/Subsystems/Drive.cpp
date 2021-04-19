@@ -99,7 +99,7 @@ void Drive::arcade(){
 
   int power = master.getAnalog(ControllerAnalog::leftY)*127;
   int turn = master.getAnalog(ControllerAnalog::rightX)*-127;
-  Vector finalPower = scaleSpeed(power, turn, 1);
+  Point2D finalPower = scaleSpeed(power, turn, 1);
 
   Robot::setPower(left, finalPower.x);
   Robot::setPower(right, finalPower.y);
@@ -131,7 +131,7 @@ void Drive::driveTask(void* ptr){
 
 /* AUTON FUNCTIONS */
 
-Vector Drive::scaleSpeed(double drivePower, double turnPower, double turnScale){
+Point2D Drive::scaleSpeed(double drivePower, double turnPower, double turnScale){
   double leftPower = drivePower - turnPower * turnScale;
   double rightPower = drivePower + turnPower * turnScale;
 
@@ -171,13 +171,13 @@ void Drive::moveDistanceLMPD(double dist){
 }
 
 void Drive::moveDistance(double dist, QTime timeLimit) {
-  Pose currentPos = odom->getPos();
-  Vector displacement = {dist * cos(currentPos.angle), dist * sin(currentPos.angle)};
-  Vector target = currentPos.toVector() + displacement;
+  Pose2D currentPos = odom->getPos();
+  Point2D displacement = {dist * cos(currentPos.angle), dist * sin(currentPos.angle)};
+  Point2D target = currentPos + displacement;
   moveTo(target, 1, timeLimit);
 }
 
-void Drive::moveTo(Vector target, double turnScale, QTime timeLimit){
+void Drive::moveTo(Point2D target, double turnScale, QTime timeLimit){
   drivePID.initialize();
   turnPID.initialize();
   driveSlew.reset();
@@ -185,8 +185,8 @@ void Drive::moveTo(Vector target, double turnScale, QTime timeLimit){
   double distToTarget; QTime startTime = timer.millis();
 
   do{
-    Pose currentPos = odom->getPos();
-    Vector closestPoint = currentPos.closest(target);
+    Pose2D currentPos = odom->getPos();
+    Point2D closestPoint = currentPos.closest(target);
     pros::lcd::print(0, "CURRENT X: %lf", (double)currentPos.x);
     pros::lcd::print(1, "CURRENT Y: %lf", (double)currentPos.y);
     pros::lcd::print(2, "CURRENT A: %lf", (double)currentPos.angle);
@@ -207,7 +207,7 @@ void Drive::moveTo(Vector target, double turnScale, QTime timeLimit){
 
     pros::lcd::print(6, "Drive Power: %lf", drivePower);
     pros::lcd::print(7, "Turn Power: %lf", turnPower);
-    Vector driveSpeed = Drive::scaleSpeed(drivePower, turnPower, 0.3);
+    Point2D driveSpeed = Drive::scaleSpeed(drivePower, turnPower, 0.3);
 
     Robot::setPower(left, driveSpeed.x);
     Robot::setPower(right, driveSpeed.y);

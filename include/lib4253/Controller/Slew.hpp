@@ -1,4 +1,5 @@
 #pragma once
+#include "main.h"
 
 class SlewController{
   protected:

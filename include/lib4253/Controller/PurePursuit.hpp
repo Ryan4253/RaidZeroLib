@@ -1,5 +1,6 @@
 #pragma once
-#include "lib4253/Utility/Path.hpp"
+#include "main.h"
+#include "lib4253/Splines/SimplePath.hpp"
 
 class PurePursuitFollower{
   private:
@@ -7,15 +8,15 @@ class PurePursuitFollower{
     double maxAcceleration = 0, maxVelocity = 0;
     double kT, kV, kA, kP;
     int prevClosestPt = 0, closestPt = 0;
-    Path path;
+    SimplePath path;
 
-    void closestPoint(Vector currentPoint);
-    Vector lookAhead();
+    void closestPoint(Point2D currentPoint);
+    Point2D lookAhead();
     void generateVelocity();
 
   public:
     PurePursuitFollower();
-    void followPath(Path path);
+    void followPath(SimplePath path);
     void initialize();
 
     void setTurnGain(double k);

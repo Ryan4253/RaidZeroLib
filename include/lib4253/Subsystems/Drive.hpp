@@ -28,7 +28,7 @@ class Drive{
     double getAngle();
 
     void moveDistance(double distance, QTime timeLimit);
-    void moveTo(Vector target, double turnScale, QTime timeLimit);
+    void moveTo(Point2D target, double turnScale, QTime timeLimit);
     void turnAngle(double angle, QTime timeLimit);
     void turnToAngle(double angle, QTime timeLimit);
 
@@ -54,7 +54,7 @@ class Drive{
     State driveState = TANK;
     int prevAState = 0;
 
-    Vector scaleSpeed(double linear, double turn, double turnScale);
+    Point2D scaleSpeed(double linear, double turn, double turnScale);
 
     void updateState();
     void run();

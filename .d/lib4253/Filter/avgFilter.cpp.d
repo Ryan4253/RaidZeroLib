@@ -1,17 +1,16 @@
 bin/lib4253/Filter/avgFilter.cpp.o: src/lib4253/Filter/avgFilter.cpp \
- include/lib4253/Filter/avgFilter.hpp include/main.h include/api.h \
- include/pros/adi.h include/pros/colors.h include/pros/distance.h \
- include/pros/ext_adi.h include/pros/adi.h include/pros/adi.h \
- include/pros/imu.h include/pros/llemu.h include/display/lvgl.h \
- include/display/lv_version.h include/display/lv_misc/lv_log.h \
- include/display/lv_conf.h include/display/lv_conf_checker.h \
- include/display/lv_misc/lv_task.h include/display/lv_misc/lv_mem.h \
- include/display/lv_misc/lv_log.h include/display/lv_misc/lv_ll.h \
- include/display/lv_hal/lv_hal.h include/display/lv_hal/lv_hal_disp.h \
- include/display/lv_hal/lv_hal.h include/display/lv_misc/lv_color.h \
- include/display/lv_misc/lv_area.h include/display/lv_hal/lv_hal_indev.h \
- include/display/lv_core/lv_obj.h include/display/lv_core/lv_style.h \
- include/display/lv_misc/lv_font.h \
+ include/main.h include/api.h include/pros/adi.h include/pros/colors.h \
+ include/pros/distance.h include/pros/ext_adi.h include/pros/adi.h \
+ include/pros/adi.h include/pros/imu.h include/pros/llemu.h \
+ include/display/lvgl.h include/display/lv_version.h \
+ include/display/lv_misc/lv_log.h include/display/lv_conf.h \
+ include/display/lv_conf_checker.h include/display/lv_misc/lv_task.h \
+ include/display/lv_misc/lv_mem.h include/display/lv_misc/lv_log.h \
+ include/display/lv_misc/lv_ll.h include/display/lv_hal/lv_hal.h \
+ include/display/lv_hal/lv_hal_disp.h include/display/lv_hal/lv_hal.h \
+ include/display/lv_misc/lv_color.h include/display/lv_misc/lv_area.h \
+ include/display/lv_hal/lv_hal_indev.h include/display/lv_core/lv_obj.h \
+ include/display/lv_core/lv_style.h include/display/lv_misc/lv_font.h \
  include/display/lv_misc/lv_symbol_def.h \
  include/display/lv_fonts/lv_font_builtin.h \
  include/display/lv_misc/lv_anim.h include/display/lv_misc/lv_mem.h \
@@ -190,9 +189,24 @@ bin/lib4253/Filter/avgFilter.cpp.o: src/lib4253/Filter/avgFilter.cpp \
  include/okapi/api/units/QMass.hpp include/okapi/api/units/QJerk.hpp \
  include/okapi/api/units/QPressure.hpp \
  include/okapi/api/units/QTorque.hpp include/okapi/api/units/QVolume.hpp \
- include/okapi/impl/util/rate.hpp include/display/lvgl.h
-
-include/lib4253/Filter/avgFilter.hpp:
+ include/okapi/impl/util/rate.hpp include/display/lvgl.h \
+ include/lib4253/Splines/Point2D.hpp \
+ include/lib4253/Splines/SimplePath.hpp include/lib4253/Utility/Math.hpp \
+ include/lib4253/Utility/Matrix.hpp include/lib4253/Filter/emaFilter.hpp \
+ include/lib4253/Filter/avgFilter.hpp \
+ include/lib4253/Filter/kalmanFilter.hpp \
+ include/lib4253/Filter/biquadFilter.hpp \
+ include/lib4253/Controller/PID.hpp include/lib4253/Controller/Slew.hpp \
+ include/lib4253/Controller/PurePursuit.hpp \
+ include/lib4253/Controller/BangBang.hpp \
+ include/lib4253/Controller/TakeBackHalf.hpp \
+ include/lib4253/Controller/LinearMotionProfile.hpp \
+ include/lib4253/Subsystems/Robot.hpp \
+ include/lib4253/Subsystems/Odometry.hpp \
+ include/lib4253/Subsystems/Drive.hpp \
+ include/lib4253/Subsystems/Flywheel.hpp \
+ include/lib4253/Subsystems/Lift.hpp \
+ include/lib4253/Subsystems/Intake.hpp include/lib4253/Utility/auton.hpp
 
 include/main.h:
 
@@ -731,3 +745,45 @@ include/okapi/api/units/QVolume.hpp:
 include/okapi/impl/util/rate.hpp:
 
 include/display/lvgl.h:
+
+include/lib4253/Splines/Point2D.hpp:
+
+include/lib4253/Splines/SimplePath.hpp:
+
+include/lib4253/Utility/Math.hpp:
+
+include/lib4253/Utility/Matrix.hpp:
+
+include/lib4253/Filter/emaFilter.hpp:
+
+include/lib4253/Filter/avgFilter.hpp:
+
+include/lib4253/Filter/kalmanFilter.hpp:
+
+include/lib4253/Filter/biquadFilter.hpp:
+
+include/lib4253/Controller/PID.hpp:
+
+include/lib4253/Controller/Slew.hpp:
+
+include/lib4253/Controller/PurePursuit.hpp:
+
+include/lib4253/Controller/BangBang.hpp:
+
+include/lib4253/Controller/TakeBackHalf.hpp:
+
+include/lib4253/Controller/LinearMotionProfile.hpp:
+
+include/lib4253/Subsystems/Robot.hpp:
+
+include/lib4253/Subsystems/Odometry.hpp:
+
+include/lib4253/Subsystems/Drive.hpp:
+
+include/lib4253/Subsystems/Flywheel.hpp:
+
+include/lib4253/Subsystems/Lift.hpp:
+
+include/lib4253/Subsystems/Intake.hpp:
+
+include/lib4253/Utility/auton.hpp:

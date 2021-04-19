@@ -30,14 +30,14 @@ double Math::cubicControl(double power){
   return power * power * power / 16129;
 }
 
-Vector Math::toPolar(Vector cart){
+Point2D Math::toPolar(Point2D cart){
   double mag = sqrt(cart.x * cart.x + cart.y * cart.y);
   double angle = atan2(cart.y, cart.y);
 
   return {mag, angle};
 }
 
-Vector Math::toCart(Vector polar){
+Point2D Math::toCart(Point2D polar){
   double mag = polar.x, angle = polar.y;
   return {mag * cos(angle), mag * sin(angle)};
 }

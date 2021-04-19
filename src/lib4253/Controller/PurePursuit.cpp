@@ -1,3 +1,4 @@
+#include "main.h"
 #include "lib4253/Controller/PurePursuit.hpp"
 
 PurePursuitFollower::PurePursuitFollower(){
@@ -6,7 +7,7 @@ PurePursuitFollower::PurePursuitFollower(){
 
 void PurePursuitFollower::generateVelocity(){
     std::vector<double> curvature = path.getCurvature();
-    std::vector<Vector> waypoint = path.getWaypoint();
+    std::vector<Point2D> waypoint = path.getWaypoint();
     for(int i = 0; i < curvature.size(); i++){
         velocity.push_back(fmin(maxVelocity, kT / curvature[i]));
     }
@@ -24,8 +25,8 @@ void PurePursuitFollower::initialize(){
 
 }
 
-void PurePursuitFollower::closestPoint(Vector currentPos){
-    std::vector<Vector> waypoint = path.getWaypoint();
+void PurePursuitFollower::closestPoint(Point2D currentPos){
+    std::vector<Point2D> waypoint = path.getWaypoint();
 
     double minDist = currentPos.distanceTo(waypoint[prevClosestPt]);
     double minIndex = prevClosestPt;
@@ -41,12 +42,12 @@ void PurePursuitFollower::closestPoint(Vector currentPos){
     closestPt = minIndex;
 }
 
-Vector PurePursuitFollower::lookAhead(){
-  Vector start = path.getWaypoint(closestPt);
-  Vector end = path.getWaypoint(closestPt+1);
+Point2D PurePursuitFollower::lookAhead(){
+  Point2D start = path.getWaypoint(closestPt);
+  Point2D end = path.getWaypoint(closestPt+1);
 }
 
-void PurePursuitFollower::followPath(Path p){
+void PurePursuitFollower::followPath(SimplePath p){
     path = p;
     generateVelocity();
 }

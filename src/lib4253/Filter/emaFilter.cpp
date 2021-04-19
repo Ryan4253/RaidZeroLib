@@ -1,3 +1,4 @@
+#include "main.h"
 #include "emaFilter.hpp"
 
 emaFilter::emaFilter(double a){

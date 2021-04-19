@@ -1,3 +1,4 @@
+#include "main.h"
 #include "Odometry.hpp"
 
 CustomOdometry::CustomOdometry():globalPos(0, 0, 0){
@@ -7,7 +8,7 @@ void CustomOdometry::withDimensions(std::tuple<double, double, double> dimension
 
 void CustomOdometry::withDimensions(std::tuple<double, double> dimensions){}
 
-Pose CustomOdometry::getPos(){
+Pose2D CustomOdometry::getPos(){
   return globalPos;
 }
 
@@ -39,7 +40,7 @@ double CustomOdometry::getEncoderLeft(){}
 double CustomOdometry::getEncoderMid(){}
 double CustomOdometry::getEncoderRight(){}
 
-void CustomOdometry::setPos(Pose newPos){
+void CustomOdometry::setPos(Pose2D newPos){
   globalPos.x = (double)newPos.x;
   globalPos.y = (double)newPos.y;
   globalPos.angle = Math::degToRad(newPos.angle);

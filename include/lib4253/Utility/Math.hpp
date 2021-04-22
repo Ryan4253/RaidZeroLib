@@ -33,6 +33,10 @@ namespace Math{
     Point2D toPolar(Point2D cart);
     Point2D toCart(Point2D polar);
 
+    // conversion  between linear velocity and motor rpm
+    double linearVelToRPM(double linVel, double GearRatio, double radius);
+    double RPMToLinearVel(double angVel, double gearRatio, double radius);
+
     // limits the input between the range [mn, mx]
     double clamp(double val, double mn, double mx);
 };

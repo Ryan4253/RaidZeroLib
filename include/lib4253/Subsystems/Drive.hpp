@@ -15,9 +15,10 @@ class Drive{
 
     Drive(const std::initializer_list<Motor> &l, const std::initializer_list<Motor> &r);
     Drive& withOdometry(CustomOdometry* tracker);
+    Drive& withDimensions(std::tuple<double> wheel, std::tuple<double, double> gear, std::tuple<double> track);
     Drive& withDrivePID(std::tuple<double, double, double> gain, std::tuple<double, double> IGain, std::tuple<double> emaGain);
     Drive& withTurnPID(std::tuple<double, double, double> gain, std::tuple<double, double> IGain, std::tuple<double> emaGain);
-    Drive& withPurePursuit(std::tuple<double, double, double> gain, std::tuple<double> turnGain, std::tuple<double, double> kinematics);
+    Drive& withPurePursuit(std::tuple<double> lookAhead, std::tuple<double> turnGain, std::tuple<double, double> kinematics);
     Drive& withSlew(int acc, int dec);
     void initialize();
 
@@ -35,6 +36,8 @@ class Drive{
     void moveDistanceLMP(double distance);
     void moveDistanceLMPD(double distance);
 
+    void followPath(SimplePath path);
+
     static void driveTask(void *ptr);
 
   protected:
@@ -50,7 +53,7 @@ class Drive{
     std::shared_ptr<ChassisController> chassis;
     std::shared_ptr<AsyncMotionProfileController> profileController;
 
-    double maxVelocity, maxAcceleration;
+    double gearRatio, trackWidth, wheelSize;
     State driveState = TANK;
     int prevAState = 0;
 

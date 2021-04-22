@@ -1,4 +1,4 @@
-bin/lib4253/Filter/emaFilter.cpp.o: src/lib4253/Filter/emaFilter.cpp \
+bin/Competition/autonomous.cpp.o: src/Competition/autonomous.cpp \
  include/main.h include/api.h include/pros/adi.h include/pros/colors.h \
  include/pros/distance.h include/pros/ext_adi.h include/pros/adi.h \
  include/pros/adi.h include/pros/imu.h include/pros/llemu.h \
@@ -206,7 +206,8 @@ bin/lib4253/Filter/emaFilter.cpp.o: src/lib4253/Filter/emaFilter.cpp \
  include/lib4253/Subsystems/Drive.hpp \
  include/lib4253/Subsystems/Flywheel.hpp \
  include/lib4253/Subsystems/Lift.hpp \
- include/lib4253/Subsystems/Intake.hpp include/lib4253/Utility/auton.hpp
+ include/lib4253/Subsystems/Intake.hpp include/lib4253/Utility/auton.hpp \
+ include/lib4253/Utility/declarations.hpp
 
 include/main.h:
 
@@ -787,3 +788,5 @@ include/lib4253/Subsystems/Lift.hpp:
 include/lib4253/Subsystems/Intake.hpp:
 
 include/lib4253/Utility/auton.hpp:
+
+include/lib4253/Utility/declarations.hpp:

@@ -4,23 +4,31 @@
 
 class PurePursuitFollower{
   private:
-    std::vector<double> velocity;
-    double maxAcceleration = 0, maxVelocity = 0;
-    double kT, kV, kA, kP;
-    int prevClosestPt = 0, closestPt = 0;
     SimplePath path;
+    std::vector<double> velocity;
+    double maxAcceleration = 0, maxVelocity = 0, trackWidth, radius, kT;
+    int prevClosestPoint = 0, closestPoint = 0;
+    int prevLookAheadPoint = 0; Point2D lookAheadPoint;
+    double curvature;
+    bool settled = false;
 
-    void closestPoint(Point2D currentPoint);
-    Point2D lookAhead();
     void generateVelocity();
+    void calcClosestPoint(Pose2D currentPos);
+    void calcLookAheadPoint(Pose2D currentPos);
+    void calcCurvature(Pose2D currentPos);
+    std::pair<double, double> calcPower(Pose2D currentPos);
 
   public:
-    PurePursuitFollower();
-    void followPath(SimplePath path);
+    void setPath(SimplePath path);
     void initialize();
 
+    std::pair<double, double> step(Pose2D CurrentPos);
     void setTurnGain(double k);
     void setKinematics(double v, double a);
-    void setGain(double v, double a, double p);
+    void setTrackWidth(double size);
+    void setLookAhead(double dist);
+
+    bool isSettled();
+
 
 };

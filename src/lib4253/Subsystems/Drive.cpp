@@ -13,6 +13,15 @@ Drive& Drive::withOdometry(CustomOdometry* tracker){
   return *this;
 }
 
+Drive& Drive::withDimensions(std::tuple<double> wheel, std::tuple<double, double> gear, std::tuple<double> track){
+  wheelSize = std::get<0>(wheel);
+  gearRatio = std::get<0>(gear) / std::get<1>(gear);
+  trackWidth = std::get<0>(track);
+
+  PPTenshi.setTrackWidth(trackWidth);
+  return *this;
+}
+
 Drive& Drive::withDrivePID(std::tuple<double, double, double> gain, std::tuple<double, double> IGain, std::tuple<double> emaGain){
   drivePID.setGain(std::get<0>(gain), std::get<1>(gain), std::get<2>(gain));
   drivePID.setIGain(std::get<0>(IGain), std::get<1>(IGain));
@@ -27,8 +36,8 @@ Drive& Drive::withTurnPID(std::tuple<double, double, double> gain, std::tuple<do
   return *this;
 }
 
-Drive& Drive::withPurePursuit(std::tuple<double, double, double> gain, std::tuple<double> turnGain, std::tuple<double, double> kinematics){
-  PPTenshi.setGain(std::get<0>(gain), std::get<1>(gain), std::get<2>(gain));
+Drive& Drive::withPurePursuit(std::tuple<double> lookAhead, std::tuple<double> turnGain, std::tuple<double, double> kinematics){
+  PPTenshi.setLookAhead(std::get<0>(lookAhead));
   PPTenshi.setTurnGain(std::get<0>(turnGain));
   PPTenshi.setKinematics(std::get<0>(kinematics), std::get<1>(kinematics));
   return *this;
@@ -147,18 +156,15 @@ void Drive::moveDistanceLMP(double distance){
   Timer timer;
   bruhMobile->setDistance(distance);
   double initTime = timer.millis().convert(second), timeElapsed;
-  double initAngle = getAngle();
+  double initAngle = odom->getAngleDeg();
   do{
     timeElapsed = timer.millis().convert(second) - initTime;
     double velocity = bruhMobile->getVelocityTime(timeElapsed);
-    double angle = getAngle() - initAngle;
+    double angle = odom->getAngleDeg() - initAngle;
 
-    double rpm = velocity / 2 / M_PI * 60 / 4.15;
-
-    left.moveVelocity(velocity + angle * 5);
-    right.moveVelocity(velocity - angle * 5);
-
-
+    double rpm = Math::linearVelToRPM(velocity, gearRatio, wheelSize/2);
+    left.moveVelocity(rpm + angle * 5);
+    right.moveVelocity(rpm - angle * 5);
 
   }while(timeElapsed <= bruhMobile->getTotalTime());
 
@@ -168,6 +174,40 @@ void Drive::moveDistanceLMP(double distance){
 
 void Drive::moveDistanceLMPD(double dist){
 
+  double initLeft = odom->getEncoderLeft();
+  double initRight = odom->getEncoderRight();
+  double initAngle = odom->getAngleDeg();
+  double totalDist;
+
+  do{
+    double leftDist = odom->getEncoderLeft() - initLeft;
+    double rightDist = odom->getEncoderRight() - initRight;
+    totalDist = (leftDist + rightDist) / 2;
+    double angle = odom->getAngleDeg() - initAngle;
+
+    double velocity = bruhMobile->getVelocityDist(totalDist);
+    double rpm = Math::linearVelToRPM(velocity, gearRatio, wheelSize/2);
+    left.moveVelocity(rpm + angle * 5);
+    right.moveVelocity(rpm - angle * 5);
+
+  }while(totalDist < dist);
+}
+
+void Drive::followPath(SimplePath path){
+  PPTenshi.setPath(path);
+
+  do{
+    Pose2D currentPos = odom->getPos();
+    std::pair<double, double> velocity = PPTenshi.step(currentPos);
+    double leftVel = Math::linearVelToRPM(velocity.first, gearRatio, wheelSize/2);
+    double rightVel = Math::linearVelToRPM(velocity.second, gearRatio, wheelSize/2);
+
+    left.moveVelocity(leftVel);
+    right.moveVelocity(rightVel);
+  }while(!PPTenshi.isSettled());
+
+  Robot::setPower(left, 0);
+  Robot::setPower(right, 0);
 }
 
 void Drive::moveDistance(double dist, QTime timeLimit) {

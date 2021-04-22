@@ -15,7 +15,7 @@
             "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
             "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
             "-iquote./include",
-            "-iquote./include/lib4253/Subsystems/",
+            "-iquote./include/lib4253/UI/",
             "-mcpu=cortex-a9",
             "-mfpu=neon-fp16",
             "-mfloat-abi=softfp",
@@ -30,11 +30,11 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/lib4253/Subsystems/Flywheel.cpp.o",
-            "src\\lib4253\\Subsystems\\Flywheel.cpp"
+            "bin/lib4253/UI/gui.cpp.o",
+            "src\\lib4253\\UI\\gui.cpp"
         ],
         "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Subsystems\\Flywheel.cpp"
+        "file": "src\\lib4253\\UI\\gui.cpp"
     },
     {
         "arguments": [
@@ -52,7 +52,7 @@
             "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
             "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
             "-iquote./include",
-            "-iquote./include/lib4253/Splines/",
+            "-iquote./include/Competition/",
             "-mcpu=cortex-a9",
             "-mfpu=neon-fp16",
             "-mfloat-abi=softfp",
@@ -67,11 +67,11 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/lib4253/Splines/SimplePath.cpp.o",
-            "src\\lib4253\\Splines\\SimplePath.cpp"
+            "bin/Competition/autonomous.cpp.o",
+            "src\\Competition\\autonomous.cpp"
         ],
         "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Splines\\SimplePath.cpp"
+        "file": "src\\Competition\\autonomous.cpp"
     },
     {
         "arguments": [
@@ -104,11 +104,48 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/lib4253/Filter/kalmanFilter.cpp.o",
-            "src\\lib4253\\Filter\\kalmanFilter.cpp"
+            "bin/lib4253/Filter/biquadFilter.cpp.o",
+            "src\\lib4253\\Filter\\biquadFilter.cpp"
         ],
         "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Filter\\kalmanFilter.cpp"
+        "file": "src\\lib4253\\Filter\\biquadFilter.cpp"
+    },
+    {
+        "arguments": [
+            "clang++",
+            "-c",
+            "-target",
+            "armv7ar-none-none-eabi",
+            "-fno-ms-extensions",
+            "-fno-ms-compatibility",
+            "-fno-delayed-template-parsing",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
+            "-iquote./include",
+            "-iquote./include/lib4253/Subsystems/",
+            "-mcpu=cortex-a9",
+            "-mfpu=neon-fp16",
+            "-mfloat-abi=softfp",
+            "-Os",
+            "-g",
+            "-D_POSIX_THREADS",
+            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
+            "-Wno-psabi",
+            "-ffunction-sections",
+            "-fdata-sections",
+            "-fdiagnostics-color",
+            "-funwind-tables",
+            "--std=gnu++17",
+            "-o",
+            "bin/lib4253/Subsystems/Drive.cpp.o",
+            "src\\lib4253\\Subsystems\\Drive.cpp"
+        ],
+        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
+        "file": "src\\lib4253\\Subsystems\\Drive.cpp"
     },
     {
         "arguments": [
@@ -200,7 +237,7 @@
             "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
             "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
             "-iquote./include",
-            "-iquote./include/lib4253/Splines/",
+            "-iquote./include/lib4253/Controller/",
             "-mcpu=cortex-a9",
             "-mfpu=neon-fp16",
             "-mfloat-abi=softfp",
@@ -215,11 +252,122 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/lib4253/Splines/Point2D.cpp.o",
-            "src\\lib4253\\Splines\\Point2D.cpp"
+            "bin/lib4253/Controller/TakeBackHalf.cpp.o",
+            "src\\lib4253\\Controller\\TakeBackHalf.cpp"
         ],
         "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Splines\\Point2D.cpp"
+        "file": "src\\lib4253\\Controller\\TakeBackHalf.cpp"
+    },
+    {
+        "arguments": [
+            "clang++",
+            "-c",
+            "-target",
+            "armv7ar-none-none-eabi",
+            "-fno-ms-extensions",
+            "-fno-ms-compatibility",
+            "-fno-delayed-template-parsing",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
+            "-iquote./include",
+            "-iquote./include/lib4253/Subsystems/",
+            "-mcpu=cortex-a9",
+            "-mfpu=neon-fp16",
+            "-mfloat-abi=softfp",
+            "-Os",
+            "-g",
+            "-D_POSIX_THREADS",
+            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
+            "-Wno-psabi",
+            "-ffunction-sections",
+            "-fdata-sections",
+            "-fdiagnostics-color",
+            "-funwind-tables",
+            "--std=gnu++17",
+            "-o",
+            "bin/lib4253/Subsystems/Flywheel.cpp.o",
+            "src\\lib4253\\Subsystems\\Flywheel.cpp"
+        ],
+        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
+        "file": "src\\lib4253\\Subsystems\\Flywheel.cpp"
+    },
+    {
+        "arguments": [
+            "clang++",
+            "-c",
+            "-target",
+            "armv7ar-none-none-eabi",
+            "-fno-ms-extensions",
+            "-fno-ms-compatibility",
+            "-fno-delayed-template-parsing",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
+            "-iquote./include",
+            "-iquote./include/lib4253/Controller/",
+            "-mcpu=cortex-a9",
+            "-mfpu=neon-fp16",
+            "-mfloat-abi=softfp",
+            "-Os",
+            "-g",
+            "-D_POSIX_THREADS",
+            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
+            "-Wno-psabi",
+            "-ffunction-sections",
+            "-fdata-sections",
+            "-fdiagnostics-color",
+            "-funwind-tables",
+            "--std=gnu++17",
+            "-o",
+            "bin/lib4253/Controller/PurePursuit.cpp.o",
+            "src\\lib4253\\Controller\\PurePursuit.cpp"
+        ],
+        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
+        "file": "src\\lib4253\\Controller\\PurePursuit.cpp"
+    },
+    {
+        "arguments": [
+            "clang++",
+            "-c",
+            "-target",
+            "armv7ar-none-none-eabi",
+            "-fno-ms-extensions",
+            "-fno-ms-compatibility",
+            "-fno-delayed-template-parsing",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
+            "-iquote./include",
+            "-iquote./include/lib4253/Controller/",
+            "-mcpu=cortex-a9",
+            "-mfpu=neon-fp16",
+            "-mfloat-abi=softfp",
+            "-Os",
+            "-g",
+            "-D_POSIX_THREADS",
+            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
+            "-Wno-psabi",
+            "-ffunction-sections",
+            "-fdata-sections",
+            "-fdiagnostics-color",
+            "-funwind-tables",
+            "--std=gnu++17",
+            "-o",
+            "bin/lib4253/Controller/Slew.cpp.o",
+            "src\\lib4253\\Controller\\Slew.cpp"
+        ],
+        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
+        "file": "src\\lib4253\\Controller\\Slew.cpp"
     },
     {
         "arguments": [
@@ -252,424 +400,11 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/lib4253/Filter/avgFilter.cpp.o",
-            "src\\lib4253\\Filter\\avgFilter.cpp"
+            "bin/lib4253/Filter/kalmanFilter.cpp.o",
+            "src\\lib4253\\Filter\\kalmanFilter.cpp"
         ],
         "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Filter\\avgFilter.cpp"
-    },
-    {
-        "arguments": [
-            "clang++",
-            "-c",
-            "-target",
-            "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
-            "-iquote./include",
-            "-iquote./include/lib4253/UI/",
-            "-mcpu=cortex-a9",
-            "-mfpu=neon-fp16",
-            "-mfloat-abi=softfp",
-            "-Os",
-            "-g",
-            "-D_POSIX_THREADS",
-            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
-            "-Wno-psabi",
-            "-ffunction-sections",
-            "-fdata-sections",
-            "-fdiagnostics-color",
-            "-funwind-tables",
-            "--std=gnu++17",
-            "-o",
-            "bin/lib4253/UI/OdomDisplay.cpp.o",
-            "src\\lib4253\\UI\\OdomDisplay.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\UI\\OdomDisplay.cpp"
-    },
-    {
-        "arguments": [
-            "clang++",
-            "-c",
-            "-target",
-            "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
-            "-iquote./include",
-            "-iquote./include/lib4253/Subsystems/",
-            "-mcpu=cortex-a9",
-            "-mfpu=neon-fp16",
-            "-mfloat-abi=softfp",
-            "-Os",
-            "-g",
-            "-D_POSIX_THREADS",
-            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
-            "-Wno-psabi",
-            "-ffunction-sections",
-            "-fdata-sections",
-            "-fdiagnostics-color",
-            "-funwind-tables",
-            "--std=gnu++17",
-            "-o",
-            "bin/lib4253/Subsystems/Lift.cpp.o",
-            "src\\lib4253\\Subsystems\\Lift.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Subsystems\\Lift.cpp"
-    },
-    {
-        "arguments": [
-            "clang++",
-            "-c",
-            "-target",
-            "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
-            "-iquote./include",
-<<<<<<< HEAD
-            "-iquote./include/lib4253/Utility/",
-=======
-            "-iquote./include/lib4253/Controller/",
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
-            "-mcpu=cortex-a9",
-            "-mfpu=neon-fp16",
-            "-mfloat-abi=softfp",
-            "-Os",
-            "-g",
-            "-D_POSIX_THREADS",
-            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
-            "-Wno-psabi",
-            "-ffunction-sections",
-            "-fdata-sections",
-            "-fdiagnostics-color",
-            "-funwind-tables",
-            "--std=gnu++17",
-            "-o",
-<<<<<<< HEAD
-            "bin/lib4253/Utility/Math.cpp.o",
-            "src\\lib4253\\Utility\\Math.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Utility\\Math.cpp"
-=======
-            "bin/lib4253/Controller/PID.cpp.o",
-            "src\\lib4253\\Controller\\PID.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Controller\\PID.cpp"
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
-    },
-    {
-        "arguments": [
-            "clang++",
-            "-c",
-            "-target",
-            "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
-            "-iquote./include",
-<<<<<<< HEAD
-            "-iquote./include/lib4253/Subsystems/",
-=======
-            "-iquote./include/Competition/",
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
-            "-mcpu=cortex-a9",
-            "-mfpu=neon-fp16",
-            "-mfloat-abi=softfp",
-            "-Os",
-            "-g",
-            "-D_POSIX_THREADS",
-            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
-            "-Wno-psabi",
-            "-ffunction-sections",
-            "-fdata-sections",
-            "-fdiagnostics-color",
-            "-funwind-tables",
-            "--std=gnu++17",
-            "-o",
-<<<<<<< HEAD
-            "bin/lib4253/Subsystems/Drive.cpp.o",
-            "src\\lib4253\\Subsystems\\Drive.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Subsystems\\Drive.cpp"
-=======
-            "bin/Competition/auton.cpp.o",
-            "src\\Competition\\auton.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\Competition\\auton.cpp"
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
-    },
-    {
-        "arguments": [
-            "clang++",
-            "-c",
-            "-target",
-            "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
-            "-iquote./include",
-            "-iquote./include/lib4253/UI/",
-            "-mcpu=cortex-a9",
-            "-mfpu=neon-fp16",
-            "-mfloat-abi=softfp",
-            "-Os",
-            "-g",
-            "-D_POSIX_THREADS",
-            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
-            "-Wno-psabi",
-            "-ffunction-sections",
-            "-fdata-sections",
-            "-fdiagnostics-color",
-            "-funwind-tables",
-            "--std=gnu++17",
-            "-o",
-<<<<<<< HEAD
-            "bin/lib4253/UI/gui.cpp.o",
-            "src\\lib4253\\UI\\gui.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\UI\\gui.cpp"
-=======
-            "bin/Competition/opcontrol.cpp.o",
-            "src\\Competition\\opcontrol.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\Competition\\opcontrol.cpp"
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
-    },
-    {
-        "arguments": [
-            "clang++",
-            "-c",
-            "-target",
-            "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
-            "-iquote./include",
-<<<<<<< HEAD
-            "-iquote./include/lib4253/Subsystems/",
-=======
-            "-iquote./include/lib4253/Filter/",
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
-            "-mcpu=cortex-a9",
-            "-mfpu=neon-fp16",
-            "-mfloat-abi=softfp",
-            "-Os",
-            "-g",
-            "-D_POSIX_THREADS",
-            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
-            "-Wno-psabi",
-            "-ffunction-sections",
-            "-fdata-sections",
-            "-fdiagnostics-color",
-            "-funwind-tables",
-            "--std=gnu++17",
-            "-o",
-<<<<<<< HEAD
-            "bin/lib4253/Subsystems/Odometry.cpp.o",
-            "src\\lib4253\\Subsystems\\Odometry.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Subsystems\\Odometry.cpp"
-=======
-            "bin/lib4253/Filter/biquadFilter.cpp.o",
-            "src\\lib4253\\Filter\\biquadFilter.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Filter\\biquadFilter.cpp"
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
-    },
-    {
-        "arguments": [
-            "clang++",
-            "-c",
-            "-target",
-            "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
-            "-iquote./include",
-<<<<<<< HEAD
-            "-iquote./include/lib4253/Subsystems/",
-=======
-            "-iquote./include/lib4253/Controller/",
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
-            "-mcpu=cortex-a9",
-            "-mfpu=neon-fp16",
-            "-mfloat-abi=softfp",
-            "-Os",
-            "-g",
-            "-D_POSIX_THREADS",
-            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
-            "-Wno-psabi",
-            "-ffunction-sections",
-            "-fdata-sections",
-            "-fdiagnostics-color",
-            "-funwind-tables",
-            "--std=gnu++17",
-            "-o",
-<<<<<<< HEAD
-            "bin/lib4253/Subsystems/Intake.cpp.o",
-            "src\\lib4253\\Subsystems\\Intake.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Subsystems\\Intake.cpp"
-=======
-            "bin/lib4253/Controller/BangBang.cpp.o",
-            "src\\lib4253\\Controller\\BangBang.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Controller\\BangBang.cpp"
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
-    },
-    {
-        "arguments": [
-            "clang++",
-            "-c",
-            "-target",
-            "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
-            "-iquote./include",
-<<<<<<< HEAD
-            "-iquote./include/lib4253/Controller/",
-=======
-            "-iquote./include/lib4253/Filter/",
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
-            "-mcpu=cortex-a9",
-            "-mfpu=neon-fp16",
-            "-mfloat-abi=softfp",
-            "-Os",
-            "-g",
-            "-D_POSIX_THREADS",
-            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
-            "-Wno-psabi",
-            "-ffunction-sections",
-            "-fdata-sections",
-            "-fdiagnostics-color",
-            "-funwind-tables",
-            "--std=gnu++17",
-            "-o",
-<<<<<<< HEAD
-            "bin/lib4253/Controller/BangBang.cpp.o",
-            "src\\lib4253\\Controller\\BangBang.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Controller\\BangBang.cpp"
-=======
-            "bin/lib4253/Filter/avgFilter.cpp.o",
-            "src\\lib4253\\Filter\\avgFilter.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Filter\\avgFilter.cpp"
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
-    },
-    {
-        "arguments": [
-            "clang++",
-            "-c",
-            "-target",
-            "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
-            "-iquote./include",
-<<<<<<< HEAD
-            "-iquote./include/Competition/",
-=======
-            "-iquote./include/lib4253/Splines/",
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
-            "-mcpu=cortex-a9",
-            "-mfpu=neon-fp16",
-            "-mfloat-abi=softfp",
-            "-Os",
-            "-g",
-            "-D_POSIX_THREADS",
-            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
-            "-Wno-psabi",
-            "-ffunction-sections",
-            "-fdata-sections",
-            "-fdiagnostics-color",
-            "-funwind-tables",
-            "--std=gnu++17",
-            "-o",
-<<<<<<< HEAD
-            "bin/Competition/autonomous.cpp.o",
-            "src\\Competition\\autonomous.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\Competition\\autonomous.cpp"
-=======
-            "bin/lib4253/Splines/Point2D.cpp.o",
-            "src\\lib4253\\Splines\\Point2D.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Splines\\Point2D.cpp"
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
+        "file": "src\\lib4253\\Filter\\kalmanFilter.cpp"
     },
     {
         "arguments": [
@@ -724,11 +459,7 @@
             "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
             "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
             "-iquote./include",
-<<<<<<< HEAD
             "-iquote./include/lib4253/Controller/",
-=======
-            "-iquote./include/lib4253/Filter/",
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
             "-mcpu=cortex-a9",
             "-mfpu=neon-fp16",
             "-mfloat-abi=softfp",
@@ -743,19 +474,11 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-<<<<<<< HEAD
-            "bin/lib4253/Controller/Slew.cpp.o",
-            "src\\lib4253\\Controller\\Slew.cpp"
+            "bin/lib4253/Controller/BangBang.cpp.o",
+            "src\\lib4253\\Controller\\BangBang.cpp"
         ],
         "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Controller\\Slew.cpp"
-=======
-            "bin/lib4253/Filter/kalmanFilter.cpp.o",
-            "src\\lib4253\\Filter\\kalmanFilter.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Filter\\kalmanFilter.cpp"
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
+        "file": "src\\lib4253\\Controller\\BangBang.cpp"
     },
     {
         "arguments": [
@@ -773,11 +496,7 @@
             "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
             "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
             "-iquote./include",
-<<<<<<< HEAD
-            "-iquote./include/Competition/",
-=======
             "-iquote./include/lib4253/Subsystems/",
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
             "-mcpu=cortex-a9",
             "-mfpu=neon-fp16",
             "-mfloat-abi=softfp",
@@ -792,19 +511,48 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-<<<<<<< HEAD
+            "bin/lib4253/Subsystems/Intake.cpp.o",
+            "src\\lib4253\\Subsystems\\Intake.cpp"
+        ],
+        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
+        "file": "src\\lib4253\\Subsystems\\Intake.cpp"
+    },
+    {
+        "arguments": [
+            "clang++",
+            "-c",
+            "-target",
+            "armv7ar-none-none-eabi",
+            "-fno-ms-extensions",
+            "-fno-ms-compatibility",
+            "-fno-delayed-template-parsing",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
+            "-iquote./include",
+            "-iquote./include/Competition/",
+            "-mcpu=cortex-a9",
+            "-mfpu=neon-fp16",
+            "-mfloat-abi=softfp",
+            "-Os",
+            "-g",
+            "-D_POSIX_THREADS",
+            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
+            "-Wno-psabi",
+            "-ffunction-sections",
+            "-fdata-sections",
+            "-fdiagnostics-color",
+            "-funwind-tables",
+            "--std=gnu++17",
+            "-o",
             "bin/Competition/initialize.cpp.o",
             "src\\Competition\\initialize.cpp"
         ],
         "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
         "file": "src\\Competition\\initialize.cpp"
-=======
-            "bin/lib4253/Subsystems/Odometry.cpp.o",
-            "src\\lib4253\\Subsystems\\Odometry.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Subsystems\\Odometry.cpp"
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
     },
     {
         "arguments": [
@@ -822,60 +570,7 @@
             "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
             "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
             "-iquote./include",
-<<<<<<< HEAD
-            "-iquote./include/lib4253/Filter/",
-=======
-            "-iquote./include/Competition/",
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
-            "-mcpu=cortex-a9",
-            "-mfpu=neon-fp16",
-            "-mfloat-abi=softfp",
-            "-Os",
-            "-g",
-            "-D_POSIX_THREADS",
-            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
-            "-Wno-psabi",
-            "-ffunction-sections",
-            "-fdata-sections",
-            "-fdiagnostics-color",
-            "-funwind-tables",
-            "--std=gnu++17",
-            "-o",
-<<<<<<< HEAD
-            "bin/lib4253/Filter/biquadFilter.cpp.o",
-            "src\\lib4253\\Filter\\biquadFilter.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Filter\\biquadFilter.cpp"
-=======
-            "bin/Competition/initialize.cpp.o",
-            "src\\Competition\\initialize.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\Competition\\initialize.cpp"
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
-    },
-    {
-        "arguments": [
-            "clang++",
-            "-c",
-            "-target",
-            "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
-            "-iquote./include",
-<<<<<<< HEAD
-            "-iquote./include/lib4253/Controller/",
-=======
             "-iquote./include/lib4253/Subsystems/",
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
             "-mcpu=cortex-a9",
             "-mfpu=neon-fp16",
             "-mfloat-abi=softfp",
@@ -890,19 +585,11 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-<<<<<<< HEAD
-            "bin/lib4253/Controller/PurePursuit.cpp.o",
-            "src\\lib4253\\Controller\\PurePursuit.cpp"
+            "bin/lib4253/Subsystems/Lift.cpp.o",
+            "src\\lib4253\\Subsystems\\Lift.cpp"
         ],
         "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Controller\\PurePursuit.cpp"
-=======
-            "bin/lib4253/Subsystems/Drive.cpp.o",
-            "src\\lib4253\\Subsystems\\Drive.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Subsystems\\Drive.cpp"
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
+        "file": "src\\lib4253\\Subsystems\\Lift.cpp"
     },
     {
         "arguments": [
@@ -920,7 +607,7 @@
             "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
             "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
             "-iquote./include",
-            "-iquote./include/lib4253/Controller/",
+            "-iquote./include/lib4253/UI/",
             "-mcpu=cortex-a9",
             "-mfpu=neon-fp16",
             "-mfloat-abi=softfp",
@@ -935,19 +622,11 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-<<<<<<< HEAD
-            "bin/lib4253/Controller/TakeBackHalf.cpp.o",
-            "src\\lib4253\\Controller\\TakeBackHalf.cpp"
+            "bin/lib4253/UI/OdomDisplay.cpp.o",
+            "src\\lib4253\\UI\\OdomDisplay.cpp"
         ],
         "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Controller\\TakeBackHalf.cpp"
-=======
-            "bin/lib4253/Controller/PurePursuit.cpp.o",
-            "src\\lib4253\\Controller\\PurePursuit.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Controller\\PurePursuit.cpp"
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
+        "file": "src\\lib4253\\UI\\OdomDisplay.cpp"
     },
     {
         "arguments": [
@@ -965,7 +644,7 @@
             "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
             "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
             "-iquote./include",
-            "-iquote./include/Competition/",
+            "-iquote./include/lib4253/Filter/",
             "-mcpu=cortex-a9",
             "-mfpu=neon-fp16",
             "-mfloat-abi=softfp",
@@ -980,19 +659,11 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-<<<<<<< HEAD
-            "bin/Competition/auton.cpp.o",
-            "src\\Competition\\auton.cpp"
+            "bin/lib4253/Filter/avgFilter.cpp.o",
+            "src\\lib4253\\Filter\\avgFilter.cpp"
         ],
         "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\Competition\\auton.cpp"
-=======
-            "bin/Competition/declarations.cpp.o",
-            "src\\Competition\\declarations.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\Competition\\declarations.cpp"
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
+        "file": "src\\lib4253\\Filter\\avgFilter.cpp"
     },
     {
         "arguments": [
@@ -1010,60 +681,7 @@
             "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
             "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
             "-iquote./include",
-<<<<<<< HEAD
-            "-iquote./include/Competition/",
-=======
-            "-iquote./include/lib4253/Utility/",
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
-            "-mcpu=cortex-a9",
-            "-mfpu=neon-fp16",
-            "-mfloat-abi=softfp",
-            "-Os",
-            "-g",
-            "-D_POSIX_THREADS",
-            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
-            "-Wno-psabi",
-            "-ffunction-sections",
-            "-fdata-sections",
-            "-fdiagnostics-color",
-            "-funwind-tables",
-            "--std=gnu++17",
-            "-o",
-<<<<<<< HEAD
-            "bin/Competition/declarations.cpp.o",
-            "src\\Competition\\declarations.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\Competition\\declarations.cpp"
-=======
-            "bin/lib4253/Utility/Math.cpp.o",
-            "src\\lib4253\\Utility\\Math.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Utility\\Math.cpp"
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
-    },
-    {
-        "arguments": [
-            "clang++",
-            "-c",
-            "-target",
-            "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
-            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
-            "-iquote./include",
-<<<<<<< HEAD
-            "-iquote./include/lib4253/Controller/",
-=======
             "-iquote./include/lib4253/Splines/",
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
             "-mcpu=cortex-a9",
             "-mfpu=neon-fp16",
             "-mfloat-abi=softfp",
@@ -1078,19 +696,11 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-<<<<<<< HEAD
-            "bin/lib4253/Controller/PID.cpp.o",
-            "src\\lib4253\\Controller\\PID.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\lib4253\\Controller\\PID.cpp"
-=======
             "bin/lib4253/Splines/SimplePath.cpp.o",
             "src\\lib4253\\Splines\\SimplePath.cpp"
         ],
         "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
         "file": "src\\lib4253\\Splines\\SimplePath.cpp"
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
     },
     {
         "arguments": [
@@ -1108,11 +718,7 @@
             "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
             "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
             "-iquote./include",
-<<<<<<< HEAD
-            "-iquote./include/lib4253/Controller/",
-=======
             "-iquote./include/Competition/",
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
             "-mcpu=cortex-a9",
             "-mfpu=neon-fp16",
             "-mfloat-abi=softfp",
@@ -1127,18 +733,232 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-<<<<<<< HEAD
+            "bin/Competition/declarations.cpp.o",
+            "src\\Competition\\declarations.cpp"
+        ],
+        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
+        "file": "src\\Competition\\declarations.cpp"
+    },
+    {
+        "arguments": [
+            "clang++",
+            "-c",
+            "-target",
+            "armv7ar-none-none-eabi",
+            "-fno-ms-extensions",
+            "-fno-ms-compatibility",
+            "-fno-delayed-template-parsing",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
+            "-iquote./include",
+            "-iquote./include/lib4253/Utility/",
+            "-mcpu=cortex-a9",
+            "-mfpu=neon-fp16",
+            "-mfloat-abi=softfp",
+            "-Os",
+            "-g",
+            "-D_POSIX_THREADS",
+            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
+            "-Wno-psabi",
+            "-ffunction-sections",
+            "-fdata-sections",
+            "-fdiagnostics-color",
+            "-funwind-tables",
+            "--std=gnu++17",
+            "-o",
+            "bin/lib4253/Utility/Math.cpp.o",
+            "src\\lib4253\\Utility\\Math.cpp"
+        ],
+        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
+        "file": "src\\lib4253\\Utility\\Math.cpp"
+    },
+    {
+        "arguments": [
+            "clang++",
+            "-c",
+            "-target",
+            "armv7ar-none-none-eabi",
+            "-fno-ms-extensions",
+            "-fno-ms-compatibility",
+            "-fno-delayed-template-parsing",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
+            "-iquote./include",
+            "-iquote./include/lib4253/Subsystems/",
+            "-mcpu=cortex-a9",
+            "-mfpu=neon-fp16",
+            "-mfloat-abi=softfp",
+            "-Os",
+            "-g",
+            "-D_POSIX_THREADS",
+            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
+            "-Wno-psabi",
+            "-ffunction-sections",
+            "-fdata-sections",
+            "-fdiagnostics-color",
+            "-funwind-tables",
+            "--std=gnu++17",
+            "-o",
+            "bin/lib4253/Subsystems/Odometry.cpp.o",
+            "src\\lib4253\\Subsystems\\Odometry.cpp"
+        ],
+        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
+        "file": "src\\lib4253\\Subsystems\\Odometry.cpp"
+    },
+    {
+        "arguments": [
+            "clang++",
+            "-c",
+            "-target",
+            "armv7ar-none-none-eabi",
+            "-fno-ms-extensions",
+            "-fno-ms-compatibility",
+            "-fno-delayed-template-parsing",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
+            "-iquote./include",
+            "-iquote./include/lib4253/Controller/",
+            "-mcpu=cortex-a9",
+            "-mfpu=neon-fp16",
+            "-mfloat-abi=softfp",
+            "-Os",
+            "-g",
+            "-D_POSIX_THREADS",
+            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
+            "-Wno-psabi",
+            "-ffunction-sections",
+            "-fdata-sections",
+            "-fdiagnostics-color",
+            "-funwind-tables",
+            "--std=gnu++17",
+            "-o",
+            "bin/lib4253/Controller/PID.cpp.o",
+            "src\\lib4253\\Controller\\PID.cpp"
+        ],
+        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
+        "file": "src\\lib4253\\Controller\\PID.cpp"
+    },
+    {
+        "arguments": [
+            "clang++",
+            "-c",
+            "-target",
+            "armv7ar-none-none-eabi",
+            "-fno-ms-extensions",
+            "-fno-ms-compatibility",
+            "-fno-delayed-template-parsing",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
+            "-iquote./include",
+            "-iquote./include/Competition/",
+            "-mcpu=cortex-a9",
+            "-mfpu=neon-fp16",
+            "-mfloat-abi=softfp",
+            "-Os",
+            "-g",
+            "-D_POSIX_THREADS",
+            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
+            "-Wno-psabi",
+            "-ffunction-sections",
+            "-fdata-sections",
+            "-fdiagnostics-color",
+            "-funwind-tables",
+            "--std=gnu++17",
+            "-o",
+            "bin/Competition/auton.cpp.o",
+            "src\\Competition\\auton.cpp"
+        ],
+        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
+        "file": "src\\Competition\\auton.cpp"
+    },
+    {
+        "arguments": [
+            "clang++",
+            "-c",
+            "-target",
+            "armv7ar-none-none-eabi",
+            "-fno-ms-extensions",
+            "-fno-ms-compatibility",
+            "-fno-delayed-template-parsing",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
+            "-iquote./include",
+            "-iquote./include/lib4253/Splines/",
+            "-mcpu=cortex-a9",
+            "-mfpu=neon-fp16",
+            "-mfloat-abi=softfp",
+            "-Os",
+            "-g",
+            "-D_POSIX_THREADS",
+            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
+            "-Wno-psabi",
+            "-ffunction-sections",
+            "-fdata-sections",
+            "-fdiagnostics-color",
+            "-funwind-tables",
+            "--std=gnu++17",
+            "-o",
+            "bin/lib4253/Splines/Point2D.cpp.o",
+            "src\\lib4253\\Splines\\Point2D.cpp"
+        ],
+        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
+        "file": "src\\lib4253\\Splines\\Point2D.cpp"
+    },
+    {
+        "arguments": [
+            "clang++",
+            "-c",
+            "-target",
+            "armv7ar-none-none-eabi",
+            "-fno-ms-extensions",
+            "-fno-ms-compatibility",
+            "-fno-delayed-template-parsing",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
+            "-isystemc:\\users\\23ryanl\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
+            "-iquote./include",
+            "-iquote./include/lib4253/Controller/",
+            "-mcpu=cortex-a9",
+            "-mfpu=neon-fp16",
+            "-mfloat-abi=softfp",
+            "-Os",
+            "-g",
+            "-D_POSIX_THREADS",
+            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
+            "-Wno-psabi",
+            "-ffunction-sections",
+            "-fdata-sections",
+            "-fdiagnostics-color",
+            "-funwind-tables",
+            "--std=gnu++17",
+            "-o",
             "bin/lib4253/Controller/LinearMotionProfile.cpp.o",
             "src\\lib4253\\Controller\\LinearMotionProfile.cpp"
         ],
         "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
         "file": "src\\lib4253\\Controller\\LinearMotionProfile.cpp"
-=======
-            "bin/Competition/autonomous.cpp.o",
-            "src\\Competition\\autonomous.cpp"
-        ],
-        "directory": "C:\\Users\\23ryanl\\Desktop\\VEX\\Code\\4253B",
-        "file": "src\\Competition\\autonomous.cpp"
->>>>>>> b7bf6a4717cd7428f38fc8f2ed1e048810cae3a3
     }
 ]

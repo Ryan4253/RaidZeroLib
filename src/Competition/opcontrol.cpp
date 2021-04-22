@@ -1,5 +1,5 @@
 #include "main.h"
-#include "declarations.hpp"
+#include "lib4253/Utility/declarations.hpp"
 
 void opcontrol() {
 	pros::lcd::clear_line(5); pros::lcd::print(1, "OPCONTROL");

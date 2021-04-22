@@ -110,10 +110,6 @@ void SimplePath::clearPath(){
   curvature.clear();
 }
 
-std::vector<Point2D> SimplePath::getWaypoint(){
-  return waypoint;
-}
-
 Point2D SimplePath::getWaypoint(int index){
   return waypoint[index];
 }
@@ -127,10 +123,6 @@ double SimplePath::getDistance(int index){
   }
 }
 
-std::vector<double> SimplePath::getDistance(){
-  return distance;
-}
-
 double SimplePath::getCurvature(int index){
   if(index > curvature.size()){
     return 0;
@@ -140,6 +132,6 @@ double SimplePath::getCurvature(int index){
   }
 }
 
-std::vector<double> SimplePath::getCurvature(){
-  return curvature;
+int SimplePath::getSize(){
+  return waypoint.size();
 }

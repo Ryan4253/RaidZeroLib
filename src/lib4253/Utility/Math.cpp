@@ -55,6 +55,14 @@ double Math::wrapAngle90(double angle){
   return wrapAngle180(angle + (abs(angle) > 90) * 180);
 }
 
+double Math::linearVelToRPM(double linVel, double gearRatio, double radius){
+  return (linVel / radius * 60 / (2*M_PI)) / gearRatio;
+}
+
+double Math::RPMToLinearVel(double rpm, double gearRatio, double radius){
+  return (rpm * gearRatio) / 60 * 2 * M_PI * radius;
+}
+
 double Math::clamp(double val, double mn, double mx){
   val = fmax(mn, val);
   val = fmin(mx, val);

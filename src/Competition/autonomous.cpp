@@ -1,6 +1,6 @@
 #include "main.h"
 #include "lib4253/Utility/auton.hpp"
-#include "declarations.hpp"
+#include "lib4253/Utility/declarations.hpp"
 
 
 void autonomous() {

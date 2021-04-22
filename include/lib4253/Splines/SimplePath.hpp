@@ -27,9 +27,8 @@ struct SimplePath{
     void clearPath();
 
     Point2D getWaypoint(int index);
-    std::vector<Point2D> getWaypoint();
     double getDistance(int index);
-    std::vector<double> getDistance();
     double getCurvature(int index);
-    std::vector<double> getCurvature();
+
+    int getSize();
 };

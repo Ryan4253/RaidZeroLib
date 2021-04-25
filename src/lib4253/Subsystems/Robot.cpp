@@ -23,6 +23,7 @@ ADIButton leftAutonSelector('G');
 ADIButton rightAutonSelector('H');
 
 std::map<std::string, std::unique_ptr<pros::Task>> Robot::tasks;
+std::map<std::string, Trajectory> Robot::paths;
 
 void Robot::setPower(MotorGroup motor, double power){
   motor.moveVoltage(power / 127 * 12000);
@@ -82,6 +83,18 @@ void Robot::endTask(std::string name) {
 	if (taskExists(name)) {
 		tasks.erase(name);
 	}
+}
+
+void Robot::addPath(std::string name, Trajectory path){
+  Robot::paths.insert(std::pair<std::string, Trajectory>(name, path));
+}
+
+Trajectory Robot::getPath(std::string name){
+  return paths[name];
+}
+
+void Robot::deletePath(std::string name){
+  paths.erase(name);
 }
 
 competition matchState;

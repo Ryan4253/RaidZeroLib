@@ -33,6 +33,7 @@ enum competition{
 class Robot{
   private:
     static std::map<std::string, std::unique_ptr<pros::Task>> tasks; // tasks currently running on the robot
+    static std::map<std::string, Trajectory> paths;
 
   public:
     // sets the power of the motors inputted
@@ -51,6 +52,12 @@ class Robot{
 
     // ends the task named "name"
     static void endTask(std::string name);
+
+    static void addPath(std::string name, Trajectory path);
+
+    static Trajectory getPath(std::string name);
+
+    static void deletePath(std::string name);
 
 };
 

@@ -45,9 +45,10 @@ void initialize() {
   matchState = INITIALIZE;
 
   initSubsystems();
-  initThreads();
+  //initThreads();
+  initPaths();
 
-  autonSelector();
+  //autonSelector();
 }
 
 void competition_initialize(){}

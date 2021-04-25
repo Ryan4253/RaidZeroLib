@@ -20,6 +20,7 @@ class Drive{
     Drive& withTurnPID(std::tuple<double, double, double> gain, std::tuple<double, double> IGain, std::tuple<double> emaGain);
     Drive& withPurePursuit(std::tuple<double> lookAhead, std::tuple<double> turnGain, std::tuple<double, double> kinematics);
     Drive& withSlew(int acc, int dec);
+    Drive& withVelocityFeedForward(std::tuple<double, double, double> l, std::tuple<double, double, double> r);
     void initialize();
 
     State getState();
@@ -37,6 +38,7 @@ class Drive{
     void moveDistanceLMPD(double distance);
 
     void followPath(SimplePath path);
+    void followPath(std::string name);
 
     static void driveTask(void *ptr);
 
@@ -52,6 +54,7 @@ class Drive{
     LinearMotionProfileController* bruhMobile;
     std::shared_ptr<ChassisController> chassis;
     std::shared_ptr<AsyncMotionProfileController> profileController;
+    MotorVelocityController leftVelController, rightVelController;
 
     double gearRatio, trackWidth, wheelSize;
     State driveState = TANK;

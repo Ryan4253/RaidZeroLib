@@ -192,11 +192,13 @@ bin/lib4253/Subsystems/Drive.cpp.o: src/lib4253/Subsystems/Drive.cpp \
  include/okapi/api/units/QTorque.hpp include/okapi/api/units/QVolume.hpp \
  include/okapi/impl/util/rate.hpp include/display/lvgl.h \
  include/lib4253/Splines/Point2D.hpp \
- include/lib4253/Splines/SimplePath.hpp include/lib4253/Utility/Math.hpp \
+ include/lib4253/Splines/SimplePath.hpp \
+ include/lib4253/Splines/Trajectory.hpp include/lib4253/Utility/Math.hpp \
  include/lib4253/Utility/Matrix.hpp include/lib4253/Filter/emaFilter.hpp \
  include/lib4253/Filter/avgFilter.hpp \
  include/lib4253/Filter/kalmanFilter.hpp \
  include/lib4253/Filter/biquadFilter.hpp \
+ include/lib4253/Controller/MotorVelocity.hpp \
  include/lib4253/Controller/PID.hpp include/lib4253/Controller/Slew.hpp \
  include/lib4253/Controller/PurePursuit.hpp \
  include/lib4253/Controller/BangBang.hpp \
@@ -752,6 +754,8 @@ include/lib4253/Splines/Point2D.hpp:
 
 include/lib4253/Splines/SimplePath.hpp:
 
+include/lib4253/Splines/Trajectory.hpp:
+
 include/lib4253/Utility/Math.hpp:
 
 include/lib4253/Utility/Matrix.hpp:
@@ -763,6 +767,8 @@ include/lib4253/Filter/avgFilter.hpp:
 include/lib4253/Filter/kalmanFilter.hpp:
 
 include/lib4253/Filter/biquadFilter.hpp:
+
+include/lib4253/Controller/MotorVelocity.hpp:
 
 include/lib4253/Controller/PID.hpp:
 

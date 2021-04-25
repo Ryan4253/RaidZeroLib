@@ -48,6 +48,12 @@ Drive& Drive::withSlew(int acc, int dec){
   return *this;
 }
 
+Drive& Drive::withVelocityFeedForward(std::tuple<double, double, double> l, std::tuple<double, double, double> r){
+  leftVelController.setGain(std::get<0>(l), std::get<1>(l), std::get<2>(l));
+  rightVelController.setGain(std::get<0>(r), std::get<1>(r), std::get<2>(r));
+  return *this;
+}
+
 void Drive::initialize(){
   Robot::setBrakeMode(left, COAST);
   Robot::setBrakeMode(right, COAST);
@@ -209,6 +215,36 @@ void Drive::followPath(SimplePath path){
   Robot::setPower(left, 0);
   Robot::setPower(right, 0);
 }
+
+void Drive::followPath(std::string name){
+  Trajectory path = Robot::getPath(name);
+  int n = path.getSize();
+  pros::lcd::print(3, "INLOOP");
+  for(int i = 0; i < n; i++){
+    std::cout << i-1 << " " << left.getActualVelocity() << std::endl;
+    std::pair<TrajectoryPoint, TrajectoryPoint> kin = path.getKinematics(i);
+
+  	double leftRPM = kin.first.velocity * 12 * 60 / (2 * M_PI) / 2 * 7 / 3;
+  	double rightRPM = kin.second.velocity * 12 * 60 / (2 * M_PI) / 2 * 7 / 3;
+
+    std::cout << i << " " << leftRPM << " ";
+    //std::cout << leftRPM << " " << rightRPM << std::endl;
+
+    left.moveVelocity(leftRPM);
+    right.moveVelocity(rightRPM);
+    /*
+    double l = leftVelController.calcPower(kin.first, left.getActualVelocity());
+    double r = rightVelController.calcPower(kin.second, right.getActualVelocity());
+    Robot::setPower(left, l);
+    Robot::setPower(right, r);
+    */
+  	pros::delay(10);
+  }
+  left.moveVoltage(0);
+  right.moveVoltage(0);
+
+}
+
 
 void Drive::moveDistance(double dist, QTime timeLimit) {
   Pose2D currentPos = odom->getPos();

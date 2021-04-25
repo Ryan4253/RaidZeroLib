@@ -24,3 +24,5 @@ void initSubsystems();
 
 // starts the task for each subsystem
 void initThreads();
+
+void initPaths();

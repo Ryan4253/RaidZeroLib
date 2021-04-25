@@ -82,8 +82,9 @@ void opcontrol(void);
  * You can add C++-only headers here
  */
 
-#include "lib4253/Splines/Point2D.hpp"
-#include "lib4253/Splines/SimplePath.hpp"
+#include "lib4253/Splines/Point2D.hpp" // done
+#include "lib4253/Splines/SimplePath.hpp" // done
+#include "lib4253/Splines/Trajectory.hpp" // done
 
 #include "lib4253/Utility/Math.hpp" // done
 #include "lib4253/Utility/Matrix.hpp"
@@ -93,12 +94,13 @@ void opcontrol(void);
 #include "lib4253/Filter/kalmanFilter.hpp"
 #include "lib4253/Filter/biquadFilter.hpp" // done
 
+#include "lib4253/Controller/MotorVelocity.hpp"
 #include "lib4253/Controller/PID.hpp" // done
 #include "lib4253/Controller/Slew.hpp" // done
 #include "lib4253/Controller/PurePursuit.hpp"
 #include "lib4253/Controller/BangBang.hpp" // done
 #include "lib4253/Controller/TakeBackHalf.hpp" // done
-#include "lib4253/Controller/LinearMotionProfile.hpp"
+#include "lib4253/Controller/LinearMotionProfile.hpp" // done
 
 #include "lib4253/Subsystems/Robot.hpp" // done
 #include "lib4253/Subsystems/Odometry.hpp" // done

@@ -5,4 +5,6 @@
 
 void autonomous() {
   matchState = AUTONOMOUS;
+  pros::lcd::print(0, "auton");
+  drive.followPath("8");
 }

@@ -4,6 +4,7 @@ Code for VEX team 4253B
 Features:
 - Custom 3 Wheel arc-based odometry & 2 Wheel IMU odometry
 - Custom PID MoveTo using odom feedback
+- very op motion profile thats non okapi
 - Different Sensor Filters (Exponential Moving Average, Simple Moving Average, Biquadratic)
 - Adaptive Pure Pursuit & Simple Path Generator
 - Finite State Machine for individual subsystems

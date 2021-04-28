@@ -1,6 +1,8 @@
 #pragma once
 #include "main.h"
 
+namespace lib4253{
+
 class TakeBackHalf{
   private:
     double error, prevError;
@@ -17,3 +19,5 @@ class TakeBackHalf{
     void initialize();
     double step(double rpm);
 };
+
+}

@@ -1,5 +1,7 @@
 #include "main.h"
 
+namespace lib4253{
+
 ////////////////////////////// Point2D ////////////////////////////////
 
 Point2D::Point2D(){
@@ -97,4 +99,6 @@ double Pose2D::angleTo(Point2D target){
 double Pose2D::angleTo(Pose2D target){
   double ang = angle - target.angle;
   return Math::wrapAngle180(ang);
+}
+
 }

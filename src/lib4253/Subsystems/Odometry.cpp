@@ -1,6 +1,8 @@
 #include "main.h"
 #include "Odometry.hpp"
 
+namespace lib4253{
+
 CustomOdometry::CustomOdometry():globalPos(0, 0, 0){
 }
 
@@ -16,16 +18,16 @@ double CustomOdometry::getX(){
   return globalPos.x;
 }
 
-QLength CustomOdometry::getQX(){
-  return globalPos.x * inch;
+okapi::QLength CustomOdometry::getQX(){
+  return globalPos.x * okapi::inch;
 }
 
 double CustomOdometry::getY(){
   return globalPos.y;
 }
 
-QLength CustomOdometry::getQY(){
-  return globalPos.y * inch;
+okapi::QLength CustomOdometry::getQY(){
+  return globalPos.y * okapi::inch;
 }
 
 double CustomOdometry::getAngleDeg(){
@@ -50,16 +52,16 @@ void CustomOdometry::setX(double x){
   globalPos.x = x;
 }
 
-void CustomOdometry::setX(QLength x){
-  globalPos.x = x.convert(inch);
+void CustomOdometry::setX(okapi::QLength x){
+  globalPos.x = x.convert(okapi::inch);
 }
 
 void CustomOdometry::setY(double y){
   globalPos.y = y;
 }
 
-void CustomOdometry::setY(QLength y){
-  globalPos.y = y.convert(inch);
+void CustomOdometry::setY(okapi::QLength y){
+  globalPos.y = y.convert(okapi::inch);
 }
 
 void CustomOdometry::setAngleDeg(double theta){
@@ -217,4 +219,6 @@ void ADITwoWheelIMUOdometry::updatePos(){
 
     pros::delay(3);
   }
+}
+
 }

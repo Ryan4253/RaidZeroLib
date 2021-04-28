@@ -1,5 +1,7 @@
 #include "main.h"
 
+namespace lib4253{
+
 TrajectoryPoint::TrajectoryPoint(double v, double a){
   velocity = v, acceleration = a;
 }
@@ -22,4 +24,6 @@ std::pair<TrajectoryPoint, TrajectoryPoint> Trajectory::getKinematics(int index)
   else{
     return std::make_pair(left[index], right[index]);
   }
+}
+
 }

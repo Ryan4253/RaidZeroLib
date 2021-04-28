@@ -1,5 +1,5 @@
-bin/Competition/declarations.cpp.o: src/Competition/declarations.cpp \
- include/main.h include/api.h include/pros/adi.h include/pros/colors.h \
+bin/lib4253/Filter/SMA.cpp.o: src/lib4253/Filter/SMA.cpp include/main.h \
+ include/api.h include/pros/adi.h include/pros/colors.h \
  include/pros/distance.h include/pros/ext_adi.h include/pros/adi.h \
  include/pros/adi.h include/pros/imu.h include/pros/llemu.h \
  include/display/lvgl.h include/display/lv_version.h \
@@ -190,13 +190,13 @@ bin/Competition/declarations.cpp.o: src/Competition/declarations.cpp \
  include/okapi/api/units/QPressure.hpp \
  include/okapi/api/units/QTorque.hpp include/okapi/api/units/QVolume.hpp \
  include/okapi/impl/util/rate.hpp include/display/lvgl.h \
- include/lib4253/Splines/Point2D.hpp \
+ include/lib4253/api.hpp include/lib4253/Splines/Point2D.hpp \
  include/lib4253/Splines/SimplePath.hpp \
  include/lib4253/Splines/Trajectory.hpp include/lib4253/Utility/Math.hpp \
- include/lib4253/Utility/Matrix.hpp include/lib4253/Filter/emaFilter.hpp \
- include/lib4253/Filter/avgFilter.hpp \
- include/lib4253/Filter/kalmanFilter.hpp \
- include/lib4253/Filter/biquadFilter.hpp \
+ include/lib4253/Utility/Matrix.hpp include/lib4253/Filter/Filter.hpp \
+ include/lib4253/Filter/EMA.hpp include/lib4253/Filter/DEMA.hpp \
+ include/lib4253/Filter/SMA.hpp include/lib4253/Filter/Kalman.hpp \
+ include/lib4253/Filter/Biquad.hpp \
  include/lib4253/Controller/MotorVelocity.hpp \
  include/lib4253/Controller/PID.hpp include/lib4253/Controller/Slew.hpp \
  include/lib4253/Controller/PurePursuit.hpp \
@@ -208,8 +208,7 @@ bin/Competition/declarations.cpp.o: src/Competition/declarations.cpp \
  include/lib4253/Subsystems/Drive.hpp \
  include/lib4253/Subsystems/Flywheel.hpp \
  include/lib4253/Subsystems/Lift.hpp \
- include/lib4253/Subsystems/Intake.hpp include/lib4253/Utility/auton.hpp \
- include/lib4253/Utility/declarations.hpp
+ include/lib4253/Subsystems/Intake.hpp include/lib4253/Utility/auton.hpp
 
 include/main.h:
 
@@ -749,6 +748,8 @@ include/okapi/impl/util/rate.hpp:
 
 include/display/lvgl.h:
 
+include/lib4253/api.hpp:
+
 include/lib4253/Splines/Point2D.hpp:
 
 include/lib4253/Splines/SimplePath.hpp:
@@ -759,13 +760,17 @@ include/lib4253/Utility/Math.hpp:
 
 include/lib4253/Utility/Matrix.hpp:
 
-include/lib4253/Filter/emaFilter.hpp:
+include/lib4253/Filter/Filter.hpp:
 
-include/lib4253/Filter/avgFilter.hpp:
+include/lib4253/Filter/EMA.hpp:
 
-include/lib4253/Filter/kalmanFilter.hpp:
+include/lib4253/Filter/DEMA.hpp:
 
-include/lib4253/Filter/biquadFilter.hpp:
+include/lib4253/Filter/SMA.hpp:
+
+include/lib4253/Filter/Kalman.hpp:
+
+include/lib4253/Filter/Biquad.hpp:
 
 include/lib4253/Controller/MotorVelocity.hpp:
 
@@ -794,5 +799,3 @@ include/lib4253/Subsystems/Lift.hpp:
 include/lib4253/Subsystems/Intake.hpp:
 
 include/lib4253/Utility/auton.hpp:
-
-include/lib4253/Utility/declarations.hpp:

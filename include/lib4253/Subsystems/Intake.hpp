@@ -1,6 +1,8 @@
 #pragma once
 #include "main.h"
 
+namespace lib4253{
+
 class Roller{
   public:
     enum State{
@@ -13,7 +15,7 @@ class Roller{
     void rollerTask(void *ptr);
 
   protected:
-    Motor top, bottom;
+    okapi::Motor top, bottom;
 
   private:
     State rollerState = OFF;
@@ -37,7 +39,7 @@ class Intake{
     void intakeTask(void *ptr);
 
   protected:
-    Motor left, right;
+    okapi::Motor left, right;
 
   private:
     State intakeState = OFF;
@@ -45,3 +47,5 @@ class Intake{
     void run();
     friend class Roller;
 };
+
+}

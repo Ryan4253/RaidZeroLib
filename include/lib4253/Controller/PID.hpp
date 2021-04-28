@@ -1,6 +1,7 @@
 #pragma once
 #include "main.h"
-#include "lib4253/Filter/emaFilter.hpp"
+
+namespace lib4253{
 
 class PID {
   private:
@@ -8,7 +9,7 @@ class PID {
     double error, prevError, integral, derivative;
     double maxIntegral, minDist;
     double time, prevTime;
-    emaFilter dEMA;
+    EmaFilter dEMA;
 
   public:
     PID();
@@ -31,3 +32,5 @@ class FPID:PID{
     void setTarget(double t);
     double fUpdate(double error);
 };
+
+}

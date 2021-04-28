@@ -1,6 +1,7 @@
 #include "main.h"
 #include "lib4253/Display/OdomDisplay.hpp"
 
+namespace lib4253{
 // credits to Theo Lemay from team 7842F for coding this display
 // original repo: https://github.com/theol0403/7842F-Competition-Code
 
@@ -143,8 +144,8 @@ lv_res_t OdomDisplay::tileAction(lv_obj_t* tileObj) {
   int num = lv_obj_get_free_num(tileObj);
   int y = num / 6;
   int x = num - y * 6;
-  x = (x * tile + 0.5_tl).convert(inch);
-  y = (1_crt- y*tile - 0.5_tl).convert(inch);
+  x = (x * okapi::tile + 0.5 * okapi::tile).convert(::okapi::inch);
+  y = (1 * okapi::court- y*okapi::tile - 0.5*okapi::tile).convert(::okapi::inch);
   that->tracker->setPos({(double)x, (double)y, 0});
   return LV_RES_OK;
 }
@@ -199,8 +200,8 @@ void OdomDisplay::run() {
   lv_obj_set_style(label, &textStyle);
 
   while (true) {
-    double x = tracker->getQX().convert(court);
-    double y = (1_crt - tracker->getQY()).convert(court);
+    double x = tracker->getQX().convert(okapi::court);
+    double y = (1*okapi::court - tracker->getQY()).convert(okapi::court);
     double theta = tracker->getAngleRad();
 
     lv_obj_set_pos(led, (x * fieldDim) - lv_obj_get_width(led) / 2,
@@ -233,4 +234,6 @@ void OdomDisplay::taskFnc(void* input) {
   pros::delay(10);
   OdomDisplay* that = static_cast<OdomDisplay*>(input);
   that->run();
+}
+
 }

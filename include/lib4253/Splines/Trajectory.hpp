@@ -1,6 +1,8 @@
 #pragma once
 #include "main.h"
 
+namespace lib4253{
+
 struct TrajectoryPoint{
   double velocity;
   double acceleration;
@@ -19,3 +21,5 @@ class Trajectory{
     int getSize();
     std::pair<TrajectoryPoint, TrajectoryPoint> getKinematics(int index);
 };
+
+}

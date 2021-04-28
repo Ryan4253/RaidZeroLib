@@ -1,5 +1,6 @@
 #include "main.h"
 #include "lib4253/Utility/declarations.hpp"
+using namespace lib4253;
 
 CustomOdometry* tracker = new ADIThreeWheelOdometry({'A', 'B', true}, {'C', 'D', false}, {'E', 'F', false});
 Drive drive({-10, 9}, {8, -7});

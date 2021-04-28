@@ -1,19 +1,22 @@
 #include "main.h"
-#include "emaFilter.hpp"
 
-emaFilter::emaFilter(double a){
+namespace lib4253{
+
+EmaFilter::EmaFilter(double a){
   alpha = a;
+  reset();
 }
 
-emaFilter::emaFilter(){
+EmaFilter::EmaFilter(){
   alpha = 1;
+  reset();
 }
 
-void emaFilter::setGain(double a){
+void EmaFilter::setGain(double a){
   alpha = a;
 }
 
-double emaFilter::filter(double input){
+double EmaFilter::filter(double input){
   if(!run){
     run = true;
     output = prevOutput = input;
@@ -26,11 +29,13 @@ double emaFilter::filter(double input){
   return output;
 }
 
-void emaFilter::reset(){
+void EmaFilter::reset(){
   output = 0, prevOutput = 0;
   run = false;
 }
 
-double emaFilter::getOutput(){
+double EmaFilter::getOutput(){
   return output;
+}
+
 }

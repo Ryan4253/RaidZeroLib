@@ -1,15 +1,16 @@
 #include "main.h"
-#include "avgFilter.hpp"
 
-avgFilter::avgFilter(){
+namespace lib4253{
+
+SmaFilter::SmaFilter(){
   maxSize = 1000;
 }
 
-avgFilter::avgFilter(int size){
+SmaFilter::SmaFilter(int size){
   maxSize = size;
 }
 
-double avgFilter::filter(double input){
+double SmaFilter::filter(double input){
   total += input;
   if(value.size() >= maxSize){
     total -= value.front();
@@ -21,11 +22,11 @@ double avgFilter::filter(double input){
   return output;
 }
 
-double avgFilter::getOutput(){
+double SmaFilter::getOutput(){
   return output;
 }
 
-void avgFilter::reset(){
+void SmaFilter::reset(){
   while(!value.empty()){
     value.pop();
   }
@@ -33,6 +34,8 @@ void avgFilter::reset(){
   output = 0;
 }
 
-void avgFilter::setMaxSize(int size){
+void SmaFilter::setMaxSize(int size){
   maxSize = size;
+}
+
 }

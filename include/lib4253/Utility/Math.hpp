@@ -8,6 +8,8 @@
 * unit conversions and limiting output
 */
 
+namespace lib4253{
+
 namespace Math{
     double degToRad(double deg); // converts degree to radian
     double radToDeg(double rad); // converts radian to degree
@@ -40,3 +42,5 @@ namespace Math{
     // limits the input between the range [mn, mx]
     double clamp(double val, double mn, double mx);
 };
+
+}

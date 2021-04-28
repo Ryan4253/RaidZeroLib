@@ -1,6 +1,8 @@
 #pragma once
 #include "main.h"
 
+namespace lib4253{
+
 class SlewController{
   protected:
     int speed;
@@ -14,3 +16,5 @@ class SlewController{
     void reset();
     double step(double target);
 };
+
+}

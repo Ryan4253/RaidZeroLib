@@ -1,6 +1,8 @@
 #pragma once
 #include "main.h"
 
+namespace lib4253{
+
 struct Point2D{
   double x, y;
 
@@ -31,3 +33,5 @@ struct Pose2D:Point2D{
   double angleTo(Point2D target);
   double angleTo(Pose2D target);
 };
+
+}

@@ -1,9 +1,11 @@
 #include "Drive.hpp"
 #include "Robot.hpp"
 
+namespace lib4253{
+
 /* CONSTRUCTOR */
 
-Drive::Drive(const std::initializer_list<Motor> &l, const std::initializer_list<Motor> &r):
+Drive::Drive(const std::initializer_list<okapi::Motor> &l, const std::initializer_list<okapi::Motor> &r):
  left(l), right(r)
 {
 }
@@ -83,7 +85,7 @@ void Drive::setState(State s){
 }
 
 void Drive::updateState(){
-  int AState = master.getDigital(ControllerDigital::A);
+  int AState = master.getDigital(okapi::ControllerDigital::A);
 
   if(AState && !prevAState){
     if(driveState == TANK){
@@ -102,8 +104,8 @@ void Drive::updateState(){
 void Drive::tank(){
   //std::cout<<"TANK" << std::endl;
 
-  double leftPower = master.getAnalog(ControllerAnalog::leftY)*127;
-  double rightPower = master.getAnalog(ControllerAnalog::rightY)*127;
+  double leftPower = master.getAnalog(okapi::ControllerAnalog::leftY)*127;
+  double rightPower = master.getAnalog(okapi::ControllerAnalog::rightY)*127;
 
   Robot::setPower(left, leftPower);
   Robot::setPower(right, rightPower);
@@ -112,8 +114,8 @@ void Drive::tank(){
 void Drive::arcade(){
   //std::cout << "ARCADE" << std::endl;
 
-  int power = master.getAnalog(ControllerAnalog::leftY)*127;
-  int turn = master.getAnalog(ControllerAnalog::rightX)*-127;
+  int power = master.getAnalog(okapi::ControllerAnalog::leftY)*127;
+  int turn = master.getAnalog(okapi::ControllerAnalog::rightX)*-127;
   Point2D finalPower = scaleSpeed(power, turn, 1);
 
   Robot::setPower(left, finalPower.x);
@@ -159,12 +161,12 @@ Point2D Drive::scaleSpeed(double drivePower, double turnPower, double turnScale)
 }
 
 void Drive::moveDistanceLMP(double distance){
-  Timer timer;
+  okapi::Timer timer;
   bruhMobile->setDistance(distance);
-  double initTime = timer.millis().convert(second), timeElapsed;
+  double initTime = timer.millis().convert(okapi::second), timeElapsed;
   double initAngle = odom->getAngleDeg();
   do{
-    timeElapsed = timer.millis().convert(second) - initTime;
+    timeElapsed = timer.millis().convert(okapi::second) - initTime;
     double velocity = bruhMobile->getVelocityTime(timeElapsed);
     double angle = odom->getAngleDeg() - initAngle;
 
@@ -246,19 +248,19 @@ void Drive::followPath(std::string name){
 }
 
 
-void Drive::moveDistance(double dist, QTime timeLimit) {
+void Drive::moveDistance(double dist, okapi::QTime timeLimit) {
   Pose2D currentPos = odom->getPos();
   Point2D displacement = {dist * cos(currentPos.angle), dist * sin(currentPos.angle)};
   Point2D target = currentPos + displacement;
   moveTo(target, 1, timeLimit);
 }
 
-void Drive::moveTo(Point2D target, double turnScale, QTime timeLimit){
+void Drive::moveTo(Point2D target, double turnScale, okapi::QTime timeLimit){
   drivePID.initialize();
   turnPID.initialize();
   driveSlew.reset();
-  Timer timer = Timer();
-  double distToTarget; QTime startTime = timer.millis();
+  okapi::Timer timer = okapi::Timer();
+  double distToTarget; okapi::QTime startTime = timer.millis();
 
   do{
     Pose2D currentPos = odom->getPos();
@@ -295,13 +297,13 @@ void Drive::moveTo(Point2D target, double turnScale, QTime timeLimit){
   Robot::setPower(right, 0);
 }
 
-void Drive::turnAngle(double angle, QTime timeLimit){
+void Drive::turnAngle(double angle, okapi::QTime timeLimit){
   turnPID.initialize();
   driveSlew.reset();
   double initAngle = odom->getAngleDeg(), error, power;
   angle = Math::wrapAngle180(angle);
-  Timer timer = Timer();
-  QTime startTime = timer.millis();
+  okapi::Timer timer = okapi::Timer();
+  okapi::QTime startTime = timer.millis();
 
 
   do{
@@ -318,11 +320,11 @@ void Drive::turnAngle(double angle, QTime timeLimit){
   Robot::setPower(right, 0);
 }
 
-void Drive::turnToAngle(double angle, QTime timeLimit){
+void Drive::turnToAngle(double angle, okapi::QTime timeLimit){
   turnPID.initialize();
   driveSlew.reset();
   angle = Math::wrapAngle180(angle); double error, power;
-  Timer timer = Timer(); QTime startTime = timer.millis();
+  okapi::Timer timer = okapi::Timer(); okapi::QTime startTime = timer.millis();
 
   do{
     error = Math::wrapAngle180(angle - (odom->getAngleDeg()));
@@ -336,4 +338,6 @@ void Drive::turnToAngle(double angle, QTime timeLimit){
 
   Robot::setPower(left, 0);
   Robot::setPower(right, 0);
+}
+
 }

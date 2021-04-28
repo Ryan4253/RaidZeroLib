@@ -1,68 +1,70 @@
 #include "main.h"
 #include "Robot.hpp"
 
-Controller master(ControllerId::master);
+okapi::Controller master(okapi::ControllerId::master);
 
-Motor LF(10, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-Motor LB(9, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-Motor RF(8, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-Motor RB(7, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
+okapi::Motor LF(10, true, okapi::AbstractMotor::gearset::blue, okapi::AbstractMotor::encoderUnits::degrees);
+okapi::Motor LB(9, false, okapi::AbstractMotor::gearset::blue, okapi::AbstractMotor::encoderUnits::degrees);
+okapi::Motor RF(8, false, okapi::AbstractMotor::gearset::blue, okapi::AbstractMotor::encoderUnits::degrees);
+okapi::Motor RB(7, true, okapi::AbstractMotor::gearset::blue, okapi::AbstractMotor::encoderUnits::degrees);
 
-MotorGroup baseLeft({LF, LB});
-MotorGroup baseRight({RF, RB});
-MotorGroup base({LF, LB, RF, RB});
+okapi::MotorGroup baseLeft({LF, LB});
+okapi::MotorGroup baseRight({RF, RB});
+okapi::MotorGroup base({LF, LB, RF, RB});
 
-ADIEncoder leftEncoder('A', 'B', true);
-ADIEncoder rightEncoder('E', 'F', false);
-ADIEncoder midEncoder('C', 'D', false);
+okapi::ADIEncoder leftEncoder('A', 'B', true);
+okapi::ADIEncoder rightEncoder('E', 'F', false);
+okapi::ADIEncoder midEncoder('C', 'D', false);
 
 pros::Imu imuBottom(11);
 pros::Imu imuTop(12);
 
-ADIButton leftAutonSelector('G');
-ADIButton rightAutonSelector('H');
+okapi::ADIButton leftAutonSelector('G');
+okapi::ADIButton rightAutonSelector('H');
+
+namespace lib4253{
 
 std::map<std::string, std::unique_ptr<pros::Task>> Robot::tasks;
 std::map<std::string, Trajectory> Robot::paths;
 
-void Robot::setPower(MotorGroup motor, double power){
+void Robot::setPower(okapi::MotorGroup motor, double power){
   motor.moveVoltage(power / 127 * 12000);
 }
 
-void Robot::setPower(Motor motor, double power){
+void Robot::setPower(okapi::Motor motor, double power){
   motor = power;
 }
 
-void Robot::setBrakeMode(MotorGroup motor, brakeType mode){
-  AbstractMotor::brakeMode brakeMode;
+void Robot::setBrakeMode(okapi::MotorGroup motor, brakeType mode){
+  okapi::AbstractMotor::brakeMode brakeMode;
 
   switch(mode){
     case COAST:
-      brakeMode = AbstractMotor::brakeMode::coast;
+      brakeMode = okapi::AbstractMotor::brakeMode::coast;
       break;
     case BRAKE:
-      brakeMode = AbstractMotor::brakeMode::brake;
+      brakeMode = okapi::AbstractMotor::brakeMode::brake;
       break;
     case HOLD:
-      brakeMode = AbstractMotor::brakeMode::hold;
+      brakeMode = okapi::AbstractMotor::brakeMode::hold;
       break;
   }
 
   motor.setBrakeMode(brakeMode);
 }
 
-void Robot::setBrakeMode(Motor motor, brakeType mode){
-  AbstractMotor::brakeMode brakeMode;
+void Robot::setBrakeMode(okapi::Motor motor, brakeType mode){
+  okapi::AbstractMotor::brakeMode brakeMode;
 
   switch(mode){
     case COAST:
-      brakeMode = AbstractMotor::brakeMode::coast;
+      brakeMode = okapi::AbstractMotor::brakeMode::coast;
       break;
     case BRAKE:
-      brakeMode = AbstractMotor::brakeMode::brake;
+      brakeMode = okapi::AbstractMotor::brakeMode::brake;
       break;
     case HOLD:
-      brakeMode = AbstractMotor::brakeMode::hold;
+      brakeMode = okapi::AbstractMotor::brakeMode::hold;
       break;
   }
 
@@ -95,6 +97,8 @@ Trajectory Robot::getPath(std::string name){
 
 void Robot::deletePath(std::string name){
   paths.erase(name);
+}
+
 }
 
 competition matchState;

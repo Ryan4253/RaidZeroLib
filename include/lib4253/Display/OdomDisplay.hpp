@@ -2,11 +2,6 @@
 #include "main.h"
 #include "lib4253/Subsystems/Odometry.hpp"
 
-
-// credits to Theo Lemay from team 7842F for coding this display
-// original repo: https://github.com/theol0403/7842F-Competition-Code
-
-
 namespace okapi{
   constexpr QLength tile = 2 * foot;
   constexpr QLength court = 12 * foot;
@@ -17,7 +12,7 @@ namespace okapi{
     constexpr QLength operator"" _crt(long double x) {
       return static_cast<double>(x) * court;
     }
-    constexpr QLength operator"" _tl(unsigned long long int x) {
+    constexpr okapi::QLength operator"" _tl(unsigned long long int x) {
       return static_cast<double>(x) * tile;
     }
     constexpr QLength operator"" _crt(unsigned long long int x) {
@@ -25,6 +20,11 @@ namespace okapi{
     }
   }
 }
+
+namespace lib4253{
+
+// credits to Theo Lemay from team 7842F for coding this display
+// original repo: https://github.com/theol0403/7842F-Competition-Code
 
 class OdomDisplay {
   public:
@@ -47,3 +47,5 @@ class OdomDisplay {
     void run();
     static void taskFnc(void*);
 };
+
+}

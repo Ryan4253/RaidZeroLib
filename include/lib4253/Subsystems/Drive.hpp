@@ -6,6 +6,7 @@
 #include "lib4253/Controller/PurePursuit.hpp"
 #include "lib4253/Controller/LinearMotionProfile.hpp"
 
+namespace lib4253{
 
 class Drive{
   public:
@@ -13,7 +14,7 @@ class Drive{
       TANK, ARCADE
     };
 
-    Drive(const std::initializer_list<Motor> &l, const std::initializer_list<Motor> &r);
+    Drive(const std::initializer_list<okapi::Motor> &l, const std::initializer_list<okapi::Motor> &r);
     Drive& withOdometry(CustomOdometry* tracker);
     Drive& withDimensions(std::tuple<double> wheel, std::tuple<double, double> gear, std::tuple<double> track);
     Drive& withDrivePID(std::tuple<double, double, double> gain, std::tuple<double, double> IGain, std::tuple<double> emaGain);
@@ -29,10 +30,13 @@ class Drive{
     void resetIMU();
     double getAngle();
 
-    void moveDistance(double distance, QTime timeLimit);
-    void moveTo(Point2D target, double turnScale, QTime timeLimit);
-    void turnAngle(double angle, QTime timeLimit);
-    void turnToAngle(double angle, QTime timeLimit);
+    void move(double voltage);
+    void move(double  voltage, okapi::QTime time);
+
+    void moveDistance(double distance, okapi::QTime timeLimit);
+    void moveTo(Point2D target, double turnScale, okapi::QTime timeLimit);
+    void turnAngle(double angle, okapi::QTime timeLimit);
+    void turnToAngle(double angle, okapi::QTime timeLimit);
 
     void moveDistanceLMP(double distance);
     void moveDistanceLMPD(double distance);
@@ -43,8 +47,8 @@ class Drive{
     static void driveTask(void *ptr);
 
   protected:
-    MotorGroup left;
-    MotorGroup right;
+    okapi::MotorGroup left;
+    okapi::MotorGroup right;
 
   private:
     CustomOdometry* odom;
@@ -52,8 +56,6 @@ class Drive{
     SlewController driveSlew;
     PurePursuitFollower PPTenshi;
     LinearMotionProfileController* bruhMobile;
-    std::shared_ptr<ChassisController> chassis;
-    std::shared_ptr<AsyncMotionProfileController> profileController;
     MotorVelocityController leftVelController, rightVelController;
 
     double gearRatio, trackWidth, wheelSize;
@@ -68,3 +70,5 @@ class Drive{
     void tank();
     void arcade();
 };
+
+}

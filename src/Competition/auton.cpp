@@ -1,10 +1,12 @@
 #include "main.h"
 #include "lib4253/Utility/declarations.hpp"
+using namespace lib4253;
+
 
 void debug(){
     int x = 0;
     Robot::startTask("ODOM", CustomOdometry::odomTask, tracker);
-    drive.moveTo({0, 48}, 1, 200_s);
+    drive.moveTo({0, 48}, 1, 200*okapi::second);
     pros::delay(100);
 }
 

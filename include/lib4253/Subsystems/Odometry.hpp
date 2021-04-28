@@ -2,6 +2,8 @@
 #include "main.h"
 #include "lib4253/Utility/Math.hpp"
 
+namespace lib4253{
+
 /*
 * CustomOdometry.hpp
 *
@@ -33,9 +35,9 @@ class CustomOdometry{
 
     Pose2D getPos(); // return current position as a struct
     double getX(); // return x position as a double, units in inches
-    QLength getQX(); // return x position as type QLength
+    okapi::QLength getQX(); // return x position as type QLength
     double getY(); // return y position as a double, in unit inches
-    QLength getQY(); // return y position in type QLength
+    okapi::QLength getQY(); // return y position in type QLength
     double getAngleDeg(); // return angle in degrees
     double getAngleRad(); // return angle in radians
 
@@ -45,9 +47,9 @@ class CustomOdometry{
 
     void setPos(Pose2D newPos); // sets the current position
     void setX(double x); // sets the x position of the robot
-    void setX(QLength inch); // sets the x position of the robot
+    void setX(okapi::QLength inch); // sets the x position of the robot
     void setY(double y); // sets the y position of the robot
-    void setY(QLength inch); // sets the y position of the robot
+    void setY(okapi::QLength inch); // sets the y position of the robot
     void setAngleDeg(double theta); // sets the angle of the robot in degrees
     void setAngleRad(double theta); // sets the angle of the robot in radians
 
@@ -66,7 +68,7 @@ class ADIThreeWheelOdometry:public CustomOdometry{
     double lVal, mVal, rVal; // readings from the left, middle and right encoders
     double lPrev, mPrev, rPrev; // previous reading from the left, middle and right encoders
     double lDist, rDist, mDist; // offset from the center for the 3 tracking wheels. Used in calculations
-    ADIEncoder left, mid, right; // the 3 encoders
+    okapi::ADIEncoder left, mid, right; // the 3 encoders
 
   public:
     ADIThreeWheelOdometry(std::tuple<char, char, bool> l, std::tuple<char, char, bool> m, std::tuple<char, char, bool> r); // constructor
@@ -85,7 +87,7 @@ class ADITwoWheelIMUOdometry:public CustomOdometry{
     double mVal, sVal, aVal; // readings from the side, middle encoder + imu sensor
     double mPrev, sPrev, aPrev; // previous readings from the side, middle encoder + imu sensor
     double mDist, sDist; // offset from the center for the 2 encoders
-    ADIEncoder mid, side; IMU imu; // sensors used in the system
+    okapi::ADIEncoder mid, side; okapi::IMU imu; // sensors used in the system
 
   public:
     ADITwoWheelIMUOdometry(std::tuple<char, char, bool> s, std::tuple<char, char, bool> m, int port); // constructor
@@ -95,3 +97,5 @@ class ADITwoWheelIMUOdometry:public CustomOdometry{
     double getEncoderLeft(); // gets reading from the side encoder
     double getEncoderMid(); // gets reading from the middle encoder
 };
+
+}

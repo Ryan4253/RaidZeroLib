@@ -1,6 +1,8 @@
 #include "main.h"
 #include "lib4253/Controller/PurePursuit.hpp"
 
+namespace lib4253{
+
 void PurePursuitFollower::initialize(){
   settled = false;
   prevClosestPoint = 0; closestPoint = 0;
@@ -122,4 +124,6 @@ std::pair<double, double> PurePursuitFollower::step(Pose2D currentPos){
 
 bool PurePursuitFollower::isSettled(){
   return settled;
+}
+
 }

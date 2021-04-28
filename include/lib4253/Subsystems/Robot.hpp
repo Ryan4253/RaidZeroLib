@@ -10,14 +10,16 @@
 * enums to make programming easier
 */
 
-extern Controller master;
+extern okapi::Controller master;
 
 // sensors declarations
-extern ADIButton leftAutonSelector;
-extern ADIButton rightAutonSelector;
+extern okapi::ADIButton leftAutonSelector;
+extern okapi::ADIButton rightAutonSelector;
 
 extern pros::Imu imuTop;
 extern pros::Imu imuBottom;
+
+namespace lib4253{
 
 // possible braketypes for the motors
 enum brakeType{
@@ -37,12 +39,12 @@ class Robot{
 
   public:
     // sets the power of the motors inputted
-    static void setPower(MotorGroup motor, double power);
-    static void setPower(Motor motor, double power);
+    static void setPower(okapi::MotorGroup motor, double power);
+    static void setPower(okapi::Motor motor, double power);
 
     // sets the brakemode of the motor inputted
-    static void setBrakeMode(MotorGroup Motor, brakeType mode);
-    static void setBrakeMode(Motor motor, brakeType mode);
+    static void setBrakeMode(okapi::MotorGroup Motor, brakeType mode);
+    static void setBrakeMode(okapi::Motor motor, brakeType mode);
 
     // runs the inputted function as a task, set as parameter name
     static void startTask(std::string name, void (*func)(void *), void *param);
@@ -61,5 +63,7 @@ class Robot{
 
 };
 
+}
+
 // state of the match
-extern competition matchState;
+extern lib4253::competition matchState;

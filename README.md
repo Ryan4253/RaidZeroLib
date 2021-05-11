@@ -1,7 +1,7 @@
 # 4253B
 Code for VEX team 4253B
 
-Features:
+**Features**:
 - Custom 3 Wheel arc-based odometry & 2 Wheel IMU odometry
 - Custom PID MoveTo using odom feedback
 - very op motion profile thats non okapi
@@ -13,5 +13,7 @@ Features:
 - Very clean code, even idiots like Andre can read it /s
 - OPPA GANGNAM STYLE
 - autism
+
+**To Do**
 
 ~~**The code currently have no comments, since I'm lazy**~~

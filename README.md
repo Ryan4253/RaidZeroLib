@@ -15,6 +15,7 @@ Code for VEX team 4253B
 - Very clean code, even idiots like Andre can read it /s
 - OPPA GANGNAM STYLE
 - autism
+- Bro chill no one cares about this private repo
 
 **To Do**
 

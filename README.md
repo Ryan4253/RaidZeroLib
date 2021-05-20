@@ -10,6 +10,8 @@ Code for VEX team 4253B
 - Finite State Machine for individual subsystems
 - Everything written in classes, easily instantiable by entering motor & sensor ports
 - Custom task declaration using maps -> easily start/end-able
+- Custom 32D motion profile
+- Ryan's Pronoun - Shut / The Fuck Up
 - Very clean code, even idiots like Andre can read it /s
 - OPPA GANGNAM STYLE
 - autism

@@ -1,8 +1,6 @@
 #include "Drive.hpp"
 #include "Robot.hpp"
 
-namespace lib4253{
-
 /* CONSTRUCTOR */
 
 Drive::Drive(const std::initializer_list<okapi::Motor> &l, const std::initializer_list<okapi::Motor> &r):
@@ -221,12 +219,17 @@ void Drive::followPath(SimplePath path){
 void Drive::followPath(std::string name){
   Trajectory path = Robot::getPath(name);
   int n = path.getSize();
-  pros::lcd::print(3, "INLOOP");
-  for(int i = 0; i < n; i++){
-    std::cout << i-1 << " " << left.getActualVelocity() << std::endl;
-    std::pair<TrajectoryPoint, TrajectoryPoint> kin = path.getKinematics(i);
+  EmaFilter velFilter(0.65);
+  velFilter.reset();
 
-  	double leftRPM = kin.first.velocity * 12 * 60 / (2 * M_PI) / 2 * 7 / 3;
+  for(int i = 0; i < n; i++){
+    double leftActualVel = velFilter.filter(left.getActualVelocity());
+    std::cout << i-1 << " " << leftActualVel << std::endl;
+    std::pair<TrajectoryPoint, TrajectoryPoint> kin = path.getKinematics(i);
+    double leftRPM = kin.first.velocity * 12 * 60 / (2 * M_PI) / 2 * 7 / 3;
+    std::cout << i << " " << leftRPM << " ";
+
+    /*
   	double rightRPM = kin.second.velocity * 12 * 60 / (2 * M_PI) / 2 * 7 / 3;
 
     std::cout << i << " " << leftRPM << " ";
@@ -234,12 +237,12 @@ void Drive::followPath(std::string name){
 
     left.moveVelocity(leftRPM);
     right.moveVelocity(rightRPM);
-    /*
+    */
     double l = leftVelController.calcPower(kin.first, left.getActualVelocity());
     double r = rightVelController.calcPower(kin.second, right.getActualVelocity());
     Robot::setPower(left, l);
     Robot::setPower(right, r);
-    */
+
   	pros::delay(10);
   }
   left.moveVoltage(0);
@@ -338,6 +341,4 @@ void Drive::turnToAngle(double angle, okapi::QTime timeLimit){
 
   Robot::setPower(left, 0);
   Robot::setPower(right, 0);
-}
-
 }

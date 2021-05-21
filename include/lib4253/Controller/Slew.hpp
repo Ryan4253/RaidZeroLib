@@ -4,23 +4,18 @@
  * @brief Slew controller
  * @version 0.1
  * @date 2021-05-20
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
 #pragma once
 #include "main.h"
 
-/**
- * @brief 4253B custom programming library
- * 
- */
-namespace lib4253{
 
 /**
  * @brief Slew controller class
- * 
+ *
  */
 class SlewController{
   protected:
@@ -31,7 +26,7 @@ class SlewController{
   public:
   /**
    * @brief Construct a new Slew Controller object
-   * 
+   *
    * @param accel acceleration step (how much the velocity increases everytime the robot refreshes)
    * @param decel deceleration step (^ vise versa)
    */
@@ -39,13 +34,13 @@ class SlewController{
 
   /**
    * @brief Construct a new Slew Controller object
-   * 
+   *
    */
   SlewController();
 
   /**
    * @brief Set acceleration and deceleration steps
-   * 
+   *
    * @param a acceleration step
    * @param d deceleration step
    */
@@ -59,11 +54,9 @@ class SlewController{
 
   /**
    * @brief Calculates output power
-   * 
+   *
    * @param target target power
    * @return (possibly) modified power
    */
   double step(double target);
 };
-
-}

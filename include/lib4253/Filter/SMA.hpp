@@ -12,6 +12,7 @@
 #pragma once
 #include "main.h"
 
+<<<<<<< HEAD
 /**
  * @brief 4253B custom programming library
  * 
@@ -47,6 +48,12 @@ namespace lib4253{
      * @return filtered values
      */
     double filter(double input);
+=======
+class SmaFilter:public FilterBase{
+  std::queue<double> value; // ngl i was thinking about coding a segment tree
+  int maxSize;
+  double total, output;
+>>>>>>> e28f0a1052c337f3570dcdcd9a98ec1947c8505c
 
     /**
      * @brief Gets filtered values
@@ -62,6 +69,7 @@ namespace lib4253{
      */
     void setMaxSize(int size);
 
+<<<<<<< HEAD
     /**
      * @brief Resets SMA filter
      * 
@@ -70,3 +78,8 @@ namespace lib4253{
   };
 
 }
+=======
+  void setMaxSize(int size);
+  void reset();
+};
+>>>>>>> e28f0a1052c337f3570dcdcd9a98ec1947c8505c

@@ -22,7 +22,6 @@ pros::Imu imuTop(12);
 okapi::ADIButton leftAutonSelector('G');
 okapi::ADIButton rightAutonSelector('H');
 
-namespace lib4253{
 
 std::map<std::string, std::unique_ptr<pros::Task>> Robot::tasks;
 std::map<std::string, Trajectory> Robot::paths;
@@ -99,6 +98,5 @@ void Robot::deletePath(std::string name){
   paths.erase(name);
 }
 
-}
 
 competition matchState;

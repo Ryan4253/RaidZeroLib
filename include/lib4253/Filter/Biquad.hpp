@@ -12,6 +12,7 @@
 #pragma once
 #include "main.h"
 
+<<<<<<< HEAD
 /**
  * @brief 4253B custom programming library
  * 
@@ -27,6 +28,13 @@ namespace lib4253{
     double prevOutput[2];
     double a1, a2, b0, b1, b2; // a0 defaulted to 0
     double sample, cutoff, initVal;
+=======
+class BiquadFilter:public FilterBase{
+  double prevInput[2];
+  double prevOutput[2];
+  double a1, a2, b0, b1, b2; // a0 defaulted to 0
+  double sample, cutoff, initVal;
+>>>>>>> e28f0a1052c337f3570dcdcd9a98ec1947c8505c
 
     /**
      * @brief Enumerator for High & Low pass
@@ -36,6 +44,7 @@ namespace lib4253{
       HIGHPASS, LOWPASS
     };
 
+<<<<<<< HEAD
     /**
      * @brief Construct a new Biquad Filter object
      * 
@@ -61,3 +70,9 @@ namespace lib4253{
     double filter(double input);
   };
 }
+=======
+  BiquadFilter(BiquadFilter::state type, double sampleFreq, double cutoffFreq, double initValue);
+  void reset();
+  double filter(double input);
+};
+>>>>>>> e28f0a1052c337f3570dcdcd9a98ec1947c8505c

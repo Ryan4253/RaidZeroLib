@@ -2,8 +2,6 @@
 #include "main.h"
 #include "lib4253/Utility/Math.hpp"
 
-namespace lib4253{
-
 /*
 * CustomOdometry.hpp
 *
@@ -97,5 +95,3 @@ class ADITwoWheelIMUOdometry:public CustomOdometry{
     double getEncoderLeft(); // gets reading from the side encoder
     double getEncoderMid(); // gets reading from the middle encoder
 };
-
-}

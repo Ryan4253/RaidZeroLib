@@ -2,8 +2,6 @@
 #include "Intake.hpp"
 #include "Robot.hpp"
 
-namespace lib4253{
-
 Roller::Roller(int tPort, int bPort):
   top(tPort), bottom(bPort)
 {}
@@ -141,6 +139,4 @@ void Intake::intakeTask(void *ptr){
   pros::delay(10);
   Intake* that = static_cast<Intake*>(ptr);
   that->run();
-}
-
 }

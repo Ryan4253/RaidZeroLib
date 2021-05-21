@@ -11,6 +11,7 @@
 
 #include "main.h"
 
+<<<<<<< HEAD
 /**
  * @brief 4253B custom programming library
  * 
@@ -23,6 +24,10 @@ namespace lib4253{
    */
   class DemaFilter : public Filter{
     private:
+=======
+class DemaFilter: public FilterBase{
+  private:
+>>>>>>> e28f0a1052c337f3570dcdcd9a98ec1947c8505c
     double alpha, beta;
     double outputS, outputB;
     double prevOutputS, prevOutputB;
@@ -70,6 +75,10 @@ namespace lib4253{
      * 
      */
     void reset();
+<<<<<<< HEAD
   };
 
 }
+=======
+};
+>>>>>>> e28f0a1052c337f3570dcdcd9a98ec1947c8505c

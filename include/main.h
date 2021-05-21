@@ -82,7 +82,6 @@ void opcontrol(void);
  * You can add C++-only headers here
  */
  #include "lib4253/api.hpp"
- using namespace lib4253;
 
 static int auton = 0;
 

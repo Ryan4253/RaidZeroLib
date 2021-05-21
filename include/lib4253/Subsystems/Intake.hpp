@@ -1,8 +1,6 @@
 #pragma once
 #include "main.h"
 
-namespace lib4253{
-
 class Roller{
   public:
     enum State{
@@ -47,5 +45,3 @@ class Intake{
     void run();
     friend class Roller;
 };
-
-}

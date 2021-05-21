@@ -6,7 +6,7 @@
 #include "lib4253/Utility/Math.hpp" // done
 #include "lib4253/Utility/Matrix.hpp"
 
-#include "Filter/Filter.hpp"
+#include "Filter/Filter.hpp" 
 #include "lib4253/Filter/EMA.hpp" // done
 #include "lib4253/Filter/DEMA.hpp"
 #include "lib4253/Filter/SMA.hpp" // done
@@ -29,5 +29,3 @@
 #include "lib4253/Subsystems/Intake.hpp" // done
 
 #include "lib4253/Utility/auton.hpp" // done
-
-using namespace lib4253;

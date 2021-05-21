@@ -21,8 +21,6 @@ namespace okapi{
   }
 }
 
-namespace lib4253{
-
 // credits to Theo Lemay from team 7842F for coding this display
 // original repo: https://github.com/theol0403/7842F-Competition-Code
 
@@ -47,5 +45,3 @@ class OdomDisplay {
     void run();
     static void taskFnc(void*);
 };
-
-}

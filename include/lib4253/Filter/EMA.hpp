@@ -12,6 +12,7 @@
 #pragma once
 #include "main.h"
 
+<<<<<<< HEAD
 /**
  * @brief 4253B custom programming library
  * 
@@ -47,6 +48,12 @@ namespace lib4253{
          * @param a alpha gain
          */
         void setGain(double a);
+=======
+class EmaFilter: public FilterBase{
+  private:
+      double alpha, output = 0, prevOutput = 0;
+      bool run = false;
+>>>>>>> e28f0a1052c337f3570dcdcd9a98ec1947c8505c
 
         /**
          * @brief Gets filtered values
@@ -63,6 +70,7 @@ namespace lib4253{
          */
         double filter(double input);
 
+<<<<<<< HEAD
         /**
          * @brief Resets EMA filter
          * 
@@ -71,3 +79,8 @@ namespace lib4253{
     };
 
 }
+=======
+      double filter(double input);
+      void reset();
+};
+>>>>>>> e28f0a1052c337f3570dcdcd9a98ec1947c8505c

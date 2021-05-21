@@ -12,6 +12,7 @@
 #pragma once
 #include "main.h"
 
+<<<<<<< HEAD
 /**
  * @brief 4253B custom programming library
  * 
@@ -46,6 +47,10 @@ namespace lib4253{
     Point2D operator*(double a);
     double operator*(Point2D a);
     Point2D operator/(double a);
+=======
+struct Point2D{
+  double x, y;
+>>>>>>> e28f0a1052c337f3570dcdcd9a98ec1947c8505c
 
     /**
      * @brief Distance from initial point to target point
@@ -102,4 +107,3 @@ namespace lib4253{
     double angleTo(Pose2D target);
   };
 
-}

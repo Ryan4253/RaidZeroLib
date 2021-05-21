@@ -12,6 +12,7 @@
 #pragma once
 #include "main.h"
 
+<<<<<<< HEAD
 /**
  * @brief 4253B custom programming library
  * 
@@ -34,6 +35,11 @@ namespace lib4253{
      * 
      */
     double acceleration;
+=======
+struct TrajectoryPoint{
+  double velocity;
+  double acceleration;
+>>>>>>> e28f0a1052c337f3570dcdcd9a98ec1947c8505c
 
     /**
      * @brief Construct a new Trajectory Point object
@@ -82,6 +88,10 @@ namespace lib4253{
      * @return velocity and acceleration at index
      */
     std::pair<TrajectoryPoint, TrajectoryPoint> getKinematics(int index);
+<<<<<<< HEAD
   };
 
 }
+=======
+};
+>>>>>>> e28f0a1052c337f3570dcdcd9a98ec1947c8505c

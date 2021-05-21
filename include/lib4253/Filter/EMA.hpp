@@ -1,7 +1,7 @@
 #pragma once
 #include "main.h"
 
-class EmaFilter: public Filter{
+class EmaFilter: public FilterBase{
   private:
       double alpha, output = 0, prevOutput = 0;
       bool run = false;

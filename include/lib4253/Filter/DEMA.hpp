@@ -1,6 +1,6 @@
 #include "main.h"
 
-class DemaFilter: public Filter{
+class DemaFilter: public FilterBase{
   private:
     double alpha, beta;
     double outputS, outputB;

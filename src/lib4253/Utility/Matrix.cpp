@@ -156,7 +156,7 @@ Matrix<T>& Matrix<T>::operator*=(const Matrix<T>& rhs){
 
 template<typename T>
 Matrix<T> Matrix<T>::transpose(){
-  Matrix result(rows, cols, 0.0);
+  Matrix result(row, col, 0.0);
 
   for(int i = 0; i < row; i++){
     for(int j = 0; j < col; j++){
@@ -244,9 +244,9 @@ Matrix<T> Matrix<T>::operator*(const std::vector<T>& rhs){
 
 template<typename T>
 std::vector<T> Matrix<T>::getDiag(){
-  std::vector<T> result(min(row, col), 0.0);
+  std::vector<T> result(std::min(row, col), 0.0);
 
-  for (int i = 0; i < min(row, col); i++) {
+  for (int i = 0; i < std::min(row, col); i++) {
     result[i] = this->mat[i][i];
   }
 
@@ -268,6 +268,7 @@ int Matrix<T>::getRow() const{
   return this->row;
 }
 
+template<typename T>
 int Matrix<T>::getCol() const{
   return this->col;
 }

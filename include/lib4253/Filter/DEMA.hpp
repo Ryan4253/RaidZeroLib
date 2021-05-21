@@ -4,30 +4,21 @@
  * @brief Double exponential moving average (DEMA) filter (literally copied from okapi but okay)
  * @version 0.1
  * @date 2021-05-21
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
 #include "main.h"
 
-<<<<<<< HEAD
-/**
- * @brief 4253B custom programming library
- * 
- */
-namespace lib4253{
 
   /**
    * @brief Double exponential moving average (DEMA) filter class - inherited from Filter
-   * 
+   *
    */
-  class DemaFilter : public Filter{
-    private:
-=======
+
 class DemaFilter: public FilterBase{
   private:
->>>>>>> e28f0a1052c337f3570dcdcd9a98ec1947c8505c
     double alpha, beta;
     double outputS, outputB;
     double prevOutputS, prevOutputB;
@@ -35,13 +26,13 @@ class DemaFilter: public FilterBase{
     public:
     /**
      * @brief Construct a new Dema Filter object
-     * 
+     *
      */
     DemaFilter();
 
     /**
      * @brief Construct a new Dema Filter object
-     * 
+     *
      * @param a alpha gain
      * @param b beta gain
      */
@@ -49,7 +40,7 @@ class DemaFilter: public FilterBase{
 
     /**
      * @brief Set the Gain object
-     * 
+     *
      * @param a alpha gain
      * @param b beta gain
      */
@@ -57,14 +48,14 @@ class DemaFilter: public FilterBase{
 
     /**
      * @brief Gets output values
-     * 
+     *
      * @return filtered values
      */
     double getOutput();
 
     /**
      * @brief Runs raw input through the DEMA filter
-     * 
+     *
      * @param input raw values to be converted
      * @return filtered values
      */
@@ -72,13 +63,7 @@ class DemaFilter: public FilterBase{
 
     /**
      * @brief Resets the filter
-     * 
+     *
      */
     void reset();
-<<<<<<< HEAD
   };
-
-}
-=======
-};
->>>>>>> e28f0a1052c337f3570dcdcd9a98ec1947c8505c

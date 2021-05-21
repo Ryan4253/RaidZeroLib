@@ -1,8 +1,6 @@
 #include "main.h"
 #include "lib4253/Controller/LinearMotionProfile.hpp"
 
-namespace lib4253{
-
 LinearMotionProfileController::LinearMotionProfileController(double a, double maxV){
     maxAcc = a,  maxVel = maxV;
 }
@@ -42,6 +40,4 @@ double LinearMotionProfileController::  getVelocityDist(double d){
 
 double LinearMotionProfileController::getTotalTime(){
   return tAcc * 2 + tCruise;
-}
-
 }

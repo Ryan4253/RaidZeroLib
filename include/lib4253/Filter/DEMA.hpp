@@ -1,7 +1,5 @@
 #include "main.h"
 
-namespace lib4253{
-
 class DemaFilter: public Filter{
   private:
     double alpha, beta;
@@ -18,5 +16,3 @@ class DemaFilter: public Filter{
     double filter(double input);
     void reset();
 };
-
-}

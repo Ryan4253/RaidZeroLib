@@ -1,8 +1,6 @@
 #include "main.h"
 #include "lib4253/Utility/Math.hpp"
 
-namespace lib4253{
-
 BiquadFilter::BiquadFilter(BiquadFilter::state type, double sampleFreq, double cutoffFreq, double initValue){
   double w0 =  2 * M_PI * cutoffFreq / sampleFreq;
   double cosw0 = cos(w0);
@@ -55,6 +53,4 @@ double BiquadFilter::filter(double input){
   prevOutput[1] = prevOutput[0]; prevOutput[0] = output;
 
   return output;
-}
-
 }

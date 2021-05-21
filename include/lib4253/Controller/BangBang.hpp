@@ -1,7 +1,6 @@
 #pragma once
 #include "main.h"
 
-namespace lib4253{
 
 class BangBang{
   double highPower, lowPower, targetVel;
@@ -9,5 +8,3 @@ class BangBang{
   void setTargetVel(double t);
   double step(double v);
 };
-
-}

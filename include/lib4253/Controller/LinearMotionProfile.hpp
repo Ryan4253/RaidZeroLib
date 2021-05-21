@@ -1,8 +1,6 @@
 #pragma once
 #include "main.h"
 
-namespace lib4253{
-
 class LinearMotionProfileController{
   private:
     double maxAcc, decel, maxVel;
@@ -33,5 +31,3 @@ class TrapezoidalProfileController:LinearMotionProfileController{
 class SCurveMotionProfileController:LinearMotionProfileController{
 
 };
-
-}

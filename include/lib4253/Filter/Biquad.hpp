@@ -1,8 +1,6 @@
 #pragma once
 #include "main.h"
 
-namespace lib4253{
-
 class BiquadFilter:public Filter{
   double prevInput[2];
   double prevOutput[2];
@@ -18,4 +16,3 @@ class BiquadFilter:public Filter{
   double filter(double input);
 };
 
-}

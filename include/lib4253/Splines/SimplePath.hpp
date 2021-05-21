@@ -1,8 +1,6 @@
 #pragma once
 #include "main.h"
 
-namespace lib4253{
-
 struct SimplePath{
   private:
     std::vector<Point2D> rawPoint;
@@ -34,5 +32,3 @@ struct SimplePath{
 
     int getSize();
 };
-
-}

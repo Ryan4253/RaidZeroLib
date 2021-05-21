@@ -3,8 +3,6 @@
 //using namespace lib4253;
 //#include "lib4253/Filter/emaFilter.hpp"
 
-namespace lib4253{
-
 PID::PID(double a, double b, double c){
   kP = a, kI = b, kD = c;
   maxIntegral = 1000000000, minDist = 1000000000;
@@ -61,6 +59,4 @@ void FPID::setTarget(double t){
 
 double FPID::fUpdate(double error){
   return update(error) + kF * target;
-}
-
 }

@@ -19,8 +19,6 @@ extern okapi::ADIButton rightAutonSelector;
 extern pros::Imu imuTop;
 extern pros::Imu imuBottom;
 
-namespace lib4253{
-
 // possible braketypes for the motors
 enum brakeType{
   COAST, BRAKE, HOLD
@@ -63,7 +61,5 @@ class Robot{
 
 };
 
-}
-
 // state of the match
-extern lib4253::competition matchState;
+extern competition matchState;

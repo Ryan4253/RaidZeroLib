@@ -1,7 +1,5 @@
 #include "main.h"
 
-namespace lib4253{
-
 DemaFilter::DemaFilter(){
   alpha = 1, beta = 1;
   reset();
@@ -31,6 +29,4 @@ double DemaFilter::filter(double input){
 
 void DemaFilter::reset(){
   outputS = outputB = prevOutputS = prevOutputB = 0;
-}
-
 }

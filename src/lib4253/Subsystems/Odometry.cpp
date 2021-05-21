@@ -1,8 +1,6 @@
 #include "main.h"
 #include "Odometry.hpp"
 
-namespace lib4253{
-
 CustomOdometry::CustomOdometry():globalPos(0, 0, 0){
 }
 
@@ -219,6 +217,4 @@ void ADITwoWheelIMUOdometry::updatePos(){
 
     pros::delay(3);
   }
-}
-
 }

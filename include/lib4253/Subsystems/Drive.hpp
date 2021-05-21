@@ -6,8 +6,6 @@
 #include "lib4253/Controller/PurePursuit.hpp"
 #include "lib4253/Controller/LinearMotionProfile.hpp"
 
-namespace lib4253{
-
 class Drive{
   public:
     enum State{
@@ -70,5 +68,3 @@ class Drive{
     void tank();
     void arcade();
 };
-
-}

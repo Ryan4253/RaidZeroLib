@@ -1,7 +1,5 @@
 #include "main.h"
 
-namespace lib4253{
-
 SmaFilter::SmaFilter(){
   maxSize = 1000;
 }
@@ -36,6 +34,4 @@ void SmaFilter::reset(){
 
 void SmaFilter::setMaxSize(int size){
   maxSize = size;
-}
-
 }

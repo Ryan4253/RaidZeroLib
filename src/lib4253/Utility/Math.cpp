@@ -1,8 +1,6 @@
 #include "main.h"
 #include "Math.hpp"
 
-namespace lib4253{
-
 double Math::degToRad(double deg){
   return deg * M_PI / 180;
 }
@@ -70,6 +68,4 @@ double Math::clamp(double val, double mn, double mx){
   val = fmin(mx, val);
 
   return val;
-}
-
 }

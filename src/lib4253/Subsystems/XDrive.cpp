@@ -52,21 +52,21 @@ double XDrive::angleWrap(double angle) {
     return angle;
 }
 
-void XDrive::setDriveVel(std::array<int, 4> vel) {
+void XDrive::setDriveVel(std::array<double, 4> vel) {
     for (int i : vel) {
-        double newVel = map(vel[i], -1, 1, -motorRPM, motorRPM);
-        base[i].moveVelocity(newVel);
+        double newVel = map(vel[i], -1.0, 1.0, -motorRPM, motorRPM);
+        base[i].moveVelocity((int)newVel);
     }
 }
 
-void XDrive::setDriveVolt(std::array<int, 4> volt){
+void XDrive::setDriveVolt(std::array<double, 4> volt){
     for (int i : volt) {
-        double newVolt = map(volt[i], -1, 1, -12000, 12000);
-        base[i].moveVoltage(newVolt);
-    
+        double newVolt = map(volt[i], -1.0, 1.0, -12000, 12000);
+        base[i].moveVoltage((int)newVolt);
+    }
 }
 
-std::vector<double> moveTowards(Pose2D currPose, Pose2D targetPose) {
+std::pair<std::array<double, 4>, std::array<double 2>> moveTowards(Pose2D currPose, Pose2D targetPose, double speed) {
     // finds distance from current position to target position
     double distanceToTarget = std::hypot(targetPose.x - currPose.x, targetPose.y - currPose.y);
     // finds angle form current position to target position
@@ -82,23 +82,35 @@ std::vector<double> moveTowards(Pose2D currPose, Pose2D targetPose) {
     // scales heading down from [-2PI, 2PI] [-1, 1]
     double scaledHeading = deltaHeading / (2*PI);
     // converts everything to motor velocities
-    std::vector<double> power = {relativeYToTarget + relativeXToTarget + scaledHeading, 
-                                 relativeYToTarget - relativeXToTarget + scaledHeading,
-                                 relativeYToTarget - relativeXToTarget - scaledHeading, 
-                                 relativeYToTarget + relativeXToTarget - scaledHeading};
+    std::array<double, 4> power = {relativeYToTarget + relativeXToTarget + scaledHeading, 
+                                   relativeYToTarget - relativeXToTarget + scaledHeading,
+                                   relativeYToTarget - relativeXToTarget - scaledHeading, 
+                                   relativeYToTarget + relativeXToTarget - scaledHeading};
+    std::array<double, 2> error = {distanceToTarget, deltaHeading};
+
     double max = std::max(std::max(std::fabs(power[0]), std::fabs(power[1])), 
                           std::max(std::fabs(power[2]), std::fabs(power[3])));
     if (max > 1) {
         for(int i : power) {
             power[i] /= max;
         }
+    } else {
+        double diff = 1 - max;
+        for (int i : power) {
+            if (std::signbit(power[i])) {
+                power[i] += diff;
+            } else {
+                power[i] -= diff;
+            }
+        }
     }
-    return power;
+    return std::make_pair(power, error);
 }
 
-void XDrive::moveTo(Pose2D targetPose) {
+void XDrive::moveTo(Pose2D targetPose, std::pair<double, double> margins) {
     do {
-		moveTowards(odom->getPos(), targetPose);
+        setDriveVel(moveTowards(odom->getPos(), targetPose).first);
 		pros::delay(10);
-	} while (asflkjdslk)
+	} while (std::fabs(moveTowards(odom->getPos(), targetPose).second[0]) > 0 && 
+             std::fabs(moveTowards(odom->getPos(), targetPose).second[1]) > 0);
 }

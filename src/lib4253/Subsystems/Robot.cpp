@@ -27,47 +27,50 @@ std::map<std::string, std::unique_ptr<pros::Task>> Robot::tasks;
 std::map<std::string, Trajectory> Robot::paths;
 
 void Robot::setPower(okapi::MotorGroup motor, double power){
-  motor.moveVoltage(power / 127 * 12000);
+    motor.moveVoltage(power / 127 * 12000);
 }
 
 void Robot::setPower(okapi::Motor motor, double power){
-  motor = power;
+    motor = power;
 }
 
 void Robot::setBrakeMode(okapi::MotorGroup motor, brakeType mode){
-  okapi::AbstractMotor::brakeMode brakeMode;
+    okapi::AbstractMotor::brakeMode brakeMode;
 
-  switch(mode){
-    case COAST:
-      brakeMode = okapi::AbstractMotor::brakeMode::coast;
-      break;
-    case BRAKE:
-      brakeMode = okapi::AbstractMotor::brakeMode::brake;
-      break;
-    case HOLD:
-      brakeMode = okapi::AbstractMotor::brakeMode::hold;
-      break;
-  }
+    switch(mode){
+        case COAST:
+        brakeMode = okapi::AbstractMotor::brakeMode::coast;
+        break;
 
-  motor.setBrakeMode(brakeMode);
+        case BRAKE:
+        brakeMode = okapi::AbstractMotor::brakeMode::brake;
+        break;
+
+        case HOLD:
+        brakeMode = okapi::AbstractMotor::brakeMode::hold;
+        break;
+    }
+
+    motor.setBrakeMode(brakeMode);
 }
 
 void Robot::setBrakeMode(okapi::Motor motor, brakeType mode){
-  okapi::AbstractMotor::brakeMode brakeMode;
+    okapi::AbstractMotor::brakeMode brakeMode;
 
-  switch(mode){
-    case COAST:
-      brakeMode = okapi::AbstractMotor::brakeMode::coast;
-      break;
-    case BRAKE:
-      brakeMode = okapi::AbstractMotor::brakeMode::brake;
-      break;
-    case HOLD:
-      brakeMode = okapi::AbstractMotor::brakeMode::hold;
-      break;
-  }
+    switch(mode){
+        case COAST:
+        brakeMode = okapi::AbstractMotor::brakeMode::coast;
+        break;
 
-  motor.setBrakeMode(brakeMode);
+        case BRAKE:
+        brakeMode = okapi::AbstractMotor::brakeMode::brake;
+        break;
+
+        case HOLD:
+        brakeMode = okapi::AbstractMotor::brakeMode::hold;
+        break;
+    }
+    motor.setBrakeMode(brakeMode);
 }
 
 void Robot::startTask(std::string name, void (*func)(void *), void *param) {
@@ -87,15 +90,15 @@ void Robot::endTask(std::string name) {
 }
 
 void Robot::addPath(std::string name, Trajectory path){
-  Robot::paths.insert(std::pair<std::string, Trajectory>(name, path));
+    Robot::paths.insert(std::pair<std::string, Trajectory>(name, path));
 }
 
 Trajectory Robot::getPath(std::string name){
-  return paths[name];
+    return paths[name];
 }
 
 void Robot::deletePath(std::string name){
-  paths.erase(name);
+    paths.erase(name);
 }
 
 

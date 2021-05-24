@@ -21,21 +21,21 @@ extern pros::Imu imuBottom;
 
 // possible braketypes for the motors
 enum brakeType{
-  COAST, BRAKE, HOLD
+    COAST, BRAKE, HOLD
 };
 
 // current state of the match
 enum competition{
-  OPCONTROL, AUTONOMOUS, INITIALIZE, DISABLED
+    OPCONTROL, AUTONOMOUS, INITIALIZE, DISABLED
 };
 
 // general functions used for the robot
 class Robot{
-  private:
+    private:
     static std::map<std::string, std::unique_ptr<pros::Task>> tasks; // tasks currently running on the robot
     static std::map<std::string, Trajectory> paths;
 
-  public:
+    public:
     // sets the power of the motors inputted
     static void setPower(okapi::MotorGroup motor, double power);
     static void setPower(okapi::Motor motor, double power);

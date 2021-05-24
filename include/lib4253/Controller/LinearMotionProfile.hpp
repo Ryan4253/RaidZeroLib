@@ -17,7 +17,7 @@
  *
  */
 class LinearMotionProfileController{
-  private:
+    private:
     double maxAcc, decel, maxVel;
     double tAcc, tCruise;
     double dAcc, dCruise;
@@ -39,7 +39,7 @@ class LinearMotionProfileController{
      */
     LinearMotionProfileController(double maxA, double maxVel);
 
-  public:
+    public:
     /**
      * @brief Set maximum velocity and acceleration
      *

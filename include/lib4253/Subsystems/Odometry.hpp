@@ -19,14 +19,14 @@
 */
 
 class CustomOdometry{
-  protected:
+    protected:
     Pose2D globalPos; // the global position of the robot
 
     // updates the position of the robot, set as pure virtual so each odometry
     // archetype can implement their own updatePos function
     virtual void updatePos() = 0;
 
-  public:
+    public:
     CustomOdometry(); // constructor
     virtual void withDimensions(std::tuple<double, double> dimension); // sets the dimension for 2 wheel odometry
     virtual void withDimensions(std::tuple<double, double, double> dimension); // sets the dimension for 2 wheel odometry
@@ -61,14 +61,14 @@ class CustomOdometry{
 
 // Odometry using 3 encoders - 2 parallel to drive and one perpendicular
 class ADIThreeWheelOdometry:public CustomOdometry{
-  private:
+    private:
     void updatePos(); // updates position based on encoder values
     double lVal, mVal, rVal; // readings from the left, middle and right encoders
     double lPrev, mPrev, rPrev; // previous reading from the left, middle and right encoders
     double lDist, rDist, mDist; // offset from the center for the 3 tracking wheels. Used in calculations
     okapi::ADIEncoder left, mid, right; // the 3 encoders
 
-  public:
+    public:
     ADIThreeWheelOdometry(std::tuple<char, char, bool> l, std::tuple<char, char, bool> m, std::tuple<char, char, bool> r); // constructor
     void withDimensions(std::tuple<double, double, double> dimension); // sets the offset of the 3 tracking wheels
 
@@ -80,14 +80,14 @@ class ADIThreeWheelOdometry:public CustomOdometry{
 
 // Odometry using 2 encoder that are perpendicular to each other, as well as an imu to gather angle information
 class ADITwoWheelIMUOdometry:public CustomOdometry{
-  private:
+    private:
     void updatePos();  // updates position based on encoder values
     double mVal, sVal, aVal; // readings from the side, middle encoder + imu sensor
     double mPrev, sPrev, aPrev; // previous readings from the side, middle encoder + imu sensor
     double mDist, sDist; // offset from the center for the 2 encoders
     okapi::ADIEncoder mid, side; okapi::IMU imu; // sensors used in the system
 
-  public:
+    public:
     ADITwoWheelIMUOdometry(std::tuple<char, char, bool> s, std::tuple<char, char, bool> m, int port); // constructor
     void withDimensions(std::tuple<double, double> dimension); // sets the offset of the 2 tracking wheels
 

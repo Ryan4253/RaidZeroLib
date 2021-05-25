@@ -13,9 +13,9 @@ Code for VEX team 4253B
 - Very clean code, even idiots like Andre can read it /s
 
 **To Do**
-- Make stuff work (cuz like nothing has been tested)
+- Make stuff wor
 - Yilan refs can't ref, watch esun big daddy spank them hard
-- Custom 32D motion profile
+- Custom 32D [redacted]
 - OPPA GANGNAM STYLE
 - autism
 - Bro chill no one cares about this private repo

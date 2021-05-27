@@ -13,11 +13,11 @@
 #include "main.h"
 
 
-  /**
-   * @brief 2D point structure
-   *
-   */
-  struct Point2D{
+/**
+ * @brief 2D point structure
+ *
+ */
+struct Point2D{
     double x, y;
 
     /**
@@ -58,21 +58,19 @@
     double angleTo(Point2D target);
     Point2D normalize();
     double mag();
-  };
+};
 
-  /**
-   * @brief 2D position structure - inherited from 2D point structure
-   *
-   */
-  struct Pose2D : Point2D{
+/**
+ * @brief 2D position structure - inherited from 2D point structure
+ *
+ */
+struct Pose2D : Point2D{
     double angle;
-
     /**
      * @brief Construct a new Pose 2D object
      *
      */
     Pose2D();
-
     /**
      * @brief Construct a new Pose 2 D object
      *
@@ -80,7 +78,6 @@
      * @param b y value
      */
     Pose2D(double a, double b);
-
     /**
      * @brief Construct a new Pose 2 D object
      *
@@ -89,9 +86,7 @@
      * @param theta angle
      */
     Pose2D(double a, double b, double theta);
-
-
     Point2D closest(Point2D target);
     double angleTo(Point2D target);
     double angleTo(Pose2D target);
-  };
+};  

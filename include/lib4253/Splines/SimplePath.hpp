@@ -19,7 +19,7 @@
    */
 
 struct SimplePath{
-  private:
+    private:
     std::vector<Point2D> rawPoint;
     std::vector<Point2D> waypoint;
     std::vector<double> distance;

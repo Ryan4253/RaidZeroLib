@@ -7,7 +7,7 @@
 #include "lib4253/Controller/LinearMotionProfile.hpp"
 
 class Drive{
-  public:
+    public:
     enum State{
       TANK, ARCADE
     };
@@ -48,7 +48,7 @@ class Drive{
     okapi::MotorGroup left;
     okapi::MotorGroup right;
 
-  private:
+    private:
     CustomOdometry* odom;
     PID drivePID; PID turnPID;
     SlewController driveSlew;

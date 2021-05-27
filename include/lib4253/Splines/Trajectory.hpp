@@ -12,11 +12,11 @@
 #pragma once
 #include "main.h"
 
-  /**
-   * @brief Trajectory point structure
-   *
-   */
-  struct TrajectoryPoint{
+/**
+ * @brief Trajectory point structure
+ *
+ */
+struct TrajectoryPoint{
     /**
      * @brief Stores the velocity
      *
@@ -37,13 +37,13 @@
      * @param a acceleration
      */
     TrajectoryPoint(double v, double a);
-  };
+};
 
   /**
    * @brief Trajectory class
    *
    */
-  class Trajectory{
+class Trajectory{
     private:
     std::vector<TrajectoryPoint> left;
     std::vector<TrajectoryPoint> right;
@@ -78,4 +78,4 @@
      */
     std::pair<TrajectoryPoint, TrajectoryPoint> getKinematics(int index);
 
-  };
+};

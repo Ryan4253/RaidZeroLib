@@ -14,15 +14,10 @@
 #include "main.h"
 
 /**
- * @brief 4253B custom programming library
+ * @brief BangBang class
  *
  */
-
-  /**
-   * @brief BangBang class
-   *
-   */
-   class BangBang{
+class BangBang{
     double highPower, lowPower, targetVel;
     /**
      * @brief Construct a new Bang Bang object
@@ -45,4 +40,4 @@
      * @return new velocity
      */
     double step(double v);
-  };
+};

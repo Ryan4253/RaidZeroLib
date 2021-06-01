@@ -2,81 +2,199 @@
 
 ////////////////////////////// Point2D ////////////////////////////////
 
-Point2D::Point2D(){
-    x = 0, y = 0;
+Point2D::Point2D(const double& _x = 0, const double& _y = 0){
+    this->x = _x, this->y = _y;
 }
 
-Point2D::Point2D(double a, double b){
-    x = a, y = b;
+Point2D& Point2D::operator=(const Point2D& rhs){
+    this->x = rhs.x;
+    this->y = rhs.y;
+    return *this;
 }
 
-Point2D Point2D::operator=(Point2D a){
-    return {a.x, a.y};
+bool Point2D::operator==(const Point2D& rhs) const{
+    return (this->x == rhs.x && this->y == rhs.y);
+}
+    
+bool Point2D::operator!=(const Point2D& rhs) const{
+    return (this->x != rhs.x || this->y == rhs.y);
 }
 
-Point2D Point2D::operator+(Point2D a){
-    return {x + a.x, y + a.y};
+Point2D Point2D::operator+(const Point2D& rhs) const{
+    Point2D result({this->x + rhs.x, this->y + rhs.y});
+    return result;
 }
 
-Point2D Point2D::operator-(Point2D a){
-    return {x - a.x, y - a.y};
+Point2D& Point2D::operator+=(const Point2D& rhs){
+    this->x += rhs.x;
+    this->y += rhs.y;
+    return *this;
 }
 
-Point2D Point2D::operator*(double a){
-    return {x * a, y * a};
+Point2D Point2D::operator-(const Point2D& rhs) const{
+    Point2D result({this->x - rhs.x, this->y - rhs.y});
+    return result;
 }
 
-double Point2D::operator*(Point2D a){
-    return x * a.x + y * a.y;
+Point2D& Point2D::operator-=(const Point2D& rhs){
+    this->x -= rhs.x;
+    this->y -= rhs.y;
+    return *this;
 }
 
-Point2D Point2D::operator/(double a){
-    return {x / a, y / a};
+double Point2D::operator*(const Point2D& rhs) const{
+    return this->x * rhs.x + this->y * rhs.y;
 }
 
-Point2D Point2D::normalize(){
-    double mag = sqrt(x * x + y * y);
-    return {x / mag, y / mag};
+Point2D Point2D::operator*(const double& rhs) const{
+    Point2D result({this->x * rhs, this->y * rhs});
+    return result;
 }
 
-double Point2D::mag(){
-    return sqrt(x * x + y * y);
+Point2D& Point2D::operator*=(const double& rhs){
+    this->x *= rhs;
+    this->y *= rhs;
+    return *this;
 }
 
-double Point2D::distanceTo(Point2D target){
-    double deltax = x - target.x;
-    double deltay = y - target.y;
+Point2D Point2D::operator/(const double& rhs) const{
+    Point2D result({this->x / rhs, this->y / rhs});
+    return result;
+}
+
+Point2D& Point2D::operator/=(const double& rhs){
+    this->x /= rhs;
+    this->y /= rhs;
+    return *this;
+}
+
+double Point2D::distanceTo(const Point2D& target) const{
+    double deltax = this->x - target.x;
+    double deltay = this->y - target.y;
 
     return sqrt(deltax * deltax + deltay * deltay);
 }
 
-double Point2D::angleTo(Point2D target){
-    double deltax = x - target.x;
-    double deltay = y - target.y;
+double Point2D::angleTo(const Point2D& target) const{
+    double deltax = this->x - target.x;
+    double deltay = this->y - target.y;
 
-    return (deltax == 0 && deltay == 0) ? 0 : atan2(deltax, deltay);
+    return (deltax == 0 && deltay == 0) ? 0 : Math::degToRad(atan2(deltax, deltay));
+}
+
+Point2D Point2D::normalize() const{
+    double magnitude = this->mag();
+    return {this->x / magnitude, this->y / magnitude};
+}
+
+double Point2D::mag() const{
+    return sqrt(this->x * this->x + this->y * this->y);
 }
 
 /////////////////////////////// POSE /////////////////////////////////
 
-Pose2D::Pose2D(){
-    Point2D(0, 0);
-    angle = 0;
+Pose2D::Pose2D(const double& _x, const double& _y, const double& _heading = 0){
+    this->x = _x, this->y = _y, this->theta = Math::degToRad(_heading);
 }
 
-Pose2D::Pose2D(double a, double b){
-    Point2D(a, b);
-    angle = 0;
+Pose2D::Pose2D(const Point2D& coord, const double& _heading = 0){
+    this->x = coord.x, this->y = coord.y, this->theta = Math::degToRad(_heading);
 }
 
-Pose2D::Pose2D(double a, double b, double theta){
-    Point2D(a, b);
-    angle = theta;
+Pose2D& Pose2D::operator=(const Pose2D& rhs){
+    this->x = rhs.x;
+    this->y = rhs.y;
+    this->theta = rhs.theta;
+    return *this;
 }
 
-Point2D Pose2D::closest(Point2D target){
-    Point2D current = {x, y};
-    Point2D heading = {sin(angle), cos(angle)};
+bool Pose2D::operator==(const Pose2D& rhs) const{
+    return (this->x == rhs.x && this->y == rhs.y && this->theta == rhs.theta);
+}
+
+bool Pose2D::operator!=(const Pose2D& rhs) const{
+    return (this->x != rhs.x || this->y != rhs.y || this->theta != rhs.theta);
+}
+
+Pose2D Pose2D::operator+(const Pose2D& rhs) const{
+    Pose2D result = {this->x + rhs.x, this->y + rhs.y, this->theta + rhs.theta};
+    return result;
+}
+
+Pose2D& Pose2D::operator+=(const Pose2D& rhs){
+    this->x += rhs.x, this->y += rhs.y, this->theta += rhs.theta;
+    return *this;
+}
+
+Pose2D Pose2D::operator-(const Pose2D& rhs) const{
+    Pose2D result = {this->x - rhs.x, this->y - rhs.y, this->theta - rhs.theta};
+    return result;
+}
+
+Pose2D& Pose2D::operator-=(const Pose2D& rhs){
+    this->x -= rhs.x, this->y -= rhs.y, this->theta -= rhs.theta;
+    return *this;
+}
+
+Pose2D Pose2D::operator+(const Point2D& rhs) const{
+    Pose2D result({this->x + rhs.x, this->y + rhs.y, this->theta});
+    return result;
+}
+
+Pose2D& Pose2D::operator+=(const Point2D& rhs){
+    this->x += rhs.x, this->y += rhs.y;
+    return *this;
+}
+
+Pose2D Pose2D::operator-(const Point2D& rhs) const{
+    Pose2D result = {this->x - rhs.x, this->y - rhs.y, this->theta};
+    return result;
+}
+
+Pose2D& Pose2D::operator-=(const Point2D& rhs){
+    this->x -= rhs.x, this->y -= rhs.y;
+    return *this;
+}
+
+Pose2D Pose2D::operator*(const double& rhs) const{
+    Pose2D result({this->x * rhs, this->y * rhs, this->theta});
+    return result;
+}
+
+Pose2D& Pose2D::operator*=(const double& rhs){
+    this->x *= rhs, this->y *= rhs;
+    return *this;
+}
+
+Pose2D Pose2D::operator/(const double& rhs) const{
+    Pose2D result({this->x / rhs, this->y / rhs, this->theta});
+    return result;
+}
+
+Pose2D& Pose2D::operator/=(const double& rhs){
+    this->x /= rhs, this->y /= rhs;
+    return *this;
+}
+
+double Pose2D::angleTo(const Point2D& target) const{
+    double deltax = this->x - target.x;
+    double deltay = this->y - target.y;
+    double angle = (deltax == 0 && deltay == 0) ? 0 : atan2(deltax, deltay);
+    return Math::wrapAngle180(Math::radToDeg(angle - this->theta));
+}
+
+double Pose2D::angleTo(const Pose2D& target) const{
+    double result = Math::radToDeg(this->theta - target.theta);
+    return Math::wrapAngle180(result);
+}
+
+double Pose2D::distanceTo(const Pose2D& target) const{
+    return this->distanceTo({target.x, target.y});
+}
+
+Point2D Pose2D::closest(const Point2D& target) const{
+    Point2D current = {this->x, this->y};
+    Point2D heading = {sin(this->theta), cos(this->theta)};
     Point2D n = heading.normalize();
     Point2D v = target-current;
     double d = n*v;
@@ -84,16 +202,12 @@ Point2D Pose2D::closest(Point2D target){
     return (current)+((n*d));
 }
 
-double Pose2D::angleTo(Point2D target){
-    double deltax = x - target.x;
-    double deltay = y - target.y;
-
-    double ang = (deltax == 0 && deltay == 0) ? 0 : atan2(deltax, deltay);
-    ang -= angle;
-    return Math::wrapAngle180(Math::radToDeg(ang));
+Pose2D Pose2D::normalize() const{
+    double magnitude = this->mag();
+    return {this->x / magnitude, this->y / magnitude, this->theta};
 }
 
-double Pose2D::angleTo(Pose2D target){
-    double ang = angle - target.angle;
-    return Math::wrapAngle180(ang);
+Point2D Pose2D::toPoint() const{
+    Point2D result({this->x, this->y});
+    return result;
 }

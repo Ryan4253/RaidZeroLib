@@ -13,11 +13,11 @@
 #include "main.h"
 
 
-  /**
-   * @brief Simple moving average filter (SMA) - inherited from Filter
-   *
-   */
-  class SmaFilter : public FilterBase{
+/**
+ * @brief Simple moving average filter (SMA) - inherited from Filter
+ *
+ */
+class SmaFilter : public FilterBase{
     std::queue<double> value; // ngl i was thinking about coding a segment tree
     int maxSize;
     double total, output;
@@ -62,4 +62,4 @@
      *
      */
     void reset();
-  };
+};

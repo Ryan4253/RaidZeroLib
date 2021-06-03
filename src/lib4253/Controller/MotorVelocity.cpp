@@ -1,5 +1,13 @@
 #include "main.h"
 
+MotorVelocityController::MotorVelocityController() {
+    kV = 0; kA = 0; kP = 0;
+}
+
+MotorVelocityController::MotorVelocityController(double a, double b, double c) {
+    kV = a; kA = b; kP = c;
+}
+
 void MotorVelocityController::setGain(double a, double b, double c){
     kV = a, kA = b, kP = c;
 }

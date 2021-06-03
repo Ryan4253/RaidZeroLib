@@ -77,7 +77,6 @@ class LinearMotionProfileController{
      * @return total time
      */
     double getTotalTime();
-
 };
 
 class TrapezoidalProfileController:LinearMotionProfileController{

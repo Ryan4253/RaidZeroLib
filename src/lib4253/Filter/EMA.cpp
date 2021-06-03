@@ -1,4 +1,5 @@
-#include "main.h"
+// #include "main.h"
+#include "lib4253/Filter/EMA.hpp"
 
 EmaFilter::EmaFilter(double a){
     alpha = a;

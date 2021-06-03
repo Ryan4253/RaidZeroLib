@@ -10,14 +10,14 @@
  */
 
 #pragma once
-#include "main.h"
+// #include "main.h"
 
 /**
 * @brief Filter class
 *
 */
 class FilterBase{
-  public:
+    public:
     /**
     * @brief Resets filters
     *
@@ -31,4 +31,4 @@ class FilterBase{
      * @return filtered values
      */
     virtual double filter(double input) = 0;
-  };
+};

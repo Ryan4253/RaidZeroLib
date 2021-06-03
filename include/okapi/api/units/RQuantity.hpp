@@ -9,7 +9,6 @@
  */
 #pragma once
 
-
 #include <cmath>
 #include <ratio>
 

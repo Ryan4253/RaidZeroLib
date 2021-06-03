@@ -2,7 +2,7 @@
 #include "lib4253/Controller/Slew.hpp"
 
 // Constructor, takes in acceleration and decelaration steps
-SlewController::SlewController(int accel, int decel){
+SlewController::SlewController(double accel, double decel){
     accStep = accel, decStep = decel, speed = 0;
 }
 
@@ -21,9 +21,9 @@ void SlewController::reset(){
 }
 
 double SlewController::step(double target) {
-    int step;
+    double step;
 
-    if(std::abs(speed) < std::abs(target)) {
+    if(std::fabs(speed) < std::fabs(target)) {
         step = accStep;
     }
     else {

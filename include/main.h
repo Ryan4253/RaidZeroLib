@@ -4,7 +4,7 @@
  * Contains common definitions and header files used throughout your PROS
  * project.
  *
- * Copyright (c) 2017-2020, Purdue University ACM SIGBots.
+ * Copyright (c) 2017-2021, Purdue University ACM SIGBots.
  * All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -35,17 +35,13 @@
 #define PROS_USE_LITERALS
 
 #include "api.h"
-#include "okapi/api.hpp"
-#include "display/lvgl.h"
-#include<bits/stdc++.h>
-
-
-
 
 /**
  * You should add more #includes here
  */
-//#include "pros/api_legacy.h"
+#include "okapi/api.hpp"
+#include "pros/api_legacy.h"
+#include "lib4253/api.hpp"
 
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do
@@ -58,7 +54,6 @@
 // using namespace pros;
 // using namespace pros::literals;
 using namespace okapi;
-// using namespace okapi::literals;
 
 /**
  * Prototypes for the competition control tasks are redefined here to ensure
@@ -81,11 +76,6 @@ void opcontrol(void);
 /**
  * You can add C++-only headers here
  */
- #include "lib4253/api.hpp"
-
-static int auton = 0;
-
-
 //#include <iostream>
 #endif
 

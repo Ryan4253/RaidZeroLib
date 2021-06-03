@@ -1,6 +1,6 @@
 /**
  * @file MotorVelocity.hpp
- * @author Ryan Liao (23RyanL@students.tas.tw)
+ * @author Ryan Liao (23RyanL@students.tas.tw) & Jason Zhou (24JasonZ@students.tas.tw)
  * @brief Accurate velocity controller for motors
  * @version 0.1
  * @date 2021-05-20
@@ -11,7 +11,6 @@
 
 #include "main.h"
 
-
 /**
  * @brief Velocity Controller class
  *
@@ -19,6 +18,21 @@
 class MotorVelocityController{
     double kV, kA, kP;
     public:
+    /**
+     * @brief Construct a new Motor Velocity Controller object
+     * 
+     */
+    MotorVelocityController();
+
+    /**
+     * @brief Construct a new Motor Velocity Controller object
+     * 
+     * @param a velocity gain
+     * @param b acceleration gain
+     * @param c proportional gain
+     */
+    MotorVelocityController(double a, double b, double c);
+
     /**
      * @brief Sets gain for velocity controller
      *

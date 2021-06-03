@@ -1,4 +1,4 @@
-#include "main.h"
+#include "lib4253/Filter/DEMA.hpp"
 
 DemaFilter::DemaFilter(){
     alpha = 1, beta = 1;

@@ -32,6 +32,7 @@ double LinearMotionProfileController::  getVelocityDist(double d){
     }
     else if(d > dCruise){
         double dDec = dAcc - (dCruise - d);
+        dAcc = dDec;
     }
     else{
         return maxVel;

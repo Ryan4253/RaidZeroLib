@@ -19,9 +19,9 @@
  */
 class SlewController{
     protected:
-    int speed;
-    int accStep;
-    int decStep;
+    double speed;
+    double accStep;
+    double decStep;
     
     public:
     /**
@@ -30,7 +30,7 @@ class SlewController{
      * @param accel acceleration step (how much the velocity increases everytime the robot refreshes)
      * @param decel deceleration step (^ vise versa)
      */
-    SlewController(int accel, int decel);
+    SlewController(double accel, double decel);
     
     /**
      * @brief Construct a new Slew Controller object

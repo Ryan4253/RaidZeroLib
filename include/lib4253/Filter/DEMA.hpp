@@ -9,7 +9,9 @@
  *
  */
 
-#include "main.h"
+#pragma once
+// #include "main.h"
+#include "lib4253/Filter/Filter.hpp"
 
 
   /**
@@ -18,7 +20,7 @@
    */
 
 class DemaFilter: public FilterBase{
-  private:
+    private:
     double alpha, beta;
     double outputS, outputB;
     double prevOutputS, prevOutputB;
@@ -66,4 +68,4 @@ class DemaFilter: public FilterBase{
      *
      */
     void reset();
-  };
+};

@@ -27,6 +27,12 @@ double Math::inchToTick(double inch, double rad, double ticksPerRotation){
   return inch / (rad * M_PI) * ticksPerRotation;
 }
 
+double Math::tickToDeg(const double& tick,  const std::shared_ptr<ChassisScales>& scale, const double& ticksPerRotation){
+  double inches = Math::tickToInch(tick, scale->wheelDiameter.convert(inch), ticksPerRotation);
+  double rad = inches / (scale->wheelTrack.convert(inch));
+  return Math::radToDeg(rad);
+}
+
 double Math::cubicControl(double power){
   return power * power * power / 16129;
 }

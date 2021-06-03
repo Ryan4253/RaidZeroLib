@@ -73,6 +73,8 @@ class PID {
      * @return power to the motor
      */
     double update(double error);
+
+    double getError();
 };
 
 /**

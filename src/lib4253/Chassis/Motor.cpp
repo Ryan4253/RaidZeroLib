@@ -8,12 +8,12 @@ okapi::Motor((std::uint8_t)(std::abs(iport)), iport < 0, cartridge, okapi::Abstr
     velFilter = std::move(std::make_unique<EmaFilter>(ia));
 }
 
-int32_t Motor::setRPM(const std::int16_t& ivelocity){
+void Motor::setRPM(const std::int16_t& ivelocity){
     double power = velController->calcPower(ivelocity, 0, getFilteredVelocity());
     moveVoltage(power);
 }
 
-int32_t Motor::setRPM(const std::int16_t& ivelocity, const std::int16_t& iacceleration){
+void Motor::setRPM(const std::int16_t& ivelocity, const std::int16_t& iacceleration){
     double power = velController->calcPower(ivelocity, iacceleration, getFilteredVelocity());
     moveVoltage(power);
 }

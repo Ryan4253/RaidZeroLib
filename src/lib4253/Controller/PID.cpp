@@ -47,6 +47,10 @@ double PID::update(double err) {
     return error * kP + integral * kI + derivative * kD; // final power output
 }   
 
+double PID::getError(){
+    return error;
+}
+
 void FPID::setFGain(double f){
     kF = f;
 }   

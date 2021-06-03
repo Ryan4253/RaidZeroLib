@@ -21,6 +21,8 @@ namespace Math{
     double inchToTick(double inch);
     double inchToTick(double tick, double rad, double ticksPerRotation);
 
+    double tickToDeg(const double& tick, const std::shared_ptr<ChassisScales>& scale, const double& ticksPerRotation);
+
     // scales the pwn power cubically, used for driver control for more precise control
     double cubicControl(double power);
 

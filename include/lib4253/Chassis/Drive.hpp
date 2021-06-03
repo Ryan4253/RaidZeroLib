@@ -13,10 +13,9 @@ class Chassis: public TaskWrapper{
     };
 	
 	// Constructor
-
 	Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
 			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
-			std::unique_ptr<ChassisScales> iScale,
+			std::shared_ptr<ChassisScales> iScale,
 			std::shared_ptr<IMU> imu,
 			std::unique_ptr<SlewController> _driveSlew = nullptr,
 			std::unique_ptr<PID> _drivePID = nullptr, 
@@ -25,7 +24,7 @@ class Chassis: public TaskWrapper{
 
 	Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
 			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
-			std::unique_ptr<ChassisScales> iScale,
+			std::shared_ptr<ChassisScales> iScale,
 			std::unique_ptr<SlewController> _driveSlew = nullptr,
 			std::unique_ptr<PID> _drivePID = nullptr, 
 			std::unique_ptr<PID> _turnPID = nullptr,
@@ -47,9 +46,11 @@ class Chassis: public TaskWrapper{
 	double getRightEncoderReading();
 
 	// drive movement functions
-	void setPower(const double& power);
-	void setVelocity(const double& velocity);
-	void move(const double& power, const QTime& timeLim);
+	void setPower(const double& lPower, const double& rPower);
+    void setPower(const std::pair<double, double> power);
+	void setVelocity(const double& lVelocity, const double& rVelocity);
+    void setVelocity(const std::pair<double, double> velocity);
+	void move(const double& lPower, const double& rPower, const QTime& timeLim);
 	void moveDistance(const double& dist, const QTime& timeLim);
 	void turnAngle(const double& angle, const QTime& timeLim);
 
@@ -58,8 +59,8 @@ class Chassis: public TaskWrapper{
 	std::vector<std::shared_ptr<Motor> > left {nullptr};
     std::vector<std::shared_ptr<Motor> > right {nullptr};
     std::shared_ptr<IMU> inertial {nullptr};
+    std::shared_ptr<ChassisScales> scale {nullptr};
 
-	std::unique_ptr<ChassisScales> scale {nullptr};
 	std::unique_ptr<SlewController> driveSlew {nullptr};
     std::unique_ptr<PID> drivePID {nullptr};
     std::unique_ptr<PID> turnPID {nullptr};
@@ -67,11 +68,12 @@ class Chassis: public TaskWrapper{
 
 	std::atomic<State> currentState{State::TANK};
 
-	std::pair<double, double> scaleSpeed(double linear, double yaw, double turnScale);
+	std::pair<double, double> scaleSpeed(const double& linear, const double& yaw, const double& max);
+    std::pair<double, double> desaturate(const double& left, const double& right, const double& max);
 
 	// driver control functions
-	void tank();
-	void arcade();
+	void tank(const double& left, const double& right);
+	void arcade(const double& fwd, const double& yaw);
 };
 
 class Drive{

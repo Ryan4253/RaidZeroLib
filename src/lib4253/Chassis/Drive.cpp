@@ -3,9 +3,9 @@ namespace lib4253{
 
 Chassis::Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
 			    const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
-			    std::unique_ptr<ChassisScales> iScale,
+			    std::shared_ptr<ChassisScales> iScale,
 			    std::shared_ptr<IMU> imu,
-			    std::unique_ptr<SlewController> _driveSlew = nullptr,
+			    std::unique_ptr<SlewController> _driveSlew = std::move(std::make_unique<SlewController>(12000, 12000)),
 			    std::unique_ptr<PID> _drivePID = nullptr, 
 			    std::unique_ptr<PID> _turnPID = nullptr,
 			    std::unique_ptr<PID> _anglePID = nullptr):
@@ -21,8 +21,8 @@ left(iLeft), right(iRight)
 
 Chassis::Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
 			    const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
-			    std::unique_ptr<ChassisScales> iScale,
-			    std::unique_ptr<SlewController> _driveSlew = nullptr,
+			    std::shared_ptr<ChassisScales> iScale,
+			    std::unique_ptr<SlewController> _driveSlew = std::move(std::make_unique<SlewController>(12000, 12000)),
 			    std::unique_ptr<PID> _drivePID = nullptr, 
 			    std::unique_ptr<PID> _turnPID = nullptr,
 			    std::unique_ptr<PID> _anglePID = nullptr,
@@ -38,9 +38,9 @@ left(iLeft), right(iRight)
 }
 
 void Chassis::loop(){
-
     while(true){
         auto now = pros::millis();
+        /*
         switch(currentState.load()){
             case State::TANK:
                 tank();
@@ -50,6 +50,7 @@ void Chassis::loop(){
                 arcade();
                 break;
         }
+        */
         pros::Task::delay_until(&now, 10);
     }
 }
@@ -65,10 +66,12 @@ void Chassis::setState(const Chassis::State& s){
 void Chassis::initialize(){
     for(auto& motor : left){
         motor->tarePosition();
+        motor->setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
     }
 
     for(auto& motor : right){
         motor->tarePosition();
+        motor->setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
     }
 
     if(driveSlew != nullptr){
@@ -151,6 +154,168 @@ double Chassis::getRightEncoderReading(){
     return total / (right.size());
 }   
 
+void Chassis::setPower(const double& lPower, const double& rPower){
+    for(auto& motor : left){
+        motor->moveVoltage(lPower);
+    }
+
+    for(auto& motor : right){
+        motor->moveVoltage(rPower);
+    }
+}
+
+void Chassis::setPower(const std::pair<double, double> power){
+    for(auto& motor : left){
+        motor->moveVoltage(power.first);
+    }
+
+    for(auto& motor : right){
+        motor->moveVoltage(power.second);
+    }
+}
+
+void Chassis::setVelocity(const double& lVelocity, const double& rVelocity){
+    for(auto& motor : left){
+        motor->setRPM(lVelocity);
+    }
+
+    for(auto& motor : right){
+        motor->setRPM(rVelocity);
+    }
+}
+
+void Chassis::setVelocity(const std::pair<double, double> velocity){
+    for(auto& motor : left){
+        motor->setRPM(velocity.first);
+    }
+
+    for(auto& motor : right){
+        motor->setRPM(velocity.second);
+    }
+}
+
+void Chassis::move(const double& lPower, const double& rPower, const QTime& timeLim){
+    setPower(lPower, rPower);
+    pros::delay(timeLim.convert(millisecond));
+    setPower(0, 0);
+}
+
+void Chassis::moveDistance(const double& dist, const QTime& timeLim){
+    double startTime = pros::millis(), distTravelled, power;
+
+    if(drivePID == nullptr){
+        do{
+            distTravelled = Math::inchToTick(getEncoderReading(), scale->wheelDiameter.convert(inch), 360);
+            power = driveSlew->step(12000);
+            if(dist < 0){
+                setPower(-power, -power);
+            }
+            else{
+                setPower(power, power);
+
+            }
+        }while(std::fabs(distTravelled) < std::fabs(dist) && (pros::millis() - startTime) < timeLim.convert(millisecond));
+    }
+    else{
+        driveSlew->reset();
+        drivePID->initialize();
+        if(anglePID != nullptr){
+            anglePID->initialize();
+        }
+        resetSensor();
+
+        do{
+            double error = dist - Math::tickToInch(getEncoderReading(), scale->wheelDiameter.convert(inch), 360);
+            double power = drivePID->update(error), adjustment;
+
+            if(anglePID == nullptr){
+                adjustment = 0;
+            }
+            else if(inertial == nullptr){
+                double tickTravelled = getLeftEncoderReading() - getRightEncoderReading();
+                adjustment = anglePID->update(Math::wrapAngle180(Math::tickToDeg(tickTravelled, scale, 360)));
+            }
+            else{
+                adjustment = anglePID->update(Math::wrapAngle180(inertial->get()));
+            }
+            
+            std::pair<double, double> finalPower = scaleSpeed(power, adjustment, driveSlew->step(std::fabs(power)));
+            setPower(finalPower.first, finalPower.second);
+        }while(drivePID->getError() < 0.5 && (pros::millis() - startTime) < timeLim.convert(millisecond));
+    }
+
+    setPower(0, 0);
+}
+
+void Chassis::turnAngle(const double& angle, const QTime& timeLim){
+    double startTime = pros::millis();
+    double target = Math::wrapAngle180(angle);
+    resetSensor();
+
+    if(turnPID == nullptr){
+        double degTravelled;
+        do{
+            if(inertial != nullptr){
+                degTravelled = Math::wrapAngle180(inertial->get());
+            }
+            else{
+                double tickTravelled = getLeftEncoderReading() - getRightEncoderReading();
+                degTravelled = Math::wrapAngle180(Math::tickToDeg(tickTravelled, scale, 360));
+            }
+
+            if(target > 0){
+                setPower(127, -127);
+            }
+            else{
+                setPower(-127, 127);
+            }
+        }while(std::fabs(degTravelled) < std::fabs(target) && (pros::millis() - startTime) < timeLim.convert(millisecond));
+    }
+    else{
+        double error;
+        do{
+            if(inertial != nullptr){
+                error = target - Math::wrapAngle180(inertial->get());
+            }
+            else{
+                double tickTravelled = getLeftEncoderReading() - getRightEncoderReading();
+                error = target - Math::wrapAngle180(Math::tickToDeg(tickTravelled, scale, 360));
+            }
+
+            double power = turnPID->update(error);
+            setPower(desaturate(power, -power, driveSlew->step(std::abs(power))));
+            
+        }while(std::fabs(turnPID->getError()) < 0.5 && (pros::millis() - startTime) < timeLim.convert(millisecond));
+    }
+
+    setPower(0, 0);
+}
+
+std::pair<double, double> scaleSpeed(const double& linear, const double& yaw, const double& max){
+    double left = linear - yaw;
+    double right = linear + yaw;
+    return desaturate(left, right, max);
+}
+
+std::pair<double, double> desaturate(const double& left, const double& right, const double& max){
+    double leftPower = left, rightPower = right, maxPower = fmax(std::fabs(left), std::fabs(right));
+    if(maxPower > std::fabs(max)){
+        leftPower = left / maxPower * max;
+        rightPower = right / maxPower * max;
+    }
+
+    return {leftPower, rightPower};
+}   
+
+void Chassis::tank(const double& left, const double& right){
+    //std::cout<<"TANK" << std::endl;.    
+    setPower(left * 12000, right * 12000);
+}
+
+void Chassis::arcade(const double& fwd, const double& yaw){
+    std::pair<double, double> power = scaleSpeed(fwd * 12000, yaw * 12000, 12000);
+    setPower(power.first, power.second);
+}
 }
 /*
 Drive::Drive(const std::initializer_list<okapi::Motor> &l, const std::initializer_list<okapi::Motor> &r):
@@ -160,15 +325,6 @@ Drive::Drive(const std::initializer_list<okapi::Motor> &l, const std::initialize
 
 Drive& Drive::withOdometry(CustomOdometry* tracker){
     odom = tracker;
-    return *this;
-}
-
-Drive& Drive::withDimensions(std::tuple<double> wheel, std::tuple<double, double> gear, std::tuple<double> track){
-    wheelSize = std::get<0>(wheel);
-    gearRatio = std::get<0>(gear) / std::get<1>(gear);
-    trackWidth = std::get<0>(track);
-
-    PPTenshi.setTrackWidth(trackWidth);
     return *this;
 }
 
@@ -202,101 +358,6 @@ Drive& Drive::withVelocityFeedForward(std::tuple<double, double, double> l, std:
     leftVelController.setGain(std::get<0>(l), std::get<1>(l), std::get<2>(l));
     rightVelController.setGain(std::get<0>(r), std::get<1>(r), std::get<2>(r));
     return *this;
-}
-
-void Drive::initialize(){
-    Robot::setBrakeMode(left, COAST);
-    Robot::setBrakeMode(right, COAST);
-    resetIMU();
-}
-
-
-void Drive::resetIMU(){
-    imuTop.reset();
-    imuBottom.reset();
-    pros::delay(2000+100);
-}
-
-double Drive::getAngle() {
-    return (imuTop.get_rotation() + imuBottom.get_rotation()) / 2;
-}
-
-
-Drive::State Drive::getState(){
-    return driveState;
-}
-
-void Drive::setState(State s){
-    driveState = s;
-}
-
-void Drive::updateState(){
-    int AState = master.getDigital(okapi::ControllerDigital::A);
-
-    if(AState && !prevAState){
-        if(driveState == TANK){
-            driveState = ARCADE;
-        }
-        else{
-            driveState = TANK;
-        }
-    }
-
-    prevAState = AState;
-}
-
-
-void Drive::tank(){
-    //std::cout<<"TANK" << std::endl;
-
-    double leftPower = master.getAnalog(okapi::ControllerAnalog::leftY)*127;
-    double rightPower = master.getAnalog(okapi::ControllerAnalog::rightY)*127;
-
-    Robot::setPower(left, leftPower);
-    Robot::setPower(right, rightPower);
-}
-
-void Drive::arcade(){
-    //std::cout << "ARCADE" << std::endl;
-
-    int power = master.getAnalog(okapi::ControllerAnalog::leftY)*127;
-    int turn = master.getAnalog(okapi::ControllerAnalog::rightX)*-127;
-    Point2D finalPower = scaleSpeed(power, turn, 1);
-
-    Robot::setPower(left, finalPower.x);
-    Robot::setPower(right, finalPower.y);
-}
-
-void Drive::run(){
-    while(true){
-        updateState();
-
-        switch(driveState){
-            case TANK:
-            tank();
-            break;
-
-            case ARCADE:
-            arcade();
-            break;
-        }
-        pros::delay(3);
-    }
-}
-
-
-
-
-Point2D Drive::scaleSpeed(double drivePower, double turnPower, double turnScale){
-    double leftPower = drivePower - turnPower * turnScale;
-    double rightPower = drivePower + turnPower * turnScale;
-
-    double maxPower = fmax(std::fabs(leftPower), std::fabs(rightPower));
-    double adjustment = driveSlew.step(maxPower);
-    leftPower = leftPower / maxPower * adjustment;
-    rightPower = rightPower / maxPower * adjustment;
-
-    return {leftPower, rightPower};
 }
 
 void Drive::moveDistanceLMP(double distance){

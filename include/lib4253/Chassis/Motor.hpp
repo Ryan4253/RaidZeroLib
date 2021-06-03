@@ -9,8 +9,8 @@ class Motor : public okapi::Motor{
 
   public:
     Motor(const int& iport, const okapi::AbstractMotor::gearset& cartridge, const double& ia, const std::tuple<double, double, double>& constant);
-    int32_t setRPM(const std::int16_t& ivelocity);
-    int32_t setRPM(const std::int16_t& ivelocity, const std::int16_t& iacceleration);
+    void setRPM(const std::int16_t& ivelocity);
+    void setRPM(const std::int16_t& ivelocity, const std::int16_t& iacceleration);
     double getFilteredVelocity();
 };
 }

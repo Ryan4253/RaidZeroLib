@@ -12,7 +12,7 @@
 #pragma once
 #include "main.h"
 #include "lib4253/Splines/SimplePath.hpp"
-
+namespace lib4253{
 
 
 /**
@@ -123,3 +123,4 @@ class PurePursuitFollower{
      */
     bool isSettled();
 };
+}

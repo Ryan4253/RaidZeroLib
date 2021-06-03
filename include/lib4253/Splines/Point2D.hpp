@@ -11,6 +11,7 @@
 
 #pragma once
 #include "main.h"
+namespace lib4253{
 
 
 /**
@@ -192,5 +193,5 @@ class Pose2D : public Point2D{
     Point2D toPoint() const;
 };  
 
-
+}
 

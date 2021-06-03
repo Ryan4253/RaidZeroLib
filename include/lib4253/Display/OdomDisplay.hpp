@@ -23,7 +23,7 @@ namespace okapi{
 
 // credits to Theo Lemay from team 7842F for coding this display
 // original repo: https://github.com/theol0403/7842F-Competition-Code
-
+namespace lib4253{
 class OdomDisplay {
   public:
     lv_obj_t* container = nullptr;
@@ -45,3 +45,4 @@ class OdomDisplay {
     void run();
     static void taskFnc(void*);
 };
+}

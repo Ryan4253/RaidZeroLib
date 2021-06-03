@@ -11,7 +11,7 @@
 
 #pragma once
 #include "main.h"
-
+namespace lib4253{
 
 /**
  * @brief TBH class
@@ -68,3 +68,4 @@ class TakeBackHalf{
      */
     double step(double rpm);
 };  
+}

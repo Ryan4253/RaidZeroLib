@@ -11,6 +11,7 @@
 
 #pragma once
 #include "main.h"
+namespace lib4253{
 
 /**
  * @brief Trajectory point structure
@@ -79,3 +80,4 @@ class Trajectory{
     std::pair<TrajectoryPoint, TrajectoryPoint> getKinematics(int index);
 
 };
+}

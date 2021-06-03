@@ -1,5 +1,6 @@
 #include "main.h"
 #include "lib4253/Controller/Slew.hpp"
+namespace lib4253{
 
 // Constructor, takes in acceleration and decelaration steps
 SlewController::SlewController(int accel, int decel){
@@ -42,4 +43,5 @@ double SlewController::step(double target) {
 
     //return fmin(speed, 127);
     return fmin(target, 127);
+}
 }

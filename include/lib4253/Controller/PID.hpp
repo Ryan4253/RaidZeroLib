@@ -11,7 +11,7 @@
 
 #pragma once
 #include "main.h"
-
+namespace lib4253{
 class PID {
     private:
     double kP, kI, kD;
@@ -106,3 +106,4 @@ class FPID:PID{
      */
     double fUpdate(double error);
 };
+}

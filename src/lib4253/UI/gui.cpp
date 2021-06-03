@@ -1,4 +1,5 @@
 #include "main.h"
+namespace lib4253{
 
 // Styles
 lv_style_t autoSelectBtnStyleREL;
@@ -568,4 +569,5 @@ void gui() {
   lv_label_set_text(driveTxt, "");
   lv_obj_align(driveTxt, NULL, LV_ALIGN_IN_LEFT_MID, 10, 50);
   lv_obj_set_hidden(driveTxt, true);
+}
 }

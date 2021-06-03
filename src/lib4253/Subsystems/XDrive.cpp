@@ -1,7 +1,11 @@
 #include "lib4253/Subsystems/XDrive.hpp"
 #include "Robot.hpp"
+namespace lib4253{
 
-XDrive::XDrive(Motor leftFront, Motor leftBack, Motor rightFront, Motor rightBack);{
+XDrive::XDrive(okapi::Motor leftFront, okapi::Motor leftBack, okapi::Motor rightFront, okapi::Motor rightBack):
+
+{
+    base = {leftFront, leftBack, rightFront, rightBack}
     base[0] = leftFront; base[1] = leftBack;
     base[2] = rightFront; base[3] = rightBack;
 }
@@ -17,18 +21,18 @@ XDrive& XDrive::withDrivePID(std::tuple<double, double, double> gain) {
 
 XDrive& XDrive::withConfig(double motorRPM, brakeType brake){
     this->motorRPM = motorRPM;
-    for(int i : this->base) {
+    for(okapi::Motor i : this->base) {
         switch(brake){
             case COAST: 
-            base[i].setBrakeMode(okapi::brakeMode::coast);
+            i.setBrakeMode(AbstractMotor::brakeMode::coast);
             break;
 
             case HOLD: 
-            base[i].setBrakeMode(okapi::brakeMode::hold);
+            i.setBrakeMode(AbstractMotor::brakeMode::hold);
             break;
 
             case BRAKE: 
-            base[i].setBrakeMode(okapi::brakeMode::brake);
+            i.setBrakeMode(AbstractMotor::brakeMode::brake);
             break;
         }
     }
@@ -66,7 +70,7 @@ void XDrive::setDriveVolt(std::array<double, 4> volt){
     }
 }
 
-std::pair<std::array<double, 4>, std::array<double 2>> moveTowards(Pose2D currPose, Pose2D targetPose, double speed) {
+std::pair<std::array<double, 4>, std::array<double 2> > moveTowards(Pose2D currPose, Pose2D targetPose, double speed) {
     // finds distance from current position to target position
     double distanceToTarget = std::hypot(targetPose.x - currPose.x, targetPose.y - currPose.y);
     // finds angle form current position to target position
@@ -88,9 +92,8 @@ std::pair<std::array<double, 4>, std::array<double 2>> moveTowards(Pose2D currPo
                                    relativeYToTarget + relativeXToTarget - scaledHeading};
     std::array<double, 2> error = {distanceToTarget, deltaHeading};
 
-    double max = std::max(std::max(std::fabs(power[0]), std::fabs(power[1])), 
-                          std::max(std::fabs(power[2]), std::fabs(power[3])));
-    if (max > 1) {
+    double max = std::max(std::max(std::fabs(power[0]), std::fabs(power[1])), std::max(std::fabs(power[2]), std::fabs(power[3])));
+    if(max > 1) {
         for(int i : power) {
             power[i] /= max;
         }
@@ -113,4 +116,5 @@ void XDrive::moveTo(Pose2D targetPose, std::pair<double, double> margins) {
 		pros::delay(10);
 	} while (std::fabs(moveTowards(odom->getPos(), targetPose).second[0]) > 0 && 
              std::fabs(moveTowards(odom->getPos(), targetPose).second[1]) > 0);
+}
 }

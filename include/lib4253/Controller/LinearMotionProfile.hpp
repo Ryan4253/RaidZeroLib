@@ -11,6 +11,7 @@
 
 #pragma once
 #include "main.h"
+namespace lib4253{
 
 /**
  * @brief Linear motion profile controller class
@@ -87,3 +88,4 @@ class TrapezoidalProfileController:LinearMotionProfileController{
 class SCurveMotionProfileController:LinearMotionProfileController{
 
 };
+}

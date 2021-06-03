@@ -5,10 +5,10 @@
 #include "lib4253/Controller/Slew.hpp"
 #include "lib4253/Splines/Point2D.hpp"
 #include "lib4253/Controller/MotorVelocity.hpp"
-
+namespace lib4253{
 class XDrive {
     public:
-    XDrive(Motor leftFront, Motor leftBack, Motor rightFront, Motor rightBack); 
+    XDrive(okapi::Motor leftFront, okapi::Motor leftBack, okapi::Motor rightFront, okapi::Motor rightBack); 
     XDrive& withOdometry(CustomOdometry* tracker);
     XDrive& withDrivePID(std::tuple<double, double, double> gain);
     XDrive& withConfig(double motorRPM, brakeType brake);
@@ -24,9 +24,10 @@ class XDrive {
     // XDrive& withDimensions(double wheelDiameter, double gearRatio);
 
     private:
-    std::array<Motor, 4> base;
+    okapi::Motor base[4];
     CustomOdometry* odom;
     PID drivePID;
     double motorRPM;
     MotorVelocityController velPID;
+};
 }

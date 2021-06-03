@@ -11,12 +11,12 @@
 
 #pragma once
 #include "main.h"
-
+namespace lib4253{
 /**
 * @brief Filter class
 *
 */
-class FilterBase{
+class Filter{
   public:
     /**
     * @brief Resets filters
@@ -32,3 +32,4 @@ class FilterBase{
      */
     virtual double filter(double input) = 0;
   };
+}

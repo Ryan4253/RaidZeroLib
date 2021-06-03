@@ -1,6 +1,6 @@
 #pragma once
 #include "main.h"
-
+namespace lib4253{
 template<typename T> class Matrix{
   private:
     std::vector<std::vector<T> > mat;
@@ -43,3 +43,4 @@ template<typename T> class Matrix{
   int getRow() const;
   int getCol() const;
 };
+}

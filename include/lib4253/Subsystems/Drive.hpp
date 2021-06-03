@@ -5,6 +5,74 @@
 #include "lib4253/Controller/Slew.hpp"
 #include "lib4253/Controller/PurePursuit.hpp"
 #include "lib4253/Controller/LinearMotionProfile.hpp"
+namespace lib4253{
+class Chassis: public TaskWrapper{
+	public:
+    enum class State{
+      	TANK = 0, ARCADE = 1	
+    };
+	
+	// Constructor
+
+	Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
+			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
+			std::unique_ptr<ChassisScales> iScale,
+			std::shared_ptr<IMU> imu,
+			std::unique_ptr<SlewController> _driveSlew = nullptr,
+			std::unique_ptr<PID> _drivePID = nullptr, 
+			std::unique_ptr<PID> _turnPID = nullptr,
+			std::unique_ptr<PID> _anglePID = nullptr);
+
+	Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
+			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
+			std::unique_ptr<ChassisScales> iScale,
+			std::unique_ptr<SlewController> _driveSlew = nullptr,
+			std::unique_ptr<PID> _drivePID = nullptr, 
+			std::unique_ptr<PID> _turnPID = nullptr,
+			std::unique_ptr<PID> _anglePID = nullptr,
+			std::shared_ptr<IMU> imu = nullptr);
+
+	// State Machine Functions
+	void loop() override;
+	State getState();
+    void setState(const State& s);
+
+	// initializer / setter / getter
+	void initialize();
+	void setBrakeType(const AbstractMotor::brakeMode& iMode);
+	void resetSensor();
+	double getIMUReading();
+	double getEncoderReading();
+	double getLeftEncoderReading();
+	double getRightEncoderReading();
+
+	// drive movement functions
+	void setPower(const double& power);
+	void setVelocity(const double& velocity);
+	void move(const double& power, const QTime& timeLim);
+	void moveDistance(const double& dist, const QTime& timeLim);
+	void turnAngle(const double& angle, const QTime& timeLim);
+
+
+	private:
+	std::vector<std::shared_ptr<Motor> > left {nullptr};
+    std::vector<std::shared_ptr<Motor> > right {nullptr};
+    std::shared_ptr<IMU> inertial {nullptr};
+
+	std::unique_ptr<ChassisScales> scale {nullptr};
+	std::unique_ptr<SlewController> driveSlew {nullptr};
+    std::unique_ptr<PID> drivePID {nullptr};
+    std::unique_ptr<PID> turnPID {nullptr};
+    std::unique_ptr<PID> anglePID {nullptr};
+
+	std::atomic<State> currentState;
+
+	std::pair<double, double> scaleSpeed(double linear, double yaw, double turnScale);
+
+	// driver control functions
+	void tank();
+	void arcade();
+};
 
 class Drive{
     public:
@@ -13,7 +81,7 @@ class Drive{
     };
 
     Drive(const std::initializer_list<okapi::Motor> &l, const std::initializer_list<okapi::Motor> &r);
-    Drive& withOdometry(CustomOdometry* tracker);
+    Drive& withOdometry(const CustomOdometry& tracker);
     Drive& withDimensions(std::tuple<double> wheel, std::tuple<double, double> gear, std::tuple<double> track);
     Drive& withDrivePID(std::tuple<double, double, double> gain, std::tuple<double, double> IGain, std::tuple<double> emaGain);
     Drive& withTurnPID(std::tuple<double, double, double> gain, std::tuple<double, double> IGain, std::tuple<double> emaGain);
@@ -45,11 +113,11 @@ class Drive{
     static void driveTask(void *ptr);
 
   protected:
-    okapi::MotorGroup left;
+    okapi::MotorGroup left{nullptr};
     okapi::MotorGroup right;
 
     private:
-    CustomOdometry* odom;
+    std::shared_ptr<CustomOdometry> odom{nullptr};
     PID drivePID; PID turnPID;
     SlewController driveSlew;
     PurePursuitFollower PPTenshi;
@@ -61,10 +129,10 @@ class Drive{
     int prevAState = 0;
 
     Point2D scaleSpeed(double linear, double turn, double turnScale);
-
     void updateState();
     void run();
 
     void tank();
     void arcade();
 };
+}

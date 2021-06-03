@@ -1,5 +1,6 @@
 #include "main.h"
 #include "lib4253/Display/OdomDisplay.hpp"
+namespace lib4253{
 
 // credits to Theo Lemay from team 7842F for coding this display
 // original repo: https://github.com/theol0403/7842F-Competition-Code
@@ -233,4 +234,5 @@ void OdomDisplay::taskFnc(void* input) {
   pros::delay(10);
   OdomDisplay* that = static_cast<OdomDisplay*>(input);
   that->run();
+}
 }

@@ -1,5 +1,6 @@
 #include "main.h"
 #include "lib4253/Controller/PurePursuit.hpp"
+namespace lib4253{
 
 void PurePursuitFollower::initialize(){
     settled = false;
@@ -94,9 +95,9 @@ void PurePursuitFollower::calcLookAheadPoint(Pose2D currentPos){
 }
 
 void PurePursuitFollower::calcCurvature(Pose2D currentPos){
-    double a = -tan(currentPos.angle), b = 1, c = tan(currentPos.angle)*currentPos.x - currentPos.y;
+    double a = -tan(currentPos.theta), b = 1, c = tan(currentPos.theta)*currentPos.x - currentPos.y;
     double x = abs(lookAheadPoint.x * a + lookAheadPoint.y * b + c) / sqrt(a * a + b * b);
-    double side = sin(currentPos.angle) * (lookAheadPoint.x * currentPos.x) - cos(currentPos.angle) * (lookAheadPoint.y - currentPos.y);
+    double side = sin(currentPos.theta) * (lookAheadPoint.x * currentPos.x) - cos(currentPos.theta) * (lookAheadPoint.y - currentPos.y);
     side /= abs(side);
 
     curvature = (2 * x) / (radius * radius) * side;
@@ -122,4 +123,5 @@ std::pair<double, double> PurePursuitFollower::step(Pose2D currentPos){
 
 bool PurePursuitFollower::isSettled(){
     return settled;
+}
 }

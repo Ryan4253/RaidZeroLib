@@ -1,17 +1,37 @@
 #include "main.h"
-#include "lib4253/Utility/declarations.hpp"
-
-CustomOdometry* tracker = new ADIThreeWheelOdometry({'A', 'B', true}, {'C', 'D', false}, {'E', 'F', false});
-Drive drive({-10, 9}, {8, -7});
+#include "declarations.hpp"
+using namespace lib4253;
+lib4253::CustomOdometry* tracker = new lib4253::ADIThreeWheelOdometry({'A', 'B', true}, {'C', 'D', false}, {'E', 'F', false});
+lib4253::Drive drive({-10, 9}, {8, -7});
 //Roller* roller = new Roller();
 //Intake* intake = new Intake();
+
+okapi::Controller master(okapi::ControllerId::master);
+
+okapi::Motor LF(10, true, okapi::AbstractMotor::gearset::blue, okapi::AbstractMotor::encoderUnits::degrees);
+okapi::Motor LB(9, false, okapi::AbstractMotor::gearset::blue, okapi::AbstractMotor::encoderUnits::degrees);
+okapi::Motor RF(8, false, okapi::AbstractMotor::gearset::blue, okapi::AbstractMotor::encoderUnits::degrees);
+okapi::Motor RB(7, true, okapi::AbstractMotor::gearset::blue, okapi::AbstractMotor::encoderUnits::degrees);
+
+okapi::MotorGroup baseLeft({LF, LB});
+okapi::MotorGroup baseRight({RF, RB});
+okapi::MotorGroup base({LF, LB, RF, RB});
+
+okapi::ADIEncoder leftEncoder('A', 'B', true);
+okapi::ADIEncoder rightEncoder('E', 'F', false);
+okapi::ADIEncoder midEncoder('C', 'D', false);
+
+pros::Imu imuBottom(11);
+pros::Imu imuTop(12);
+
+okapi::ADIButton leftAutonSelector('G');
+okapi::ADIButton rightAutonSelector('H');
 
 void initSubsystems(){
   tracker->withDimensions({3.389, 5.748, 3.389});
   tracker->reset();
 
   drive
-    .withOdometry(tracker)
     .withDimensions({4.35}, {36, 84}, {12})
     .withVelocityFeedForward({25, 3, 0}, {25, 3, 0})
     .withDrivePID({0, 0, 0}, {1, 1}, {1})

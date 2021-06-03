@@ -10,23 +10,48 @@
  */
 
 #include "main.h"
-
+namespace lib4253{
 
 /**
  * @brief Velocity Controller class
  *
  */
 class MotorVelocityController{
-    double kV, kA, kP;
+    double kV{0}, kA{0}, kP{0};
     public:
+    /**
+     * @brief Constructs the velocity controller
+     *
+     * @param _kV velocity gain
+     * @param _kA acceleration gain
+     * @param _kP proportional gain
+     */
+    MotorVelocityController(const double& _kV, const double& _kA, const double& _kP);
+
+    /**
+     * @brief Destructs the velocity controller
+     *
+     */
+    ~MotorVelocityController() = default;
+
     /**
      * @brief Sets gain for velocity controller
      *
-     * @param a velocity gain
-     * @param b acceleration gain
-     * @param c proportional gain
+     * @param _kV velocity gain
+     * @param _kA acceleration gain
+     * @param _kP proportional gain
      */
-    void setGain(double a, double b, double c);
+    void setGain(const double& _kV, const double& _kA, const double& _kP);
+
+    /**
+     * @brief Calulates raw power for motor
+     *
+     * @param velocity stores the target velocity
+     * @param acceleration stores the target acceleration
+     * @param currentRPM current motor velocity
+     * @return power to be fed into the motor
+     */
+    double calcPower(const double& velocity, const double& acceleration, const double& currentRPM);
 
     /**
      * @brief Calulates raw power for motor
@@ -35,5 +60,6 @@ class MotorVelocityController{
      * @param currentRPM current motor velocity
      * @return power to be fed into the motor
      */
-    double calcPower(TrajectoryPoint v, double currentRPM);
+    double calcPower(const TrajectoryPoint& v, const double& currentRPM);
 };
+}

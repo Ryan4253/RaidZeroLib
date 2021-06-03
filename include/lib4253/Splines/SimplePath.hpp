@@ -11,6 +11,7 @@
 
 #pragma once
 #include "main.h"
+namespace lib4253{
 
 
   /**
@@ -57,3 +58,5 @@ struct SimplePath{
     double getCurvature(int index);
     int getSize();
   };
+
+}

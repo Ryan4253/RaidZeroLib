@@ -1,5 +1,6 @@
 #include "main.h"
 #include "lib4253/Utility/Math.hpp"
+namespace lib4253{
 
 /////////////////////////////// PATH /////////////////////////////////
 
@@ -133,4 +134,5 @@ double SimplePath::getCurvature(int index){
 
 int SimplePath::getSize(){
     return waypoint.size();
+}
 }

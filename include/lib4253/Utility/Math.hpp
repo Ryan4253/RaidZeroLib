@@ -1,6 +1,6 @@
 #pragma once
 #include "main.h"
-
+namespace lib4253{
 /*
 * Math.hpp
 *
@@ -40,3 +40,4 @@ namespace Math{
     // limits the input between the range [mn, mx]
     double clamp(double val, double mn, double mx);
 };
+}

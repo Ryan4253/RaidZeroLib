@@ -1,4 +1,5 @@
 #include "main.h"
+namespace lib4253{
 
 EmaFilter::EmaFilter(double a){
     alpha = a;
@@ -34,4 +35,5 @@ void EmaFilter::reset(){
 
 double EmaFilter::getOutput(){
     return output;
+}
 }

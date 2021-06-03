@@ -12,6 +12,7 @@
 
 #pragma once
 #include "main.h"
+namespace lib4253{
 
 /**
  * @brief BangBang class
@@ -41,3 +42,4 @@ class BangBang{
      */
     double step(double v);
 };
+}

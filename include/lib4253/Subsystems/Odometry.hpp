@@ -1,6 +1,7 @@
 #pragma once
 #include "main.h"
 #include "lib4253/Utility/Math.hpp"
+namespace lib4253{
 
 /*
 * CustomOdometry.hpp
@@ -66,7 +67,7 @@ class ADIThreeWheelOdometry:public CustomOdometry{
     double lVal, mVal, rVal; // readings from the left, middle and right encoders
     double lPrev, mPrev, rPrev; // previous reading from the left, middle and right encoders
     double lDist, rDist, mDist; // offset from the center for the 3 tracking wheels. Used in calculations
-    okapi::ADIEncoder left, mid, right; // the 3 encoders
+    ADIEncoder left, mid, right; // the 3 encoders
 
     public:
     ADIThreeWheelOdometry(std::tuple<char, char, bool> l, std::tuple<char, char, bool> m, std::tuple<char, char, bool> r); // constructor
@@ -95,3 +96,4 @@ class ADITwoWheelIMUOdometry:public CustomOdometry{
     double getEncoderLeft(); // gets reading from the side encoder
     double getEncoderMid(); // gets reading from the middle encoder
 };
+}

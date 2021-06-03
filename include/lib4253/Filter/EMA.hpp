@@ -11,12 +11,13 @@
 
 #pragma once
 #include "main.h"
+namespace lib4253{
 
     /**
      * @brief Exponential moving average (EMA) filter class - inherited from Filter
      *
      */
-    class EmaFilter: public FilterBase{
+    class EmaFilter: public Filter{
         private:
         double alpha, output = 0, prevOutput = 0;
         bool run = false;
@@ -63,3 +64,4 @@
          */
         void reset();
     };
+}

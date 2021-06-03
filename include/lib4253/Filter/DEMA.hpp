@@ -10,14 +10,14 @@
  */
 
 #include "main.h"
-
+namespace lib4253{
 
   /**
    * @brief Double exponential moving average (DEMA) filter class - inherited from Filter
    *
    */
 
-class DemaFilter: public FilterBase{
+class DemaFilter: public Filter{
   private:
     double alpha, beta;
     double outputS, outputB;
@@ -67,3 +67,4 @@ class DemaFilter: public FilterBase{
      */
     void reset();
   };
+}

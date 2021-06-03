@@ -11,6 +11,7 @@
 
 #pragma once
 #include "main.h"
+namespace lib4253{
 
 
 /**
@@ -60,3 +61,4 @@ class SlewController{
      */
     double step(double target);
 };
+}

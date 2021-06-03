@@ -1,4 +1,5 @@
 #include "main.h"
+namespace lib4253{
 
 ////////////////////////////// Point2D ////////////////////////////////
 
@@ -210,4 +211,5 @@ Pose2D Pose2D::normalize() const{
 Point2D Pose2D::toPoint() const{
     Point2D result({this->x, this->y});
     return result;
+}
 }

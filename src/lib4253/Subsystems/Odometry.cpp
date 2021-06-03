@@ -1,5 +1,6 @@
 #include "main.h"
 #include "Odometry.hpp"
+namespace lib4253{
 
 CustomOdometry::CustomOdometry():globalPos(0, 0, 0){
 }
@@ -29,11 +30,11 @@ okapi::QLength CustomOdometry::getQY(){
 }
 
 double CustomOdometry::getAngleDeg(){
-    return Math::radToDeg(globalPos.angle);
+    return Math::radToDeg(globalPos.theta);
 }
 
 double CustomOdometry::getAngleRad(){
-    return globalPos.angle;
+    return globalPos.theta;
 }
 
 double CustomOdometry::getEncoderLeft(){}
@@ -43,7 +44,7 @@ double CustomOdometry::getEncoderRight(){}
 void CustomOdometry::setPos(Pose2D newPos){
     globalPos.x = (double)newPos.x;
     globalPos.y = (double)newPos.y;
-    globalPos.angle = Math::degToRad(newPos.angle);
+    globalPos.theta = Math::degToRad(newPos.theta);
 }
 
 void CustomOdometry::setX(double x){
@@ -63,24 +64,24 @@ void CustomOdometry::setY(okapi::QLength y){
 }
 
 void CustomOdometry::setAngleDeg(double theta){
-    globalPos.angle = Math::radToDeg(theta);
+    globalPos.theta = Math::radToDeg(theta);
 }
 
 void CustomOdometry::setAngleRad(double theta){
-    globalPos.angle = theta;
+    globalPos.theta = theta;
 }
 
 void CustomOdometry::displayPosition(){
-    std::cout << "X: " << globalPos.x << " Y: " << globalPos.y << " A: " << globalPos.angle;
+    std::cout << "X: " << globalPos.x << " Y: " << globalPos.y << " A: " << globalPos.theta;
     pros::lcd::print(2, "X: %lf", globalPos.x);
     pros::lcd::print(3, "Y: %lf", globalPos.y);
-    pros::lcd::print(4, "A: %lf", Math::radToDeg(globalPos.angle));
+    pros::lcd::print(4, "A: %lf", Math::radToDeg(globalPos.theta));
 }
 
 void CustomOdometry::resetState(){
     globalPos.x = 0;
     globalPos.y = 0;
-    globalPos.angle = 0;
+    globalPos.theta = 0;
 }
 
 void CustomOdometry::reset(){
@@ -149,11 +150,11 @@ void ADIThreeWheelOdometry::updatePos(){
             h2 = mid;
         }
 
-        double endAngle = theta / 2 + globalPos.angle;
+        double endAngle = theta / 2 + globalPos.theta;
 
         globalPos.x = (double)(globalPos.x) + (h * sin(endAngle) + h2 * cos(endAngle));
         globalPos.y = (double)(globalPos.y) + (h * cos(endAngle) + h2 * -sin(endAngle));
-        globalPos.angle = Math::wrapAngle180((double)(globalPos.angle) + theta);
+        globalPos.theta = Math::wrapAngle180((double)(globalPos.theta) + theta);
 
         pros::delay(3);
     }
@@ -209,13 +210,13 @@ void ADITwoWheelIMUOdometry::updatePos(){
             h2 = mid;
         }
         
-        double endAngle = theta / 2 + globalPos.angle;
+        double endAngle = theta / 2 + globalPos.theta;
         
         globalPos.x = (double)(globalPos.x) + (h * sin(endAngle) + h2 * cos(endAngle));
         globalPos.y = (double)(globalPos.y) + (h * cos(endAngle) + h2 * -sin(endAngle));
-        globalPos.angle = Math::wrapAngle180((double)(globalPos.angle) + theta);
+        globalPos.theta = Math::wrapAngle180((double)(globalPos.theta) + theta);
         
         pros::delay(3);
     }   
 }       
-        
+}

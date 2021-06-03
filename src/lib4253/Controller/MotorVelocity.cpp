@@ -1,9 +1,19 @@
 #include "main.h"
+namespace lib4253{
 
-void MotorVelocityController::setGain(double a, double b, double c){
-    kV = a, kA = b, kP = c;
+MotorVelocityController::MotorVelocityController(const double& _kV, const double& _kA, const double& _kP){
+    setGain(_kV, _kA, _kP);
 }
 
-double MotorVelocityController::calcPower(TrajectoryPoint v, double currentRPM){
+void MotorVelocityController::setGain(const double& _kV, const double& _kA, const double& _kP){
+    kV = _kV, kA = _kA, kP = _kP;
+}
+
+double MotorVelocityController::calcPower(const double& velocity, const double& acceleration, const double& currentRPM){
+    return kV * velocity + kA * acceleration + kP * (velocity - currentRPM);
+}
+
+double MotorVelocityController::calcPower(const TrajectoryPoint& v, const double& currentRPM){
     return kV * v.velocity + kA * v.acceleration + kP * (v.velocity - currentRPM);
+}
 }

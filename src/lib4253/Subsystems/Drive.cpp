@@ -1,8 +1,69 @@
 #include "Drive.hpp"
 #include "Robot.hpp"
+namespace lib4253{
 
-/* CONSTRUCTOR */
+Chassis::Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
+			    const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
+			    std::unique_ptr<ChassisScales> iScale,
+			    std::shared_ptr<IMU> imu,
+			    std::unique_ptr<SlewController> _driveSlew = nullptr,
+			    std::unique_ptr<PID> _drivePID = nullptr, 
+			    std::unique_ptr<PID> _turnPID = nullptr,
+			    std::unique_ptr<PID> _anglePID = nullptr):
+left(iLeft), right(iRight)
+{
+    inertial = imu;
+    scale = std::move(iScale);
+    driveSlew = std::move(_driveSlew);
+    drivePID = std::move(_drivePID);
+    turnPID = std::move(_turnPID);
+    anglePID = std::move(_anglePID);    
+}
 
+Chassis::Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
+			    const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
+			    std::unique_ptr<ChassisScales> iScale,
+			    std::unique_ptr<SlewController> _driveSlew = nullptr,
+			    std::unique_ptr<PID> _drivePID = nullptr, 
+			    std::unique_ptr<PID> _turnPID = nullptr,
+			    std::unique_ptr<PID> _anglePID = nullptr,
+			    std::shared_ptr<IMU> imu = nullptr):
+left(iLeft), right(iRight)
+{
+    inertial = imu;
+    scale = std::move(iScale);
+    driveSlew = std::move(_driveSlew);
+    drivePID = std::move(_drivePID);
+    turnPID = std::move(_turnPID);
+    anglePID = std::move(_anglePID);    
+}
+
+void Chassis::loop(){
+
+    while(true){
+        auto now = pros::millis();
+        switch(currentState.load()){
+            case State::TANK:
+                tank();
+                break;
+
+            case State::ARCADE:
+                arcade();
+                break;
+        }
+        pros::Task::delay_until(&now, 10);
+    }
+}
+
+Chassis::State Chassis::getState(){
+    return currentState.load();
+}
+
+void Chassis::setState(const Chassis::State& s){
+    currentState = s;
+}
+}
+/*
 Drive::Drive(const std::initializer_list<okapi::Motor> &l, const std::initializer_list<okapi::Motor> &r):
     left(l), right(r)
 {
@@ -60,7 +121,6 @@ void Drive::initialize(){
     resetIMU();
 }
 
-/* SENSOR FUNCTION */
 
 void Drive::resetIMU(){
     imuTop.reset();
@@ -72,7 +132,6 @@ double Drive::getAngle() {
     return (imuTop.get_rotation() + imuBottom.get_rotation()) / 2;
 }
 
-/* STATE FUNCTION */
 
 Drive::State Drive::getState(){
     return driveState;
@@ -97,7 +156,6 @@ void Drive::updateState(){
     prevAState = AState;
 }
 
-/* TASK FUNCTION */
 
 void Drive::tank(){
     //std::cout<<"TANK" << std::endl;
@@ -137,13 +195,8 @@ void Drive::run(){
     }
 }
 
-void Drive::driveTask(void* ptr){
-    pros::delay(10);
-    Drive* that = static_cast<Drive*>(ptr);
-    that->run();
-}
 
-/* AUTON FUNCTIONS */
+
 
 Point2D Drive::scaleSpeed(double drivePower, double turnPower, double turnScale){
     double leftPower = drivePower - turnPower * turnScale;
@@ -228,7 +281,7 @@ void Drive::followPath(std::string name){
         double leftRPM = kin.first.velocity * 12 * 60 / (2 * M_PI) / 2 * 7 / 3;
         std::cout << i << " " << leftRPM << " ";
 
-        /*
+        
         	double rightRPM = kin.second.velocity * 12 * 60 / (2 * M_PI) / 2 * 7 / 3;
 
         std::cout << i << " " << leftRPM << " ";
@@ -236,7 +289,7 @@ void Drive::followPath(std::string name){
 
         left.moveVelocity(leftRPM);
         right.moveVelocity(rightRPM);
-        */
+        
         double l = leftVelController.calcPower(kin.first, left.getActualVelocity());
         double r = rightVelController.calcPower(kin.second, right.getActualVelocity());
         Robot::setPower(left, l);
@@ -339,3 +392,4 @@ void Drive::turnToAngle(double angle, okapi::QTime timeLimit){
     Robot::setPower(left, 0);
     Robot::setPower(right, 0);
 }
+*/

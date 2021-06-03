@@ -65,7 +65,7 @@ class Chassis: public TaskWrapper{
     std::unique_ptr<PID> turnPID {nullptr};
     std::unique_ptr<PID> anglePID {nullptr};
 
-	std::atomic<State> currentState;
+	std::atomic<State> currentState{State::TANK};
 
 	std::pair<double, double> scaleSpeed(double linear, double yaw, double turnScale);
 

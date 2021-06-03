@@ -1,5 +1,4 @@
-#include "Drive.hpp"
-#include "Robot.hpp"
+#include "main.h"
 namespace lib4253{
 
 Chassis::Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
@@ -62,6 +61,96 @@ Chassis::State Chassis::getState(){
 void Chassis::setState(const Chassis::State& s){
     currentState = s;
 }
+
+void Chassis::initialize(){
+    for(auto& motor : left){
+        motor->tarePosition();
+    }
+
+    for(auto& motor : right){
+        motor->tarePosition();
+    }
+
+    if(driveSlew != nullptr){
+        driveSlew->reset();
+    }
+
+    if(drivePID != nullptr){
+        drivePID->initialize();
+    }
+
+    if(turnPID != nullptr){
+        turnPID->initialize();
+    }
+
+    if(anglePID != nullptr){
+        anglePID->initialize();
+    }
+
+    if(inertial != nullptr){
+        inertial->calibrate();
+    }
+}
+
+void Chassis::setBrakeType(const AbstractMotor::brakeMode& iMode){
+    for(auto& motor : left){
+        motor->setBrakeMode(iMode);
+    }
+
+    for(auto& motor : right){
+        motor->setBrakeMode(iMode);
+    }
+}
+
+void Chassis::resetSensor(){
+    for(auto& motor : left){
+        motor->tarePosition();
+    }
+
+    for(auto& motor : right){
+        motor->tarePosition();
+    }
+
+    if(inertial != nullptr){
+        inertial->reset();
+    }
+}
+
+double Chassis::getIMUReading(){
+    return inertial->get();
+}
+
+double Chassis::getEncoderReading(){
+    double total = 0;
+    for(auto& motor : left){
+        total += motor->getPosition();
+    }
+
+    for(auto& motor : right){
+        total += motor->getPosition();
+    }
+
+    return total / (left.size() + right.size());
+}
+
+double Chassis::getLeftEncoderReading(){
+    double total = 0;
+    for(auto& motor : left){
+        total += motor->getPosition();
+    }
+
+    return total / (left.size());
+}
+
+double Chassis::getRightEncoderReading(){
+    double total = 0;
+    for(auto& motor : right){
+        total += motor->getPosition();
+    }
+
+    return total / (right.size());
+}   
+
 }
 /*
 Drive::Drive(const std::initializer_list<okapi::Motor> &l, const std::initializer_list<okapi::Motor> &r):

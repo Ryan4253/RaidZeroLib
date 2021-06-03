@@ -22,8 +22,8 @@
 #include "lib4253/Controller/TakeBackHalf.hpp" // done
 #include "lib4253/Controller/LinearMotionProfile.hpp" // done
 
-#include "lib4253/Subsystems/Motor.hpp"
-#include "lib4253/Subsystems/Odometry.hpp" // done
-#include "lib4253/Subsystems/Drive.hpp" // done
+#include "lib4253/Chassis/Motor.hpp"
+#include "lib4253/Chassis/Odometry.hpp" // done
+#include "lib4253/Chassis/Drive.hpp" // done
 
 #include "auton.hpp" // done

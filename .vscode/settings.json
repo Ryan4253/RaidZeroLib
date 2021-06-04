@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "cmath": "cpp",
-        "cstdbool": "cpp"
-    },
-    "restructuredtext.confPath": "${workspaceFolder}\\docs\\source"
-}

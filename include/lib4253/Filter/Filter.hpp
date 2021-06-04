@@ -30,6 +30,6 @@ class AbstractFilter{
      * @param input raw values
      * @return filtered values
      */
-    virtual double filter(double input) = 0;
+    virtual double filter(const double& input) = 0;
 };
 }

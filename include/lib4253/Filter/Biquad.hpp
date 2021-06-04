@@ -10,7 +10,8 @@
  */
 
 #pragma once
-#include "main.h"
+#include "lib4253/Filter/Filter.hpp"
+#include <math.h>
 namespace lib4253{
 
   /**

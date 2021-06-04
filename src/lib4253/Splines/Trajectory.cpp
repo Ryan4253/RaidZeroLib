@@ -1,4 +1,4 @@
-#include "main.h"
+#include "lib4253/Splines/Trajectory.hpp"
 namespace lib4253{
 
 TrajectoryPoint::TrajectoryPoint(double v, double a){

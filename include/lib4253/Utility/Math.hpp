@@ -1,5 +1,11 @@
 #pragma once
-#include "main.h"
+#include "lib4253/Splines/Point2D.hpp"
+#include "okapi/api/chassis/controller/chassisScales.hpp"
+#include "okapi/api/units/RQuantity.hpp"
+#include "okapi/api/units/QLength.hpp"
+#include <math.h>
+#include <memory>
+
 namespace lib4253{
 /*
 * Math.hpp
@@ -30,10 +36,6 @@ namespace Math{
     double wrapAngle360(double angle);
     double wrapAngle180(double angle);
     double wrapAngle90(double angle);
-
-    // conversion between cartestian and polar coordinates
-    Point2D toPolar(Point2D cart);
-    Point2D toCart(Point2D polar);
 
     // conversion  between linear velocity and motor rpm
     double linearVelToRPM(double linVel, double GearRatio, double radius);

@@ -1,6 +1,4 @@
-#include "main.h"
 #include "lib4253/Controller/TakeBackHalf.hpp"
-#include "lib4253/Utility/Math.hpp"
 namespace lib4253{
 
 TakeBackHalf::TakeBackHalf(double g){

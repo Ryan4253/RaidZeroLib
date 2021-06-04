@@ -1,10 +1,13 @@
 #pragma once
-#include "main.h"
-#include "Odometry.hpp"
+#include "lib4253/Utility/TaskWrapper.hpp"
+#include "lib4253/Utility/Math.hpp"
+#include "lib4253/Chassis/Motor.hpp"
 #include "lib4253/Controller/PID.hpp"
 #include "lib4253/Controller/Slew.hpp"
-#include "lib4253/Controller/PurePursuit.hpp"
-#include "lib4253/Controller/LinearMotionProfile.hpp"
+#include "okapi/impl/device/rotarysensor/IMU.hpp"
+#include "okapi/api/chassis/controller/chassisScales.hpp"
+#include <atomic>
+
 namespace lib4253{
 class Chassis: public TaskWrapper{
 	public:
@@ -75,7 +78,8 @@ class Chassis: public TaskWrapper{
 	void tank(const double& left, const double& right);
 	void arcade(const double& fwd, const double& yaw);
 };
-
+}
+/*
 class Drive{
     public:
     enum State{
@@ -138,3 +142,4 @@ class Drive{
     void arcade();
 };
 }
+*/

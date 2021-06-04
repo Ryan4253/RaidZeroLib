@@ -1,5 +1,4 @@
-#include "main.h"
-#include "lib4253/Utility/Math.hpp"
+#include "lib4253/Splines/SimplePath.hpp"
 namespace lib4253{
 
 /////////////////////////////// PATH /////////////////////////////////

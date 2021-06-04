@@ -1,17 +1,10 @@
-#include "main.h"
+#include "lib4253/Filter/SMA.hpp"
 namespace lib4253{
 
-SmaFilter::SmaFilter(){
-    maxSize = 1000;
-}
-
-SmaFilter::SmaFilter(int size){
-    maxSize = size;
-}
-
-double SmaFilter::filter(double input){
+template<int N>
+double SmaFilter<N>::filter(double input){
     total += input;
-    if(value.size() >= maxSize){
+    if(value.size() >= N){
         total -= value.front();
         value.pop();
     }
@@ -21,19 +14,17 @@ double SmaFilter::filter(double input){
     return output;
 }
 
-double SmaFilter::getOutput(){
+template<int N>
+double SmaFilter<N>::getOutput(){
     return output;
 }
 
-void SmaFilter::reset(){
+template<int N>
+void SmaFilter<N>::reset(){
     while(!value.empty()){
         value.pop();
     }
     total = 0;
     output = 0;
-}
-
-void SmaFilter::setMaxSize(int size){
-    maxSize = size;
 }
 }

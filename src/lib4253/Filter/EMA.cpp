@@ -1,4 +1,3 @@
-// #include "main.h"
 #include "lib4253/Filter/EMA.hpp"
 namespace lib4253{
 

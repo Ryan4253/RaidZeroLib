@@ -1,4 +1,8 @@
-#include "main.h"
+#pragma once
+#include "lib4253/Controller/MotorVelocity.hpp"
+#include "lib4253/Filter/EMA.hpp"
+#include "okapi/impl/device/motor/motor.hpp"
+#include "okapi/api/device/motor/abstractMotor.hpp"
 
 namespace lib4253{
 using namespace okapi;

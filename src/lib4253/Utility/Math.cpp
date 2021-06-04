@@ -1,5 +1,4 @@
-#include "main.h"
-#include "Math.hpp"
+#include "lib4253/Utility/Math.hpp"
 namespace lib4253{
 
 double Math::degToRad(double deg){
@@ -28,25 +27,13 @@ double Math::inchToTick(double inch, double rad, double ticksPerRotation){
 }
 
 double Math::tickToDeg(const double& tick,  const std::shared_ptr<okapi::ChassisScales>& scale, const double& ticksPerRotation){
-  double inches = Math::tickToInch(tick, scale->wheelDiameter.convert(inch), ticksPerRotation);
-  double rad = inches / (scale->wheelTrack.convert(inch));
+  double inches = Math::tickToInch(tick, scale->wheelDiameter.convert(okapi::inch), ticksPerRotation);
+  double rad = inches / (scale->wheelTrack.convert(okapi::inch));
   return Math::radToDeg(rad);
 }
 
 double Math::cubicControl(double power){
   return power * power * power / 16129;
-}
-
-Point2D Math::toPolar(Point2D cart){
-  double mag = sqrt(cart.x * cart.x + cart.y * cart.y);
-  double angle = atan2(cart.y, cart.y);
-
-  return {mag, angle};
-}
-
-Point2D Math::toCart(Point2D polar){
-  double mag = polar.x, angle = polar.y;
-  return {mag * cos(angle), mag * sin(angle)};
 }
 
 double Math::wrapAngle360(double angle){

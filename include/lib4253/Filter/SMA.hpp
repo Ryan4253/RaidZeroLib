@@ -10,7 +10,8 @@
  */
 
 #pragma once
-#include "main.h"
+#include "lib4253/Filter/Filter.hpp"
+#include<queue>
 namespace lib4253{
 
 
@@ -18,23 +19,16 @@ namespace lib4253{
    * @brief Simple moving average filter (SMA) - inherited from Filter
    *
    */
-  class SmaFilter : public FilterBase{
+template<int N> 
+class SmaFilter : public FilterBase{
     std::queue<double> value; // ngl i was thinking about coding a segment tree
-    int maxSize;
     double total, output;
 
     /**
      * @brief Construct a new Sma Filter object
      *
      */
-    SmaFilter();
-
-    /**
-     * @brief Construct a new Sma Filter object
-     *
-     * @param size maximum size
-     */
-    SmaFilter(int size);
+	SmaFilter() = default;
 
     /**
      * @brief filters raw values through SMA filter
@@ -42,7 +36,7 @@ namespace lib4253{
      * @param input raw values
      * @return filtered values
      */
-    double filter(double input);
+    double filter(double input) override;
 
     /**
      * @brief Gets filtered values
@@ -52,16 +46,9 @@ namespace lib4253{
     double getOutput();
 
     /**
-     * @brief Sets max size for filter
-     *
-     * @param size maximum size
-     */
-    void setMaxSize(int size);
-
-    /**
      * @brief Resets SMA filter
      *
      */
-    void reset();
-  };
+    void reset() override;
+};
 }

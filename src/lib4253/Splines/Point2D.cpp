@@ -1,4 +1,4 @@
-#include "main.h"
+#include "lib4253/Splines/Point2D.hpp"
 namespace lib4253{
 
 ////////////////////////////// Point2D ////////////////////////////////
@@ -90,6 +90,18 @@ Point2D Point2D::normalize() const{
 
 double Point2D::mag() const{
     return sqrt(this->x * this->x + this->y * this->y);
+}
+
+Point2D Point2D::toPolar(const Point2D& cart){
+  double mag = sqrt(cart.x * cart.x + cart.y * cart.y);
+  double angle = atan2(cart.y, cart.y);
+
+  return {mag, angle};
+}
+
+Point2D Point2D::toCart(const Point2D& polar){
+  double mag = polar.x, angle = polar.y;
+  return {mag * cos(angle), mag * sin(angle)};
 }
 
 /////////////////////////////// POSE /////////////////////////////////

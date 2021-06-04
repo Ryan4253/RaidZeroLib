@@ -1,5 +1,5 @@
-#include "main.h"
-#include "Odometry.hpp"
+
+#include "lib4253/Chassis/Odometry.hpp"
 namespace lib4253{
 
 CustomOdometry::CustomOdometry():globalPos(0, 0, 0){

@@ -1,4 +1,3 @@
-#include "main.h"
 #include "lib4253/Controller/Slew.hpp"
 namespace lib4253{
 

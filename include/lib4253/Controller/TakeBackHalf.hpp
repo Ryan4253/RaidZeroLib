@@ -10,7 +10,8 @@
  */
 
 #pragma once
-#include "main.h"
+#include "lib4253/Utility/Math.hpp"
+#include <math.h>
 namespace lib4253{
 
 /**

@@ -10,8 +10,9 @@
  */
 
 #pragma once
-#include "main.h"
 #include "lib4253/Splines/SimplePath.hpp"
+#include "lib4253/Splines/Point2D.hpp"
+#include <vector>
 namespace lib4253{
 
 

@@ -1,6 +1,12 @@
 #pragma once
-#include "main.h"
+#include "lib4253/Splines/Point2D.hpp"
 #include "lib4253/Utility/Math.hpp"
+#include "okapi/api/units/RQuantity.hpp"
+#include "okapi/api/units/QLength.hpp"
+#include "okapi/impl/device/rotarysensor/adiEncoder.hpp"
+#include "okapi/impl/device/rotarysensor/rotationSensor.hpp"
+#include "okapi/impl/device/rotarysensor/IMU.hpp"
+#include <tuple>
 namespace lib4253{
 
 /*
@@ -67,7 +73,7 @@ class ADIThreeWheelOdometry:public CustomOdometry{
     double lVal, mVal, rVal; // readings from the left, middle and right encoders
     double lPrev, mPrev, rPrev; // previous reading from the left, middle and right encoders
     double lDist, rDist, mDist; // offset from the center for the 3 tracking wheels. Used in calculations
-    ADIEncoder left, mid, right; // the 3 encoders
+    okapi::ADIEncoder left, mid, right; // the 3 encoders
 
     public:
     ADIThreeWheelOdometry(std::tuple<char, char, bool> l, std::tuple<char, char, bool> m, std::tuple<char, char, bool> r); // constructor

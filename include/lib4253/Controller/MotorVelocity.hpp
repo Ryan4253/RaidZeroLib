@@ -9,7 +9,8 @@
  *
  */
 
-#include "main.h"
+#pragma once
+#include "lib4253/Splines/Trajectory.hpp"
 namespace lib4253{
 
 /**

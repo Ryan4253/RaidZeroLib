@@ -10,7 +10,7 @@
  */
 
 #pragma once
-#include "main.h"
+#include "lib4253/Utility/Math.hpp"
 namespace lib4253{
 
 
@@ -89,6 +89,10 @@ class Point2D{
      * @return The magnitude of the vector
      */
     double mag() const;
+
+    // conversion between cartestian and polar coordinates
+    static Point2D toPolar(const Point2D& cart);
+    static Point2D toCart(const Point2D& polar);
 };
 
 /**

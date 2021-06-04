@@ -1,4 +1,3 @@
-#include "main.h"
 #include "lib4253/Controller/PurePursuit.hpp"
 namespace lib4253{
 

@@ -1,4 +1,3 @@
-#include "main.h"
 #include "lib4253/Controller/LinearMotionProfile.hpp"
 namespace lib4253{
 

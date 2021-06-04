@@ -1,4 +1,4 @@
-#include "main.h"
+#include "lib4253/Controller/MotorVelocity.hpp"
 namespace lib4253{
 
 MotorVelocityController::MotorVelocityController(const double& _kV, const double& _kA, const double& _kP){

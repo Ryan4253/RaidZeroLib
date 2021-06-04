@@ -1,5 +1,4 @@
-#include "main.h"
-#include "lib4253/Utility/Math.hpp"
+#include "lib4253/Filter/Biquad.hpp"
 namespace lib4253{
 
 BiquadFilter::BiquadFilter(BiquadFilter::state type, double sampleFreq, double cutoffFreq, double initValue){

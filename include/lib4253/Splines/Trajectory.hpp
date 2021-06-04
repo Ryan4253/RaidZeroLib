@@ -10,7 +10,7 @@
  */
 
 #pragma once
-#include "main.h"
+#include <vector>
 namespace lib4253{
 
 /**

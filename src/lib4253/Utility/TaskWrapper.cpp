@@ -1,4 +1,4 @@
-#include "main.h"
+#include "lib4253/Utility/TaskWrapper.hpp"
 namespace lib4253{
 
 void TaskWrapper::loop(){
@@ -13,7 +13,7 @@ void TaskWrapper::stopTask(){
     task->remove();
 }
 
-std::string TaskWrapper::getName(){
+char const* TaskWrapper::getName(){
     return task->get_name();
 }
 

@@ -1,4 +1,7 @@
-#include "main.h"
+#pragma once
+#include "pros/rtos.hpp"
+#include <memory>
+
 namespace lib4253{
 
 class TaskWrapper {
@@ -32,7 +35,7 @@ public:
    *
    * @return The name.
    */
-  virtual std::string getName();
+  virtual char const* getName();
 
 private:
   static void trampoline(void* iparam);

@@ -1,4 +1,4 @@
-#include "main.h"
+#include "lib4253/Chassis/Motor.hpp"
 
 namespace lib4253{
 Motor::Motor(const int& iport, const okapi::AbstractMotor::gearset& cartridge, const double& ia, const std::tuple<double, double, double>& constant):

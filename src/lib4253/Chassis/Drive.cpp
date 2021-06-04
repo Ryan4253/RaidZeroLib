@@ -2,13 +2,13 @@
 namespace lib4253{
 
 Chassis::Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
-			    const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
-			    std::shared_ptr<ChassisScales> iScale,
-			    std::shared_ptr<IMU> imu,
-			    std::unique_ptr<SlewController> _driveSlew = std::move(std::make_unique<SlewController>(12000, 12000)),
-			    std::unique_ptr<PID> _drivePID = nullptr, 
-			    std::unique_ptr<PID> _turnPID = nullptr,
-			    std::unique_ptr<PID> _anglePID = nullptr):
+			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
+			std::shared_ptr<ChassisScales> iScale,
+			std::shared_ptr<IMU> imu,
+			std::unique_ptr<SlewController> _driveSlew,
+			std::unique_ptr<PID> _drivePID, 
+			std::unique_ptr<PID> _turnPID,
+			std::unique_ptr<PID> _anglePID):
 left(iLeft), right(iRight)
 {
     inertial = imu;
@@ -20,13 +20,13 @@ left(iLeft), right(iRight)
 }
 
 Chassis::Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
-			    const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
-			    std::shared_ptr<ChassisScales> iScale,
-			    std::unique_ptr<SlewController> _driveSlew = std::move(std::make_unique<SlewController>(12000, 12000)),
-			    std::unique_ptr<PID> _drivePID = nullptr, 
-			    std::unique_ptr<PID> _turnPID = nullptr,
-			    std::unique_ptr<PID> _anglePID = nullptr,
-			    std::shared_ptr<IMU> imu = nullptr):
+			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
+			std::shared_ptr<ChassisScales> iScale,
+			std::unique_ptr<SlewController> _driveSlew,
+			std::unique_ptr<PID> _drivePID, 
+			std::unique_ptr<PID> _turnPID,
+			std::unique_ptr<PID> _anglePID,
+			std::shared_ptr<IMU> imu):
 left(iLeft), right(iRight)
 {
     inertial = imu;
@@ -291,13 +291,13 @@ void Chassis::turnAngle(const double& angle, const QTime& timeLim){
     setPower(0, 0);
 }
 
-std::pair<double, double> scaleSpeed(const double& linear, const double& yaw, const double& max){
+std::pair<double, double> Chassis::scaleSpeed(const double& linear, const double& yaw, const double& max){
     double left = linear - yaw;
     double right = linear + yaw;
     return desaturate(left, right, max);
 }
 
-std::pair<double, double> desaturate(const double& left, const double& right, const double& max){
+std::pair<double, double> Chassis::desaturate(const double& left, const double& right, const double& max){
     double leftPower = left, rightPower = right, maxPower = fmax(std::fabs(left), std::fabs(right));
     if(maxPower > std::fabs(max)){
         leftPower = left / maxPower * max;

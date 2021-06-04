@@ -1,6 +1,6 @@
 /**
  * @file MotorVelocity.hpp
- * @author Ryan Liao (23RyanL@students.tas.tw)
+ * @author Ryan Liao (23RyanL@students.tas.tw) & Jason Zhou (24JasonZ@students.tas.tw)
  * @brief Accurate velocity controller for motors
  * @version 0.1
  * @date 2021-05-20

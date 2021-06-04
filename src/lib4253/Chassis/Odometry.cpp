@@ -37,9 +37,9 @@ double CustomOdometry::getAngleRad(){
     return globalPos.theta;
 }
 
-double CustomOdometry::getEncoderLeft(){}
-double CustomOdometry::getEncoderMid(){}
-double CustomOdometry::getEncoderRight(){}
+double CustomOdometry::getEncoderLeft(){return 0;}
+double CustomOdometry::getEncoderMid(){return 0;}
+double CustomOdometry::getEncoderRight(){return 0;}
 
 void CustomOdometry::setPos(Pose2D newPos){
     globalPos.x = (double)newPos.x;

@@ -20,7 +20,7 @@ public:
    *
    * @param iname The task name, optional.
    */
-  virtual void startTask(const std::string& iname = "TaskWrapper");
+  virtual void startTask(const char*  iname = "TaskWrapper");
 
   /**
    * Kill the task.

@@ -10,58 +10,58 @@
  */
 
 #pragma once
-#include "main.h"
+// #include "main.h"
+#include "lib4253/Filter/Filter.hpp"
 namespace lib4253{
 
+/**
+ * @brief Exponential moving average (EMA) filter class - inherited from Filter
+ *
+ */
+class EmaFilter : public FilterBase{
+    private:
+    double alpha, output = 0, prevOutput = 0;
+    bool run = false;
+    public:
     /**
-     * @brief Exponential moving average (EMA) filter class - inherited from Filter
+     * @brief Construct a new Ema Filter object
      *
      */
-    class EmaFilter: public Filter{
-        private:
-        double alpha, output = 0, prevOutput = 0;
-        bool run = false;
+    EmaFilter();
+    
+    /**
+     * @brief Construct a new Ema Filter object
+     *
+     * @param a alpha gain
+     */
+    EmaFilter(double a);
 
-        public:
-        /**
-         * @brief Construct a new Ema Filter object
-         *
-         */
-        EmaFilter();
+    /**
+     * @brief Sets EMA gain
+     *
+     * @param a alpha gain
+     */
+    void setGain(double a);
 
-        /**
-         * @brief Construct a new Ema Filter object
-         *
-         * @param a alpha gain
-         */
-        EmaFilter(double a);
+    /**
+     * @brief Gets filtered values
+     *
+     * @return filtered values
+     */
+    double getOutput();
 
-        /**
-         * @brief Sets EMA gain
-         *
-         * @param a alpha gain
-         */
-        void setGain(double a);
+    /**
+     * @brief Filters raw values
+     *
+     * @param input raw values
+     * @return filtered values
+     */
+    double filter(double input);
 
-        /**
-         * @brief Gets filtered values
-         *
-         * @return filtered values
-         */
-        double getOutput();
-
-        /**
-         * @brief Filters raw values
-         *
-         * @param input raw values
-         * @return filtered values
-         */
-        double filter(double input);
-
-        /**
-         * @brief Resets EMA filter
-         *
-         */
-        void reset();
-    };
+    /**
+     * @brief Resets EMA filter
+     *
+     */
+    void reset() override;
+};
 }

@@ -1,4 +1,4 @@
-#include "main.h"
+#include "lib4253/Filter/DEMA.hpp"
 namespace lib4253{
 
 DemaFilter::DemaFilter(){

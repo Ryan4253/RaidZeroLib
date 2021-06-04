@@ -3,7 +3,7 @@ namespace lib4253{
 
 ////////////////////////////// Point2D ////////////////////////////////
 
-Point2D::Point2D(const double& _x = 0, const double& _y = 0){
+Point2D::Point2D(const double& _x, const double& _y){
     this->x = _x, this->y = _y;
 }
 
@@ -94,11 +94,11 @@ double Point2D::mag() const{
 
 /////////////////////////////// POSE /////////////////////////////////
 
-Pose2D::Pose2D(const double& _x, const double& _y, const double& _heading = 0){
+Pose2D::Pose2D(const double& _x, const double& _y, const double& _heading){
     this->x = _x, this->y = _y, this->theta = Math::degToRad(_heading);
 }
 
-Pose2D::Pose2D(const Point2D& coord, const double& _heading = 0){
+Pose2D::Pose2D(const Point2D& coord, const double& _heading){
     this->x = coord.x, this->y = coord.y, this->theta = Math::degToRad(_heading);
 }
 

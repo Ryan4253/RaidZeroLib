@@ -1,6 +1,6 @@
 #pragma once
 #include "main.h"
-#include "lib4253/Subsystems/Odometry.hpp"
+#include "lib4253/Chassis/Odometry.hpp"
 
 namespace okapi{
   constexpr QLength tile = 2 * foot;

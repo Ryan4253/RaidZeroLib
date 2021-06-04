@@ -1,7 +1,7 @@
 {
     "py/object": "pros.conductor.project.Project",
     "py/state": {
-        "project_name": "2021-2022",
+        "project_name": "4253B-Template",
         "target": "v5",
         "templates": {
             "kernel": {
@@ -158,7 +158,7 @@
                 "version": "3.4.0"
             },
             "okapilib": {
-                "location": "C:\\Users\\23ryanl\\AppData\\Roaming\\PROS\\templates\\okapilib@4.2.0",
+                "location": "C:\\Users\\24jasonz\\AppData\\Roaming\\PROS\\templates\\okapilib@4.2.0",
                 "metadata": {
                     "origin": "pros-mainline"
                 },
@@ -298,11 +298,6 @@
                 "version": "4.2.0"
             }
         },
-        "upload_options": {
-            "compress_bin": true,
-            "description": "Created with Vex Coding Studio",
-            "remote_name": "lolLib",
-            "slot": 1
-        }
+        "upload_options": {}
     }
 }

@@ -97,7 +97,7 @@
 #include "okapi/api/filter/composableFilter.hpp"
 #include "okapi/api/filter/demaFilter.hpp"
 #include "okapi/api/filter/ekfFilter.hpp"
-#include "okapi/api/filter/emaFilter.hpp"
+// #include "okapi/api/filter/emaFilter.hpp" /* ur welcome ryan */
 #include "okapi/api/filter/filter.hpp"
 #include "okapi/api/filter/filteredControllerInput.hpp"
 #include "okapi/api/filter/medianFilter.hpp"

@@ -5,7 +5,7 @@ void TaskWrapper::loop(){
     throw "task loop isn't overridden!";
 }
 
-void TaskWrapper::startTask(const std::string& iname = "TaskWrapper"){
+void TaskWrapper::startTask(const char*  iname){
     task = std::move(std::make_unique<pros::Task>(trampoline, this, iname));
 }
 

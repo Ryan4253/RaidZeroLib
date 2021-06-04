@@ -9,16 +9,21 @@
  *
  */
 
-#include "main.h"
+#pragma once
+//#include "main.h"
+#include "lib4253/Filter/Filter.hpp"
+
 namespace lib4253{
+// #include "main.h"
+
 
   /**
    * @brief Double exponential moving average (DEMA) filter class - inherited from Filter
    *
    */
 
-class DemaFilter: public Filter{
-  private:
+class DemaFilter: public FilterBase{
+    private:
     double alpha, beta;
     double outputS, outputB;
     double prevOutputS, prevOutputB;

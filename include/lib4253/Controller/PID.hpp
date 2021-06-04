@@ -18,7 +18,7 @@ class PID {
     double error, prevError, integral, derivative;
     double maxIntegral, minDist;
     double time, prevTime;
-    EmaFilter dEMA;
+    lib4253::EmaFilter dEMA;
 
     public:
     /**
@@ -69,7 +69,7 @@ class PID {
     /**
      * @brief Updates PID controller - the main meat of the PID controller
      *
-     * @param err error or how far the robot's from the target location
+     * @param error error or how far the robot's from the target location
      * @return power to the motor
      */
     double update(double error);
@@ -81,7 +81,7 @@ class PID {
  * @brief PID Controller class with feed forward
  *
  */
-class FPID:PID{
+class FPID : PID{
     private:
     double kF, target;
     

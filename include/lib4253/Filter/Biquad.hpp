@@ -17,11 +17,11 @@ namespace lib4253{
    * @brief Biquadratic filter class: Inherited class from Filter
    *
    */
-class BiquadFilter:public FilterBase{
-  double prevInput[2];
-  double prevOutput[2];
-  double a1, a2, b0, b1, b2; // a0 defaulted to 0
-  double sample, cutoff, initVal;
+class BiquadFilter : public FilterBase{
+    double prevInput[2];
+    double prevOutput[2];
+    double a1, a2, b0, b1, b2; // a0 defaulted to 0
+    double sample, cutoff, initVal;
 
   /**
    * @brief Enumerator for High & Low pass
@@ -47,12 +47,12 @@ class BiquadFilter:public FilterBase{
    */
   void reset();
 
-  /**
-   * @brief Runs raw input through the Biquadratic filter
-   *
-   * @param input raw values to be converted
-   * @return filted values
-   */
-  double filter(double input);
+    /**
+     * @brief Runs raw input through the Biquadratic filter
+     *
+     * @param input raw values to be converted
+     * @return filted values
+     */
+    double filter(double input);
 };
 }

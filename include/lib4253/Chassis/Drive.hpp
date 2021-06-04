@@ -21,7 +21,7 @@ class Chassis: public TaskWrapper{
 			std::unique_ptr<PID> _drivePID = nullptr, 
 			std::unique_ptr<PID> _turnPID = nullptr,
 			std::unique_ptr<PID> _anglePID = nullptr);
-
+    
 	Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
 			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
 			std::shared_ptr<ChassisScales> iScale,
@@ -30,7 +30,7 @@ class Chassis: public TaskWrapper{
 			std::unique_ptr<PID> _turnPID = nullptr,
 			std::unique_ptr<PID> _anglePID = nullptr,
 			std::shared_ptr<IMU> imu = nullptr);
-
+    
 	// State Machine Functions
 	void loop() override;
 	State getState();
@@ -68,8 +68,8 @@ class Chassis: public TaskWrapper{
 
 	std::atomic<State> currentState{State::TANK};
 
-	std::pair<double, double> scaleSpeed(const double& linear, const double& yaw, const double& max);
     std::pair<double, double> desaturate(const double& left, const double& right, const double& max);
+	std::pair<double, double> scaleSpeed(const double& linear, const double& yaw, const double& max);
 
 	// driver control functions
 	void tank(const double& left, const double& right);

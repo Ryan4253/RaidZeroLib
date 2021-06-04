@@ -79,10 +79,10 @@ class LinearMotionProfileController{
     double getTotalTime();
 };
 
-class TrapezoidalProfileController:LinearMotionProfileController{
+class TrapezoidalProfileController : LinearMotionProfileController{
 
 };
 
-class SCurveMotionProfileController:LinearMotionProfileController{
+class SCurveMotionProfileController : LinearMotionProfileController{
 
 };

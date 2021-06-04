@@ -22,7 +22,7 @@ namespace lib4253{
    *
    */
 
-class DemaFilter: public FilterBase{
+class DemaFilter: public AbstractFilter{
     private:
     double alpha, beta;
     double outputS, outputB;
@@ -41,7 +41,13 @@ class DemaFilter: public FilterBase{
      * @param a alpha gain
      * @param b beta gain
      */
-    DemaFilter(double a, double b);
+    DemaFilter(const double& a, const double& b);
+
+    /**
+     * @brief Destroys the Dema Filter object
+     * 
+     */
+    ~DemaFilter() = default;
 
     /**
      * @brief Set the Gain object
@@ -49,14 +55,14 @@ class DemaFilter: public FilterBase{
      * @param a alpha gain
      * @param b beta gain
      */
-    void setGain(double a, double b);
+    void setGain(const double& a, const double& b);
 
     /**
      * @brief Gets output values
      *
      * @return filtered values
      */
-    double getOutput();
+    double getOutput() const;
 
     /**
      * @brief Runs raw input through the DEMA filter
@@ -64,12 +70,12 @@ class DemaFilter: public FilterBase{
      * @param input raw values to be converted
      * @return filtered values
      */
-    double filter(double input);
+    double filter(const double& input) override;
 
     /**
      * @brief Resets the filter
      *
      */
-    void reset();
-  };
+    void reset() override;
+};
 }

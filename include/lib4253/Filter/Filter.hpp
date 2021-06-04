@@ -16,7 +16,7 @@ namespace lib4253{
 * @brief Filter class
 *
 */
-class FilterBase{
+class AbstractFilter{
     public:
     /**
     * @brief Resets filters

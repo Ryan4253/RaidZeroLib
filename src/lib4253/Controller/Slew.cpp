@@ -2,7 +2,7 @@
 namespace lib4253{
 
 // Constructor, takes in acceleration and decelaration steps
-SlewController::SlewController(double accel, double decel){
+SlewController::SlewController(const double& accel, const double& decel){
     accStep = accel, decStep = decel, speed = 0;
 }
 
@@ -10,7 +10,7 @@ SlewController::SlewController(){
     accStep = 0; decStep = 0; speed =0 ;
 }
 
-void SlewController::setStep(double a, double d){
+void SlewController::setStep(const double& a, const double& d){
     accStep = a, decStep = d;
 }
 
@@ -20,7 +20,7 @@ void SlewController::reset(){
     speed = 0;
 }
 
-double SlewController::step(double target) {
+double SlewController::step(const double& target) {
     double step;
 
     if(std::fabs(speed) < std::fabs(target)) {

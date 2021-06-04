@@ -17,7 +17,8 @@
 namespace lib4253{
 
 class KalmanFilter{
-        /**
+    
+    /**
      * Create a Kalman filter with the specified matrices.
      *   A - System dynamics matrix
      *   C - Output matrix

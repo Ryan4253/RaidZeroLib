@@ -1,19 +1,19 @@
 #include "lib4253/Controller/TakeBackHalf.hpp"
 namespace lib4253{
 
-TakeBackHalf::TakeBackHalf(double g){
+TakeBackHalf::TakeBackHalf(const double& g){
     gain = g;
 }
 
-void TakeBackHalf::setGain(double g){
+void TakeBackHalf::setGain(const double& g){
     gain = g;
 }
 
-void TakeBackHalf::setTargetVel(double target){
+void TakeBackHalf::setTargetVel(const double& target){
     targetVel = target;
 }
 
-void TakeBackHalf::setApproxVel(double approx){
+void TakeBackHalf::setApproxVel(const double& approx){
     approxVel = approx;
 }
 
@@ -23,7 +23,7 @@ void TakeBackHalf::initialize(){
     error = targetVel, prevError = targetVel;
 }
 
-double TakeBackHalf::step(double rpm){
+double TakeBackHalf::step(const double& rpm){
     error = targetVel - rpm;
     output += error * gain;
     output = Math::clamp(output, 0, 127);

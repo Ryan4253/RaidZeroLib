@@ -1,7 +1,7 @@
 #include "lib4253/Filter/EMA.hpp"
 namespace lib4253{
 
-EmaFilter::EmaFilter(double a){
+EmaFilter::EmaFilter(const double& a){
     alpha = a;
     reset();
 }
@@ -11,11 +11,11 @@ EmaFilter::EmaFilter(){
     reset();
 }
 
-void EmaFilter::setGain(double a){
+void EmaFilter::setGain(const double& a){
     alpha = a;
 }
 
-double EmaFilter::filter(double input){
+double EmaFilter::filter(const double& input){
     if(!run){
         run = true;
         output = prevOutput = input;
@@ -33,7 +33,7 @@ void EmaFilter::reset(){
     run = false;
 }
 
-double EmaFilter::getOutput(){
+double EmaFilter::getOutput() const {
     return output;
 }
 }

@@ -12,8 +12,8 @@
 #pragma once
 #include "lib4253/Filter/Filter.hpp"
 #include<queue>
-namespace lib4253{
 
+namespace lib4253{
 
   /**
    * @brief Simple moving average filter (SMA) - inherited from Filter
@@ -31,19 +31,25 @@ class SmaFilter : public FilterBase{
 	SmaFilter() = default;
 
     /**
+     * @brief Destroys the Sma Filter object
+     * 
+     */
+    ~SmaFilter() = default;
+
+    /**
      * @brief filters raw values through SMA filter
      *
      * @param input raw values
      * @return filtered values
      */
-    double filter(double input) override;
+    double filter(const double& input) override;
 
     /**
      * @brief Gets filtered values
      *
      * @return filtered value
      */
-    double getOutput();
+    double getOutput() const;
 
     /**
      * @brief Resets SMA filter

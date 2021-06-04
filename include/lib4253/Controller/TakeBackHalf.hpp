@@ -12,6 +12,7 @@
 #pragma once
 #include "lib4253/Utility/Math.hpp"
 #include <math.h>
+
 namespace lib4253{
 
 /**
@@ -32,28 +33,34 @@ class TakeBackHalf{
      *
      * @param g TBH gain
      */
-    TakeBackHalf(double g);
+    TakeBackHalf(const double& g);
+
+    /**
+     * @brief Destroys the Take Back Half object
+     * 
+     */
+    ~TakeBackHalf() = default;
     
     /**
      * @brief Set the gain
      *
      * @param g TBH gain
      */
-    void setGain(double g);
+    void setGain(const double& g);
     
     /**
      * @brief Set the Target Velocity
      *
      * @param target tarvel velocity
      */
-    void setTargetVel(double target);
+    void setTargetVel(const double& target);
     
     /**
      * @brief Sets the approximate power for the motor after crossing the target output for the first time
      *
      * @param approx approximation of the power
      */
-    void setApproxVel(double approx);
+    void setApproxVel(const double& approx);
     
     /**
      * @brief Initializes TBH controller
@@ -67,6 +74,6 @@ class TakeBackHalf{
      * @param rpm current motor velocity
      * @return modified motor velocity
      */
-    double step(double rpm);
+    double step(const double& rpm);
 };  
 }

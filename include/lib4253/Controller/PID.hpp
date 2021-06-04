@@ -36,7 +36,13 @@ class PID {
      * @param b integral gain
      * @param c derivative gain
      */
-    PID(double a, double b, double c);
+    PID(const double& a, const double& b, const double& c);
+
+    /**
+     * @brief Destroys the PID object
+     * 
+     */
+    ~PID() = default;
 
     /**
      * @brief Set gains for PID controller
@@ -45,7 +51,7 @@ class PID {
      * @param b integral gain
      * @param c derivative gain
      */
-    void setGain(double a, double b, double c);
+    void setGain(const double& a, const double& b, const double& c);
 
     /**
      * @brief Set integral gain
@@ -53,14 +59,14 @@ class PID {
      * @param windup
      * @param dist
      */
-    void setIGain(double windup, double dist);
+    void setIGain(const double& windup, const double& dist);
 
     /**
      * @brief Sets gain for exponential moving average
      *
      * @param alpha EMA gain
      */
-    void setEMAGain(double alpha);
+    void setEMAGain(const double& alpha);
 
     /**
      * @brief Initializes PID controller
@@ -74,9 +80,9 @@ class PID {
      * @param error error or how far the robot's from the target location
      * @return power to the motor
      */
-    double update(double error);
+    double update(const double& error);
 
-    double getError();
+    double getError() const;
 };
 
 /**
@@ -93,14 +99,14 @@ class FPID : PID{
      *
      * @param f FF gain
      */
-    void setFGain(double f);
+    void setFGain(const double& f);
     
     /**
      * @brief Set desired target to calculate FF
      *
      * @param t target distance
      */
-    void setTarget(double t);
+    void setTarget(const double& t);
     
     /**
      * @brief Updates raw power based on FF
@@ -108,6 +114,6 @@ class FPID : PID{
      * @param error error or how far the robot's from the target location
      * @return updated power to the motor
      */
-    double fUpdate(double error);
+    double fUpdate(const double& error);
 };
 }

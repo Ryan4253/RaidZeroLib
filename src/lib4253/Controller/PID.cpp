@@ -1,25 +1,25 @@
 #include "lib4253/Controller/PID.hpp"
 namespace lib4253{
 
-PID::PID(double a, double b, double c){
-    kP = a, kI = b, kD = c;
-    maxIntegral = 1000000000, minDist = 1000000000;
-}
-
 PID::PID(){
     kP = 0, kI = 0, kD = 0;
     maxIntegral = 1000000000, minDist = 1000000000;
 }
 
-void PID::setGain(double a, double b, double c){
+PID::PID(const double& a, const double& b, const double& c){
+    kP = a, kI = b, kD = c;
+    maxIntegral = 1000000000, minDist = 1000000000;
+}
+
+void PID::setGain(const double& a, const double& b, const double& c){
     kP = a, kI = b, kD = c;
 }
 
-void PID::setIGain(double windup, double dist){
+void PID::setIGain(const double& windup, const double& dist){
     maxIntegral = windup, minDist = dist;
 }
 
-void PID::setEMAGain(double alpha){
+void PID::setEMAGain(const double& alpha){
     dEMA.setGain(alpha);
 }
 
@@ -29,7 +29,7 @@ void PID::initialize() {
     prevTime = pros::millis();
 }
 
-double PID::update(double err) {
+double PID::update(const double& err) {
     // P calculation
     error = err; // error
     // D calculation
@@ -44,19 +44,19 @@ double PID::update(double err) {
     return error * kP + integral * kI + derivative * kD; // final power output
 }   
 
-double PID::getError(){
+double PID::getError() const {
     return error;
 }
 
-void FPID::setFGain(double f){
+void FPID::setFGain(const double& f){
     kF = f;
 }   
 
-void FPID::setTarget(double t){
+void FPID::setTarget(const double& t){
     target = t;
 }
 
-double FPID::fUpdate(double error){
+double FPID::fUpdate(const double& error) {
     return update(error) + kF * target;
 }
 }

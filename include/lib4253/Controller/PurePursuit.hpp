@@ -13,8 +13,8 @@
 #include "lib4253/Splines/SimplePath.hpp"
 #include "lib4253/Splines/Point2D.hpp"
 #include <vector>
-namespace lib4253{
 
+namespace lib4253 {
 
 /**
  * @brief Pure pursuit class
@@ -41,21 +41,21 @@ class PurePursuitFollower{
      *
      * @param currentPos
      */
-    void calcClosestPoint(Pose2D currentPos);
+    void calcClosestPoint(const Pose2D& currentPos);
     
     /**
      * @brief Calculates the look ahead point (aka. the next target point)
      *
      * @param currentPos
      */
-    void calcLookAheadPoint(Pose2D currentPos);
+    void calcLookAheadPoint(const Pose2D& currentPos);
     
     /**
      * @brief Calculates curvature of the path to assist with turning
      *
      * @param currentPos
      */
-    void calcCurvature(Pose2D currentPos);
+    void calcCurvature(const Pose2D& currentPos);
     
     /**
      * @brief Calculates power for drive
@@ -63,7 +63,7 @@ class PurePursuitFollower{
      * @param currentPos current position of robot
      * @return motor velocities for each side
      */
-    std::pair<double, double> calcPower(Pose2D currentPos);
+    std::pair<double, double> calcPower(const Pose2D& currentPos);
     
     public:
     /**
@@ -71,7 +71,7 @@ class PurePursuitFollower{
      *
      * @param path the path to be followed
      */
-    void setPath(SimplePath path);
+    void setPath(const SimplePath& path);
     
     /**
      * @brief Initializes pure pursuit controller
@@ -85,14 +85,14 @@ class PurePursuitFollower{
      * @param CurrentPos
      * @return std::pair<double, double>
      */
-    std::pair<double, double> step(Pose2D CurrentPos);
+    std::pair<double, double> step(const Pose2D& CurrentPos);
     
     /**
      * @brief Sets turn gain
      *
      * @param k turn gain
      */
-    void setTurnGain(double k);
+    void setTurnGain(const double& k);
     
     /**
      * @brief Sets maximum acceleration and velocity
@@ -100,21 +100,21 @@ class PurePursuitFollower{
      * @param v maximum velocity
      * @param a maximum acceleration
      */
-    void setKinematics(double v, double a);
+    void setKinematics(const double& v, const double& a);
     
     /**
      * @brief Sets track width of drive
      *
      * @param size track width in inches
      */
-    void setTrackWidth(double size);
+    void setTrackWidth(const double& size);
     
     /**
      * @brief Sets radius of look-ahead distance
      *
      * @param dist radius of the look-ahead distance
      */
-    void setLookAhead(double dist);
+    void setLookAhead(const double& dist);
     
     /**
      * @brief Checks if drive has stopped
@@ -122,6 +122,6 @@ class PurePursuitFollower{
      * @return true - drive stopped
      * @return false - drive in motion
      */
-    bool isSettled();
+    bool isSettled() const;
 };
 }

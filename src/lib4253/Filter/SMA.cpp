@@ -2,7 +2,7 @@
 namespace lib4253{
 
 template<int N>
-double SmaFilter<N>::filter(double input){
+double SmaFilter<N>::filter(const double& input){
     total += input;
     if(value.size() >= N){
         total -= value.front();
@@ -15,7 +15,7 @@ double SmaFilter<N>::filter(double input){
 }
 
 template<int N>
-double SmaFilter<N>::getOutput(){
+double SmaFilter<N>::getOutput() const {
     return output;
 }
 

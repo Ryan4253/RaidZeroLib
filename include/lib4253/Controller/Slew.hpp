@@ -10,9 +10,10 @@
  */
 
 #pragma once
-#include <math.h>
-namespace lib4253{
+// #include <math.h> hahaha, cmath is the way to go lmao
+#include <cmath>
 
+namespace lib4253{
 
 /**
  * @brief Slew controller class
@@ -28,16 +29,22 @@ class SlewController{
     /**
      * @brief Construct a new Slew Controller object
      *
-     * @param accel acceleration step (how much the velocity increases everytime the robot refreshes)
-     * @param decel deceleration step (^ vise versa)
      */
-    SlewController(double accel, double decel);
+    SlewController();
     
     /**
      * @brief Construct a new Slew Controller object
      *
+     * @param accel acceleration step (how much the velocity increases everytime the robot refreshes)
+     * @param decel deceleration step (^ vise versa)
      */
-    SlewController();
+    SlewController(const double& accel, const double& decel);
+
+    /**
+     * @brief Destroys the Slew Controller object
+     * 
+     */
+    ~SlewController() = default;
     
     /**
      * @brief Set acceleration and deceleration steps
@@ -45,7 +52,7 @@ class SlewController{
      * @param a acceleration step
      * @param d deceleration step
      */
-    void setStep(double a, double d);
+    void setStep(const double& a, const double& d);
     
     /**
      * @brief Resets slew controller
@@ -59,6 +66,6 @@ class SlewController{
      * @param target target power
      * @return (possibly) modified power
      */
-    double step(double target);
+    double step(const double& target);
 };
 }

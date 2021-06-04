@@ -12,16 +12,18 @@
 #pragma once
 // #include "main.h"
 #include "lib4253/Filter/Filter.hpp"
+
 namespace lib4253{
 
 /**
  * @brief Exponential moving average (EMA) filter class - inherited from Filter
  *
  */
-class EmaFilter : public FilterBase{
+class EmaFilter : public AbstractFilter{
     private:
     double alpha, output = 0, prevOutput = 0;
     bool run = false;
+
     public:
     /**
      * @brief Construct a new Ema Filter object
@@ -34,21 +36,27 @@ class EmaFilter : public FilterBase{
      *
      * @param a alpha gain
      */
-    EmaFilter(double a);
+    EmaFilter(const double& a);
+
+    /**
+     * @brief Destroys the Ema Filter object
+     * 
+     */
+    ~EmaFilter() = default;
 
     /**
      * @brief Sets EMA gain
      *
      * @param a alpha gain
      */
-    void setGain(double a);
+    void setGain(const double& a);
 
     /**
      * @brief Gets filtered values
      *
      * @return filtered values
      */
-    double getOutput();
+    double getOutput() const;
 
     /**
      * @brief Filters raw values
@@ -56,7 +64,7 @@ class EmaFilter : public FilterBase{
      * @param input raw values
      * @return filtered values
      */
-    double filter(double input);
+    double filter(const double& input) override;
 
     /**
      * @brief Resets EMA filter

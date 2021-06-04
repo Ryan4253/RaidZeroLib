@@ -9,11 +9,11 @@ void MotorVelocityController::setGain(const double& _kV, const double& _kA, cons
     kV = _kV, kA = _kA, kP = _kP;
 }
 
-double MotorVelocityController::calcPower(const double& velocity, const double& acceleration, const double& currentRPM){
+double MotorVelocityController::calcPower(const double& velocity, const double& acceleration, const double& currentRPM) const {
     return kV * velocity + kA * acceleration + kP * (velocity - currentRPM);
 }
 
-double MotorVelocityController::calcPower(const TrajectoryPoint& v, const double& currentRPM){
+double MotorVelocityController::calcPower(const TrajectoryPoint& v, const double& currentRPM) const {
     return kV * v.velocity + kA * v.acceleration + kP * (v.velocity - currentRPM);
 }
 }

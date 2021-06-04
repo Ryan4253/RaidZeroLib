@@ -11,6 +11,7 @@
 
 #pragma once
 #include "lib4253/Splines/Trajectory.hpp"
+
 namespace lib4253{
 
 /**
@@ -52,7 +53,7 @@ class MotorVelocityController{
      * @param currentRPM current motor velocity
      * @return power to be fed into the motor
      */
-    double calcPower(const double& velocity, const double& acceleration, const double& currentRPM);
+    double calcPower(const double& velocity, const double& acceleration, const double& currentRPM) const;
 
     /**
      * @brief Calulates raw power for motor
@@ -61,6 +62,6 @@ class MotorVelocityController{
      * @param currentRPM current motor velocity
      * @return power to be fed into the motor
      */
-    double calcPower(const TrajectoryPoint& v, const double& currentRPM);
+    double calcPower(const TrajectoryPoint& v, const double& currentRPM) const;
 };
 }

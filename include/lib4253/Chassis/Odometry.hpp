@@ -1,12 +1,14 @@
 #pragma once
 #include "lib4253/Splines/Point2D.hpp"
 #include "lib4253/Utility/Math.hpp"
+#include "lib4253/Utility/TaskWrapper.hpp"
 #include "okapi/api/units/RQuantity.hpp"
 #include "okapi/api/units/QLength.hpp"
 #include "okapi/impl/device/rotarysensor/adiEncoder.hpp"
 #include "okapi/impl/device/rotarysensor/rotationSensor.hpp"
 #include "okapi/impl/device/rotarysensor/IMU.hpp"
 #include <tuple>
+#include <atomic>
 namespace lib4253{
 
 /*
@@ -25,81 +27,109 @@ namespace lib4253{
 * different sensor and have slightly different
 */
 
-class CustomOdometry{
-    protected:
-    Pose2D globalPos; // the global position of the robot
+class OdomDimension{
+    public:
+    okapi::QLength wheelDiameter{0 * okapi::inch};
+    okapi::QLength lDist{0 * okapi::inch}, mDist{0 * okapi::inch}, rDist{0 * okapi::inch};
+    double tpr{360};
 
-    // updates the position of the robot, set as pure virtual so each odometry
-    // archetype can implement their own updatePos function
-    virtual void updatePos() = 0;
+    OdomDimension(const okapi::QLength& wheelDiam, const okapi::QLength& leftOffset, const okapi::QLength& midOffset, const okapi::QLength& rightOffset);
+    OdomDimension(const okapi::QLength& wheelDiam, const okapi::QLength& offset1, const okapi::QLength& offset2);
+    ~OdomDimension() = default;
+};
+
+class Odometry: public TaskWrapper{
+    protected:
+    Pose2D globalPos{0, 0, 0}; // the global position of the robot
+    OdomDimension dimension{-1 * okapi::inch, -1 * okapi::inch, -1 * okapi::inch, -1 * okapi::inch};
 
     public:
-    CustomOdometry(); // constructor
-    virtual void withDimensions(std::tuple<double, double> dimension); // sets the dimension for 2 wheel odometry
-    virtual void withDimensions(std::tuple<double, double, double> dimension); // sets the dimension for 2 wheel odometry
+    Odometry() = default;
+    ~Odometry() = default;
+    
+    static OdomDimension withDimension(const okapi::QLength& wheelDiam, const okapi::QLength& leftOffset, const okapi::QLength& midOffset, const okapi::QLength& rightOffset);
+    static OdomDimension withDimension(const okapi::QLength& wheelDiam, const okapi::QLength& offset1, const okapi::QLength& offset2);
 
-    Pose2D getPos(); // return current position as a struct
-    double getX(); // return x position as a double, units in inches
-    okapi::QLength getQX(); // return x position as type QLength
-    double getY(); // return y position as a double, in unit inches
-    okapi::QLength getQY(); // return y position in type QLength
-    double getAngleDeg(); // return angle in degrees
-    double getAngleRad(); // return angle in radians
+    Pose2D getPos() const; // return current position as a struct
+    double getX() const; // return x position as a double, units in inches
+    okapi::QLength getQX() const; // return x position as type QLength
+    double getY() const; // return y position as a double, in unit inches
+    okapi::QLength getQY() const; // return y position in type QLength
+    double getAngleDeg() const; // return angle in degrees
+    double getAngleRad() const; // return angle in radians
 
-    virtual double getEncoderLeft(); // gets the left encoder reading
-    virtual double getEncoderRight(); // gets the right encoder reading
-    virtual double getEncoderMid(); // gets the mid encoder reading
+    virtual double getEncoderLeft() const; // gets the left encoder reading
+    virtual double getEncoderRight() const; // gets the right encoder reading
+    virtual double getEncoderMid() const; // gets the mid encoder reading
+    virtual double getEncoderSide() const; // gets the side encoder reading
 
-    void setPos(Pose2D newPos); // sets the current position
-    void setX(double x); // sets the x position of the robot
-    void setX(okapi::QLength inch); // sets the x position of the robot
-    void setY(double y); // sets the y position of the robot
-    void setY(okapi::QLength inch); // sets the y position of the robot
-    void setAngleDeg(double theta); // sets the angle of the robot in degrees
-    void setAngleRad(double theta); // sets the angle of the robot in radians
+    void setPos(const Pose2D& newPos); // sets the current position
+    void setX(const double& x); // sets the x position of the robot
+    void setX(const okapi::QLength& inch); // sets the x position of the robot
+    void setY(const double& y); // sets the y position of the robot
+    void setY(const okapi::QLength& inch); // sets the y position of the robot
+    void setAngleDeg(const double& theta); // sets the angle of the robot in degrees
+    void setAngleRad(const double& theta); // sets the angle of the robot in radians
 
-    void displayPosition(); // outputs the x, y, angle of the robot on the robot screen and the console
+    void displayPosition() const; // outputs the x, y, angle of the robot on the robot screen and the console
 
     void resetState(); // sets the robot position to {0, 0, 0}
     virtual void resetSensors() = 0; // resets robot sensors. set as pure virtual so each subclass can reset their individual sensors
     void reset(); // resets the position and the sensor
-    static void odomTask(void *ptr); // trampoline for the task to run
 };
 
 // Odometry using 3 encoders - 2 parallel to drive and one perpendicular
-class ADIThreeWheelOdometry:public CustomOdometry{
+class ThreeWheelOdometry : public Odometry{
     private:
-    void updatePos(); // updates position based on encoder values
-    double lVal, mVal, rVal; // readings from the left, middle and right encoders
-    double lPrev, mPrev, rPrev; // previous reading from the left, middle and right encoders
-    double lDist, rDist, mDist; // offset from the center for the 3 tracking wheels. Used in calculations
-    okapi::ADIEncoder left, mid, right; // the 3 encoders
+    void loop() override; // updates position based on encoder values
+    double lVal{0}, mVal{0}, rVal{0}; // readings from the left, middle and right encoders
+    double lPrev{0}, mPrev{0}, rPrev{0}; // previous reading from the left, middle and right encoders
+    std::shared_ptr<okapi::ContinuousRotarySensor> left{nullptr}, mid{nullptr}, right{nullptr}; // the 3 encoders
 
     public:
-    ADIThreeWheelOdometry(std::tuple<char, char, bool> l, std::tuple<char, char, bool> m, std::tuple<char, char, bool> r); // constructor
-    void withDimensions(std::tuple<double, double, double> dimension); // sets the offset of the 3 tracking wheels
+    ThreeWheelOdometry(const std::shared_ptr<okapi::ADIEncoder>& l, const std::shared_ptr<okapi::ADIEncoder>& m, const std::shared_ptr<okapi::ADIEncoder>& r, const OdomDimension& dim); // constructor
+    ThreeWheelOdometry(const std::shared_ptr<okapi::RotationSensor>& l, const std::shared_ptr<okapi::RotationSensor>& m, const std::shared_ptr<okapi::RotationSensor>& r, const OdomDimension& dim);
+    ~ThreeWheelOdometry() = default;
 
-    void resetSensors(); // reset sensors
-    double getEncoderLeft(); // gets reading from the left encoder
-    double getEncoderRight(); // gets reading from the right encoder
-    double getEncoderMid(); // gets reading fom the middle encoder
+    void resetSensors() override; // reset sensors
+    double getEncoderLeft() const override; // gets reading from the left encoder
+    double getEncoderRight() const override; // gets reading from the right encoder
+    double getEncoderMid() const override; // gets reading fom the middle encoder
 };
 
 // Odometry using 2 encoder that are perpendicular to each other, as well as an imu to gather angle information
-class ADITwoWheelIMUOdometry:public CustomOdometry{
+class TwoWheelIMUOdometry:public Odometry{
     private:
-    void updatePos();  // updates position based on encoder values
-    double mVal, sVal, aVal; // readings from the side, middle encoder + imu sensor
-    double mPrev, sPrev, aPrev; // previous readings from the side, middle encoder + imu sensor
-    double mDist, sDist; // offset from the center for the 2 encoders
-    okapi::ADIEncoder mid, side; okapi::IMU imu; // sensors used in the system
+    void loop() override;  // updates position based on encoder values
+    double mVal{0}, sVal{0}, aVal{0}; // readings from the side, middle encoder + imu sensor
+    double mPrev{0}, sPrev{0}, aPrev{0}; // previous readings from the side, middle encoder + imu sensor
+    std::shared_ptr<okapi::ContinuousRotarySensor> side{nullptr}, mid{nullptr};
+    std::shared_ptr<okapi::IMU> inertial{nullptr};
 
     public:
-    ADITwoWheelIMUOdometry(std::tuple<char, char, bool> s, std::tuple<char, char, bool> m, int port); // constructor
-    void withDimensions(std::tuple<double, double> dimension); // sets the offset of the 2 tracking wheels
+    TwoWheelIMUOdometry(const std::shared_ptr<okapi::ADIEncoder>& s, const std::shared_ptr<okapi::ADIEncoder>& m, const std::shared_ptr<okapi::IMU>& imu, const OdomDimension& dim); // constructor
+    TwoWheelIMUOdometry(const std::shared_ptr<okapi::RotationSensor>& s, const std::shared_ptr<okapi::RotationSensor>& m, const std::shared_ptr<okapi::IMU>& imu, const OdomDimension& dim); // constructor
+    TwoWheelIMUOdometry() = default;
 
-    void resetSensors(); // reset sensors
-    double getEncoderLeft(); // gets reading from the side encoder
-    double getEncoderMid(); // gets reading from the middle encoder
+    void resetSensors() override; // reset sensors
+    double getEncoderSide() const override; // gets reading from the side encoder
+    double getEncoderMid() const override; // gets reading from the middle encoder
+};
+
+class TwoWheelOdometry : public Odometry{
+    private:
+    void loop() override;  // updates position based on encoder values
+    double lVal{0}, rVal{0}; // readings from the side, middle encoder + imu sensor
+    double lPrev{0}, rPrev{0}; // previous readings from the side, middle encoder + imu sensor
+    std::shared_ptr<okapi::ContinuousRotarySensor> left{nullptr}, right{nullptr};
+
+    public:
+    TwoWheelOdometry(const std::shared_ptr<okapi::ADIEncoder>& l, const std::shared_ptr<okapi::ADIEncoder>& r, const OdomDimension& dim); // constructor
+    TwoWheelOdometry(const std::shared_ptr<okapi::RotationSensor>& l, const std::shared_ptr<okapi::RotationSensor>& r, const OdomDimension& dim); // constructor
+    ~TwoWheelOdometry() = default;
+
+    void resetSensors() override; // reset sensors
+    double getEncoderLeft() const override; // gets reading from the side encoder
+    double getEncoderRight() const override; // gets reading from the middle encoder
 };
 }

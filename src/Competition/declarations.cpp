@@ -41,6 +41,13 @@ void initSubsystems(){
     .withSlew(256, 9)
     .initialize();
     */
+
+    std::shared_ptr<lib4253::Odometry> odom = std::make_shared<lib4253::TwoWheelIMUOdometry>(
+        std::make_shared<okapi::RotationSensor>(3), 
+        std::make_shared<okapi::RotationSensor>(4), 
+        std::make_shared<okapi::IMU>(5),
+        lib4253::Odometry::withDimension(1_in, 1_in, 1_in)
+    );
 }
 
 void initThreads(){

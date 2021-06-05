@@ -2,148 +2,191 @@
 #include "lib4253/Chassis/Odometry.hpp"
 namespace lib4253{
 
-CustomOdometry::CustomOdometry():globalPos(0, 0, 0){
+/* Odom Dimesions */
+
+OdomDimension::OdomDimension(const okapi::QLength& wheelDiam, const okapi::QLength& leftOffset, const okapi::QLength& midOffset, const okapi::QLength& rightOffset){
+    wheelDiameter = wheelDiam;
+    lDist = leftOffset;
+    mDist = midOffset;
+    rDist = rightOffset;
 }
 
-void CustomOdometry::withDimensions(std::tuple<double, double, double> dimensions){}
+OdomDimension::OdomDimension(const okapi::QLength& wheelDiam, const okapi::QLength& offset1, const okapi::QLength& offset2){
+    wheelDiameter = wheelDiam;
+    lDist = offset1;
+    mDist = offset2;
+}
 
-void CustomOdometry::withDimensions(std::tuple<double, double> dimensions){}
+/* Odometry Base Class */
 
-Pose2D CustomOdometry::getPos(){
+OdomDimension Odometry::withDimension(const okapi::QLength& wheelDiam, const okapi::QLength& leftOffset, const okapi::QLength& midOffset, const okapi::QLength& rightOffset){
+    OdomDimension ret(wheelDiam, leftOffset, midOffset, rightOffset);
+    return ret;
+}
+
+OdomDimension Odometry::withDimension(const okapi::QLength& wheelDiam, const okapi::QLength& offset1, const okapi::QLength& offset2){
+    OdomDimension ret(wheelDiam, offset1, offset2);
+    return ret;
+}
+
+Pose2D Odometry::getPos() const{
     return globalPos;
 }
 
-double CustomOdometry::getX(){
+double Odometry::getX() const{
     return globalPos.x;
 }
 
-okapi::QLength CustomOdometry::getQX(){
+okapi::QLength Odometry::getQX() const{
     return globalPos.x * okapi::inch;
 }
 
-double CustomOdometry::getY(){
+double Odometry::getY() const{
     return globalPos.y;
 }
 
-okapi::QLength CustomOdometry::getQY(){
+okapi::QLength Odometry::getQY() const{
     return globalPos.y * okapi::inch;
 }
 
-double CustomOdometry::getAngleDeg(){
+double Odometry::getAngleDeg() const{
     return Math::radToDeg(globalPos.theta);
 }
 
-double CustomOdometry::getAngleRad(){
+double Odometry::getAngleRad() const{
     return globalPos.theta;
 }
 
-double CustomOdometry::getEncoderLeft(){return 0;}
-double CustomOdometry::getEncoderMid(){return 0;}
-double CustomOdometry::getEncoderRight(){return 0;}
+double Odometry::getEncoderLeft() const{
+    std::cout << "THIS METHOD HAVE NOT BEEN OVERWRITTEN" << std::endl;
+    return -1;
+}
 
-void CustomOdometry::setPos(Pose2D newPos){
+double Odometry::getEncoderMid() const{
+    std::cout << "THIS METHOD HAVE NOT BEEN OVERWRITTEN" << std::endl;
+    return -1;
+}
+
+double Odometry::getEncoderRight() const{
+    std::cout << "THIS METHOD HAVE NOT BEEN OVERWRITTEN" << std::endl;
+    return -1;
+}
+
+double Odometry::getEncoderSide() const{
+    std::cout << "THIS METHOD HAVE NOT BEEN OVERWRITTEN" << std::endl;
+    return -1;
+}
+
+void Odometry::setPos(const Pose2D& newPos){
     globalPos.x = (double)newPos.x;
     globalPos.y = (double)newPos.y;
     globalPos.theta = Math::degToRad(newPos.theta);
 }
 
-void CustomOdometry::setX(double x){
+void Odometry::setX(const double& x){
     globalPos.x = x;
 }
 
-void CustomOdometry::setX(okapi::QLength x){
+void Odometry::setX(const okapi::QLength& x){
     globalPos.x = x.convert(okapi::inch);
 }
 
-void CustomOdometry::setY(double y){
+void Odometry::setY(const double& y){
     globalPos.y = y;
 }
 
-void CustomOdometry::setY(okapi::QLength y){
+void Odometry::setY(const okapi::QLength& y){
     globalPos.y = y.convert(okapi::inch);
 }
 
-void CustomOdometry::setAngleDeg(double theta){
+void Odometry::setAngleDeg(const double& theta){
     globalPos.theta = Math::radToDeg(theta);
 }
 
-void CustomOdometry::setAngleRad(double theta){
+void Odometry::setAngleRad(const double& theta){
     globalPos.theta = theta;
 }
 
-void CustomOdometry::displayPosition(){
+void Odometry::displayPosition() const{
     std::cout << "X: " << globalPos.x << " Y: " << globalPos.y << " A: " << globalPos.theta;
     pros::lcd::print(2, "X: %lf", globalPos.x);
     pros::lcd::print(3, "Y: %lf", globalPos.y);
     pros::lcd::print(4, "A: %lf", Math::radToDeg(globalPos.theta));
 }
 
-void CustomOdometry::resetState(){
+void Odometry::resetState(){
     globalPos.x = 0;
     globalPos.y = 0;
     globalPos.theta = 0;
 }
 
-void CustomOdometry::reset(){
+void Odometry::reset(){
     resetState();
     resetSensors();
 }
 
-void CustomOdometry::odomTask(void* ptr){
-    pros::delay(10);
-    CustomOdometry* that = static_cast<CustomOdometry*>(ptr);
-    that->updatePos();
+/* Three Wheel Odometry */
+
+ThreeWheelOdometry::ThreeWheelOdometry(const std::shared_ptr<okapi::ADIEncoder>& l, const std::shared_ptr<okapi::ADIEncoder>& m, const std::shared_ptr<okapi::ADIEncoder>& r, const OdomDimension& dim){
+    left = l;
+    mid = m;
+    right = r;
+    dimension = dim;
+    if(dimension.rDist == (-1 * okapi::inch)){
+        throw std::invalid_argument("MISSING RIGHT WHEEL OFFSET ARGUMENT");
+    }
+    dimension.tpr = 360;
+    setPos({0, 0, 0});
 }
 
-/* THREE WHEEL ADI ENCODER ODOMETRY */
-
-ADIThreeWheelOdometry::ADIThreeWheelOdometry(std::tuple<char, char, bool> l, std::tuple<char, char, bool> m, std::tuple<char, char, bool> r)
-:left(std::get<0>(l), std::get<1>(l), std::get<2>(l)), mid(std::get<0>(m), std::get<1>(m), std::get<2>(m)), right(std::get<0>(r), std::get<1>(r), std::get<2>(r))
-{
-    resetSensors();
+ThreeWheelOdometry::ThreeWheelOdometry(const std::shared_ptr<okapi::RotationSensor>& l, const std::shared_ptr<okapi::RotationSensor>& m, const std::shared_ptr<okapi::RotationSensor>& r, const OdomDimension& dim){
+    left = l;
+    mid = m;
+    right = r;
+    dimension = dim;
+    if(dimension.rDist == (-1 * okapi::inch)){
+        throw std::invalid_argument("MISSING RIGHT WHEEL OFFSET ARGUMENT");
+    }
+    dimension.tpr = 4096;
+    setPos({0, 0, 0});
 }
 
-void ADIThreeWheelOdometry::withDimensions(std::tuple<double, double, double> dimension){
-    lDist = std::get<0>(dimension);
-    mDist = std::get<1>(dimension);
-    rDist = std::get<2>(dimension);
+void ThreeWheelOdometry::resetSensors(){
+    left->reset(); mid->reset(); right->reset();
 }
 
-void ADIThreeWheelOdometry::resetSensors(){
-    left.reset(); mid.reset(); right.reset();
-}
-
-double ADIThreeWheelOdometry::getEncoderLeft(){
+double ThreeWheelOdometry::getEncoderLeft() const{
     return lVal;
 }
 
-double ADIThreeWheelOdometry::getEncoderMid(){
+double ThreeWheelOdometry::getEncoderMid() const{
     return mVal;
 }
 
-double ADIThreeWheelOdometry::getEncoderRight(){
+double ThreeWheelOdometry::getEncoderRight() const{
     return rVal;
 }
 
-void ADIThreeWheelOdometry::updatePos(){
+void ThreeWheelOdometry::loop(){
+    auto t = pros::millis();
     while(true){
-        lVal = left.get(), mVal = mid.get(), rVal = right.get();
+        lVal = left->get(), mVal = mid->get(), rVal = right->get();
 
-        double left = Math::tickToInch(lVal - lPrev);
-        double right = Math::tickToInch(rVal - rPrev);
-        double mid = Math::tickToInch(mVal - mPrev);
+        double left = Math::tickToInch(lVal - lPrev, dimension.wheelDiameter.convert(okapi::inch), dimension.tpr);
+        double right = Math::tickToInch(rVal - rPrev, dimension.wheelDiameter.convert(okapi::inch), dimension.tpr);
+        double mid = Math::tickToInch(mVal - mPrev, dimension.wheelDiameter.convert(okapi::inch), dimension.tpr);
 
         lPrev = lVal;
         rPrev = rVal;
         mPrev = mVal;
 
-        double h, h2, rRad, mRad, theta = (left - right) / (lDist + rDist);
+        double h, h2, rRad, mRad, theta = (left - right) / (dimension.lDist.convert(okapi::inch) + dimension.rDist.convert(okapi::inch));
         if(theta != 0){
             rRad = right / theta;
             mRad = mid / theta;
 
-            h = (rRad + rDist) * sin(theta / 2) * 2;
-            h2 = (mRad + mDist) * sin(theta / 2) * 2;
+            h = (rRad + dimension.rDist.convert(okapi::inch)) * sin(theta / 2) * 2;
+            h2 = (mRad + dimension.mDist.convert(okapi::inch)) * sin(theta / 2) * 2;
         }
         else{
             h = right;
@@ -156,42 +199,53 @@ void ADIThreeWheelOdometry::updatePos(){
         globalPos.y = (double)(globalPos.y) + (h * cos(endAngle) + h2 * -sin(endAngle));
         globalPos.theta = Math::wrapAngle180((double)(globalPos.theta) + theta);
 
-        pros::delay(3);
+        pros::Task::delay_until(&t, 3);
     }
 }
 
-/* TWO WHEEL ADI ENCODER + IMU ODOMETRY */
+/* Two Wheel + IMU Odometry */
 
-ADITwoWheelIMUOdometry::ADITwoWheelIMUOdometry(std::tuple<char, char, bool> s, std::tuple<char, char, bool> m, int port):
-    side(std::get<0>(s), std::get<1>(s), std::get<2>(s)), mid(std::get<0>(m), std::get<1>(m), std::get<2>(m)), imu(port)
-{}
-
-void ADITwoWheelIMUOdometry::withDimensions(std::tuple<double, double> dimension){
-    sDist = std::get<0>(dimension);
-    mDist = std::get<1>(dimension);
+TwoWheelIMUOdometry::TwoWheelIMUOdometry(const std::shared_ptr<okapi::ADIEncoder>& s, const std::shared_ptr<okapi::ADIEncoder>& m, const std::shared_ptr<okapi::IMU>& imu, const OdomDimension& dim){
+    side = s;
+    mid = m;
+    inertial = imu;
+    dimension = dim;
+    dimension.tpr = 360;
+    setPos({0, 0, 0});
 }
 
-void ADITwoWheelIMUOdometry::resetSensors(){
-    mid.reset();
-    side.reset();
-    imu.reset();
+TwoWheelIMUOdometry::TwoWheelIMUOdometry(const std::shared_ptr<okapi::RotationSensor>& s, const std::shared_ptr<okapi::RotationSensor>& m, const std::shared_ptr<okapi::IMU>& imu, const OdomDimension& dim){
+    side = s;
+    mid = m;
+    inertial = imu;
+    dimension = dim;
+    dimension.tpr = 4096;
+    setPos({0, 0, 0});
 }
 
-double ADITwoWheelIMUOdometry::getEncoderLeft(){
+void TwoWheelIMUOdometry::resetSensors(){
+    mid->reset();
+    side->reset();
+    inertial->reset();
+}
+
+double TwoWheelIMUOdometry::getEncoderSide() const{
     return sVal;
 }
 
-double ADITwoWheelIMUOdometry::getEncoderMid(){
+double TwoWheelIMUOdometry::getEncoderMid() const{
     return mVal;
 }
 
-void ADITwoWheelIMUOdometry::updatePos(){
+void TwoWheelIMUOdometry::loop(){
+    auto t = pros::millis();
     while(true){
-        sVal = side.get(), mVal = mid.get(), aVal = imu.get();
+        // ldist is sdist
+        sVal = side->get(), mVal = mid->get(), aVal = inertial->get();
         
         double side = Math::tickToInch(sVal - sPrev);
         double mid = Math::tickToInch(mVal - mPrev);
-        double theta = imu.get() - aPrev;
+        double theta = inertial->get() - aPrev;
         
         sPrev = sVal;
         mPrev = mVal;
@@ -202,8 +256,8 @@ void ADITwoWheelIMUOdometry::updatePos(){
             sRad = side / theta;
             mRad = mid / theta;
 
-            h = (sRad + sDist) * sin(theta / 2) * 2;
-            h2 = (mRad + mDist) * sin(theta / 2) * 2;
+            h = (sRad + dimension.lDist.convert(okapi::inch)) * sin(theta / 2) * 2;
+            h2 = (mRad + dimension.mDist.convert(okapi::inch)) * sin(theta / 2) * 2;
         }
         else{
             h = side;
@@ -216,7 +270,70 @@ void ADITwoWheelIMUOdometry::updatePos(){
         globalPos.y = (double)(globalPos.y) + (h * cos(endAngle) + h2 * -sin(endAngle));
         globalPos.theta = Math::wrapAngle180((double)(globalPos.theta) + theta);
         
-        pros::delay(3);
+        pros::Task::delay_until(&t, 3);
     }   
-}       
+}
+
+/* TWO WHEEL ODOMETRY */
+
+TwoWheelOdometry::TwoWheelOdometry(const std::shared_ptr<okapi::ADIEncoder>& l, const std::shared_ptr<okapi::ADIEncoder>& r, const OdomDimension& dim){
+    left = l;
+    right = r;
+    dimension = dim;
+    dimension.tpr = 360;
+    setPos({0, 0, 0});
+}
+
+TwoWheelOdometry::TwoWheelOdometry(const std::shared_ptr<okapi::RotationSensor>& l, const std::shared_ptr<okapi::RotationSensor>& r, const OdomDimension& dim){
+    left = l;
+    right = r;
+    dimension = dim;
+    dimension.tpr = 360;
+    setPos({0, 0, 0});
+}
+
+void TwoWheelOdometry::resetSensors(){
+    left->reset();
+    right->reset();
+}
+
+double TwoWheelOdometry::getEncoderLeft() const{
+    return lVal;
+}
+
+double TwoWheelOdometry::getEncoderRight() const{
+    return rVal;
+}
+
+void TwoWheelOdometry::loop(){
+    auto t = pros::millis();
+    while(true){
+        //mdist is rdist
+        lVal = left->get(), rVal = right->get();
+
+        double left = Math::tickToInch(lVal - lPrev, dimension.wheelDiameter.convert(okapi::inch), dimension.tpr);
+        double right = Math::tickToInch(rVal - rPrev, dimension.wheelDiameter.convert(okapi::inch), dimension.tpr);
+
+        lPrev = lVal;
+        rPrev = rVal;
+
+        double h, rRad, theta = (left - right) / (dimension.lDist.convert(okapi::inch) + dimension.mDist.convert(okapi::inch));
+        if(theta != 0){
+            rRad = right / theta;
+
+            h = (rRad + dimension.mDist.convert(okapi::inch)) * sin(theta / 2) * 2;
+        }
+        else{
+            h = right;
+        }
+
+        double endAngle = theta / 2 + globalPos.theta;
+
+        globalPos.x = (double)(globalPos.x) + (h * sin(endAngle));
+        globalPos.y = (double)(globalPos.y) + (h * cos(endAngle));
+        globalPos.theta = Math::wrapAngle180((double)(globalPos.theta) + theta);
+
+        pros::Task::delay_until(&t, 3);
+    }
+}
 }

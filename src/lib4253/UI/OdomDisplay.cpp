@@ -4,10 +4,10 @@ namespace lib4253{
 // credits to Theo Lemay from team 7842F for coding this display
 // original repo: https://github.com/theol0403/7842F-Competition-Code
 
-OdomDisplay::OdomDisplay(lv_obj_t* parent, CustomOdometry* tracker) :
+OdomDisplay::OdomDisplay(lv_obj_t* parent, Odometry* tracker) :
   OdomDisplay(parent, lv_obj_get_style(parent)->body.main_color, tracker) {}
 
-OdomDisplay::OdomDisplay(lv_obj_t* parent, lv_color_t mainColor, CustomOdometry* itracker) :
+OdomDisplay::OdomDisplay(lv_obj_t* parent, lv_color_t mainColor, Odometry* itracker) :
   container(lv_obj_create(parent, NULL)), tracker(itracker){
   lv_obj_set_size(container, lv_obj_get_width(parent), lv_obj_get_height(parent));
   lv_obj_align(container, NULL, LV_ALIGN_CENTER, 0, 0);

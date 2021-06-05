@@ -29,13 +29,13 @@ namespace lib4253{
 class OdomDisplay : public TaskWrapper{
   public:
     lv_obj_t* container = nullptr;
-    CustomOdometry* tracker = nullptr;
+    Odometry* tracker = nullptr;
 
     lv_obj_t* field = nullptr;
     double fieldDim = 0;
 
-    OdomDisplay(lv_obj_t*, CustomOdometry*);
-    OdomDisplay(lv_obj_t*, lv_color_t, CustomOdometry*);
+    OdomDisplay(lv_obj_t*, Odometry*);
+    OdomDisplay(lv_obj_t*, lv_color_t, Odometry*);
     ~OdomDisplay();
 
     static lv_res_t tileAction(lv_obj_t*);

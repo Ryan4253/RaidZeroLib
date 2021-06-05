@@ -26,9 +26,9 @@ double Math::inchToTick(double inch, double rad, double ticksPerRotation){
   return inch / (rad * M_PI) * ticksPerRotation;
 }
 
-double Math::tickToDeg(const double& tick,  const std::shared_ptr<okapi::ChassisScales>& scale, const double& ticksPerRotation){
-  double inches = Math::tickToInch(tick, scale->wheelDiameter.convert(okapi::inch), ticksPerRotation);
-  double rad = inches / (scale->wheelTrack.convert(okapi::inch));
+double Math::tickToDeg(const double& tick,  const okapi::ChassisScales& scale){
+  double inches = Math::tickToInch(tick, scale.wheelDiameter.convert(okapi::inch), scale.tpr);
+  double rad = inches / (scale.wheelTrack.convert(okapi::inch));
   return Math::radToDeg(rad);
 }
 

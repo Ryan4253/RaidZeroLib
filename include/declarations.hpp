@@ -18,7 +18,7 @@ extern pros::Imu imuTop;
 extern pros::Imu imuBottom;
 // subsystems on the robot
 //extern lib4253::Drive drive;
-extern lib4253::CustomOdometry* tracker;
+//extern lib4253::CustomOdometry* tracker;
 
 // initializes individual subsystems
 void initSubsystems();

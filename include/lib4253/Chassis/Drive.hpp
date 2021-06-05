@@ -18,7 +18,7 @@ class Chassis: public TaskWrapper{
 	// Constructor
 	Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
 			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
-			std::shared_ptr<ChassisScales> iScale,
+			const ChassisScales& iScale,
 			std::shared_ptr<IMU> imu,
 			std::unique_ptr<SlewController> _driveSlew = nullptr,
 			std::unique_ptr<PID> _drivePID = nullptr, 
@@ -27,7 +27,7 @@ class Chassis: public TaskWrapper{
     
 	Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
 			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
-			std::shared_ptr<ChassisScales> iScale,
+			const ChassisScales& iScale,
 			std::unique_ptr<SlewController> _driveSlew = nullptr,
 			std::unique_ptr<PID> _drivePID = nullptr, 
 			std::unique_ptr<PID> _turnPID = nullptr,
@@ -36,17 +36,17 @@ class Chassis: public TaskWrapper{
     
 	// State Machine Functions
 	void loop() override;
-	State getState();
+	State getState() const;
     void setState(const State& s);
 
 	// initializer / setter / getter
 	void initialize();
 	void setBrakeType(const AbstractMotor::brakeMode& iMode);
 	void resetSensor();
-	double getIMUReading();
-	double getEncoderReading();
-	double getLeftEncoderReading();
-	double getRightEncoderReading();
+	double getIMUReading() const;
+	double getEncoderReading() const;
+	double getLeftEncoderReading() const;
+	double getRightEncoderReading() const;
 
 	// drive movement functions
 	void setPower(const double& lPower, const double& rPower);
@@ -62,7 +62,7 @@ class Chassis: public TaskWrapper{
 	std::vector<std::shared_ptr<Motor> > left {nullptr};
     std::vector<std::shared_ptr<Motor> > right {nullptr};
     std::shared_ptr<IMU> inertial {nullptr};
-    std::shared_ptr<ChassisScales> scale {nullptr};
+    ChassisScales scale;
 
 	std::unique_ptr<SlewController> driveSlew {nullptr};
     std::unique_ptr<PID> drivePID {nullptr};

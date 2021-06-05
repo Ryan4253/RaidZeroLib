@@ -3,16 +3,15 @@ namespace lib4253{
 
 Chassis::Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
 			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
-			std::shared_ptr<ChassisScales> iScale,
+			const ChassisScales& iScale,
 			std::shared_ptr<IMU> imu,
 			std::unique_ptr<SlewController> _driveSlew,
 			std::unique_ptr<PID> _drivePID, 
 			std::unique_ptr<PID> _turnPID,
 			std::unique_ptr<PID> _anglePID):
-left(iLeft), right(iRight)
+left(iLeft), right(iRight), scale(iScale)
 {
     inertial = imu;
-    scale = std::move(iScale);
     driveSlew = std::move(_driveSlew);
     drivePID = std::move(_drivePID);
     turnPID = std::move(_turnPID);
@@ -21,16 +20,15 @@ left(iLeft), right(iRight)
 
 Chassis::Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
 			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
-			std::shared_ptr<ChassisScales> iScale,
+			const ChassisScales& iScale,
 			std::unique_ptr<SlewController> _driveSlew,
 			std::unique_ptr<PID> _drivePID, 
 			std::unique_ptr<PID> _turnPID,
 			std::unique_ptr<PID> _anglePID,
 			std::shared_ptr<IMU> imu):
-left(iLeft), right(iRight)
+left(iLeft), right(iRight), scale(iScale)
 {
     inertial = imu;
-    scale = std::move(iScale);
     driveSlew = std::move(_driveSlew);
     drivePID = std::move(_drivePID);
     turnPID = std::move(_turnPID);
@@ -38,8 +36,8 @@ left(iLeft), right(iRight)
 }
 
 void Chassis::loop(){
+    auto t = pros::millis();
     while(true){
-        auto now = pros::millis();
         /*
         switch(currentState.load()){
             case State::TANK:
@@ -51,11 +49,11 @@ void Chassis::loop(){
                 break;
         }
         */
-        pros::Task::delay_until(&now, 10);
+        pros::Task::delay_until(&t, 10);
     }
 }
 
-Chassis::State Chassis::getState(){
+Chassis::State Chassis::getState() const{
     return currentState.load();
 }
 
@@ -119,11 +117,11 @@ void Chassis::resetSensor(){
     }
 }
 
-double Chassis::getIMUReading(){
+double Chassis::getIMUReading() const{
     return inertial->get();
 }
 
-double Chassis::getEncoderReading(){
+double Chassis::getEncoderReading() const{
     double total = 0;
     for(auto& motor : left){
         total += motor->getPosition();
@@ -136,7 +134,7 @@ double Chassis::getEncoderReading(){
     return total / (left.size() + right.size());
 }
 
-double Chassis::getLeftEncoderReading(){
+double Chassis::getLeftEncoderReading() const{
     double total = 0;
     for(auto& motor : left){
         total += motor->getPosition();
@@ -145,7 +143,7 @@ double Chassis::getLeftEncoderReading(){
     return total / (left.size());
 }
 
-double Chassis::getRightEncoderReading(){
+double Chassis::getRightEncoderReading() const{
     double total = 0;
     for(auto& motor : right){
         total += motor->getPosition();
@@ -205,7 +203,7 @@ void Chassis::moveDistance(const double& dist, const QTime& timeLim){
 
     if(drivePID == nullptr){
         do{
-            distTravelled = Math::inchToTick(getEncoderReading(), scale->wheelDiameter.convert(inch), 360);
+            distTravelled = Math::inchToTick(getEncoderReading(), scale.wheelDiameter.convert(inch), 360);
             power = driveSlew->step(12000);
             if(dist < 0){
                 setPower(-power, -power);
@@ -225,7 +223,7 @@ void Chassis::moveDistance(const double& dist, const QTime& timeLim){
         resetSensor();
 
         do{
-            double error = dist - Math::tickToInch(getEncoderReading(), scale->wheelDiameter.convert(inch), 360);
+            double error = dist - Math::tickToInch(getEncoderReading(), scale.wheelDiameter.convert(inch), 360);
             double power = drivePID->update(error), adjustment;
 
             if(anglePID == nullptr){
@@ -233,7 +231,7 @@ void Chassis::moveDistance(const double& dist, const QTime& timeLim){
             }
             else if(inertial == nullptr){
                 double tickTravelled = getLeftEncoderReading() - getRightEncoderReading();
-                adjustment = anglePID->update(Math::wrapAngle180(Math::tickToDeg(tickTravelled, scale, 360)));
+                adjustment = anglePID->update(Math::wrapAngle180(Math::tickToDeg(tickTravelled, scale)));
             }
             else{
                 adjustment = anglePID->update(Math::wrapAngle180(inertial->get()));
@@ -260,7 +258,7 @@ void Chassis::turnAngle(const double& angle, const QTime& timeLim){
             }
             else{
                 double tickTravelled = getLeftEncoderReading() - getRightEncoderReading();
-                degTravelled = Math::wrapAngle180(Math::tickToDeg(tickTravelled, scale, 360));
+                degTravelled = Math::wrapAngle180(Math::tickToDeg(tickTravelled, scale));
             }
 
             if(target > 0){
@@ -279,7 +277,7 @@ void Chassis::turnAngle(const double& angle, const QTime& timeLim){
             }
             else{
                 double tickTravelled = getLeftEncoderReading() - getRightEncoderReading();
-                error = target - Math::wrapAngle180(Math::tickToDeg(tickTravelled, scale, 360));
+                error = target - Math::wrapAngle180(Math::tickToDeg(tickTravelled, scale));
             }
 
             double power = turnPID->update(error);

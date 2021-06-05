@@ -25,7 +25,7 @@ namespace lib4253{
 * different sensor and have slightly different
 */
 
-class CustomOdometry{
+class AbstractOdometry {
     protected:
     Pose2D globalPos; // the global position of the robot
 
@@ -34,7 +34,8 @@ class CustomOdometry{
     virtual void updatePos() = 0;
 
     public:
-    CustomOdometry(); // constructor
+    AbstractOdometry(); // constructor
+    ~AbstractOdometry() = default;
     virtual void withDimensions(std::tuple<double, double> dimension); // sets the dimension for 2 wheel odometry
     virtual void withDimensions(std::tuple<double, double, double> dimension); // sets the dimension for 2 wheel odometry
 
@@ -67,7 +68,7 @@ class CustomOdometry{
 };
 
 // Odometry using 3 encoders - 2 parallel to drive and one perpendicular
-class ADIThreeWheelOdometry:public CustomOdometry{
+class ADIThreeWheelOdometry : public AbstractOdometry{
     private:
     void updatePos(); // updates position based on encoder values
     double lVal, mVal, rVal; // readings from the left, middle and right encoders
@@ -86,7 +87,7 @@ class ADIThreeWheelOdometry:public CustomOdometry{
 };
 
 // Odometry using 2 encoder that are perpendicular to each other, as well as an imu to gather angle information
-class ADITwoWheelIMUOdometry:public CustomOdometry{
+class ADITwoWheelIMUOdometry : public AbstractOdometry{
     private:
     void updatePos();  // updates position based on encoder values
     double mVal, sVal, aVal; // readings from the side, middle encoder + imu sensor

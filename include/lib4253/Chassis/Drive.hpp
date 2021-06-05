@@ -33,6 +33,8 @@ class Chassis: public TaskWrapper{
 			std::unique_ptr<PID> _turnPID = nullptr,
 			std::unique_ptr<PID> _anglePID = nullptr,
 			std::shared_ptr<IMU> imu = nullptr);
+
+    ~Chassis() = default;
     
 	// State Machine Functions
 	void loop() override;

@@ -20,7 +20,7 @@ namespace lib4253{
    *
    */
 template<int N> 
-class SmaFilter : public FilterBase{
+class SmaFilter : public AbstractFilter{
     std::queue<double> value; // ngl i was thinking about coding a segment tree
     double total, output;
 

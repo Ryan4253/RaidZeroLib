@@ -49,7 +49,6 @@ class Odometry: public TaskWrapper{
     
     static OdomDimension withDimension(const okapi::QLength& wheelDiam, const okapi::QLength& leftOffset, const okapi::QLength& midOffset, const okapi::QLength& rightOffset);
     static OdomDimension withDimension(const okapi::QLength& wheelDiam, const okapi::QLength& offset1, const okapi::QLength& offset2);
-
     Pose2D getPos() const; // return current position as a struct
     double getX() const; // return x position as a double, units in inches
     okapi::QLength getQX() const; // return x position as type QLength
@@ -73,9 +72,9 @@ class Odometry: public TaskWrapper{
 
     void displayPosition() const; // outputs the x, y, angle of the robot on the robot screen and the console
 
-    void resetState(); // sets the robot position to {0, 0, 0}
-    virtual void resetSensors() = 0; // resets robot sensors. set as pure virtual so each subclass can reset their individual sensors
-    void reset(); // resets the position and the sensor
+    void resetState();
+    virtual void resetSensors() = 0;
+    void reset();
 };
 
 // Odometry using 3 encoders - 2 parallel to drive and one perpendicular

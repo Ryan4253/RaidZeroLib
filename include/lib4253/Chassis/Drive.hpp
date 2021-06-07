@@ -1,9 +1,11 @@
 #pragma once
 #include "lib4253/Utility/TaskWrapper.hpp"
 #include "lib4253/Utility/Math.hpp"
-#include "lib4253/Chassis/Motor.hpp"
+#include "lib4253/Utility/Settler.hpp"
 #include "lib4253/Controller/PID.hpp"
 #include "lib4253/Controller/Slew.hpp"
+#include "lib4253/Chassis/Motor.hpp"
+
 #include "okapi/impl/device/rotarysensor/IMU.hpp"
 #include "okapi/api/chassis/controller/chassisScales.hpp"
 #include <atomic>
@@ -56,8 +58,8 @@ class Chassis: public TaskWrapper{
 	void setVelocity(const double& lVelocity, const double& rVelocity);
     void setVelocity(const std::pair<double, double> velocity);
 	void move(const double& lPower, const double& rPower, const QTime& timeLim);
-	void moveDistance(const double& dist, const QTime& timeLim);
-	void turnAngle(const double& angle, const QTime& timeLim);
+	void moveDistance(const double& dist, Settler = Settler::getDefaultSettler());
+	void turnAngle(const double& angle, Settler = Settler::getDefaultSettler());
 
 
 	private:

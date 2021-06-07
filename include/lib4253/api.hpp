@@ -3,6 +3,7 @@
 #include "lib4253/Utility/Math.hpp" // done
 #include "lib4253/Utility/Matrix.hpp" // done
 #include "lib4253/Utility/TaskWrapper.hpp" // done
+#include "lib4253/Utility/Settler.hpp"
 
 #include "lib4253/Splines/Point2D.hpp" // done
 #include "lib4253/Splines/SimplePath.hpp" // done

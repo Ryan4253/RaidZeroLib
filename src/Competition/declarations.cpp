@@ -1,6 +1,5 @@
 #include "main.h"
 #include "declarations.hpp"
-using namespace lib4253;
 //lib4253::CustomOdometry* tracker = new lib4253::ADIThreeWheelOdometry({'A', 'B', true}, {'C', 'D', false}, {'E', 'F', false});
 //lib4253::Drive drive({-10, 9}, {8, -7});
 //Roller* roller = new Roller();
@@ -42,19 +41,51 @@ void initSubsystems(){
     .initialize();
     */
 
+    auto leftBack = std::make_shared<lib4253::Motor>(3, okapi::AbstractMotor::gearset::blue, 1, std::tuple<double, double, double>{1, 1, 1});
+    auto leftFront = std::make_shared<lib4253::Motor>(3, okapi::AbstractMotor::gearset::blue, 1, std::tuple<double, double, double>{1, 1, 1});
+    auto rightBack = std::make_shared<lib4253::Motor>(3, okapi::AbstractMotor::gearset::blue, 1, std::tuple<double, double, double>{1, 1, 1});
+    auto rightFront = std::make_shared<lib4253::Motor>(3, okapi::AbstractMotor::gearset::blue, 1, std::tuple<double, double, double>{1, 1, 1});
+
+
     std::shared_ptr<lib4253::Odometry> odom = std::make_shared<lib4253::TwoWheelIMUOdometry>(
         std::make_shared<okapi::RotationSensor>(3), 
         std::make_shared<okapi::RotationSensor>(4), 
         std::make_shared<okapi::IMU>(5),
         lib4253::Odometry::withDimension(1_in, 1_in, 1_in)
     );
+
+    auto chassis = std::make_shared<lib4253::Chassis>(
+        std::initializer_list<std::shared_ptr<lib4253::Motor>>{leftFront, leftBack},
+        std::initializer_list<std::shared_ptr<lib4253::Motor>>{rightFront, rightBack},
+        ChassisScales({12_in, 4.125_in}, 360),
+        std::make_shared<okapi::IMU>(3),
+        std::make_unique<lib4253::SlewController>(9, 256),
+        std::make_unique<lib4253::PID>(1, 1, 1),
+        std::make_unique<lib4253::PID>(1, 1, 1),
+        std::make_unique<lib4253::PID>(1, 1, 1)
+    );
+
+    std::shared_ptr<lib4253::Chassis> chassis2(new lib4253::Chassis(
+        {leftFront, leftBack},
+        {rightFront, rightBack},
+        ChassisScales({12_in, 4.125_in}, 360),
+        std::make_shared<okapi::IMU>(3),
+        std::make_unique<lib4253::SlewController>(9, 256),
+        std::make_unique<lib4253::PID>(1, 1, 1),
+        std::make_unique<lib4253::PID>(1, 1, 1),
+        std::make_unique<lib4253::PID>(1, 1, 1)
+    )
+    );
+
+    chassis->moveDistance(25, lib4253::Settler::makeSettler().withMaxTime(5_s).withMaxError(0.5).withWaitTime(200_ms));
+
 }
 
 void initThreads(){
 
 }
 
-std::vector<TrajectoryPoint> pathLeft = {
+std::vector<lib4253::TrajectoryPoint> pathLeft = {
     {0,0},
     {0.0309,2.8125},
     {0.0709,4.188},
@@ -245,7 +276,7 @@ std::vector<TrajectoryPoint> pathLeft = {
     {0.0911,-4.4335},
     {0.0339,-3.803}
 };
-std::vector<TrajectoryPoint> pathRight = {
+std::vector<lib4253::TrajectoryPoint> pathRight = {
         {0,0},
     {0.0309,2.8125},
     {0.0709,4.188},
@@ -437,7 +468,7 @@ std::vector<TrajectoryPoint> pathRight = {
     {0.0339,-3.803}
 };
 
-std::vector<TrajectoryPoint> path2Left = {
+std::vector<lib4253::TrajectoryPoint> path2Left = {
     {0,0},
     {0.0341,3.015},
     {0.078,4.8335},
@@ -656,8 +687,7 @@ std::vector<TrajectoryPoint> path2Left = {
     {0.0544,-3.9002},
     {0.0153,-4.0895}
 };
-
-std::vector<TrajectoryPoint> path2Right = {
+std::vector<lib4253::TrajectoryPoint> path2Right = {
     {0,0},
     {0.0295,2.61},
     {0.0647,3.8711},
@@ -877,7 +907,7 @@ std::vector<TrajectoryPoint> path2Right = {
     {0.0277,-5.2776}
 };
 
-std::vector<TrajectoryPoint> Figure_8Left = {
+std::vector<lib4253::TrajectoryPoint> Figure_8Left = {
     {0,0},
     {0.0337,3.1039},
     {0.0865,5.5908},
@@ -1561,7 +1591,7 @@ std::vector<TrajectoryPoint> Figure_8Left = {
     {0.1019,-5.817},
     {0.0392,-5.7275}
 };
-std::vector<TrajectoryPoint> Figure_8Right = {
+std::vector<lib4253::TrajectoryPoint> Figure_8Right = {
     {0,0},
     {0.0233,2.1462},
     {0.0537,3.2161},
@@ -2246,7 +2276,7 @@ std::vector<TrajectoryPoint> Figure_8Right = {
     {0.0101,-3.0824}
 };
 
-std::vector<TrajectoryPoint> tenTileLeft = {
+std::vector<lib4253::TrajectoryPoint> tenTileLeft = {
     {0,0},
     {0.036,3.3},
     {0.0689,3.4632},
@@ -2576,7 +2606,7 @@ std::vector<TrajectoryPoint> tenTileLeft = {
     {0.0741,-4.0225},
     {0.0247,-4.4}
 };
-std::vector<TrajectoryPoint> tenTileRight = {
+std::vector<lib4253::TrajectoryPoint> tenTileRight = {
     {0,0},
     {0.036,3.3},
     {0.0689,3.4632},
@@ -2908,10 +2938,10 @@ std::vector<TrajectoryPoint> tenTileRight = {
 };
 
 void initPaths(){
-    Trajectory test(pathLeft, pathRight);
-    Trajectory cubicTest(path2Left, path2Right);
-    Trajectory eight(Figure_8Left, Figure_8Right);
-    Trajectory tenTile(tenTileLeft, tenTileRight);
+    lib4253::Trajectory test(pathLeft, pathRight);
+    lib4253::Trajectory cubicTest(path2Left, path2Right);
+    lib4253::Trajectory eight(Figure_8Left, Figure_8Right);
+    lib4253::Trajectory tenTile(tenTileLeft, tenTileRight);
     //Robot::addPath("test", test);
     //Robot::addPath("cubeTest", cubicTest);
     //Robot::addPath("8", eight);

@@ -198,8 +198,9 @@ void Chassis::move(const double& lPower, const double& rPower, const QTime& time
     setPower(0, 0);
 }
 
-void Chassis::moveDistance(const double& dist, const QTime& timeLim){
-    double startTime = pros::millis(), distTravelled, power;
+void Chassis::moveDistance(const double& dist, Settler settler){
+    auto time = pros::millis();
+    double distTravelled, power;
 
     if(drivePID == nullptr){
         do{
@@ -212,7 +213,7 @@ void Chassis::moveDistance(const double& dist, const QTime& timeLim){
                 setPower(power, power);
 
             }
-        }while(std::fabs(distTravelled) < std::fabs(dist) && (pros::millis() - startTime) < timeLim.convert(millisecond));
+        }while(std::abs(dist) > std::abs(distTravelled));
     }
     else{
         driveSlew->reset();
@@ -239,15 +240,16 @@ void Chassis::moveDistance(const double& dist, const QTime& timeLim){
             
             std::pair<double, double> finalPower = scaleSpeed(power, adjustment, driveSlew->step(std::fabs(power)));
             setPower(finalPower.first, finalPower.second);
-        }while(drivePID->getError() < 0.5 && (pros::millis() - startTime) < timeLim.convert(millisecond));
+        }while(!settler.isSettled(&time, drivePID->getError()));
     }
 
     setPower(0, 0);
 }
 
-void Chassis::turnAngle(const double& angle, const QTime& timeLim){
+void Chassis::turnAngle(const double& angle, Settler settler){
     double startTime = pros::millis();
     double target = Math::wrapAngle180(angle);
+    auto time = pros::millis();
     resetSensor();
 
     if(turnPID == nullptr){
@@ -267,7 +269,7 @@ void Chassis::turnAngle(const double& angle, const QTime& timeLim){
             else{
                 setPower(-127, 127);
             }
-        }while(std::fabs(degTravelled) < std::fabs(target) && (pros::millis() - startTime) < timeLim.convert(millisecond));
+        }while(std::abs(angle) > std::abs(degTravelled));
     }
     else{
         double error;
@@ -283,7 +285,7 @@ void Chassis::turnAngle(const double& angle, const QTime& timeLim){
             double power = turnPID->update(error);
             setPower(desaturate(power, -power, driveSlew->step(std::abs(power))));
             
-        }while(std::fabs(turnPID->getError()) < 0.5 && (pros::millis() - startTime) < timeLim.convert(millisecond));
+        }while(!settler.isSettled(&time, turnPID->getError()));
     }
 
     setPower(0, 0);
@@ -316,16 +318,6 @@ void Chassis::arcade(const double& fwd, const double& yaw){
 }
 }
 /*
-Drive::Drive(const std::initializer_list<okapi::Motor> &l, const std::initializer_list<okapi::Motor> &r):
-    left(l), right(r)
-{
-}
-
-Drive& Drive::withOdometry(CustomOdometry* tracker){
-    odom = tracker;
-    return *this;
-}
-
 Drive& Drive::withDrivePID(std::tuple<double, double, double> gain, std::tuple<double, double> IGain, std::tuple<double> emaGain){
     drivePID.setGain(std::get<0>(gain), std::get<1>(gain), std::get<2>(gain));
     drivePID.setIGain(std::get<0>(IGain), std::get<1>(IGain));

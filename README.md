@@ -2,14 +2,14 @@
 Code for VEX team 4253B
 
 **Features**:
-- Custom 3 Wheel arc-based odometry & 2 Wheel IMU odometry
+- Supports 6 different versions of odometry (three wheel, two wheel + imu, two wheel, rotaion / 3 wire sensors)
 - Custom PID MoveTo using odom feedback
 - very op motion profile thats non okapi (to some extent)
-- Different Sensor Filters (Exponential Moving Average, Simple Moving Average, Biquadratic)
+- 5 Different Sensor Filters
 - Adaptive Pure Pursuit & ~~Simple~~ shitty Path Generator
-- Finite State Machine for individual subsystems
+- ~~Finite State Machine for individual subsystems~~ non chassis subsystems are no longer supported
 - Everything written in classes, easily instantiable by entering motor & sensor ports
-- Custom task declaration using maps -> easily start/end-able
+- ~~Custom task declaration using maps -> easily start/end-able~~ custom wrapper for any classes that involve tasks
 - Very clean code, even idiots like Andre can read it /s
 
 **To Do**

@@ -1,27 +1,24 @@
 #include "lib4253/Splines/Trajectory.hpp"
 namespace lib4253{
 
-TrajectoryPoint::TrajectoryPoint(double v, double a){
-    velocity = v, acceleration = a;
+TrajectoryPoint::TrajectoryPoint(const Point2D& p, const double& linV, const double& linA, const double& angV, const double& angA):
+position(p), linVelocity(linV), linAcceleration(linA), angVelocity(angV), angAcceleration(angA)
+{}
+
+Trajectory::Trajectory(std::vector<TrajectoryPoint> path):traj(path)
+{}
+
+int Trajectory::getSize() const{
+    return traj.size();
 }
 
-Trajectory::Trajectory(std::vector<TrajectoryPoint> l, std::vector<TrajectoryPoint> r){
-    left = l;
-    right = r;
-}
+TrajectoryPoint Trajectory::getKinematics(int index){
+    if(index >= traj.size()){
+        TrajectoryPoint ret(Pose2D(0, 0, 0), 0, 0, 0, 0);
 
-int Trajectory::getSize(){
-    return left.size();
-}
-
-std::pair<TrajectoryPoint, TrajectoryPoint> Trajectory::getKinematics(int index){
-    if(index >= left.size()){
-        TrajectoryPoint left = {0, 0};
-        TrajectoryPoint right = {0, 0};
-        return std::make_pair(left, right);
     }
     else{
-        return std::make_pair(left[index], right[index]);
+        return traj[index];
     }
 }
 }

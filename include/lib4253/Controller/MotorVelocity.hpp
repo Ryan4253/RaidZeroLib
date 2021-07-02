@@ -51,7 +51,7 @@ class MotorVelocityController{
      * @param velocity stores the target velocity
      * @param acceleration stores the target acceleration
      * @param currentRPM current motor velocity
-     * @return power to be fed into the motor
+     * @return power (voltage) to be fed into the motor
      */
     double calcPower(const double& velocity, const double& acceleration, const double& currentRPM) const;
 
@@ -65,3 +65,4 @@ class MotorVelocityController{
     double calcPower(const TrajectoryPoint& v, const double& currentRPM) const;
 };
 }
+

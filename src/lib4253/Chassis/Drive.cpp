@@ -5,60 +5,54 @@ Chassis::Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft,
 			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
 			const ChassisScales& iScale,
 			std::shared_ptr<IMU> imu,
-			std::unique_ptr<SlewController> _driveSlew,
-			std::unique_ptr<PID> _drivePID, 
-			std::unique_ptr<PID> _turnPID,
-			std::unique_ptr<PID> _anglePID):
+			std::unique_ptr<SlewController> iSlew,
+			std::unique_ptr<PID> iDrivePID, 
+			std::unique_ptr<PID> iTurnPID,
+			std::unique_ptr<PID> iAnglePID):
 left(iLeft), right(iRight), scale(iScale)
 {
     inertial = imu;
-    driveSlew = std::move(_driveSlew);
-    drivePID = std::move(_drivePID);
-    turnPID = std::move(_turnPID);
-    anglePID = std::move(_anglePID);    
+    driveSlew = std::move(iSlew);
+    drivePID = std::move(iDrivePID);
+    turnPID = std::move(iTurnPID);
+    anglePID = std::move(iAnglePID);    
 }
 
 Chassis::Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
 			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
 			const ChassisScales& iScale,
-			std::unique_ptr<SlewController> _driveSlew,
-			std::unique_ptr<PID> _drivePID, 
-			std::unique_ptr<PID> _turnPID,
-			std::unique_ptr<PID> _anglePID,
+			std::unique_ptr<SlewController> iDriveSlew,
+			std::unique_ptr<PID> iDrivePID, 
+			std::unique_ptr<PID> iTurnPID,
+			std::unique_ptr<PID> iAnglePID,
 			std::shared_ptr<IMU> imu):
 left(iLeft), right(iRight), scale(iScale)
 {
     inertial = imu;
-    driveSlew = std::move(_driveSlew);
-    drivePID = std::move(_drivePID);
-    turnPID = std::move(_turnPID);
-    anglePID = std::move(_anglePID);    
+    driveSlew = std::move(iDriveSlew);
+    drivePID = std::move(iDrivePID);
+    turnPID = std::move(iTurnPID);
+    anglePID = std::move(iAnglePID);    
 }
 
 void Chassis::loop(){
     auto t = pros::millis();
     while(true){
-        /*
-        switch(currentState.load()){
-            case State::TANK:
-                tank();
+        switch(getState()){
+            case DriveState::ARCADE:
+                setPower(scaleSpeed(lControllerY, rControllerX, 12000));
+                break;
+            
+            case DriveState::TANK:
+                setPower(desaturate(lControllerY, rControllerY, 12000));
                 break;
 
-            case State::ARCADE:
-                arcade();
+            default:
                 break;
         }
-        */
+        
         pros::Task::delay_until(&t, 10);
     }
-}
-
-Chassis::State Chassis::getState() const{
-    return currentState.load();
-}
-
-void Chassis::setState(const Chassis::State& s){
-    currentState = s;
 }
 
 void Chassis::initialize(){
@@ -72,23 +66,23 @@ void Chassis::initialize(){
         motor->setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
     }
 
-    if(driveSlew != nullptr){
+    if(driveSlew){
         driveSlew->reset();
     }
 
-    if(drivePID != nullptr){
+    if(drivePID){
         drivePID->initialize();
     }
 
-    if(turnPID != nullptr){
+    if(turnPID){
         turnPID->initialize();
     }
 
-    if(anglePID != nullptr){
+    if(anglePID){
         anglePID->initialize();
     }
 
-    if(inertial != nullptr){
+    if(inertial){
         inertial->calibrate();
     }
 }
@@ -112,7 +106,7 @@ void Chassis::resetSensor(){
         motor->tarePosition();
     }
 
-    if(inertial != nullptr){
+    if(inertial){
         inertial->reset();
     }
 }
@@ -162,7 +156,7 @@ void Chassis::setPower(const double& lPower, const double& rPower){
     }
 }
 
-void Chassis::setPower(const std::pair<double, double> power){
+void Chassis::setPower(const std::pair<double, double>& power){
     for(auto& motor : left){
         motor->moveVoltage(power.first);
     }
@@ -182,7 +176,7 @@ void Chassis::setVelocity(const double& lVelocity, const double& rVelocity){
     }
 }
 
-void Chassis::setVelocity(const std::pair<double, double> velocity){
+void Chassis::setVelocity(const std::pair<double, double>& velocity){
     for(auto& motor : left){
         motor->setRPM(velocity.first);
     }
@@ -202,23 +196,18 @@ void Chassis::moveDistance(const double& dist, Settler settler){
     auto time = pros::millis();
     double distTravelled, power;
 
-    if(drivePID == nullptr){
+    if(drivePID == nullptr){ // open loop control based on IME if pid isn't 
         do{
             distTravelled = Math::inchToTick(getEncoderReading(), scale.wheelDiameter.convert(inch), 360);
             power = driveSlew->step(12000);
-            if(dist < 0){
-                setPower(-power, -power);
-            }
-            else{
-                setPower(power, power);
-
-            }
+            dist < 0 ? setPower(-power, -power) : setPower(power, power);
+            pros::delay(10); 
         }while(std::abs(dist) > std::abs(distTravelled));
     }
     else{
         driveSlew->reset();
         drivePID->initialize();
-        if(anglePID != nullptr){
+        if(anglePID){
             anglePID->initialize();
         }
         resetSensor();
@@ -227,10 +216,10 @@ void Chassis::moveDistance(const double& dist, Settler settler){
             double error = dist - Math::tickToInch(getEncoderReading(), scale.wheelDiameter.convert(inch), 360);
             double power = drivePID->update(error), adjustment;
 
-            if(anglePID == nullptr){
+            if(!anglePID){
                 adjustment = 0;
             }
-            else if(inertial == nullptr){
+            else if(!inertial){
                 double tickTravelled = getLeftEncoderReading() - getRightEncoderReading();
                 adjustment = anglePID->update(Math::wrapAngle180(Math::tickToDeg(tickTravelled, scale)));
             }
@@ -238,8 +227,9 @@ void Chassis::moveDistance(const double& dist, Settler settler){
                 adjustment = anglePID->update(Math::wrapAngle180(inertial->get()));
             }
             
-            std::pair<double, double> finalPower = scaleSpeed(power, adjustment, driveSlew->step(std::fabs(power)));
+            std::pair<double, double> finalPower = scaleSpeed(power, adjustment, driveSlew->step(std::fabs(power + adjustment)));
             setPower(finalPower.first, finalPower.second);
+            pros::delay(10); 
         }while(!settler.isSettled(&time, drivePID->getError()));
     }
 
@@ -269,6 +259,7 @@ void Chassis::turnAngle(const double& angle, Settler settler){
             else{
                 setPower(-127, 127);
             }
+            pros::delay(10); 
         }while(std::abs(angle) > std::abs(degTravelled));
     }
     else{
@@ -284,7 +275,7 @@ void Chassis::turnAngle(const double& angle, Settler settler){
 
             double power = turnPID->update(error);
             setPower(desaturate(power, -power, driveSlew->step(std::abs(power))));
-            
+            pros::delay(10); 
         }while(!settler.isSettled(&time, turnPID->getError()));
     }
 
@@ -308,13 +299,13 @@ std::pair<double, double> Chassis::desaturate(const double& left, const double& 
 }   
 
 void Chassis::tank(const double& left, const double& right){
-    //std::cout<<"TANK" << std::endl;.    
-    setPower(left * 12000, right * 12000);
+    lControllerY = left * 12000;
+    rControllerY = right * 12000;
 }
 
 void Chassis::arcade(const double& fwd, const double& yaw){
-    std::pair<double, double> power = scaleSpeed(fwd * 12000, yaw * 12000, 12000);
-    setPower(power.first, power.second);
+    lControllerY = fwd * 12000;
+    rControllerX = yaw * 12000;
 }
 }
 /*
@@ -533,3 +524,101 @@ void Drive::turnToAngle(double angle, okapi::QTime timeLimit){
     Robot::setPower(right, 0);
 }
 */
+
+
+/**
+ * @author Ryan Liao
+ * @brief General Chassis PID Control
+ * @date 2021-06-30
+ *
+ */
+
+#include "okapi/api.hpp"
+using namespace okapi;
+std::shared_ptr<MotorGroup> left = std::make_shared<MotorGroup>(std::initializer_list<Motor>{1, 2});
+std::shared_ptr<MotorGroup> right = std::make_shared<MotorGroup>(std::initializer_list<Motor>{3, 4});
+std::shared_ptr<IMU> imu = std::make_shared<IMU>(5);
+
+/**
+ * @brief limits angle to range [-180, 180]
+ *
+ * @param angle raw angle
+ * @return The Constrained Angle
+ */
+double constrainAngle(const double& angle){
+    double res = fmod(angle + 180,360);
+    if (res < 0)
+        res += 360;
+    return res - 180;
+}
+
+/**
+ * @brief sets voltage for drive motor
+ * 
+ * @param lPower target left voltage
+ * @param rPower target right voltage
+ */
+void setPower(const double& lPower, const double& rPower){
+    left->moveVoltage(lPower);
+    right->moveVoltage(rPower);
+}
+
+/**
+ * @brief Averages the motor's IME reading
+ *
+ * @return Averaged encoder reading
+ */
+double getDriveEncoder(){
+    return (left->getPosition() + right->getPosition()) / 2;
+}
+
+/**
+ * @brief computes target power given pid variables
+ *
+ * @param kP kP
+ * @param kI kI
+ * @param kD kD
+ * @param error error
+ * @param derivative derivative
+ * @param integral integral
+ * @param prevError previous error
+ * @return target power
+ */
+double pidCompute(const double& kP, const double& kI, const double& kD, double& error, double& derivative, double& integral, double& prevError){
+    derivative = error - prevError;
+    integral += error;
+    prevError = error;
+    return kP * error + kI * integral + kD * derivative;
+}
+
+/**
+ * @brief Moves the robot for a certain encoder tick. Forward if target > 0, backward if target < 0
+ *
+ * @param target Target encoder tick to drive
+ */
+void moveDistance(const double& target){
+    double kP = 0, kI = 0, kD = 0;
+    double error = 0, derivative = 0, integral = 0, prevError = 0, power = 0;
+
+    do{
+        error = target - getDriveEncoder();
+        power = pidCompute(kP, kI, kD, error, derivative, integral, prevError);
+        setPower(power, power);
+    }while(std::fabs(error) > 0.1);
+}
+
+/**
+ * @brief Turns the robot for a certain angle. CW if target > 0, CCW if target < 0
+ *
+ * @param target Target angle to turn
+ */
+void turnAngle(const double& target){
+    double kP = 0, kI = 0, kD = 0;
+    double error = 0, derivative = 0, integral = 0, prevError = 0, power = 0;
+
+    do{
+        error = target - imu->get();
+        power = pidCompute(kP, kI, kD, error, derivative, integral, prevError);
+        setPower(power, -power);
+    }while(std::fabs(error) > 0.1);
+}

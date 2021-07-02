@@ -11,73 +11,90 @@
 
 #pragma once
 #include <vector>
+#include "Point2D.hpp"
 
 namespace lib4253{
 
+/**
+ * @brief Trajectory point structure
+ *
+ */
+struct TrajectoryPoint{
     /**
-     * @brief Trajectory point structure
+     * @brief Stores the velocity
      *
      */
-    struct TrajectoryPoint{
-        /**
-         * @brief Stores the velocity
-         *
-         */
-        double velocity;
+    Pose2D position;
 
-        /**
-         * @brief Stores the acceleration
-         *
-         */
-        double acceleration;
+    /**
+     * @brief Stores the inear velocity
+     *
+     */
+    double linVelocity;
 
+    /**
+     * @brief Stores the linearacceleration
+     *
+     */
+    double linAcceleration;
 
-        /**
-         * @brief Construct a new Trajectory Point object
-         *
-         * @param v velocity
-         * @param a acceleration
-         */
-        TrajectoryPoint(double v, double a);
-    };
+    /**
+     * @brief Stores the angular velocity
+     *
+     */
+    double angVelocity;
 
-      /**
-       * @brief Trajectory class
-       *
-       */
-    class Trajectory{
-        private:
-        std::vector<TrajectoryPoint> left;
-        std::vector<TrajectoryPoint> right;
+    /**
+     * @brief Stores the angular acceleration
+     *
+     */
+    double angAcceleration;
 
-        public:
-        /**
-         * @brief Construct a new Trajectory object
-         *
-         */
-        Trajectory() = default;
+    /**
+     * @brief Construct a new Trajectory Point object
+     *
+     * @param v velocity
+     * @param a acceleration
+     */
+    TrajectoryPoint(const Point2D& p, const double& linV, const double& linA, const double& angV, const double& angA);
+};
 
-        /**
-         * @brief Construct a new Trajectory object
-         *
-         * @param l left trajectory points
-         * @param r right trajectory points
-         */
-        Trajectory(std::vector<TrajectoryPoint> l, std::vector<TrajectoryPoint> r);
+    /**
+     * @brief Trajectory class
+     *
+     */
+class Trajectory{
+    private:
+    std::vector<TrajectoryPoint> traj;
 
-        /**
-         * @brief Gets size of the trajectory
-         *
-         * @return size
-         */
-        int getSize();
+    public:
+    /**
+     * @brief Construct a new Trajectory object
+     *
+     */
+    Trajectory() = default;
 
-        /**
-         * @brief Gets the velocity and acceleration at the given index
-         *
-         * @param index index
-         * @return velocity and acceleration at index
-         */
-        std::pair<TrajectoryPoint, TrajectoryPoint> getKinematics(int index);
-    };
+    /**
+     * @brief Construct a new Trajectory object
+     *
+     * @param l left trajectory points
+     * @param r right trajectory points
+     */
+    Trajectory(std::vector<TrajectoryPoint> path);
+
+    /**
+     * @brief Gets size of the trajectory
+     *
+     * @return size
+     */
+    int getSize() const;
+
+    /**
+     * @brief Gets the velocity and acceleration at the given index
+     *
+     * @param index index
+     * @return velocity and acceleration at index
+     */
+    TrajectoryPoint getKinematics(int index) const;
+};
 }

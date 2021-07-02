@@ -58,4 +58,23 @@ namespace lib4253{
         double getCurvature(int index);
         int getSize();
     };
+
+    template<typename T>
+    class SimplePath2{
+        public:
+        SimplePath2(std::initializer_list<T> _waypoint);
+        SimplePath2<T>& generate(int step, bool includeLast = true){
+            for(int i = 0; i < step; i++){
+                waypoint[i].x;
+            }
+        }
+        SimplePath2<T>& smooth(double a, double b, double tolerance);
+
+        std::vector<T> waypoint;
+    };
+
+    //SimplePath2<Point2D> line = SimplePath2<Point2D>({{3, 3}, {3, 6}}).generate(50).smooth(1, 1, 1);
+    //SimplePath2<Pose2D> line2 = SimplePath2<Pose2D>({{3, 3, 0}, {3, 6, 90}}).generate(50).smooth(1, 1, 1);
+
+
 }

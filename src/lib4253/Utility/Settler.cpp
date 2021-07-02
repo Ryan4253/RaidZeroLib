@@ -36,7 +36,7 @@ Settler& Settler::withMaxDeriv(const double& mDeriv){
     return *this;
 }
 
-Settler& Settler::withWaitTime(const okapi::QTime& time){
+Settler& Settler::wait(const okapi::QTime& time){
     waitTime = time.convert(okapi::millisecond);
     return *this;
 }

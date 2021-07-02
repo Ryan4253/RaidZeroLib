@@ -10,15 +10,22 @@
 */
 extern okapi::Controller master;
 
-// sensors declarations
 extern okapi::ADIButton leftAutonSelector;
 extern okapi::ADIButton rightAutonSelector;
 
 extern pros::Imu imuTop;
 extern pros::Imu imuBottom;
-// subsystems on the robot
-//extern lib4253::Drive drive;
-//extern lib4253::CustomOdometry* tracker;
+
+extern std::shared_ptr<lib4253::Motor> leftBack;
+extern std::shared_ptr<lib4253::Motor> leftFront;
+extern std::shared_ptr<lib4253::Motor> leftTop;
+extern std::shared_ptr<lib4253::Motor> rightBack;
+extern std::shared_ptr<lib4253::Motor> rightFront;
+extern std::shared_ptr<lib4253::Motor> rightTop;
+
+extern std::shared_ptr<lib4253::Odometry> odom;
+extern std::shared_ptr<lib4253::Chassis> chassis;
+extern std::shared_ptr<lib4253::OdomController> odomController;
 
 // initializes individual subsystems
 void initSubsystems();
@@ -27,3 +34,5 @@ void initSubsystems();
 void initThreads();
 
 void initPaths();
+
+

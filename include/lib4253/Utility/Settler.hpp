@@ -11,7 +11,7 @@ class Settler{
     Settler& withMaxTime(const okapi::QTime& time);
     Settler& withMaxError(const double& mError);
     Settler& withMaxDeriv(const double& mDeriv);
-    Settler& withWaitTime(const okapi::QTime& time);
+    Settler& wait(const okapi::QTime& time);
     bool isSettled(const uint32_t* currentTime, const double& error);
     
     static Settler makeSettler();

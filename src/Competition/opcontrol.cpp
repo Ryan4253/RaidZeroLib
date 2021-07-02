@@ -1,6 +1,7 @@
 #include "main.h"
 #include "declarations.hpp"
-
+using namespace lib4253;
+using namespace okapi::literals;
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -17,15 +18,33 @@
  */
 void opcontrol() {
 	pros::lcd::clear_line(5); pros::lcd::print(1, "OPCONTROL");
-	//matchState = OPCONTROL;
-	//Robot::startTask("Drive", Drive::driveTask, &drive);
+	chassis->setState(DriveState::TANK);
+	int prevAState = 0;
 
-	/*
-	tracker->setPos({0, 0, 0});
-  Robot::startTask("Odometry", CustomOdometry::odomTask, tracker);
-	Robot::startTask("OPControl", Drive::driveTask, &drive);
-	*/
+	while(true){
+		switch(chassis->getState()){
+			case DriveState::TANK:
+				chassis->tank(master.getAnalog(okapi::ControllerAnalog::leftY), master.getAnalog(okapi::ControllerAnalog::rightY));
+				break;
 
+			case DriveState::ARCADE:
+				chassis->arcade(master.getAnalog(okapi::ControllerAnalog::leftY), master.getAnalog(okapi::ControllerAnalog::rightX));
+				break;
 
-	//Robot::endTask("Odometry");
+			default:
+				break;
+		}
+		
+		int aState = master.getDigital(okapi::ControllerDigital::A);
+		if(aState && !prevAState){
+			if(chassis->getState() == DriveState::TANK){
+				chassis->setState(DriveState::ARCADE);
+			}
+			else{
+				chassis->setState(DriveState::ARCADE);
+			}
+		}
+
+		pros::delay(10);
+	}
 }

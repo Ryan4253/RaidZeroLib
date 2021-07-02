@@ -63,4 +63,13 @@ double Math::clamp(double val, double mn, double mx){
 
   return val;
 }
+
+double Math::sinc(double x){
+  if(std::abs(x) < 1e-9){
+    return 1.0 - 1.0 / 6.0 * x * x;
+  } 
+  else{
+    return std::sin(x) / x;
+  }
+}
 }

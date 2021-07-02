@@ -5,13 +5,21 @@ namespace lib4253{
 
 class OdomController{
     public:
-    OdomController() ;
+    OdomController(std::shared_ptr<Chassis> iChassis, 
+                                   std::shared_ptr<Odometry> iOdometry, 
+                                   const okapi::QLength& iAngleCorrectionRadius,
+                                   std::unique_ptr<PID> iDrivePID, 
+                                   std::unique_ptr<PID> iTurnPID, 
+                                   std::unique_ptr<PID> iAnglePID, 
+                                   std::unique_ptr<SlewController> iSlew);
+                                
     ~OdomController() = default;  
 
-    void moveToPoint(const Point2D& target, double turnScale, Settler settler = Settler::getDefaultSettler());
+    void moveToPoint(const Point2D& target, const double& turnScale, Settler settler = Settler::getDefaultSettler());
+    void moveToX(const QLength& targetX, Settler settler = Settler::getDefaultSettler());
+    void moveToY(const QLength& targetY, Settler settler = Settler::getDefaultSettler());
     void turnToAngle(const double& angle, Settler settler = Settler::getDefaultSettler());
-    void facePoint(const Point2D& target, Settler settler = Settler::getDefaultSettler());
-
+    void turnToPoint(const Point2D& target, Settler settler = Settler::getDefaultSettler());
 
     private:
     std::shared_ptr<Chassis> chassis;
@@ -20,7 +28,7 @@ class OdomController{
     std::unique_ptr<PID> turnPID;
     std::unique_ptr<PID> anglePID;
     std::unique_ptr<SlewController> driveSlew;
-    const okapi::QLength driveRadius;
+    okapi::QLength angleCorrectionRadius;
 };
 
 }

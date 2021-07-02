@@ -2,6 +2,7 @@
 #include "lib4253/Utility/TaskWrapper.hpp"
 #include "lib4253/Utility/Math.hpp"
 #include "lib4253/Utility/Settler.hpp"
+#include "lib4253/Utility/StateMachine.hpp"
 #include "lib4253/Controller/PID.hpp"
 #include "lib4253/Controller/Slew.hpp"
 #include "lib4253/Chassis/Motor.hpp"
@@ -11,37 +12,35 @@
 #include <atomic>
 
 namespace lib4253{
-class Chassis: public TaskWrapper{
-	public:
-    enum class State{
-      	TANK = 0, ARCADE = 1	
-    };
-	
+
+enum class DriveState{
+    TANK, ARCADE
+};
+class Chassis: public TaskWrapper, public StateMachine<DriveState>{
+    public:	
 	// Constructor
 	Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
 			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
 			const ChassisScales& iScale,
 			std::shared_ptr<IMU> imu,
-			std::unique_ptr<SlewController> _driveSlew = nullptr,
-			std::unique_ptr<PID> _drivePID = nullptr, 
-			std::unique_ptr<PID> _turnPID = nullptr,
-			std::unique_ptr<PID> _anglePID = nullptr);
+			std::unique_ptr<SlewController> iSlew = nullptr,
+			std::unique_ptr<PID> iDrivePID = nullptr, 
+			std::unique_ptr<PID> iTurnPID = nullptr,
+			std::unique_ptr<PID> iAnglePID = nullptr);
     
 	Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
 			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
 			const ChassisScales& iScale,
-			std::unique_ptr<SlewController> _driveSlew = nullptr,
-			std::unique_ptr<PID> _drivePID = nullptr, 
-			std::unique_ptr<PID> _turnPID = nullptr,
-			std::unique_ptr<PID> _anglePID = nullptr,
+			std::unique_ptr<SlewController> iSlew = nullptr,
+			std::unique_ptr<PID> iDrivePID = nullptr, 
+			std::unique_ptr<PID> iTurnPID = nullptr,
+			std::unique_ptr<PID> iAnglePID = nullptr,
 			std::shared_ptr<IMU> imu = nullptr);
 
     ~Chassis() = default;
     
-	// State Machine Functions
+	// Task Function
 	void loop() override;
-	State getState() const;
-    void setState(const State& s);
 
 	// initializer / setter / getter
 	void initialize();
@@ -54,12 +53,19 @@ class Chassis: public TaskWrapper{
 
 	// drive movement functions
 	void setPower(const double& lPower, const double& rPower);
-    void setPower(const std::pair<double, double> power);
+    void setPower(const std::pair<double, double>& power);
 	void setVelocity(const double& lVelocity, const double& rVelocity);
-    void setVelocity(const std::pair<double, double> velocity);
+    void setVelocity(const std::pair<double, double>& velocity);
 	void move(const double& lPower, const double& rPower, const QTime& timeLim);
 	void moveDistance(const double& dist, Settler = Settler::getDefaultSettler());
 	void turnAngle(const double& angle, Settler = Settler::getDefaultSettler());
+
+    std::pair<double, double> desaturate(const double& left, const double& right, const double& max);
+	std::pair<double, double> scaleSpeed(const double& linear, const double& yaw, const double& max);
+
+    // driver control functions
+	void tank(const double& left, const double& right);
+	void arcade(const double& fwd, const double& yaw);
 
 
 	private:
@@ -73,14 +79,7 @@ class Chassis: public TaskWrapper{
     std::unique_ptr<PID> turnPID {nullptr};
     std::unique_ptr<PID> anglePID {nullptr};
 
-	std::atomic<State> currentState{State::TANK};
-
-    std::pair<double, double> desaturate(const double& left, const double& right, const double& max);
-	std::pair<double, double> scaleSpeed(const double& linear, const double& yaw, const double& max);
-
-	// driver control functions
-	void tank(const double& left, const double& right);
-	void arcade(const double& fwd, const double& yaw);
+    double lControllerY = 0, rControllerX = 0, rControllerY = 0;
 };
 }
 /*

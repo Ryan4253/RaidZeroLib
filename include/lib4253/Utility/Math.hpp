@@ -144,5 +144,13 @@ namespace Math{
      * @return limited value
      */
     double clamp(double val, double mn, double mx);
+
+    /**
+     * @brief calculates sinc(x)
+     * 
+     * @param x input
+     * @return sinc(x)
+     */
+    double sinc(double x);
 };
 }

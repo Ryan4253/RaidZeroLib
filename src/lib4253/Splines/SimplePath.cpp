@@ -134,4 +134,13 @@ double SimplePath::getCurvature(int index){
 int SimplePath::getSize(){
     return waypoint.size();
 }
+
+template<typename T>
+SimplePath2<T>::SimplePath2(std::initializer_list<T> _waypoint):waypoint(_waypoint){} 
+
+template<typename T>
+SimplePath2<T>& SimplePath2<T>::generate(int step, bool includeLast){
+    
+}
+
 }

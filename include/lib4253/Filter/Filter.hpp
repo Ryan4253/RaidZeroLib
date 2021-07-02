@@ -32,4 +32,11 @@ class AbstractFilter{
      */
     virtual double filter(const double& input) = 0;
 };
+
+template<typename data>
+class AbstractFilter2{
+    public:
+        virtual void reset() = 0;
+        virtual data filter(const data& input)  = 0;
+};
 }

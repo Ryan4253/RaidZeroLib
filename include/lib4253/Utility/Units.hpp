@@ -1,10 +1,12 @@
+#pragma once
 #include "okapi/api/units/RQuantity.hpp"
 #include "okapi/api/units/QLength.hpp"
 #include "okapi/api/units/QAngularSpeed.hpp"
 #include "okapi/api/units/QAngularAcceleration.hpp"
+#include "okapi/api/units/QArea.hpp"
 
 
-namespace okapi{\
+namespace okapi{
 // Physical quantity types
 QUANTITY_TYPE(0, -1, 0, 1, QCurvature);
 QUANTITY_TYPE(0, -2, 0, 1, QDCurvatureDs);

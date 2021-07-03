@@ -9,7 +9,7 @@
 
 #include "lib4253/Splines/Geometry/Point2D.hpp" // done
 #include "lib4253/Splines/Geometry/Pose2D.hpp" // done
-#include "lib4253/Splines/Geometry/Transformation2D.hpp" // done
+#include "lib4253/Splines/Geometry/Transform2D.hpp" // done
 #include "lib4253/Splines/Geometry/Rotation2D.hpp" // done
 #include "lib4253/Splines/Geometry/Twist2D.hpp"
 

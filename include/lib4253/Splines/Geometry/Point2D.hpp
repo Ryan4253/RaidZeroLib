@@ -11,6 +11,7 @@
 
 #pragma once
 #include "lib4253/Utility/Math.hpp"
+#include "lib4253/Splines/Geometry/Rotation2D.hpp"
 
 namespace lib4253{
 /**
@@ -94,5 +95,48 @@ class Point2D{
     static Point2D toCart(const Point2D& polar);
 };
 
+class Translation2D{
+    public:
+    constexpr Translation2D() = default;
+
+    Translation2D(const okapi::QLength& xPos, const okapi::QLength& yPos);
+
+    Translation2D(const okapi::QLength& magnitude, const Rotation2D& angle);
+
+    ~Translation2D() = default;
+
+    okapi::QLength getX() const;
+
+    okapi::QLength getY() const;
+
+    Translation2D operator+(const Translation2D& rhs) const;
+
+    Translation2D operator-(const Translation2D& rhs) const;
+
+    Translation2D operator-() const;
+
+    Translation2D operator*(const double& scalar) const;
+
+    okapi::QArea operator*(const Translation2D& rhs) const;
+
+    Translation2D operator/(const double& scalar) const;
+
+    bool operator==(const Translation2D& rhs) const;
+
+    bool operator!=(const Translation2D& rhs) const;
+
+    okapi::QLength distanceTo(const Translation2D& rhs) const;
+
+    okapi::QAngle angleTo(const Translation2D& target) const;
+
+    okapi::QLength magnitude() const;
+
+    Translation2D rotateBy(const Rotation2D& rhs) const;
+
+    private:
+    okapi::QLength x = 0 * okapi::meter;
+    okapi::QLength y = 0 * okapi::meter;
+
+};
 }
 

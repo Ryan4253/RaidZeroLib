@@ -1,5 +1,5 @@
 #pragma once
-#include "lib4253/Splines/Point2D.hpp"
+#include "lib4253/Splines/Geometry/Point2D.hpp"
 #include "lib4253/Utility/Math.hpp"
 #include "lib4253/Utility/TaskWrapper.hpp"
 #include "okapi/api/units/RQuantity.hpp"

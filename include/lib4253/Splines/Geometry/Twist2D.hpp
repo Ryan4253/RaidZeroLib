@@ -1,11 +1,11 @@
 namespace lib4253{
-class Rotation2D{
+class Twist2D{
     public:
     
 
     private:
     
 
-}
+};
 
 }

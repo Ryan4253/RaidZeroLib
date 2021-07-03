@@ -11,7 +11,7 @@
 
 #pragma once
 #include <vector>
-#include "lib4253/Splines/Point2D.hpp"
+#include "lib4253/Splines/Geometry/Point2D.hpp"
 
 namespace lib4253{
 

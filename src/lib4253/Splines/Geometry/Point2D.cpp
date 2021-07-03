@@ -1,4 +1,6 @@
-#include "lib4253/Splines/Point2D.hpp"
+#include "lib4253/Splines/Geometry/Point2D.hpp"
+using namespace okapi;
+
 namespace lib4253{
 
 ////////////////////////////// Point2D ////////////////////////////////
@@ -105,7 +107,7 @@ Point2D Point2D::toCart(const Point2D& polar){
 }
 
 /////////////////////////////// POSE /////////////////////////////////
-
+/*
 Pose2D::Pose2D(const double& _x, const double& _y, const double& _heading){
     this->x = _x, this->y = _y, this->theta = Math::degToRad(_heading);
 }
@@ -223,5 +225,76 @@ Pose2D Pose2D::normalize() const{
 Point2D Pose2D::toPoint() const{
     Point2D result({this->x, this->y});
     return result;
+}
+
+*/
+
+
+
+//``````````````````````````````````````````````````````//
+Translation2D::Translation2D(const okapi::QLength& xPos, const okapi::QLength& yPos){
+    x = xPos;
+    y = yPos;
+}
+
+Translation2D::Translation2D(const okapi::QLength& magnitude, const Rotation2D& angle){
+    x = magnitude * angle.getCos();
+    y = magnitude * angle.getSin();
+}
+
+okapi::QLength Translation2D::getX() const{
+    return x;
+}
+
+okapi::QLength Translation2D::getY() const{
+    return y;
+}
+
+Translation2D Translation2D::operator+(const Translation2D& rhs) const{
+    return {x + rhs.x, x + rhs.y};
+}
+
+Translation2D Translation2D::operator-(const Translation2D& rhs) const{
+    return {x + rhs.x, x + rhs.y};
+}
+
+Translation2D Translation2D::operator-() const{
+    return {x * -1, y * -1};
+}
+
+Translation2D Translation2D::operator*(const double& scalar) const{
+    return {x * scalar, y * scalar};
+}
+
+okapi::QArea Translation2D::operator*(const Translation2D& rhs) const{
+    return x * rhs.x + y * rhs.y;
+}
+
+Translation2D Translation2D::operator/(const double& scalar) const{
+    return {x / scalar, y / scalar};
+}
+
+bool Translation2D::operator==(const Translation2D& rhs) const{
+      return abs(x - rhs.x) < 1E-9_m && abs(y - rhs.y) < 1E-9_m;
+}
+
+bool Translation2D::operator!=(const Translation2D& rhs) const{
+    return !operator==(rhs);
+}
+
+okapi::QLength Translation2D::distanceTo(const Translation2D& rhs) const{
+    return hypot(rhs.x - x, rhs.y - y);
+}
+
+okapi::QAngle Translation2D::angleTo(const Translation2D& rhs) const{
+    return acos(((*this) * rhs) / magnitude() / rhs.magnitude());
+}
+
+okapi::QLength Translation2D::magnitude() const{
+    return hypot(x, y);
+}
+
+Translation2D Translation2D::rotateBy(const Rotation2D& rhs) const{
+      return {x * rhs.getCos() - y * rhs.getSin(), x * rhs.getSin() + y * rhs.getCos()};
 }
 }

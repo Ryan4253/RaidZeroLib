@@ -30,7 +30,6 @@ class Transform2D{
 
     Transform2D inverse() const;
 
-    private:
     Translation2D translation;
     Rotation2D rotation;
 };

@@ -38,7 +38,7 @@ class LinearMotionProfileController{
      * @param a maximum acceleration
      * @param maxV maximum velocity
      */
-    LinearMotionProfileController(const double& maxA, const double& maxVel);
+    LinearMotionProfileController(const double& a, const double& maxVel);
 
     /**
      * @brief Destroys the Linear Motion Profile Controller object

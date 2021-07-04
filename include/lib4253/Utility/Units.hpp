@@ -4,6 +4,9 @@
 #include "okapi/api/units/QAngularSpeed.hpp"
 #include "okapi/api/units/QAngularAcceleration.hpp"
 #include "okapi/api/units/QArea.hpp"
+#include "okapi/api/units/QSpeed.hpp"
+#include "okapi/api/units/QAcceleration.hpp"
+#include "okapi/api/units/QTime.hpp"
 
 
 namespace okapi{
@@ -15,6 +18,9 @@ QUANTITY_TYPE(0, -1, -1, 1, QDCurvatureDt);
 // Predefined Length Units
 constexpr QLength tile = 2 * foot;
 constexpr QLength court = 12 * foot;
+
+// Predefined Angle Units
+constexpr QAngle rotationDeg = degree * 360 / 4096;
 
 // Predefined Curvature Unit
 constexpr QCurvature radpm = radian / meter;

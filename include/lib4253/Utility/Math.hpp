@@ -15,33 +15,10 @@ namespace lib4253{
 */
 
 namespace Math{
-    /**
-     * @brief Converts degrees to radians
-     * 
-     * @param deg angle in degrees
-     * @return converted angle in radians
-     */
-    double degToRad(double deg); 
-
-    /**
-     * @brief Converts radians to degrees
-     * 
-     * @param rad angle in radians
-     * @return converted angle in degrees
-     */
-    double radToDeg(double rad); 
 
     // conversion between inches and encoder ticks. For the first function,
     // The wheel size is defaulted to be to 2.75" and 360 ticks per rotation.
     // Second functions allows the user to specify the whele size and ticks per inch
-    /**
-     * @brief Converts encoder ticks to inches
-     *        Assumes that the wheel size is 2.75" and 360 ticks per rotation.
-     * 
-     * @param tick encoder ticks
-     * @return inches travelled
-     */
-    double tickToInch(double tick);
 
     /**
      * @brief Converts encoder ticks to inches
@@ -51,16 +28,7 @@ namespace Math{
      * @param ticksPerRotation amount of encoder ticks per wheel rotation
      * @return inches travelled
      */
-    double tickToInch(double tick, double rad, double ticksPerRotation);
-
-    /**
-     * @brief Converts inches to encoder ticks
-     *        Assumes that the wheel size is 2.75" and 360 ticks per rotation.
-     * 
-     * @param inch inches travelled
-     * @return amount of wheel ticks in the distance travelled 
-     */
-    double inchToTick(double inch);
+    okapi::QLength angleToArcLength(const okapi::QAngle& angle, const okapi::QLength& rad = 1.375 * okapi::inch);
 
     /**
      * @brief Converts inches to encoder ticks
@@ -70,7 +38,7 @@ namespace Math{
      * @param ticksPerRotation amount of encoder ticks per wheel rotation
      * @return amount of wheel ticks in the distance travelled 
      */
-    double inchToTick(double inch, double rad, double ticksPerRotation);
+    okapi::QAngle arcLengthToAngle(const okapi::QLength& dist, const okapi::QLength& rad = 1.375 * okapi::inch);
 
     /**
      * @brief Converts encoder ticks to the amount of degrees the robot rotates
@@ -80,7 +48,7 @@ namespace Math{
      * @param ticksPerRotation amount of ticks recorded per rotation
      * @return number of degrees travelled
      */
-    double tickToDeg(const double& tick, const okapi::ChassisScales& scale);
+    okapi::QAngle angleToYaw(const okapi::QAngle& angle, const okapi::ChassisScales& scale);
 
     /**
      * @brief Scales the input power cubically, used in driver control for more precise control (theoretically)
@@ -96,7 +64,7 @@ namespace Math{
      * @param angle original angle
      * @return limited angle
      */
-    double wrapAngle360(double angle);
+    okapi::QAngle angleWrap360(const okapi::QAngle& angle);
 
     /**
      * @brief Limits angles between the range [-180, 180]
@@ -104,7 +72,7 @@ namespace Math{
      * @param angle original angle
      * @return limited angle
      */
-    double wrapAngle180(double angle);
+    okapi::QAngle angleWrap180(const okapi::QAngle& angle);
 
     /**
      * @brief Limits angles between the range [-90, 90]
@@ -112,7 +80,7 @@ namespace Math{
      * @param angle original angle
      * @return limited angle
      */
-    double wrapAngle90(double angle);
+    okapi::QAngle angleWrap90(const okapi::QAngle& angle);
 
     // conversion  between linear velocity and motor rpm
     /**
@@ -134,16 +102,6 @@ namespace Math{
      * @return linear velocity
      */
     double RPMToLinearVel(double angVel, double gearRatio, double radius);
-
-    /**
-     * @brief Limits the input between the range [mn, mx]
-     * 
-     * @param val value to be limited
-     * @param mn minimum range
-     * @param mx maximum range
-     * @return limited value
-     */
-    double clamp(double val, double mn, double mx);
 
     /**
      * @brief calculates sinc(x)

@@ -1,26 +1,29 @@
-#include "lib4253/Splines/Geometry/Rotation2D.hpp"
-using namespace okapi;
+#include "Rotation2D.hpp"
 namespace lib4253{
 
-Rotation2D::Rotation2D(QAngle val){
+Rotation2D::Rotation2D(const okapi::QAngle& val){
     value = val;
-    sine = (sin(value)).convert(number);
-    cosine = (cos(value)).convert(number);
+    sine = (sin(value)).convert(okapi::number);
+    cosine = (cos(value)).convert(okapi::number);
 }
 
-Rotation2D::Rotation2D(QLength x, QLength y){
+Rotation2D::Rotation2D(const okapi::QLength& x, const okapi::QLength& y){
     const auto magnitude = hypot(x, y);
-    if (magnitude > 1e-6 * inch) {
-        sine = (y / magnitude).convert(number);
-        cosine = (x / magnitude).convert(number);
+    if (magnitude > 1e-6 * okapi::inch) {
+        sine = (y / magnitude).convert(okapi::number);
+        cosine = (x / magnitude).convert(okapi::number);
     } else {
         sine = 0.0;
         cosine = 1.0;
     }
-    value = std::atan2(sine, cosine) * radian;
+    value = std::atan2(sine, cosine) * okapi::radian;
 }
 
-QAngle Rotation2D::getVal() const{
+Rotation2D::Rotation2D(const double& x, const double& y){
+    Rotation2D(x * okapi::meter, y * okapi::meter);
+}
+
+okapi::QAngle Rotation2D::getVal() const{
     return value;
 }
 
@@ -33,7 +36,7 @@ double Rotation2D::getCos() const{
 }
 
 double Rotation2D::getTan() const{
-    return sine/cosine;
+    return sine / cosine;
 }
 
 Rotation2D Rotation2D::operator+(const Rotation2D& rhs) const{
@@ -44,7 +47,7 @@ Rotation2D Rotation2D::operator-(const Rotation2D& rhs) const{
     return *this + -rhs;
 }
 
-Rotation2D Rotation2D::operator-()  const{
+Rotation2D Rotation2D::operator-() const{
     return Rotation2D(value * -1);
 }   
 
@@ -60,7 +63,7 @@ bool Rotation2D::operator!=(const Rotation2D& rhs) const{
     return !operator==(rhs);
 }
 
-Rotation2D Rotation2D::rotateBy(const Rotation2D& rhs) const{
-    return {(cosine * rhs.cosine - sine * rhs.sine) * inch, (cosine * rhs.sine + sine * rhs.cosine) * inch};
+Rotation2D Rotation2D::rotateBy(const Rotation2D& other) const{
+    return {(cosine * other.cosine - sine * other.sine) * okapi::meter, (cosine * other.sine + sine * other.cosine) * okapi::meter};
 }
 }

@@ -1,10 +1,7 @@
 #include "lib4253/Splines/Geometry/Point2D.hpp"
-using namespace okapi;
-
 namespace lib4253{
-
 ////////////////////////////// Point2D ////////////////////////////////
-
+/*
 Point2D::Point2D(const double& _x, const double& _y){
     this->x = _x, this->y = _y;
 }
@@ -275,26 +272,26 @@ Translation2D Translation2D::operator/(const double& scalar) const{
 }
 
 bool Translation2D::operator==(const Translation2D& rhs) const{
-      return abs(x - rhs.x) < 1E-9_m && abs(y - rhs.y) < 1E-9_m;
+      return abs(x - rhs.x) < 1E-9 * okapi::meter && abs(y - rhs.y) < 1E-9 * okapi::meter;
 }
 
 bool Translation2D::operator!=(const Translation2D& rhs) const{
     return !operator==(rhs);
 }
 
-okapi::QLength Translation2D::distanceTo(const Translation2D& rhs) const{
-    return hypot(rhs.x - x, rhs.y - y);
+okapi::QLength Translation2D::distanceTo(const Translation2D& other) const{
+    return hypot(other.x - x, other.y - y);
 }
 
-okapi::QAngle Translation2D::angleTo(const Translation2D& rhs) const{
-    return acos(((*this) * rhs) / magnitude() / rhs.magnitude());
+okapi::QAngle Translation2D::angleTo(const Translation2D& other) const{
+    return acos(((*this) * other) / magnitude() / other.magnitude());
 }
 
 okapi::QLength Translation2D::magnitude() const{
     return hypot(x, y);
 }
 
-Translation2D Translation2D::rotateBy(const Rotation2D& rhs) const{
-      return {x * rhs.getCos() - y * rhs.getSin(), x * rhs.getSin() + y * rhs.getCos()};
+Translation2D Translation2D::rotateBy(const Rotation2D& other) const{
+      return {x * other.getCos() - y * other.getSin(), x * other.getSin() + y * other.getCos()};
 }
 }

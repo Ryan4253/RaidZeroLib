@@ -6,13 +6,15 @@ class Pose2D;
 
 class Transform2D{
     public:
-    Transform2D(Pose2D initial, Pose2D final);
-
-    Transform2D(Translation2D trans, Rotation2D rot);
-
     constexpr Transform2D() = default;
 
-    const Transform2D& getTranslation() const;
+    Transform2D(const Pose2D& initial, const Pose2D& final);
+
+    Transform2D(const Translation2D& iTranslation, const Rotation2D& iRotation);
+
+    ~Transform2D() = default;
+
+    const Translation2D& getTranslation() const;
 
     const Rotation2D& getRotation() const;
 
@@ -20,13 +22,13 @@ class Transform2D{
 
     okapi::QLength getY() const;
 
-    Transform2D Inverse() const;
+    bool operator==(const Transform2D& rhs) const;
+
+    bool operator!=(const Transform2D& rhs) const;
 
     Transform2D operator*(double scalar) const;
 
-    bool operator==(const Transform2D& other) const;
-
-    bool operator!=(const Transform2D& other) const;
+    Transform2D inverse() const;
 
     private:
     Translation2D translation;

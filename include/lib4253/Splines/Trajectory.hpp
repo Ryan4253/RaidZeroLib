@@ -11,7 +11,8 @@
 
 #pragma once
 #include <vector>
-#include "Geometry/Point2D.hpp"
+#include "Geometry/Pose2D.hpp"
+#include "lib4253/Utility/Units.hpp"
 
 namespace lib4253{
 
@@ -30,25 +31,25 @@ struct TrajectoryPoint{
      * @brief Stores the inear velocity
      *
      */
-    double linVelocity;
+    okapi::QSpeed linVelocity;
 
     /**
      * @brief Stores the linearacceleration
      *
      */
-    double linAcceleration;
+    okapi::QAcceleration linAcceleration;
 
     /**
      * @brief Stores the angular velocity
      *
      */
-    double angVelocity;
+    okapi::QAngularSpeed angVelocity;
 
     /**
      * @brief Stores the angular acceleration
      *
      */
-    double angAcceleration;
+    okapi::QAngularAcceleration angAcceleration;
 
     /**
      * @brief Construct a new Trajectory Point object
@@ -56,7 +57,11 @@ struct TrajectoryPoint{
      * @param v velocity
      * @param a acceleration
      */
-    TrajectoryPoint(const Point2D& p, const double& linV, const double& linA, const double& angV, const double& angA);
+    TrajectoryPoint(const Pose2D& p, 
+                    const okapi::QSpeed& linV, 
+                    const okapi::QAcceleration& linA, 
+                    const okapi::QAngularSpeed& angV, 
+                    const okapi::QAngularAcceleration& angA);
 };
 
     /**
@@ -80,7 +85,7 @@ class Trajectory{
      * @param l left trajectory points
      * @param r right trajectory points
      */
-    Trajectory(std::vector<TrajectoryPoint> path);
+    Trajectory(const std::vector<TrajectoryPoint>& path);
 
     /**
      * @brief Gets size of the trajectory

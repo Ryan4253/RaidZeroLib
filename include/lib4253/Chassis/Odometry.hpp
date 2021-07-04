@@ -1,9 +1,8 @@
 #pragma once
-#include "lib4253/Splines/Geometry/Point2D.hpp"
+#include "lib4253/Splines/Geometry/Pose2D.hpp"
 #include "lib4253/Utility/Math.hpp"
 #include "lib4253/Utility/TaskWrapper.hpp"
-#include "okapi/api/units/RQuantity.hpp"
-#include "okapi/api/units/QLength.hpp"
+#include "lib4253/Utility/Units.hpp"
 #include "okapi/impl/device/rotarysensor/adiEncoder.hpp"
 #include "okapi/impl/device/rotarysensor/rotationSensor.hpp"
 #include "okapi/impl/device/rotarysensor/IMU.hpp"
@@ -31,7 +30,7 @@ class OdomDimension{
     public:
     okapi::QLength wheelDiameter{0 * okapi::inch};
     okapi::QLength lDist{0 * okapi::inch}, mDist{0 * okapi::inch}, rDist{0 * okapi::inch};
-    double tpr{360};
+    okapi::QAngle tpr;
 
     OdomDimension(const okapi::QLength& wheelDiam, const okapi::QLength& leftOffset, const okapi::QLength& midOffset, const okapi::QLength& rightOffset);
     OdomDimension(const okapi::QLength& wheelDiam, const okapi::QLength& offset1, const okapi::QLength& offset2);
@@ -40,22 +39,17 @@ class OdomDimension{
 
 class Odometry: public TaskWrapper{
     protected:
-    Pose2D globalPos{0, 0, 0}; // the global position of the robot
+    Pose2D globalPos{0 * okapi::meter, 0 * okapi::meter, Rotation2D(0 * okapi::radian)}; // the global position of the robot
     OdomDimension dimension{-1 * okapi::inch, -1 * okapi::inch, -1 * okapi::inch, -1 * okapi::inch};
 
     public:
     Odometry() = default;
     ~Odometry() = default;
     
-    static OdomDimension withDimension(const okapi::QLength& wheelDiam, const okapi::QLength& leftOffset, const okapi::QLength& midOffset, const okapi::QLength& rightOffset);
-    static OdomDimension withDimension(const okapi::QLength& wheelDiam, const okapi::QLength& offset1, const okapi::QLength& offset2);
     Pose2D getPos() const; // return current position as a struct
-    double getX() const; // return x position as a double, units in inches
-    okapi::QLength getQX() const; // return x position as type QLength
-    double getY() const; // return y position as a double, in unit inches
-    okapi::QLength getQY() const; // return y position in type QLength
-    double getAngleDeg() const; // return angle in degrees
-    double getAngleRad() const; // return angle in radians
+    okapi::QLength getX() const; // return x position as type QLength
+    okapi::QLength getY() const; // return y position in type QLength
+    okapi::QAngle getAngle() const; // return angle in radians
 
     virtual double getEncoderLeft() const; // gets the left encoder reading
     virtual double getEncoderRight() const; // gets the right encoder reading
@@ -63,12 +57,9 @@ class Odometry: public TaskWrapper{
     virtual double getEncoderSide() const; // gets the side encoder reading
 
     void setPos(const Pose2D& newPos); // sets the current position
-    void setX(const double& x); // sets the x position of the robot
     void setX(const okapi::QLength& inch); // sets the x position of the robot
-    void setY(const double& y); // sets the y position of the robot
     void setY(const okapi::QLength& inch); // sets the y position of the robot
-    void setAngleDeg(const double& theta); // sets the angle of the robot in degrees
-    void setAngleRad(const double& theta); // sets the angle of the robot in radians
+    void setAngle(const okapi::QAngle& theta); // sets the angle of the robot in radians
 
     void displayPosition() const; // outputs the x, y, angle of the robot on the robot screen and the console
 

@@ -1,52 +1,34 @@
 #include "lib4253/Utility/Math.hpp"
 namespace lib4253{
 
-double Math::degToRad(double deg){
-  return deg * M_PI / 180;
+okapi::QLength Math::angleToArcLength(const okapi::QAngle& angle, const okapi::QLength& rad){
+  return angle.convert(okapi::radian) * rad;
 }
 
-double Math::radToDeg(double rad){
-  return rad * 180 / M_PI;
+okapi::QAngle Math::arcLengthToAngle(const okapi::QLength& dist, const okapi::QLength& rad){
+  return dist / rad * okapi::radian;
 }
 
-double Math::tickToInch(double tick){
-  return tick * 2.75*M_PI / 360;
-}
-
-double Math::tickToInch(double tick, double rad, double ticksPerRotation){
-  return tick * (rad * M_PI) / ticksPerRotation;
-}
-
-
-double Math::inchToTick(double inch){
-  return (inch / (2.75*M_PI) * 360);
-}
-
-double Math::inchToTick(double inch, double rad, double ticksPerRotation){
-  return inch / (rad * M_PI) * ticksPerRotation;
-}
-
-double Math::tickToDeg(const double& tick,  const okapi::ChassisScales& scale){
-  double inches = Math::tickToInch(tick, scale.wheelDiameter.convert(okapi::inch), scale.tpr);
-  double rad = inches / (scale.wheelTrack.convert(okapi::inch));
-  return Math::radToDeg(rad);
+okapi::QAngle Math::angleToYaw(const okapi::QAngle& angle, const okapi::ChassisScales& scale){
+  okapi::QLength arc = Math::angleToArcLength(angle, scale.wheelDiameter / 2);
+  return Math::arcLengthToAngle(arc, scale.wheelTrack);
 }
 
 double Math::cubicControl(double power){
   return power * power * power / 16129;
 }
 
-double Math::wrapAngle360(double angle){
-  return angle - 360.0 * (std::floor(angle * (1.0 / 360.0)));
+okapi::QAngle Math::angleWrap360(const okapi::QAngle& angle){
+  return angle - 360.0 * floor(angle * (1.0 / 360.0), 1 * okapi::radian);
 }
 
-double Math::wrapAngle180(double angle){
-  return angle - 360.0 * std::floor((angle + 180.0) * (1.0 / 360.0));
+okapi::QAngle Math::angleWrap180(const okapi::QAngle& angle){
+  return angle - 360.0 * floor((angle + 180.0 * okapi::degree) * (1.0 / 360.0), 1 * okapi::radian);
 }
 
-double Math::wrapAngle90(double angle){
-  angle = wrapAngle180(angle);
-  return wrapAngle180(angle + (abs(angle) > 90) * 180);
+okapi::QAngle Math::angleWrap90(const okapi::QAngle& angle){
+  okapi::QAngle newAngle = angleWrap180(angle);
+  return angleWrap180(newAngle + (abs(newAngle) > 90 * okapi::degree) * 180 * okapi::degree);
 }
 
 double Math::linearVelToRPM(double linVel, double gearRatio, double radius){
@@ -55,13 +37,6 @@ double Math::linearVelToRPM(double linVel, double gearRatio, double radius){
 
 double Math::RPMToLinearVel(double rpm, double gearRatio, double radius){
   return (rpm * gearRatio) / 60 * 2 * M_PI * radius;
-}
-
-double Math::clamp(double val, double mn, double mx){
-  val = fmax(mn, val);
-  val = fmin(mx, val);
-
-  return val;
 }
 
 double Math::sinc(double x){

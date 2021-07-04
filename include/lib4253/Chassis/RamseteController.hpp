@@ -23,7 +23,7 @@ class RamseteController{
     double b;
     double zeta;
 
-    std::pair<double, double> RamseteController::update(const TrajectoryPoint& target, const Pose2D& currentPos);
+    std::pair<okapi::QSpeed, okapi::QAngularSpeed> RamseteController::update(const TrajectoryPoint& target, const Pose2D& currentPos);
 
 };
 }

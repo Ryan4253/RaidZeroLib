@@ -12,12 +12,8 @@
 
 #pragma once
 #include "main.h"
-#include "lib4253/Controller/VelocityController.hpp"
+namespace lib4253{
 
-/**
- * @brief Structure to store the BangBang gain
- * 
- */
 struct BangBangGain {
     double highPower, lowPower, targetVel;
 };
@@ -26,34 +22,40 @@ struct BangBangGain {
  * @brief BangBang class
  *
  */
-class BangBang : public AbstractVelocityController<BangBangGain> {
+class BangBang : public AbstractVelocityController<BangBangGain>{
     BangBangGain gain;
     /**
      * @brief Construct a new Bang Bang object
      * 
      * @param gain highPower, lowPower, targetVel
      */
-    BangBang(BangBangGain gain);
+    BangBang();
 
     /**
      * @brief Sets gain
      * 
      * @param gain highPower, lowPower, targetVel
      */
-    void setGain(BangBangGain gain);
+    BangBang(const BangBangGain& gain);
 
+    /**
+     * @brief Destroys the Bang Bang object
+     * 
+     */
+    ~BangBang() = default;
+    
     /**
      * @brief Sets target velocity for Bang Bang controller
      *
      * @param t target velocity
      */
-    void setTargetVel(double t);
-    
+    void setTargetVel(const double& t);
     /**
      * @brief Determines the amount of power needed based on real-time velocity
      *
      * @param val actual velocity
      * @return new velocity
      */
-    double step(double val);
+    double step(const double& v) const;
 };
+}

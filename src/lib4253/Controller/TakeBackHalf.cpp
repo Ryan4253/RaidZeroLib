@@ -1,20 +1,23 @@
-#include "main.h"
 #include "lib4253/Controller/TakeBackHalf.hpp"
-#include "lib4253/Utility/Math.hpp"
+namespace lib4253{
 
-TakeBackHalf::TakeBackHalf(TBHGain gain){
+TakeBackHalf::TakeBackHalf(){
+    this->gain = {0};
+}
+
+TakeBackHalf::TakeBackHalf(const TBHGain& gain){
     this->gain = gain;
 }
 
-void TakeBackHalf::setGain(TBHGain gain){
+void TakeBackHalf::setGain(const TBHGain& gain){
     this->gain = gain;
 }
 
-void TakeBackHalf::setTargetVel(double target){
+void TakeBackHalf::setTargetVel(const double& target){
     targetVel = target;
 }
 
-void TakeBackHalf::setApproxVel(double approx){
+void TakeBackHalf::setApproxVel(const double& approx){
     approxVel = approx;
 }
 
@@ -24,8 +27,8 @@ void TakeBackHalf::initialize(){
     error = targetVel, prevError = targetVel;
 }
 
-double TakeBackHalf::step(double rpm){
-    error = targetVel - rpm;
+double TakeBackHalf::step(const double& val){
+    error = targetVel - val;
     output += error * gain.gain;
     output = Math::clamp(output, 0, 127);
 
@@ -42,3 +45,4 @@ double TakeBackHalf::step(double rpm){
     prevError = error;
     return output;
 }   
+}

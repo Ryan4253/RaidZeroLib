@@ -10,7 +10,8 @@
  */
 
 #pragma once
-#include "main.h"
+#include <math.h>
+namespace lib4253{
 
 /**
  * @brief Linear motion profile controller class
@@ -37,7 +38,13 @@ class LinearMotionProfileController{
      * @param a maximum acceleration
      * @param maxV maximum velocity
      */
-    LinearMotionProfileController(double maxA, double maxVel);
+    LinearMotionProfileController(const double& maxA, const double& maxVel);
+
+    /**
+     * @brief Destroys the Linear Motion Profile Controller object
+     * 
+     */
+    ~LinearMotionProfileController() = default;
 
     public:
     /**
@@ -46,14 +53,14 @@ class LinearMotionProfileController{
      * @param maxV max velocity
      * @param maxA max acceleration
      */
-    void setKinematics(double maxV, double maxA);
+    void setKinematics(const double& maxV, const double& maxA);
 
     /**
      * @brief Sets desired distance for the controller
      *
      * @param d desired distance
      */
-    void setDistance(double d);
+    void setDistance(const double& d);
 
     /**
      * @brief Gets velocity at specified time step
@@ -61,7 +68,7 @@ class LinearMotionProfileController{
      * @param t time step
      * @return velocity at t
      */
-    double getVelocityTime(double t);
+    double getVelocityTime(const double& t) const;
 
     /**
      * @brief Gets velocity at specified distance
@@ -69,14 +76,14 @@ class LinearMotionProfileController{
      * @param d distance
      * @return velocity at d
      */
-    double getVelocityDist(double d);
+    double getVelocityDist(const double& d) const;
 
     /**
      * @brief Gets predicted execution time
      *
      * @return total time
      */
-    double getTotalTime();
+    double getTotalTime() const;
 };
 
 class TrapezoidalProfileController : LinearMotionProfileController{
@@ -86,3 +93,4 @@ class TrapezoidalProfileController : LinearMotionProfileController{
 class SCurveMotionProfileController : LinearMotionProfileController{
 
 };
+}

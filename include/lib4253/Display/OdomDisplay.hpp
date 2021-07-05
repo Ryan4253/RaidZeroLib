@@ -1,6 +1,8 @@
 #pragma once
-#include "main.h"
-#include "lib4253/Subsystems/Odometry.hpp"
+#include "lib4253/Chassis/Odometry.hpp"
+#include "lib4253/Utility/TaskWrapper.hpp"
+#include "okapi/api/units/QLength.hpp"
+#include "okapi/api/units/RQuantity.hpp"
 
 namespace okapi{
   constexpr QLength tile = 2 * foot;
@@ -23,25 +25,23 @@ namespace okapi{
 
 // credits to Theo Lemay from team 7842F for coding this display
 // original repo: https://github.com/theol0403/7842F-Competition-Code
-
-class OdomDisplay {
+namespace lib4253{
+class OdomDisplay : public TaskWrapper{
   public:
     lv_obj_t* container = nullptr;
-    CustomOdometry* tracker = nullptr;
+    Odometry* tracker = nullptr;
 
     lv_obj_t* field = nullptr;
     double fieldDim = 0;
 
-    pros::Task task;
-
-    OdomDisplay(lv_obj_t*, CustomOdometry*);
-    OdomDisplay(lv_obj_t*, lv_color_t, CustomOdometry*);
+    OdomDisplay(lv_obj_t*, Odometry*);
+    OdomDisplay(lv_obj_t*, lv_color_t, Odometry*);
     ~OdomDisplay();
 
     static lv_res_t tileAction(lv_obj_t*);
     static lv_res_t resetAction(lv_obj_t*);
     static lv_res_t btnmAction(lv_obj_t*);
 
-    void run();
-    static void taskFnc(void*);
+    void loop() override;
 };
+}

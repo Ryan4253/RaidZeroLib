@@ -1,11 +1,11 @@
-#include "main.h"
 #include "lib4253/Controller/LinearMotionProfile.hpp"
+namespace lib4253{
 
-LinearMotionProfileController::LinearMotionProfileController(double a, double maxV){
+LinearMotionProfileController::LinearMotionProfileController(const double& a, const double& maxV){
     maxAcc = a,  maxVel = maxV;
 }
 
-void LinearMotionProfileController::setDistance(double d){
+void LinearMotionProfileController::setDistance(const double& d){
     dist = d;
     tAcc = maxVel / maxAcc;
     tCruise = (d-(maxAcc*tAcc*tAcc))/maxVel;
@@ -13,7 +13,7 @@ void LinearMotionProfileController::setDistance(double d){
     dCruise = dAcc + (maxVel * tCruise);
 }
 
-double LinearMotionProfileController::getVelocityTime(double t){
+double LinearMotionProfileController::getVelocityTime(const double& t) const {
     if(t < tAcc){
         return maxAcc * t;
     }
@@ -26,19 +26,20 @@ double LinearMotionProfileController::getVelocityTime(double t){
     }
 }
 
-double LinearMotionProfileController::  getVelocityDist(double d){
+double LinearMotionProfileController::  getVelocityDist(const double& d) const {
     if(d < dAcc){
         return maxAcc * (sqrt(2 * d / maxAcc));
     }
     else if(d > dCruise){
-        double dDec = dAcc - (dCruise - d);
-        dAcc = dDec;
+        double dDec = (dCruise + dAcc * 2) - d;
+        return maxAcc * (sqrt(2 * d / maxAcc));
     }
     else{
         return maxVel;
     }
 }
 
-double LinearMotionProfileController::getTotalTime(){
+double LinearMotionProfileController::getTotalTime() const {
     return tAcc * 2 + tCruise;
+}
 }

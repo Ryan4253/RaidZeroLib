@@ -10,7 +10,10 @@
  */
 
 #pragma once
-#include "main.h"
+#include <vector>
+#include "Geometry/Point2D.hpp"
+
+namespace lib4253{
 
 /**
  * @brief Trajectory point structure
@@ -21,14 +24,31 @@ struct TrajectoryPoint{
      * @brief Stores the velocity
      *
      */
-    double velocity;
+    Pose2D position;
 
     /**
-     * @brief Stores the acceleration
+     * @brief Stores the inear velocity
      *
      */
-    double acceleration;
+    double linVelocity;
 
+    /**
+     * @brief Stores the linearacceleration
+     *
+     */
+    double linAcceleration;
+
+    /**
+     * @brief Stores the angular velocity
+     *
+     */
+    double angVelocity;
+
+    /**
+     * @brief Stores the angular acceleration
+     *
+     */
+    double angAcceleration;
 
     /**
      * @brief Construct a new Trajectory Point object
@@ -36,17 +56,16 @@ struct TrajectoryPoint{
      * @param v velocity
      * @param a acceleration
      */
-    TrajectoryPoint(double v, double a);
+    TrajectoryPoint(const Point2D& p, const double& linV, const double& linA, const double& angV, const double& angA);
 };
 
-  /**
-   * @brief Trajectory class
-   *
-   */
+    /**
+     * @brief Trajectory class
+     *
+     */
 class Trajectory{
     private:
-    std::vector<TrajectoryPoint> left;
-    std::vector<TrajectoryPoint> right;
+    std::vector<TrajectoryPoint> traj;
 
     public:
     /**
@@ -61,14 +80,14 @@ class Trajectory{
      * @param l left trajectory points
      * @param r right trajectory points
      */
-    Trajectory(std::vector<TrajectoryPoint> l, std::vector<TrajectoryPoint> r);
+    Trajectory(std::vector<TrajectoryPoint> path);
 
     /**
      * @brief Gets size of the trajectory
      *
      * @return size
      */
-    int getSize();
+    int getSize() const;
 
     /**
      * @brief Gets the velocity and acceleration at the given index
@@ -76,6 +95,6 @@ class Trajectory{
      * @param index index
      * @return velocity and acceleration at index
      */
-    std::pair<TrajectoryPoint, TrajectoryPoint> getKinematics(int index);
-
+    TrajectoryPoint getKinematics(int index) const;
 };
+}

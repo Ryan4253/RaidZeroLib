@@ -1,5 +1,5 @@
 #include "main.h"
-#include "lib4253/Utility/declarations.hpp"
+#include "declarations.hpp"
 
 
 void autonSelector(){
@@ -16,10 +16,10 @@ void autonSelector(){
             pros::lcd::print(5, "Escape Progress: %d", 1000 - time);
         }
         else if(lState && !lPreValue){
-            auton--;
+            //auton--;
         }
         else if(rState && !rPreValue){
-            auton++;
+            //auton++;
         }
         else{
             time = 0;
@@ -29,9 +29,9 @@ void autonSelector(){
         lPreValue = lState;
         rPreValue = rState;
 
-        auton = (auton + 4) % 4;
+        //auton = (auton + 4) % 4;
 
-        pros::lcd::print(3, "Current Autonomous: %d", auton);
+        pros::lcd::print(3, "Current Autonomous: %d", 1/*auton*/);
 
         if(time > 1000){
             break;
@@ -49,7 +49,7 @@ void autonSelector(){
  */
 void initialize() {
     pros::lcd::initialize(); pros::lcd::print(1, "INITIALIZE");
-    matchState = INITIALIZE;
+    //matchState = INITIALIZE;
 
     initSubsystems();
     //initThreads();

@@ -10,7 +10,10 @@
  */
 
 #pragma once
-#include "main.h"
+#include "lib4253/Utility/Math.hpp"
+#include <math.h>
+
+namespace lib4253{
 
 struct TBHGain {
     double gain;
@@ -31,31 +34,43 @@ class TakeBackHalf : public AbstractVelocityController<TBHGain> {
     public:
     /**
      * @brief Construct a new Take Back Half object
+     * 
+     */
+    TakeBackHalf();
+
+    /**
+     * @brief Construct a new Take Back Half object
      *
      * @param g TBH gain
      */
-    TakeBackHalf(TBHGain gain);
+    TakeBackHalf(const TBHGain& gain);
+
+    /**
+     * @brief Destroys the Take Back Half object
+     * 
+     */
+    ~TakeBackHalf() = default;
     
     /**
      * @brief Set the gain
      *
      * @param g TBH gain
      */
-    void setGain(TBHGain gain);
+    void setGain(const TBHGain& gain);
     
     /**
      * @brief Set the Target Velocity
      *
      * @param target tarvel velocity
      */
-    void setTargetVel(double target);
+    void setTargetVel(const double& target);
     
     /**
      * @brief Sets the approximate power for the motor after crossing the target output for the first time
      *
      * @param approx approximation of the power
      */
-    void setApproxVel(double approx);
+    void setApproxVel(const double& approx);
     
     /**
      * @brief Initializes TBH controller
@@ -69,5 +84,6 @@ class TakeBackHalf : public AbstractVelocityController<TBHGain> {
      * @param rpm current motor velocity
      * @return modified motor velocity
      */
-    double step(double val);
+    double step(const double& val);
 };  
+}

@@ -10,13 +10,13 @@
  */
 
 #pragma once
-// #include "main.h"
-
+//#include "main.h"
+namespace lib4253{
 /**
 * @brief Filter class
 *
 */
-class FilterBase{
+class AbstractFilter{
     public:
     /**
     * @brief Resets filters
@@ -30,5 +30,13 @@ class FilterBase{
      * @param input raw values
      * @return filtered values
      */
-    virtual double filter(double input) = 0;
+    virtual double filter(const double& input) = 0;
 };
+
+template<typename data>
+class AbstractFilter2{
+    public:
+        virtual void reset() = 0;
+        virtual data filter(const data& input)  = 0;
+};
+}

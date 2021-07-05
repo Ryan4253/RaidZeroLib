@@ -8,8 +8,12 @@
  * @copyright Copyright (c) 2021
  *
  */
+
 #pragma once
 #include "main.h"
+#include "lib4253/Splines/Trajectory.hpp"
+
+namespace lib4253{
 
 struct MotorVelocityControllerGain {
     double kV, kA, kP;
@@ -19,7 +23,7 @@ struct MotorVelocityControllerGain {
  * @brief Velocity Controller class
  *
  */
-class MotorVelocityController{
+class MotorVelocityController : public AbstractVelocityController<MotorVelocityControllerGain> {
     MotorVelocityControllerGain gain;
     public:
     /**
@@ -31,20 +35,32 @@ class MotorVelocityController{
     /**
      * @brief Construct a new Motor Velocity Controller object
      * 
-     * @param a velocity gain
-     * @param b acceleration gain
-     * @param c proportional gain
+     * @param gain kV, kA, kP
      */
-    MotorVelocityController(MotorVelocityControllerGain gain);
+    MotorVelocityController(const MotorVelocityControllerGain& gain);
 
     /**
-     * @brief Sets gain for velocity controller
+     * @brief Destructs the velocity controller
      *
-     * @param a velocity gain
-     * @param b acceleration gain
-     * @param c proportional gain
      */
-    void setGain(MotorVelocityControllerGain gain);
+    ~MotorVelocityController() = default;
+
+    /**
+     * @brief Construct a new Motor Velocity Controller object
+     * 
+     * @param gain kV, kA, kP
+     */
+    void setGain(const MotorVelocityControllerGain& gain);
+
+    /**
+     * @brief Calulates raw power for motor
+     *
+     * @param velocity stores the target velocity
+     * @param acceleration stores the target acceleration
+     * @param currentRPM current motor velocity
+     * @return power (voltage) to be fed into the motor
+     */
+    double calcPower(const double& velocity, const double& acceleration, const double& currentRPM) const;
 
     /**
      * @brief Calulates raw power for motor
@@ -53,5 +69,7 @@ class MotorVelocityController{
      * @param currentRPM current motor velocity
      * @return power to be fed into the motor
      */
-    double calcPower(TrajectoryPoint v, double currentRPM);
+    double calcPower(const TrajectoryPoint& v, const double& currentRPM) const;
 };
+}
+

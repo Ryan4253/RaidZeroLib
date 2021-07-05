@@ -1,4 +1,5 @@
-#include "main.h"
+#include "lib4253/Utility/Matrix.hpp"
+namespace lib4253{
 
 template<typename T>
 Matrix<T>::Matrix(int r, int c, const T& init) {
@@ -271,4 +272,5 @@ int Matrix<T>::getRow() const{
 template<typename T>
 int Matrix<T>::getCol() const{
   return this->col;
+}
 }

@@ -1,7 +1,8 @@
-#include "main.h"
-#include "lib4253/Utility/Math.hpp"
+#include "lib4253/Filter/Biquad.hpp"
 
-BiquadFilter::BiquadFilter(BiquadFilter::state type, double sampleFreq, double cutoffFreq, double initValue){
+namespace lib4253{
+
+BiquadFilter::BiquadFilter(const BiquadFilter::state& type, const double& sampleFreq, const double& cutoffFreq, const double& initValue){
     double w0 =  2 * M_PI * cutoffFreq / sampleFreq;
     double cosw0 = cos(w0);
     double sinw0 = sin(w0);
@@ -47,10 +48,11 @@ void BiquadFilter::reset(){
     prevOutput[0] = prevOutput[1] = initVal;
 }
 
-double BiquadFilter::filter(double input){
+double BiquadFilter::filter(const double& input) {
     double output = b0 * input + b1 * prevInput[0] + b2 * prevInput[1] - a1 * prevOutput[0] - a2 * prevOutput[1];
     prevInput[1] = prevInput[0]; prevInput[0] = input;
     prevOutput[1] = prevOutput[0]; prevOutput[0] = output;
     
     return output;
+}
 }

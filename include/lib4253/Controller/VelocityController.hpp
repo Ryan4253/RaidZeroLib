@@ -23,7 +23,7 @@ class AbstractVelocityController {
      * 
      * @param gain controller gain
      */
-    virtual void setGain(T gain) = 0;
+    virtual void setGain(const T& gain) = 0;
     
     /**
      * @brief Resets the controller - pure virtual
@@ -43,5 +43,5 @@ class AbstractVelocityController {
      * @param val input value
      * @return output value
      */
-    virtual double step(double val) = 0;
+    virtual double step(const double& val) = 0;
 };

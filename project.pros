@@ -5,7 +5,7 @@
         "target": "v5",
         "templates": {
             "kernel": {
-                "location": "C:\\Users\\24jasonz\\AppData\\Roaming\\PROS\\templates\\kernel@3.4.0",
+                "location": "C:\\Users\\Ryan\\AppData\\Roaming\\PROS\\templates\\kernel@3.4.0",
                 "metadata": {
                     "cold_addr": "58720256",
                     "cold_output": "bin/cold.package.bin",

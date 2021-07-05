@@ -10,7 +10,10 @@
  */
 
 #pragma once
-#include "main.h"
+// #include <math.h> hahaha, cmath is the way to go lmao
+#include <cmath>
+
+namespace lib4253{
 
 struct SlewGain {
     double accStep, decStep;
@@ -31,14 +34,20 @@ class SlewController : public AbstractVelocityController<SlewGain> {
      *
      */
     SlewController();
-
+    
     /**
      * @brief Construct a new Slew Controller object
      *
      * @param accel acceleration step (how much the velocity increases everytime the robot refreshes)
      * @param decel deceleration step (^ vise versa)
      */
-    SlewController(SlewGain gain);
+    SlewController(const SlewGain& gain);
+
+    /**
+     * @brief Destroys the Slew Controller object
+     * 
+     */
+    ~SlewController() = default;
     
     /**
      * @brief Set acceleration and deceleration steps
@@ -46,7 +55,7 @@ class SlewController : public AbstractVelocityController<SlewGain> {
      * @param a acceleration step
      * @param d deceleration step
      */
-    void setGain(SlewGain gain);
+    void setGain(const SlewGain& gain);
     
     /**
      * @brief Resets slew controller
@@ -60,5 +69,6 @@ class SlewController : public AbstractVelocityController<SlewGain> {
      * @param val target power
      * @return (possibly) modified power
      */
-    double step(double val);
+    double step(const double& val);
 };
+}

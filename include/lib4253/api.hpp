@@ -13,6 +13,7 @@
 #include "lib4253/Filter/Kalman.hpp"
 #include "lib4253/Filter/Biquad.hpp" // done
 
+#include "lib4253/Controller/VelocityController.hpp"
 #include "lib4253/Controller/MotorVelocity.hpp"
 #include "lib4253/Controller/PID.hpp" // done
 #include "lib4253/Controller/Slew.hpp" // done

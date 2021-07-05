@@ -12,17 +12,20 @@
 #pragma once
 #include "main.h"
 
+struct TBHGain {
+    double gain;
+};
 
 /**
  * @brief TBH class
  *
  */
-class TakeBackHalf{
+class TakeBackHalf : public AbstractVelocityController<TBHGain> {
     private:
     double error, prevError;
     double targetVel, approxVel;
     double output, tbhVal;
-    double gain;
+    TBHGain gain;
     bool firstCross;
     
     public:
@@ -31,14 +34,14 @@ class TakeBackHalf{
      *
      * @param g TBH gain
      */
-    TakeBackHalf(double g);
+    TakeBackHalf(TBHGain gain);
     
     /**
      * @brief Set the gain
      *
      * @param g TBH gain
      */
-    void setGain(double g);
+    void setGain(TBHGain gain);
     
     /**
      * @brief Set the Target Velocity
@@ -66,5 +69,5 @@ class TakeBackHalf{
      * @param rpm current motor velocity
      * @return modified motor velocity
      */
-    double step(double rpm);
+    double step(double val);
 };  

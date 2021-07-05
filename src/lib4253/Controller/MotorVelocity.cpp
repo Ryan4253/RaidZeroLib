@@ -1,17 +1,17 @@
 #include "main.h"
 
 MotorVelocityController::MotorVelocityController() {
-    kV = 0; kA = 0; kP = 0;
+    this->gain = {0, 0, 0};
 }
 
-MotorVelocityController::MotorVelocityController(double a, double b, double c) {
-    kV = a; kA = b; kP = c;
+MotorVelocityController::MotorVelocityController(MotorVelocityControllerGain gain) {
+    this->gain = gain;
 }
 
-void MotorVelocityController::setGain(double a, double b, double c){
-    kV = a, kA = b, kP = c;
+void MotorVelocityController::setGain(MotorVelocityControllerGain gain){
+    this->gain = gain;
 }
 
 double MotorVelocityController::calcPower(TrajectoryPoint v, double currentRPM){
-    return kV * v.velocity + kA * v.acceleration + kP * (v.velocity - currentRPM);
+    return gain.kV * v.velocity + gain.kA * v.acceleration + gain.kP * (v.velocity - currentRPM);
 }

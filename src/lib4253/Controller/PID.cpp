@@ -3,18 +3,18 @@
 //using namespace lib4253;
 //#include "lib4253/Filter/emaFilter.hpp"
 
-PID::PID(double a, double b, double c){
-    kP = a, kI = b, kD = c;
+PID::PID(PIDGain gain){
+    this->gain = gain;
     maxIntegral = 1000000000, minDist = 1000000000;
 }
 
 PID::PID(){
-    kP = 0, kI = 0, kD = 0;
+    this->gain = {0, 0, 0};
     maxIntegral = 1000000000, minDist = 1000000000;
 }
 
-void PID::setGain(double a, double b, double c){
-    kP = a, kI = b, kD = c;
+void PID::setGain(PIDGain gain){
+    this->gain = gain;
 }
 
 void PID::setIGain(double windup, double dist){
@@ -43,7 +43,7 @@ double PID::update(double err) {
     integral += error * (error < minDist); // where to start collecting
     integral *= (((int)error ^ (int)prevError) >= 0); // set to 0 once passes setpoint
     integral = fmin(integral, maxIntegral); // cap integral to a limit
-    return error * kP + integral * kI + derivative * kD; // final power output
+    return error * gain.kP + integral * gain.kI + derivative * gain.kD; // final power output
 }   
 
 void FPID::setFGain(double f){

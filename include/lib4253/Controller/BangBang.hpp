@@ -1,6 +1,6 @@
 /**
  * @file BangBang.hpp
- * @author Ryan Liao (23RyanL@students.tas.tw)
+ * @author Ryan Liao (23RyanL@students.tas.tw) & Jason Zhou (24JasonZ@students.tas.tw)
  * @brief Bang Bang controller - simply stated, a primitive PID controller
  * @version 0.1
  * @date 2021-05-20
@@ -12,22 +12,35 @@
 
 #pragma once
 #include "main.h"
+#include "lib4253/Controller/VelocityController.hpp"
+
+/**
+ * @brief Structure to store the BangBang gain
+ * 
+ */
+struct BangBangGain {
+    double highPower, lowPower, targetVel;
+};
 
 /**
  * @brief BangBang class
  *
  */
-class BangBang{
-
-    double highPower, lowPower, targetVel;
+class BangBang : public AbstractVelocityController<BangBangGain> {
+    BangBangGain gain;
     /**
      * @brief Construct a new Bang Bang object
-     *
-     * @param h sets velocity to h when the actual velocity is less than the target velocity
-     * @param l sets velocity to l when the actual velocity is greater than the target velocity
-     * @param t target velocity
+     * 
+     * @param gain highPower, lowPower, targetVel
      */
-    BangBang(double h, double l, double t);
+    BangBang(BangBangGain gain);
+
+    /**
+     * @brief Sets gain
+     * 
+     * @param gain highPower, lowPower, targetVel
+     */
+    void setGain(BangBangGain gain);
 
     /**
      * @brief Sets target velocity for Bang Bang controller
@@ -39,8 +52,8 @@ class BangBang{
     /**
      * @brief Determines the amount of power needed based on real-time velocity
      *
-     * @param v actual velocity
+     * @param val actual velocity
      * @return new velocity
      */
-    double step(double v);
+    double step(double val);
 };

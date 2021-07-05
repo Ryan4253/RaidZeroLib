@@ -12,31 +12,33 @@
 #pragma once
 #include "main.h"
 
+struct SlewGain {
+    double accStep, decStep;
+};
 
 /**
  * @brief Slew controller class
  *
  */
-class SlewController{
+class SlewController : public AbstractVelocityController<SlewGain> {
     protected:
     double speed;
-    double accStep;
-    double decStep;
+    SlewGain gain;
     
-    public:
+    public:  
+    /**
+     * @brief Construct a new Slew Controller object
+     *
+     */
+    SlewController();
+
     /**
      * @brief Construct a new Slew Controller object
      *
      * @param accel acceleration step (how much the velocity increases everytime the robot refreshes)
      * @param decel deceleration step (^ vise versa)
      */
-    SlewController(double accel, double decel);
-    
-    /**
-     * @brief Construct a new Slew Controller object
-     *
-     */
-    SlewController();
+    SlewController(SlewGain gain);
     
     /**
      * @brief Set acceleration and deceleration steps
@@ -44,7 +46,7 @@ class SlewController{
      * @param a acceleration step
      * @param d deceleration step
      */
-    void setStep(double a, double d);
+    void setGain(SlewGain gain);
     
     /**
      * @brief Resets slew controller
@@ -55,8 +57,8 @@ class SlewController{
     /**
      * @brief Calculates output power
      *
-     * @param target target power
+     * @param val target power
      * @return (possibly) modified power
      */
-    double step(double target);
+    double step(double val);
 };

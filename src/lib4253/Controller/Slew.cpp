@@ -2,16 +2,16 @@
 #include "lib4253/Controller/Slew.hpp"
 
 // Constructor, takes in acceleration and decelaration steps
-SlewController::SlewController(double accel, double decel){
-    accStep = accel, decStep = decel, speed = 0;
+SlewController::SlewController(SlewGain gain){
+    this->gain = gain, speed = 0;
 }
 
 SlewController::SlewController(){
-    accStep = 0; decStep = 0; speed =0 ;
+    this->gain = {0, 0}; speed = 0;
 }
 
-void SlewController::setStep(double a, double d){
-    accStep = a, decStep = d;
+void SlewController::setGain(SlewGain gain){
+    this->gain = gain;
 }
 
 // To put simply, slew sets a threshold on how fast your motors can go.
@@ -24,10 +24,10 @@ double SlewController::step(double target) {
     double step;
 
     if(std::fabs(speed) < std::fabs(target)) {
-        step = accStep;
+        step = gain.accStep;
     }
     else {
-        step = decStep;
+        step = gain.decStep;
     }
 
     if(target > speed + step) {

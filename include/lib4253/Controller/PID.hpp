@@ -12,9 +12,13 @@
 #pragma once
 #include "main.h"
 
-class PID {
-    private:
+struct PIDGain {
     double kP, kI, kD;
+};
+
+class PID : public AbstractVelocityController<PIDGain> {
+    private:
+    PIDGain gain;
     double error, prevError, integral, derivative;
     double maxIntegral, minDist;
     double time, prevTime;
@@ -34,7 +38,7 @@ class PID {
      * @param b integral gain
      * @param c derivative gain
      */
-    PID(double a, double b, double c);
+    PID(PIDGain gain);
 
     /**
      * @brief Set gains for PID controller
@@ -43,7 +47,7 @@ class PID {
      * @param b integral gain
      * @param c derivative gain
      */
-    void setGain(double a, double b, double c);
+    void setGain(PIDGain gain);
 
     /**
      * @brief Set integral gain
@@ -69,10 +73,10 @@ class PID {
     /**
      * @brief Updates PID controller - the main meat of the PID controller
      *
-     * @param error error or how far the robot's from the target location
+     * @param val error or how far the robot's from the target location
      * @return power to the motor
      */
-    double update(double error);
+    double step(double val);
 };
 
 /**

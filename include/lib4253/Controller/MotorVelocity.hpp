@@ -8,15 +8,19 @@
  * @copyright Copyright (c) 2021
  *
  */
-
+#pragma once
 #include "main.h"
+
+struct MotorVelocityControllerGain {
+    double kV, kA, kP;
+};
 
 /**
  * @brief Velocity Controller class
  *
  */
 class MotorVelocityController{
-    double kV, kA, kP;
+    MotorVelocityControllerGain gain;
     public:
     /**
      * @brief Construct a new Motor Velocity Controller object
@@ -31,7 +35,7 @@ class MotorVelocityController{
      * @param b acceleration gain
      * @param c proportional gain
      */
-    MotorVelocityController(double a, double b, double c);
+    MotorVelocityController(MotorVelocityControllerGain gain);
 
     /**
      * @brief Sets gain for velocity controller
@@ -40,7 +44,7 @@ class MotorVelocityController{
      * @param b acceleration gain
      * @param c proportional gain
      */
-    void setGain(double a, double b, double c);
+    void setGain(MotorVelocityControllerGain gain);
 
     /**
      * @brief Calulates raw power for motor

@@ -68,38 +68,5 @@ struct TrajectoryPoint{
      * @brief Trajectory class
      *
      */
-class Trajectory{
-    private:
-    std::vector<TrajectoryPoint> traj;
-
-    public:
-    /**
-     * @brief Construct a new Trajectory object
-     *
-     */
-    Trajectory() = default;
-
-    /**
-     * @brief Construct a new Trajectory object
-     *
-     * @param l left trajectory points
-     * @param r right trajectory points
-     */
-    Trajectory(const std::vector<TrajectoryPoint>& path);
-
-    /**
-     * @brief Gets size of the trajectory
-     *
-     * @return size
-     */
-    int getSize() const;
-
-    /**
-     * @brief Gets the velocity and acceleration at the given index
-     *
-     * @param index index
-     * @return velocity and acceleration at index
-     */
-    TrajectoryPoint getKinematics(int index) const;
-};
+typedef std::vector<TrajectoryPoint> Trajectory;
 }

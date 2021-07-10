@@ -18,7 +18,7 @@ class OdomController{
     void moveToPoint(const Point2D& target, const double& turnScale, Settler settler = Settler::getDefaultSettler());
     void moveToX(const QLength& targetX, Settler settler = Settler::getDefaultSettler());
     void moveToY(const QLength& targetY, Settler settler = Settler::getDefaultSettler());
-    void turnToAngle(const double& angle, Settler settler = Settler::getDefaultSettler());
+    void turnToAngle(const okapi::QAngle& angle, Settler settler = Settler::getDefaultSettler());
     void turnToPoint(const Point2D& target, Settler settler = Settler::getDefaultSettler());
 
     private:

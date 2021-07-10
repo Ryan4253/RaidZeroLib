@@ -16,6 +16,7 @@ namespace lib4253{
 enum class DriveState{
     TANK, ARCADE
 };
+
 class Chassis: public TaskWrapper, public StateMachine<DriveState>{
     public:	
 	// Constructor
@@ -43,25 +44,26 @@ class Chassis: public TaskWrapper, public StateMachine<DriveState>{
 	void loop() override;
 
 	// initializer / setter / getter
-	void initialize();
-	void setBrakeType(const AbstractMotor::brakeMode& iMode);
-	void resetSensor();
+	void initialize() const;
+	void setBrakeType(const AbstractMotor::brakeMode& iMode) const;
+	void resetSensor() const;
 	double getIMUReading() const;
 	double getEncoderReading() const;
 	double getLeftEncoderReading() const;
 	double getRightEncoderReading() const;
+    ChassisScales getScales() const;
 
 	// drive movement functions
-	void setPower(const double& lPower, const double& rPower);
-    void setPower(const std::pair<double, double>& power);
-	void setVelocity(const double& lVelocity, const double& rVelocity);
-    void setVelocity(const std::pair<double, double>& velocity);
-	void move(const double& lPower, const double& rPower, const QTime& timeLim);
-	void moveDistance(const double& dist, Settler = Settler::getDefaultSettler());
-	void turnAngle(const double& angle, Settler = Settler::getDefaultSettler());
+	void setPower(const double& lPower, const double& rPower) const;
+    void setPower(const std::pair<double, double>& power) const;
+	void setVelocity(const double& lVelocity, const double& rVelocity) const;
+    void setVelocity(const std::pair<double, double>& velocity) const;
+	void move(const double& lPower, const double& rPower, const QTime& timeLim) const;
+	void moveDistance(const okapi::QLength& dist, Settler = Settler::getDefaultSettler()) const;
+	void turnAngle(const okapi::QAngle& angle, Settler = Settler::getDefaultSettler()) const;
 
-    std::pair<double, double> desaturate(const double& left, const double& right, const double& max);
-	std::pair<double, double> scaleSpeed(const double& linear, const double& yaw, const double& max);
+    std::pair<double, double> desaturate(const double& left, const double& right, const double& max) const;
+	std::pair<double, double> scaleSpeed(const double& linear, const double& yaw, const double& max) const;
 
     // driver control functions
 	void tank(const double& left, const double& right);
@@ -72,7 +74,7 @@ class Chassis: public TaskWrapper, public StateMachine<DriveState>{
 	std::vector<std::shared_ptr<Motor> > left {nullptr};
     std::vector<std::shared_ptr<Motor> > right {nullptr};
     std::shared_ptr<IMU> inertial {nullptr};
-    ChassisScales scale;
+    ChassisScales dimension;
 
 	std::unique_ptr<SlewController> driveSlew {nullptr};
     std::unique_ptr<PID> drivePID {nullptr};
@@ -144,5 +146,5 @@ class Drive{
     void tank();
     void arcade();
 };
-}
+
 */

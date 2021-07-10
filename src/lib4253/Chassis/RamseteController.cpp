@@ -1,10 +1,20 @@
 #include "RamseteController.hpp"
-#include "lib4253/Utility/Units.hpp"
 namespace lib4253{
 
+RamseteController::RamseteController(std::shared_ptr<Chassis> iChassis,
+        std::shared_ptr<Odometry> iOdometry,
+        const double& iB,
+        const double& iZeta
+    ){
+        b = iB;
+        zeta = iZeta;
+        chassis = iChassis;
+        odometry = iOdometry;
+    }
+
 void RamseteController::followPath(const Trajectory& path){
-    for(int i = 0; i < path.getSize(); i++){
-        TrajectoryPoint p = path.getKinematics(i);
+    for(int i = 0; i < path.size(); i++){
+        TrajectoryPoint p = path[i];
         std::pair<okapi::QSpeed, okapi::QAngularSpeed> velocity = update(p, odometry->getPos());
         pros::delay(10);
     }

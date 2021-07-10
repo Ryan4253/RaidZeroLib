@@ -1,4 +1,6 @@
 #include "lib4253/Controller/TakeBackHalf.hpp"
+#include <algorithm>
+#include <cmath>
 namespace lib4253{
 
 TakeBackHalf::TakeBackHalf(const double& g){
@@ -26,7 +28,12 @@ void TakeBackHalf::initialize(){
 double TakeBackHalf::step(const double& rpm){
     error = targetVel - rpm;
     output += error * gain;
-    output = Math::clamp(output, 0, 127);
+    if(output > 127){
+        output = 127;
+    }
+    else if(output < 0){
+        output = 0;
+    }
 
     if(signbit(error) != signbit(prevError)){
         if(firstCross){

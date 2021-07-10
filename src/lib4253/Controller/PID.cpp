@@ -38,7 +38,7 @@ double PID::update(const double& err) {
     prevTime = time;
     prevError = error;
     // I calculation
-    integral += error * (error < minDist); // where to start collecting
+    integral += error * (error <= minDist); // where to start collecting
     integral *= (((int)error ^ (int)prevError) >= 0); // set to 0 once passes setpoint
     integral = fmin(integral, maxIntegral); // cap integral to a limit
     return error * kP + integral * kI + derivative * kD; // final power output

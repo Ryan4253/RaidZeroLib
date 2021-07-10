@@ -47,6 +47,22 @@ bool Pose2D::operator!=(const Pose2D& rhs) const{
     return !operator==(rhs);
 }
 
+Point2D Pose2D::closestTo(const Point2D& other) const{
+    /*
+    Point2D current = translation;
+    Point2D heading(sin(rotation.getVal()), cos(rotation.getVal()));
+    Point2D n = heading.normalize();
+    Point2D v = target-translation;
+    double d = n*v  ;
+    return (current)+((n*d));
+    */
+    Translation2D diff = other - translation;
+    okapi::QLength mag = diff.magnitude();
+    okapi::QAngle angle = (*this).angleTo(diff);
+    okapi::QLength inc = mag * cos(angle);
+    return translation + Translation2D(inc * cos(angle), inc * sin(angle));
+}
+
 Pose2D Pose2D::transformBy(const Transform2D& other) const{
     return {translation + (other.getTranslation().rotateBy(rotation)), rotation + other.getRotation()};
 }
@@ -54,6 +70,10 @@ Pose2D Pose2D::transformBy(const Transform2D& other) const{
 Pose2D Pose2D::relativeTo(const Pose2D& other) const{
     const Transform2D transform{other, *this};
     return {transform.getTranslation(), transform.getRotation()};
+}
+
+okapi::QAngle Pose2D::angleTo(const Point2D& other) const{
+    return rotation.getVal() - (other-translation).angle();
 }
 
 Pose2D Pose2D::exp(const Twist2D& other) const{

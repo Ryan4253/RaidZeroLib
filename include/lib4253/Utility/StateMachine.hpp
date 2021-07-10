@@ -4,11 +4,18 @@ namespace lib4253{
 template <class State>
 class StateMachine{
     public:
-        StateMachine() = default;
-        ~StateMachine() = default;
+    StateMachine() = default;
+    ~StateMachine() = default;
 
-        State state;
-        State getState() const;
-        void setState(State newState);
+    State getState() const{
+        return state;
+    }
+
+    void setState(State newState){
+        state = newState;
+    }
+
+    private:
+    State state;  
 };
 }

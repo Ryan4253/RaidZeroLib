@@ -14,6 +14,6 @@ double MotorVelocityController::calcPower(const double& velocity, const double& 
 }
 
 double MotorVelocityController::calcPower(const TrajectoryPoint& v, const double& currentRPM) const {
-    return kV * v.velocity + kA * v.acceleration + kP * (v.velocity - currentRPM);
+    return kV * v.linVelocity.convert(okapi::mps) + kA * v.linAcceleration.convert(okapi::mps2) + kP * (v.angVelocity.convert(okapi::rpm) - currentRPM);
 }
 }

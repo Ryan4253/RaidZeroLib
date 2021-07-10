@@ -143,9 +143,9 @@ lv_res_t OdomDisplay::tileAction(lv_obj_t* tileObj) {
   int num = lv_obj_get_free_num(tileObj);
   int y = num / 6;
   int x = num - y * 6;
-  x = (x * okapi::tile + 0.5 * okapi::tile).convert(::okapi::inch);
-  y = (1 * okapi::court- y*okapi::tile - 0.5*okapi::tile).convert(::okapi::inch);
-  that->tracker->setPos({(double)x, (double)y, 0});
+  okapi::QLength newX = (x * okapi::tile + 0.5 * okapi::tile);
+  okapi::QLength newY = (1 * okapi::court- y*okapi::tile - 0.5*okapi::tile);
+  that->tracker->setPos({newX, newY, 0 * okapi::degree});
   return LV_RES_OK;
 }
 
@@ -199,9 +199,9 @@ void OdomDisplay::loop() {
   lv_obj_set_style(label, &textStyle);
 
   while (true) {
-    double x = tracker->getQX().convert(okapi::court);
-    double y = (1*okapi::court - tracker->getQY()).convert(okapi::court);
-    double theta = tracker->getAngleRad();
+    double x = tracker->getX().convert(okapi::court);
+    double y = (1*okapi::court - tracker->getY()).convert(okapi::court);
+    double theta = (tracker->getAngle()).convert(okapi::degree);
 
     lv_obj_set_pos(led, (x * fieldDim) - lv_obj_get_width(led) / 2,
                    (y * fieldDim) - lv_obj_get_height(led) / 2 - 1);
@@ -214,9 +214,9 @@ void OdomDisplay::loop() {
     lv_line_set_points(arrow, points.data(), points.size());
     lv_obj_invalidate(arrow);
 
-    std::string text = "X: " + std::to_string(tracker->getX()/12) + "\n" +
-                       "Y: " + std::to_string(tracker->getY()/12) + "\n" +
-                       "Theta: " + std::to_string(tracker->getAngleDeg()) + "\n" +
+    std::string text = "X: " + std::to_string(tracker->getX().convert(okapi::inch)) + "\n" +
+                       "Y: " + std::to_string(tracker->getY().convert(okapi::inch)) + "\n" +
+                       "Theta: " + std::to_string(tracker->getAngle().convert(okapi::degree)) + "\n" +
                        "Left: " + std::to_string(tracker->getEncoderLeft()) + "\n" +
                        "Right: " + std::to_string(tracker->getEncoderMid()) + "\n" +
                        "Mid: " + std::to_string(tracker->getEncoderRight());

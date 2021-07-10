@@ -2,7 +2,6 @@
 
 #include "lib4253/Utility/Units.hpp" // done
 #include "lib4253/Utility/Math.hpp" // done
-#include "lib4253/Utility/Matrix.hpp" // done
 #include "lib4253/Utility/TaskWrapper.hpp" // done
 #include "lib4253/Utility/Settler.hpp" // done
 #include "lib4253/Utility/StateMachine.hpp" // done

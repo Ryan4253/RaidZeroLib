@@ -279,6 +279,10 @@ bool Translation2D::operator!=(const Translation2D& rhs) const{
     return !operator==(rhs);
 }
 
+okapi::QAngle Translation2D::angle() const{
+    return atan2(y, x);
+}
+
 okapi::QLength Translation2D::distanceTo(const Translation2D& other) const{
     return hypot(other.x - x, other.y - y);
 }

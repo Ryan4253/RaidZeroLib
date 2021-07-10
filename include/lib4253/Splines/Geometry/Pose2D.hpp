@@ -32,9 +32,13 @@ class Pose2D{
 
     bool operator!=(const Pose2D& rhs) const;
 
+    Point2D closestTo(const Point2D& other) const;
+
     Pose2D transformBy(const Transform2D& other) const;
 
     Pose2D relativeTo(const Pose2D& other) const;
+
+    okapi::QAngle angleTo(const Point2D& other) const;
 
     Pose2D exp(const Twist2D& other) const;
 

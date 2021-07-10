@@ -16,6 +16,12 @@ using namespace okapi::literals;
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
+
+
+typedef pros::ADIDigitalOut Pneumatic;
+
+
+
 void opcontrol() {
 	pros::lcd::clear_line(5); pros::lcd::print(1, "OPCONTROL");
 	chassis->setState(DriveState::TANK);

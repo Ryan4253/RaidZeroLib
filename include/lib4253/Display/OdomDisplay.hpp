@@ -4,25 +4,6 @@
 #include "okapi/api/units/QLength.hpp"
 #include "okapi/api/units/RQuantity.hpp"
 
-namespace okapi{
-  constexpr QLength tile = 2 * foot;
-  constexpr QLength court = 12 * foot;
-  inline namespace literals{
-    constexpr QLength operator"" _tl(long double x) {
-      return static_cast<double>(x) * tile;
-    }
-    constexpr QLength operator"" _crt(long double x) {
-      return static_cast<double>(x) * court;
-    }
-    constexpr okapi::QLength operator"" _tl(unsigned long long int x) {
-      return static_cast<double>(x) * tile;
-    }
-    constexpr QLength operator"" _crt(unsigned long long int x) {
-      return static_cast<double>(x) * court;
-    }
-  }
-}
-
 // credits to Theo Lemay from team 7842F for coding this display
 // original repo: https://github.com/theol0403/7842F-Competition-Code
 namespace lib4253{

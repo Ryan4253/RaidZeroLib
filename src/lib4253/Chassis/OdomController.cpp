@@ -24,28 +24,28 @@ void OdomController::moveToPoint(const Point2D& target, const double& turnScale,
     turnPID->initialize();
     driveSlew->reset();
     auto time = pros::millis();
-    double distToTarget;
+    okapi::QLength distToTarget;
 
     do {
         Pose2D currentPos = odom->getPos();
-        Point2D closestPoint = currentPos.closest(target);
-        pros::lcd::print(0, "CURRENT X: %lf", (double)currentPos.x);
-        pros::lcd::print(1, "CURRENT Y: %lf", (double)currentPos.y);
-        pros::lcd::print(2, "CURRENT A: %lf", (double)currentPos.theta);
+        Point2D closestPoint = currentPos.closestTo(target);
+        pros::lcd::print(0, "CURRENT X: %lf", currentPos.getX().convert(okapi::inch));
+        pros::lcd::print(1, "CURRENT Y: %lf", currentPos.getY().convert(okapi::inch));
+        pros::lcd::print(2, "CURRENT A: %lf", currentPos.getTheta().convert(okapi::degree));
 
-        distToTarget = currentPos.distanceTo(target);
-        double angleToTarget = currentPos.angleTo(target);
-        double distToClose = currentPos.distanceTo(closestPoint);
-        double angleToClose = currentPos.angleTo(closestPoint);
+        distToTarget = currentPos.translation.distanceTo(target);
+        okapi::QAngle angleToTarget = currentPos.angleTo(target);
+        okapi::QLength distToClose = currentPos.translation.distanceTo(closestPoint);
+        okapi::QAngle angleToClose = currentPos.angleTo(closestPoint);
 
-        double driveError = (std::fabs(angleToClose) >= 90) ? -distToClose : distToClose;
-        double turnError = (std::fabs(distToTarget) < angleCorrectionRadius.convert(inch))  ? 0 : Math::wrapAngle90(angleToTarget);
+        okapi::QLength driveError = (abs(angleToClose) >= 90 * okapi::degree) ? -distToClose : distToClose;
+        okapi::QAngle turnError = (abs(distToTarget) < angleCorrectionRadius)  ? 0 * okapi::degree : Math::angleWrap90(angleToTarget);
 
         pros::lcd::print(4, "Drive Error: %lf", driveError);
         pros::lcd::print(5, "Turn Error: %lf", turnError);
 
-        double drivePower = drivePID->update(-driveError);
-        double turnPower = turnPID->update(-turnError);
+        double drivePower = drivePID->update(-driveError.convert(okapi::inch));
+        double turnPower = turnPID->update(-turnError.convert(okapi::degree));
 
         pros::lcd::print(6, "Drive Power: %lf", drivePower);
         pros::lcd::print(7, "Turn Power: %lf", turnPower);
@@ -53,7 +53,7 @@ void OdomController::moveToPoint(const Point2D& target, const double& turnScale,
 
         chassis->setPower(driveSpeed.first, driveSpeed.second);
         pros::delay(10);
-    } while(!settler.isSettled(&time, distToTarget));
+    } while(!settler.isSettled(&time, distToTarget.convert(inch)));
     chassis->setPower(0, 0);
 }
 
@@ -62,18 +62,19 @@ void OdomController::moveToX(const QLength& targetX, Settler settler){
     anglePID->initialize();
     driveSlew->reset();
     auto time = pros::millis();
-    double error, initAngle = odom->getAngleDeg();
+    okapi::QAngle initAngle = odom->getAngle();
+    okapi::QLength error;
 
     do{
-        error = (targetX - odom->getQX()).convert(inch);
-        double aError = initAngle - odom->getAngleDeg(); 
+        error = (targetX - odom->getX());
+        okapi::QAngle aError = initAngle - odom->getAngle(); 
 
-        double power = drivePID->update(error);
-        double aPower = anglePID->update(aError);
+        double power = drivePID->update(error.convert(okapi::inch));
+        double aPower = anglePID->update(aError.convert(okapi::degree));
         std::pair<double, double> finalPower = chassis->scaleSpeed(power, aPower, driveSlew->step(std::fabs(power + aPower)));
         chassis->setPower(finalPower.first, finalPower.second);
         pros::delay(10); 
-    }while(!settler.isSettled(&time, error));
+    }while(!settler.isSettled(&time, error.convert(okapi::inch)));
     chassis->setPower(0, 0);
 }
 
@@ -82,46 +83,49 @@ void OdomController::moveToY(const QLength& targetY, Settler settler){
     anglePID->initialize();
     driveSlew->reset();
     auto time = pros::millis();
-    double error, initAngle = odom->getAngleDeg();
+    okapi::QAngle initAngle = odom->getAngle();
+    okapi::QLength error; 
 
     do{
-        error = (targetY - odom->getQY()).convert(inch);
-        double aError = initAngle - odom->getAngleDeg(); 
+        error = (targetY - odom->getY());
+        okapi::QAngle aError = initAngle - odom->getAngle(); 
 
-        double power = drivePID->update(error);
-        double aPower = anglePID->update(aError);
+        double power = drivePID->update(error.convert(okapi::inch));
+        double aPower = anglePID->update(aError.convert(okapi::degree));
         std::pair<double, double> finalPower = chassis->scaleSpeed(power, aPower, driveSlew->step(std::fabs(power + aPower)));
         chassis->setPower(finalPower.first, finalPower.second);
         pros::delay(10); 
-    }while(!settler.isSettled(&time, error));
+    }while(!settler.isSettled(&time, error.convert(okapi::inch)));
     chassis->setPower(0, 0);
 }
 
-void OdomController::turnToAngle(const double& angle, Settler settler){
+void OdomController::turnToAngle(const okapi::QAngle& angle, Settler settler){
     turnPID->initialize();
     auto time = pros::millis();
-    double error;
+    okapi::QAngle error;
 
     do{
-        error = angle - odom->getAngleDeg();
-        double power = turnPID->update(error);
+        error = angle - odom->getAngle();
+        double power = turnPID->update(error.convert(okapi::degree));
         chassis->setPower(power, -power);
         pros::delay(10); 
-    }while(!settler.isSettled(&time, error));
+    }while(!settler.isSettled(&time, error.convert(okapi::degree)));
     chassis->setPower(0, 0);
 }
 
 void OdomController::turnToPoint(const Point2D& target, Settler settler){
     turnPID->initialize();
     auto time = pros::millis();
-    double error;
+    okapi::QAngle error;
 
     do{
         error = (odom->getPos()).angleTo(target);
-        double power = turnPID->update(error);
+        double power = turnPID->update(error.convert(okapi::degree));
         chassis->setPower(power, -power);
         pros::delay(10); 
-    }while(!settler.isSettled(&time, error));
+    }while(!settler.isSettled(&time, error.convert(okapi::degree)));
     chassis->setPower(0, 0);
 }    
 }
+
+

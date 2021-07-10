@@ -45,6 +45,8 @@ class Translation2D{
 
     bool operator!=(const Translation2D& rhs) const;
 
+    okapi::QAngle angle() const;
+
     okapi::QLength distanceTo(const Translation2D& other) const;
 
     okapi::QAngle angleTo(const Translation2D& other) const;

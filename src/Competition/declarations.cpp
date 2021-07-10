@@ -69,8 +69,8 @@ void initSubsystems(){
     odom->reset();
     chassis->initialize();
 
-    chassis->moveDistance(25, Settler::makeSettler().withMaxTime(5_s).withMaxError(0.5).withMaxDeriv(0).wait(200_ms));
-    odomController->moveToPoint(Point2D(3_in, 6_in), 1.5, Settler::makeSettler().withMaxTime(40000_ms).withMaxError(1).wait(200_ms));
+    chassis->moveDistance(25_in, Settler::makeSettler().withMaxTime(5_s).withMaxError(0.5).withMaxDeriv(0).wait(200_ms));
+    odomController->moveToPoint({3_in, 6_in}, 1.5, Settler::makeSettler().withMaxTime(40000_ms).withMaxError(1).wait(200_ms));
 }
 
 void startTask(){

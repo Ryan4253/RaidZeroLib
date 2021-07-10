@@ -1,5 +1,5 @@
 #pragma once
-#include "lib4253/Splines/Geometry/Pose2D.hpp"
+#include "lib4253/Trajectory/Geometry/Pose2D.hpp"
 #include "lib4253/Utility/Math.hpp"
 #include "lib4253/Utility/TaskWrapper.hpp"
 #include "lib4253/Utility/Units.hpp"

@@ -1,15 +1,29 @@
 #include "lib4253/Controller/BangBang.hpp"
 namespace lib4253{
 
-BangBang::BangBang(const double& h, const double& l, const double& t){
-    highPower = h, lowPower = l, targetVel = t;
+BangBang::BangBang(const BangBangGain& gain){
+    this->gain = gain;
 }
 
-void BangBang::setTargetVel(const double& t){
-    targetVel = t;
+void BangBang::initialize(){
+    error = 0;
 }
 
-double BangBang::step(const double& v) const {
-    return v > targetVel ? highPower : lowPower;
+void BangBang::reset(){
+    error = 0;
 }
+
+double BangBang::step(const double& val){
+    error = val;
+    if(error < gain.range){
+        return output = gain.targetPower;
+    }
+    else if(error > gain.range){
+        return output = gain.highPower;
+    }
+    else{
+        return output = gain.lowPower;
+    }
+}
+
 }

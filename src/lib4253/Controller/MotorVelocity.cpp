@@ -1,19 +1,19 @@
 #include "lib4253/Controller/MotorVelocity.hpp"
 namespace lib4253{
 
-MotorVelocityController::MotorVelocityController(const double& _kV, const double& _kA, const double& _kP){
-    setGain(_kV, _kA, _kP);
+MotorController::MotorController(){
+    this->gain = {0,0,0};
 }
 
-void MotorVelocityController::setGain(const double& _kV, const double& _kA, const double& _kP){
-    kV = _kV, kA = _kA, kP = _kP;
+MotorController::MotorController(const MotorControllerGain& gain){
+    setGain(gain);
 }
 
-double MotorVelocityController::calcPower(const double& velocity, const double& acceleration, const double& currentRPM) const {
-    return kV * velocity + kA * acceleration + kP * (velocity - currentRPM);
+void MotorController::setGain(const MotorControllerGain& gain){
+    this->gain = gain;
 }
 
-double MotorVelocityController::calcPower(const TrajectoryPoint& v, const double& currentRPM) const {
-    return kV * v.linVelocity.convert(okapi::mps) + kA * v.linAcceleration.convert(okapi::mps2) + kP * (v.angVelocity.convert(okapi::rpm) - currentRPM);
+double MotorController::calcPower(const double& velocity, const double& acceleration, const double& currentRPM) const {
+    return gain.kV * velocity + gain.kA * acceleration + gain.kP * (velocity - currentRPM);
 }
 }

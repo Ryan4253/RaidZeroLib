@@ -11,16 +11,21 @@
 
 #pragma once
 #include "lib4253/Filter/EMA.hpp"
-#include "pros/rtos.hpp"
-#include <math.h>
+#include "lib4253/Controller/AbstractVelocityController.hpp"
+#include "okapi/api/util/timeUtil.hpp"
+#include "okapi/impl/util/timeUtilFactory.hpp"
+#include <cmath>
 namespace lib4253{
-class PID {
+
+struct PIDGain {
+    double kP, kI, kD, maxIntegral, minDist, emaGain;
+};
+
+class PID : public AbstractVelocityController<PIDGain> {
     private:
-    double kP, kI, kD;
-    double error, prevError, integral, derivative;
-    double maxIntegral, minDist;
-    double time, prevTime;
-    lib4253::EmaFilter dEMA;
+    double prevError{0}, integral{0}, derivative{0};
+    lib4253::EmaFilter derivEMA{0};
+    okapi::TimeUtil timer = std::move(okapi::TimeUtilFactory::createDefault());
 
     public:
     /**
@@ -31,12 +36,10 @@ class PID {
 
     /**
      * @brief Construct a new PID object
-     *
-     * @param a proportional gain
-     * @param b integral gain
-     * @param c derivative gain
+     * 
+     * @param gain kP, kI, kD
      */
-    PID(const double& a, const double& b, const double& c);
+    PID(const PIDGain& gain);
 
     /**
      * @brief Destroys the PID object
@@ -44,14 +47,7 @@ class PID {
      */
     ~PID() = default;
 
-    /**
-     * @brief Set gains for PID controller
-     *
-     * @param a proportional gain
-     * @param b integral gain
-     * @param c derivative gain
-     */
-    void setGain(const double& a, const double& b, const double& c);
+    void setPIDGain(const double& kP, const double& kI, const double& kD);
 
     /**
      * @brief Set integral gain
@@ -68,52 +64,96 @@ class PID {
      */
     void setEMAGain(const double& alpha);
 
+    double getIntegral() const;
+    
+    double getDerivative() const;
+
     /**
      * @brief Initializes PID controller
      *
      */
-    void initialize();
+    void initialize() override;
+
+    void reset() override;
 
     /**
      * @brief Updates PID controller - the main meat of the PID controller
      *
-     * @param error error or how far the robot's from the target location
+     * @param val error or how far the robot's from the target location
      * @return power to the motor
      */
-    double update(const double& error);
+    double step(const double& val) override;
+};
 
-    double getError() const;
+struct FFPIDGain {
+    double kF, kP, kI, kD, maxIntegral, minDist, emaGain;
 };
 
 /**
  * @brief PID Controller class with feed forward
  *
  */
-class FPID : PID{
+class FFPID : public AbstractVelocityController<FFPIDGain>{
     private:
-    double kF, target;
-    
+    PID pid;
+
     public:
     /**
-     * @brief Sets Feed Forward gain
+     * @brief Construct a new PID object
      *
-     * @param f FF gain
      */
-    void setFGain(const double& f);
-    
+    FFPID() = default;
+
     /**
-     * @brief Set desired target to calculate FF
-     *
-     * @param t target distance
+     * @brief Construct a new PID object
+     * 
+     * @param gain kP, kI, kD
      */
-    void setTarget(const double& t);
-    
+    FFPID(const FFPIDGain& gain, const double& target);
+
     /**
-     * @brief Updates raw power based on FF
-     *
-     * @param error error or how far the robot's from the target location
-     * @return updated power to the motor
+     * @brief Destroys the PID object
+     * 
      */
-    double fUpdate(const double& error);
+    ~FFPID() = default;
+
+    void setFFGain(const double& kF);
+
+    void setPIDGain(const double& kP, const double& kI, const double& kD);
+
+    /**
+     * @brief Set integral gain
+     *
+     * @param windup
+     * @param dist
+     */
+    void setIGain(const double& windup, const double& dist);
+
+    /**
+     * @brief Sets gain for exponential moving average
+     *
+     * @param alpha EMA gain
+     */
+    void setEMAGain(const double& alpha);
+
+    double getIntegral() const;
+    
+    double getDerivative() const;
+
+    /**
+     * @brief Initializes PID controller
+     *
+     */
+    void initialize() override;
+
+    void reset() override;
+
+    /**
+     * @brief Updates PID controller - the main meat of the PID controller
+     *
+     * @param val error or how far the robot's from the target location
+     * @return power to the motor
+     */
+    double step(const double& val) override;
 };
 }

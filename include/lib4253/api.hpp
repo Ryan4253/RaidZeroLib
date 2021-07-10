@@ -6,15 +6,14 @@
 #include "lib4253/Utility/Settler.hpp" // done
 #include "lib4253/Utility/StateMachine.hpp" // done
 
-#include "lib4253/Splines/Geometry/Point2D.hpp" // done
-#include "lib4253/Splines/Geometry/Pose2D.hpp" // done
-#include "lib4253/Splines/Geometry/Transform2D.hpp" // done
-#include "lib4253/Splines/Geometry/Rotation2D.hpp" // done
-#include "lib4253/Splines/Geometry/Twist2D.hpp"
+#include "lib4253/Trajectory/Geometry/Point2D.hpp" // done
+#include "lib4253/Trajectory/Geometry/Pose2D.hpp" // done
+#include "lib4253/Trajectory/Geometry/Transform2D.hpp" // done
+#include "lib4253/Trajectory/Geometry/Rotation2D.hpp" // done
+#include "lib4253/Trajectory/Geometry/Twist2D.hpp"
 
-
-#include "lib4253/Splines/SimplePath.hpp" // done
-#include "lib4253/Splines/Trajectory.hpp" // done
+#include "lib4253/Trajectory/SimplePath.hpp" // done
+#include "lib4253/Trajectory/Trajectory.hpp" // done
 
 #include "lib4253/Filter/Filter.hpp" // done
 #include "lib4253/Filter/EMA.hpp" // done
@@ -23,6 +22,7 @@
 #include "lib4253/Filter/Kalman.hpp" // done
 #include "lib4253/Filter/Biquad.hpp" // done
 
+#include "lib4253/Controller/AbstractVelocityController.hpp"
 #include "lib4253/Controller/MotorVelocity.hpp" // done
 #include "lib4253/Controller/PID.hpp" // done
 #include "lib4253/Controller/Slew.hpp" // done

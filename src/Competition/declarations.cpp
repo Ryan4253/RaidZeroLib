@@ -33,12 +33,12 @@ std::shared_ptr<lib4253::Chassis> chassis;
 std::shared_ptr<lib4253::OdomController> odomController;
 
 void initSubsystems(){
-    leftBack = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, std::tuple<double, double, double>{1, 1, 1});
-    leftFront = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, std::tuple<double, double, double>{1, 1, 1});
-    leftTop = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, std::tuple<double, double, double>{1, 1, 1});
-    rightBack = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, std::tuple<double, double, double>{1, 1, 1});
-    rightFront = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, std::tuple<double, double, double>{1, 1, 1});
-    rightTop = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, std::tuple<double, double, double>{1, 1, 1});
+    leftBack = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, MotorControllerGain{1, 1, 1});
+    leftFront = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, MotorControllerGain{1, 1, 1});
+    leftTop = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, MotorControllerGain{1, 1, 1});
+    rightBack = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, MotorControllerGain{1, 1, 1});
+    rightFront = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, MotorControllerGain{1, 1, 1});
+    rightTop = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, MotorControllerGain{1, 1, 1});
 
     odom = std::make_shared<ThreeWheelOdometry>(
         std::make_shared<ADIEncoder>('A', 'B', true), 
@@ -52,18 +52,18 @@ void initSubsystems(){
         std::initializer_list<std::shared_ptr<lib4253::Motor>>{rightFront, rightBack, leftTop},
         ChassisScales({4.14_in, 12.44_in}, 360),
         std::make_shared<IMU>(3),
-        std::move(std::make_unique<SlewController>(9, 256)),
-        std::move(std::make_unique<PID>(0, 0, 0)),
-        std::move(std::make_unique<PID>(0, 0, 0)),
-        std::move(std::make_unique<PID>(0, 0, 0))
+        std::move(std::make_unique<SlewController>()),
+        std::move(std::make_unique<PID>()),
+        std::move(std::make_unique<PID>()),
+        std::move(std::make_unique<PID>())
     );
 
     odomController = std::make_shared<OdomController>(
         chassis, odom, 3_in,
-        std::move(std::make_unique<PID>(0, 0, 0)),
-        std::move(std::make_unique<PID>(0, 0, 0)),
-        std::move(std::make_unique<PID>(0, 0, 0)),
-        std::move(std::make_unique<SlewController>(9, 256))
+        std::move(std::make_unique<PID>()),
+        std::move(std::make_unique<PID>()),
+        std::move(std::make_unique<PID>()),
+        std::move(std::make_unique<SlewController>(SlewGain{9, 256}))
     );
 
     odom->reset();

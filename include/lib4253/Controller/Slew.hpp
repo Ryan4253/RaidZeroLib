@@ -12,25 +12,29 @@
 #pragma once
 // #include <math.h> hahaha, cmath is the way to go lmao
 #include <cmath>
+#include "lib4253/Controller/AbstractVelocityController.hpp"
 
 namespace lib4253{
+
+struct SlewGain {
+    double accStep, decStep;
+};
 
 /**
  * @brief Slew controller class
  *
  */
-class SlewController{
+class SlewController : public AbstractVelocityController<SlewGain> {
     protected:
     double speed;
-    double accStep;
-    double decStep;
+    SlewGain gain;
     
-    public:
+    public:  
     /**
      * @brief Construct a new Slew Controller object
      *
      */
-    SlewController();
+    SlewController() = default;
     
     /**
      * @brief Construct a new Slew Controller object
@@ -38,7 +42,7 @@ class SlewController{
      * @param accel acceleration step (how much the velocity increases everytime the robot refreshes)
      * @param decel deceleration step (^ vise versa)
      */
-    SlewController(const double& accel, const double& decel);
+    SlewController(const SlewGain& gain);
 
     /**
      * @brief Destroys the Slew Controller object
@@ -46,26 +50,21 @@ class SlewController{
      */
     ~SlewController() = default;
     
-    /**
-     * @brief Set acceleration and deceleration steps
-     *
-     * @param a acceleration step
-     * @param d deceleration step
-     */
-    void setStep(const double& a, const double& d);
     
     /**
      * @brief Resets slew controller
      * 
      */
-    void reset();
+    void reset() override;
+
+    void initialize() override;
     
     /**
      * @brief Calculates output power
      *
-     * @param target target power
+     * @param val target power
      * @return (possibly) modified power
      */
-    double step(const double& target);
+    double step(const double& val) override;
 };
 }

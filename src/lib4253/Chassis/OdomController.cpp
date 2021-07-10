@@ -44,8 +44,8 @@ void OdomController::moveToPoint(const Point2D& target, const double& turnScale,
         pros::lcd::print(4, "Drive Error: %lf", driveError);
         pros::lcd::print(5, "Turn Error: %lf", turnError);
 
-        double drivePower = drivePID->update(-driveError.convert(okapi::inch));
-        double turnPower = turnPID->update(-turnError.convert(okapi::degree));
+        double drivePower = drivePID->step(-driveError.convert(okapi::inch));
+        double turnPower = turnPID->step(-turnError.convert(okapi::degree));
 
         pros::lcd::print(6, "Drive Power: %lf", drivePower);
         pros::lcd::print(7, "Turn Power: %lf", turnPower);
@@ -69,8 +69,8 @@ void OdomController::moveToX(const QLength& targetX, Settler settler){
         error = (targetX - odom->getX());
         okapi::QAngle aError = initAngle - odom->getAngle(); 
 
-        double power = drivePID->update(error.convert(okapi::inch));
-        double aPower = anglePID->update(aError.convert(okapi::degree));
+        double power = drivePID->step(error.convert(okapi::inch));
+        double aPower = anglePID->step(aError.convert(okapi::degree));
         std::pair<double, double> finalPower = chassis->scaleSpeed(power, aPower, driveSlew->step(std::fabs(power + aPower)));
         chassis->setPower(finalPower.first, finalPower.second);
         pros::delay(10); 
@@ -90,8 +90,8 @@ void OdomController::moveToY(const QLength& targetY, Settler settler){
         error = (targetY - odom->getY());
         okapi::QAngle aError = initAngle - odom->getAngle(); 
 
-        double power = drivePID->update(error.convert(okapi::inch));
-        double aPower = anglePID->update(aError.convert(okapi::degree));
+        double power = drivePID->step(error.convert(okapi::inch));
+        double aPower = anglePID->step(aError.convert(okapi::degree));
         std::pair<double, double> finalPower = chassis->scaleSpeed(power, aPower, driveSlew->step(std::fabs(power + aPower)));
         chassis->setPower(finalPower.first, finalPower.second);
         pros::delay(10); 
@@ -106,7 +106,7 @@ void OdomController::turnToAngle(const okapi::QAngle& angle, Settler settler){
 
     do{
         error = angle - odom->getAngle();
-        double power = turnPID->update(error.convert(okapi::degree));
+        double power = turnPID->step(error.convert(okapi::degree));
         chassis->setPower(power, -power);
         pros::delay(10); 
     }while(!settler.isSettled(&time, error.convert(okapi::degree)));
@@ -120,7 +120,7 @@ void OdomController::turnToPoint(const Point2D& target, Settler settler){
 
     do{
         error = (odom->getPos()).angleTo(target);
-        double power = turnPID->update(error.convert(okapi::degree));
+        double power = turnPID->step(error.convert(okapi::degree));
         chassis->setPower(power, -power);
         pros::delay(10); 
     }while(!settler.isSettled(&time, error.convert(okapi::degree)));

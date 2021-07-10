@@ -2,61 +2,104 @@
 namespace lib4253{
 
 PID::PID(){
-    kP = 0, kI = 0, kD = 0;
-    maxIntegral = 1000000000, minDist = 1000000000;
+    this->gain = {0,0,0, 1000000000, 1000000000, 1};
+    this->derivEMA.setGain(gain.emaGain);
 }
 
-PID::PID(const double& a, const double& b, const double& c){
-    kP = a, kI = b, kD = c;
-    maxIntegral = 1000000000, minDist = 1000000000;
+PID::PID(const PIDGain& gain){
+    this->gain = gain;
+    this->derivEMA.setGain(gain.emaGain);
 }
 
-void PID::setGain(const double& a, const double& b, const double& c){
-    kP = a, kI = b, kD = c;
+void PID::setPIDGain(const double& kP, const double& kI, const double& kD){
+    gain.kP = kP, gain.kI = kI, gain.kD = kD;
 }
 
 void PID::setIGain(const double& windup, const double& dist){
-    maxIntegral = windup, minDist = dist;
+    gain.maxIntegral = windup, gain.minDist = dist;
 }
 
 void PID::setEMAGain(const double& alpha){
-    dEMA.setGain(alpha);
+    gain.emaGain = alpha;
+    derivEMA.setGain(alpha);
 }
 
-void PID::initialize() {
-    prevError = 0, integral = 0;
-    dEMA.reset();
-    prevTime = pros::millis();
+double PID::getDerivative() const{
+    return derivative;
 }
 
-double PID::update(const double& err) {
+double PID::getIntegral() const{
+    return integral;
+}
+
+void PID::initialize(){
+    reset();
+}
+
+void PID::reset(){
+    error = 0, prevError = 0, derivative = 0, integral = 0, output = 0;
+    derivEMA.reset();
+    timer.getTimer()->getDt();
+}
+
+double PID::step(const double& val) {
     // P calculation
-    error = err; // error
+    error = val; // error
     // D calculation
-    time = pros::millis();
-    derivative = dEMA.filter((error - prevError) / (time - prevTime)); // dE / dT, filtered with an EMA filter
-    prevTime = time;
+    derivative = derivEMA.filter((error - prevError) / (timer.getTimer()->getDt().convert(okapi::millisecond))); // dE / dT, filtered with an EMA filter
     prevError = error;
     // I calculation
-    integral += error * (error <= minDist); // where to start collecting
-    integral *= (((int)error ^ (int)prevError) >= 0); // set to 0 once passes setpoint
-    integral = fmin(integral, maxIntegral); // cap integral to a limit
-    return error * kP + integral * kI + derivative * kD; // final power output
-}   
-
-double PID::getError() const {
-    return error;
+    integral += error * (error <= gain.minDist); // where to start collecting
+    integral *= (signbit(error) != signbit(prevError)); // set to 0 once passes setpoint
+    integral = fmin(integral, gain.maxIntegral); // cap integral to a limit
+    return output = error * gain.kP + integral * gain.kI + derivative * gain.kD; // final power output
 }
 
-void FPID::setFGain(const double& f){
-    kF = f;
-}   
 
-void FPID::setTarget(const double& t){
-    target = t;
+///////////////////////////////////////////////
+
+FFPID::FFPID(const FFPIDGain& iGain, const double& target){
+    this->gain = gain;
+    pid.setGain({gain.kP, gain.kI, gain.kD, gain.maxIntegral, gain.minDist, gain.emaGain});
+    this->target = target;
 }
 
-double FPID::fUpdate(const double& error) {
-    return update(error) + kF * target;
+void FFPID::setFFGain(const double& kF){
+    gain.kF = kF;
 }
+
+void FFPID::setPIDGain(const double& kP, const double& kI, const double& kD){
+    pid.setPIDGain(kP, kI, kD);
+}
+
+void FFPID::setIGain(const double& windup, const double& dist){
+    pid.setIGain(windup, dist);
+}
+
+void FFPID::setEMAGain(const double& alpha){
+    pid.setEMAGain(alpha);
+}
+
+double FFPID::getDerivative() const{
+    return pid.getDerivative();
+}
+
+double FFPID::getIntegral() const{
+    return pid.getIntegral();
+}
+
+void FFPID::initialize(){
+    reset();
+    output = 0;
+}
+
+void FFPID::reset(){
+    pid.reset();
+    output = 0;
+}
+
+double FFPID::step(const double& val) {
+    return output = gain.kF * target + pid.step(val); // final power output
+}
+
 }

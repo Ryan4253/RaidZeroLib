@@ -215,17 +215,17 @@ void Chassis::moveDistance(const okapi::QLength& dist, Settler settler) const{
 
         do{
             okapi::QLength error = dist - Math::angleToArcLength(getEncoderReading() * okapi::degree, dimension.wheelDiameter/2);
-            double power = drivePID->update(error.convert(okapi::inch)), adjustment;
+            double power = drivePID->step(error.convert(okapi::inch)), adjustment;
 
             if(!anglePID){
                 adjustment = 0;
             }
             else if(!inertial){
                 double tickTravelled = getLeftEncoderReading() - getRightEncoderReading();
-                adjustment = anglePID->update(Math::angleWrap180(Math::angleToYaw(tickTravelled * okapi::degree, dimension)).convert(okapi::degree));
+                adjustment = anglePID->step(Math::angleWrap180(Math::angleToYaw(tickTravelled * okapi::degree, dimension)).convert(okapi::degree));
             }
             else{
-                adjustment = anglePID->update(Math::angleWrap180(inertial->get() * okapi::degree).convert(okapi::degree));
+                adjustment = anglePID->step(Math::angleWrap180(inertial->get() * okapi::degree).convert(okapi::degree));
             }
             
             std::pair<double, double> finalPower = scaleSpeed(power, adjustment, driveSlew->step(std::fabs(power + adjustment)));
@@ -269,7 +269,7 @@ void Chassis::turnAngle(const okapi::QAngle& angle, Settler settler) const{
                 error = target - Math::angleWrap180(Math::angleToYaw(tickTravelled * okapi::degree, dimension));
             }
 
-            double power = turnPID->update(error.convert(okapi::degree));
+            double power = turnPID->step(error.convert(okapi::degree));
             setPower(desaturate(power, -power, driveSlew->step(std::abs(power))));
             pros::delay(10); 
         }while(!settler.isSettled(&time, turnPID->getError()));

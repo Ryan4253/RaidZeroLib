@@ -1,6 +1,6 @@
 /**
  * @file BangBang.hpp
- * @author Ryan Liao (23RyanL@students.tas.tw)
+ * @author Ryan Liao (23RyanL@students.tas.tw) & Jason Zhou (24JasonZ@students.tas.tw)
  * @brief Bang Bang controller - simply stated, a primitive PID controller
  * @version 0.1
  * @date 2021-05-20
@@ -11,22 +11,32 @@
 
 
 #pragma once
+#include "lib4253/Controller/AbstractVelocityController.hpp"
 namespace lib4253{
+
+struct BangBangGain {
+    double highPower{12000}, targetPower{6000}, lowPower{4000}, range{100};
+};
 
 /**
  * @brief BangBang class
  *
  */
-class BangBang{
-    double highPower, lowPower, targetVel;
+class BangBang : public AbstractVelocityController<BangBangGain>{
+    public:
     /**
      * @brief Construct a new Bang Bang object
-     *
-     * @param h sets velocity to h when the actual velocity is less than the target velocity
-     * @param l sets velocity to l when the actual velocity is greater than the target velocity
-     * @param t target velocity
+     * 
+     * @param gain highPower, lowPower, targetVel
      */
-    BangBang(const double& h, const double& l, const double& t);
+    BangBang() = default;
+
+    /**
+     * @brief Sets gain
+     * 
+     * @param gain highPower, lowPower, targetVel
+     */
+    BangBang(const BangBangGain& gain);
 
     /**
      * @brief Destroys the Bang Bang object
@@ -34,18 +44,16 @@ class BangBang{
      */
     ~BangBang() = default;
     
-    /**
-     * @brief Sets target velocity for Bang Bang controller
-     *
-     * @param t target velocity
-     */
-    void setTargetVel(const double& t);
+    void reset() override;
+
+    void initialize() override;
+
     /**
      * @brief Determines the amount of power needed based on real-time velocity
      *
-     * @param v actual velocity
+     * @param val error
      * @return new velocity
      */
-    double step(const double& v) const;
+    double step(const double& val);
 };
 }

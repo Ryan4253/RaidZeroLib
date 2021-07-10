@@ -3,47 +3,33 @@
 #include <cmath>
 namespace lib4253{
 
-TakeBackHalf::TakeBackHalf(const double& g){
-    gain = g;
+TakeBackHalf::TakeBackHalf(const TBHGain& gain){
+    this->gain = gain;
 }
 
-void TakeBackHalf::setGain(const double& g){
-    gain = g;
-}
-
-void TakeBackHalf::setTargetVel(const double& target){
-    targetVel = target;
-}
-
-void TakeBackHalf::setApproxVel(const double& approx){
-    approxVel = approx;
+void TakeBackHalf::reset(){
+    firstCross = true;
+    output = 0, tbh = 0;
+    error = 0, prevError = 0;
 }
 
 void TakeBackHalf::initialize(){
-    firstCross = true;
-    output = 0, tbhVal = 0;
-    error = targetVel, prevError = targetVel;
+    reset();
 }
 
-double TakeBackHalf::step(const double& rpm){
-    error = targetVel - rpm;
-    output += error * gain;
-    if(output > 127){
-        output = 127;
-    }
-    else if(output < 0){
-        output = 0;
-    }
+double TakeBackHalf::step(const double& val){
+    error = val;
+    output += error * gain.gain;
 
     if(signbit(error) != signbit(prevError)){
         if(firstCross){
-            output = approxVel;
+            output = gain.approxVel;
             firstCross = false;
         }
         else{
-            output = 0.5 * (output + tbhVal);
+            output = 0.5 * (output + tbh);
         }
-        tbhVal = output;
+        tbh = output;
     }
     prevError = error;
     return output;

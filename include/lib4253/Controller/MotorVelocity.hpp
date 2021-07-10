@@ -10,40 +10,45 @@
  */
 
 #pragma once
-#include "lib4253/Splines/Trajectory.hpp"
 
 namespace lib4253{
+
+struct MotorControllerGain {
+    double kV{0}, kA{0}, kP{0};
+};
 
 /**
  * @brief Velocity Controller class
  *
  */
-class MotorVelocityController{
-    double kV{0}, kA{0}, kP{0};
+class MotorController{
+    MotorControllerGain gain;
     public:
     /**
-     * @brief Constructs the velocity controller
-     *
-     * @param _kV velocity gain
-     * @param _kA acceleration gain
-     * @param _kP proportional gain
+     * @brief Construct a new Motor Velocity Controller object
+     * 
      */
-    MotorVelocityController(const double& _kV, const double& _kA, const double& _kP);
+    MotorController();
+
+    /**
+     * @brief Construct a new Motor Velocity Controller object
+     * 
+     * @param gain kV, kA, kP
+     */
+    MotorController(const MotorControllerGain& gain);
 
     /**
      * @brief Destructs the velocity controller
      *
      */
-    ~MotorVelocityController() = default;
+    ~MotorController() = default;
 
     /**
-     * @brief Sets gain for velocity controller
-     *
-     * @param _kV velocity gain
-     * @param _kA acceleration gain
-     * @param _kP proportional gain
+     * @brief Construct a new Motor Velocity Controller object
+     * 
+     * @param gain kV, kA, kP
      */
-    void setGain(const double& _kV, const double& _kA, const double& _kP);
+    void setGain(const MotorControllerGain& gain);
 
     /**
      * @brief Calulates raw power for motor
@@ -54,15 +59,6 @@ class MotorVelocityController{
      * @return power (voltage) to be fed into the motor
      */
     double calcPower(const double& velocity, const double& acceleration, const double& currentRPM) const;
-
-    /**
-     * @brief Calulates raw power for motor
-     *
-     * @param v stores the velocity and acceleration for each time step
-     * @param currentRPM current motor velocity
-     * @return power to be fed into the motor
-     */
-    double calcPower(const TrajectoryPoint& v, const double& currentRPM) const;
 };
 }
 

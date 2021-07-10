@@ -11,29 +11,37 @@
 
 #pragma once
 #include "lib4253/Utility/Math.hpp"
+#include "lib4253/Controller/AbstractVelocityController.hpp"
 #include <math.h>
 
 namespace lib4253{
+
+struct TBHGain {
+    double gain, approxVel;
+};
 
 /**
  * @brief TBH class
  *
  */
-class TakeBackHalf{
+class TakeBackHalf : public AbstractVelocityController<TBHGain> {
     private:
-    double error, prevError;
-    double targetVel, approxVel;
-    double output, tbhVal;
-    double gain;
+    double prevError, tbh;
     bool firstCross;
     
     public:
     /**
      * @brief Construct a new Take Back Half object
+     * 
+     */
+    TakeBackHalf() = default;;
+
+    /**
+     * @brief Construct a new Take Back Half object
      *
      * @param g TBH gain
      */
-    TakeBackHalf(const double& g);
+    TakeBackHalf(const TBHGain& gain);
 
     /**
      * @brief Destroys the Take Back Half object
@@ -42,31 +50,12 @@ class TakeBackHalf{
     ~TakeBackHalf() = default;
     
     /**
-     * @brief Set the gain
-     *
-     * @param g TBH gain
-     */
-    void setGain(const double& g);
-    
-    /**
-     * @brief Set the Target Velocity
-     *
-     * @param target tarvel velocity
-     */
-    void setTargetVel(const double& target);
-    
-    /**
-     * @brief Sets the approximate power for the motor after crossing the target output for the first time
-     *
-     * @param approx approximation of the power
-     */
-    void setApproxVel(const double& approx);
-    
-    /**
      * @brief Initializes TBH controller
      *
      */
-    void initialize();
+    void initialize() override;
+
+    void reset() override;
     
     /**
      * @brief Calculates power for the motor
@@ -74,6 +63,6 @@ class TakeBackHalf{
      * @param rpm current motor velocity
      * @return modified motor velocity
      */
-    double step(const double& rpm);
+    double step(const double& val) override;
 };  
 }

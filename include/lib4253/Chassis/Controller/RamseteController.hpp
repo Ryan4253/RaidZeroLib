@@ -1,6 +1,6 @@
 #pragma once
-#include "Drive.hpp"
-#include "Odometry.hpp"
+#include "lib4253/Chassis/Device/Chassis.hpp"
+#include "lib4253/Chassis/Device/Odometry.hpp"
 #include "lib4253/Trajectory/Trajectory.hpp"
 #include "lib4253/Utility/Units.hpp"
 namespace lib4253{

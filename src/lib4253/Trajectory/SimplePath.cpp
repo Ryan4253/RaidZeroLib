@@ -1,4 +1,4 @@
-#include "lib4253/Splines/SimplePath.hpp"
+#include "lib4253/Trajectory/SimplePath.hpp"
 namespace lib4253{
 
 /////////////////////////////// PATH /////////////////////////////////

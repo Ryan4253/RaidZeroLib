@@ -8,7 +8,7 @@ OdomController::OdomController(std::shared_ptr<Chassis> iChassis,
                                 std::unique_ptr<PID> iDrivePID, 
                                 std::unique_ptr<PID> iTurnPID, 
                                 std::unique_ptr<PID> iAnglePID, 
-                                std::unique_ptr<SlewController> iSlew
+                                std::unique_ptr<Slew> iSlew
                                 )
 {
     chassis = iChassis;

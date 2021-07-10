@@ -10,6 +10,7 @@
  */
 
 #pragma once
+#include "lib4253/Utility/Units.hpp"
 
 namespace lib4253{
 
@@ -28,7 +29,7 @@ class MotorController{
      * @brief Construct a new Motor Velocity Controller object
      * 
      */
-    MotorController();
+    MotorController() = default;
 
     /**
      * @brief Construct a new Motor Velocity Controller object
@@ -58,7 +59,7 @@ class MotorController{
      * @param currentRPM current motor velocity
      * @return power (voltage) to be fed into the motor
      */
-    double calcPower(const double& velocity, const double& acceleration, const double& currentRPM) const;
+    double step(const okapi::QSpeed& velocity, const okapi::QAcceleration& acceleration, const okapi::QSpeed& currentSpeed) const;
 };
 }
 

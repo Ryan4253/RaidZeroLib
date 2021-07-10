@@ -1,5 +1,5 @@
-#include "lib4253/Chassis/Drive.hpp"
-#include "lib4253/Chassis/Odometry.hpp"
+#include "lib4253/Chassis/Device/Chassis.hpp"
+#include "lib4253/Chassis/Device/Odometry.hpp"
 
 namespace lib4253{
 
@@ -11,7 +11,7 @@ class OdomController{
                                    std::unique_ptr<PID> iDrivePID, 
                                    std::unique_ptr<PID> iTurnPID, 
                                    std::unique_ptr<PID> iAnglePID, 
-                                   std::unique_ptr<SlewController> iSlew);
+                                   std::unique_ptr<Slew> iSlew);
                                 
     ~OdomController() = default;  
 
@@ -27,7 +27,7 @@ class OdomController{
     std::unique_ptr<PID> drivePID;
     std::unique_ptr<PID> turnPID;
     std::unique_ptr<PID> anglePID;
-    std::unique_ptr<SlewController> driveSlew;
+    std::unique_ptr<Slew> driveSlew;
     okapi::QLength angleCorrectionRadius;
 };
 

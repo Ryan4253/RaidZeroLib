@@ -1,11 +1,11 @@
-#include "lib4253/Chassis/Drive.hpp"
+#include "Chassis.hpp"
 namespace lib4253{
 
 Chassis::Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
 			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
 			const ChassisScales& idimension,
 			std::shared_ptr<IMU> imu,
-			std::unique_ptr<SlewController> iSlew,
+			std::unique_ptr<Slew> iSlew,
 			std::unique_ptr<PID> iDrivePID, 
 			std::unique_ptr<PID> iTurnPID,
 			std::unique_ptr<PID> iAnglePID):
@@ -21,7 +21,7 @@ left(iLeft), right(iRight), dimension(idimension)
 Chassis::Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
 			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
 			const ChassisScales& idimension,
-			std::unique_ptr<SlewController> iDriveSlew,
+			std::unique_ptr<Slew> iDriveSlew,
 			std::unique_ptr<PID> iDrivePID, 
 			std::unique_ptr<PID> iTurnPID,
 			std::unique_ptr<PID> iAnglePID,
@@ -168,21 +168,34 @@ void Chassis::setPower(const std::pair<double, double>& power) const{
 
 void Chassis::setVelocity(const double& lVelocity, const double& rVelocity) const{
     for(auto& motor : left){
-        motor->setRPM(lVelocity);
+        motor->moveVelocity(lVelocity);
     }
 
     for(auto& motor : right){
-        motor->setRPM(rVelocity);
+        motor->moveVelocity(rVelocity);
     }
 }
 
 void Chassis::setVelocity(const std::pair<double, double>& velocity) const{
     for(auto& motor : left){
-        motor->setRPM(velocity.first);
+        motor->moveVelocity(velocity.first);
     }
 
     for(auto& motor : right){
-        motor->setRPM(velocity.second);
+        motor->moveVelocity(velocity.second);
+    }
+}
+
+void Chassis::setVelocity(const std::pair<okapi::QSpeed, okapi::QAcceleration>& leftKinematics, const std::pair<okapi::QSpeed, okapi::QAcceleration>& rightKinematics) const{
+    okapi::QSpeed leftSpeed = left[0]->getFilteredRPM() * M_PI / 30 * dimension.wheelDiameter.convert(okapi::meter)/2 * okapi::mps;
+    okapi::QSpeed rightSpeed = right[0]->getFilteredRPM() * M_PI / 30 * dimension.wheelDiameter.convert(okapi::meter)/2 * okapi::mps;
+
+    for(int i = 0; i < left.size(); i++){
+        left[i]->setVelocity(leftKinematics.first, leftKinematics.second, leftSpeed);
+    }
+
+    for(int i = 0; i < right.size(); i++){
+        right[i]->setVelocity(rightKinematics.first, rightKinematics.second, rightSpeed);
     }
 }
 
@@ -293,6 +306,18 @@ std::pair<double, double> Chassis::desaturate(const double& left, const double& 
 
     return {leftPower, rightPower};
 }   
+
+std::pair<okapi::QSpeed, okapi::QSpeed> Chassis::inverseKinematics(okapi::QSpeed velocity, okapi::QAngularSpeed angularVelocity) const{
+    double angVel = angularVelocity.convert(okapi::radps);
+    okapi::QSpeed diff = angVel * dimension.wheelTrack.convert(okapi::meter) * okapi::mps;
+    return {velocity - diff, velocity + diff};
+}
+
+std::pair<okapi::QAcceleration, okapi::QAcceleration> Chassis::inverseKinematics(okapi::QAcceleration acceleration, okapi::QAngularAcceleration angularAcceleration) const{
+    double angAccel = angularAcceleration.convert(okapi::radps2);
+    okapi::QAcceleration diff = angAccel * dimension.wheelTrack.convert(okapi::meter) * okapi::mps2;
+    return {acceleration - diff, acceleration + diff};
+}
 
 void Chassis::tank(const double& left, const double& right){
     lControllerY = left * 12000;

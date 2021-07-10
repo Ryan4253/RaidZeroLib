@@ -1,5 +1,5 @@
 #pragma once
-#include "lib4253/Chassis/Odometry.hpp"
+#include "lib4253/Chassis/Device/Odometry.hpp"
 #include "lib4253/Utility/TaskWrapper.hpp"
 #include "okapi/api/units/QLength.hpp"
 #include "okapi/api/units/RQuantity.hpp"

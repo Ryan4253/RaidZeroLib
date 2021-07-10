@@ -3,9 +3,10 @@
 #include "lib4253/Utility/Math.hpp"
 #include "lib4253/Utility/Settler.hpp"
 #include "lib4253/Utility/StateMachine.hpp"
+#include "lib4253/Utility/Units.hpp"
 #include "lib4253/Controller/PID.hpp"
 #include "lib4253/Controller/Slew.hpp"
-#include "lib4253/Chassis/Motor.hpp"
+#include "lib4253/Chassis/Device/Motor.hpp"
 
 #include "okapi/impl/device/rotarysensor/IMU.hpp"
 #include "okapi/api/chassis/controller/chassisScales.hpp"
@@ -24,7 +25,7 @@ class Chassis: public TaskWrapper, public StateMachine<DriveState>{
 			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
 			const ChassisScales& iScale,
 			std::shared_ptr<IMU> imu,
-			std::unique_ptr<SlewController> iSlew = nullptr,
+			std::unique_ptr<Slew> iSlew = nullptr,
 			std::unique_ptr<PID> iDrivePID = nullptr, 
 			std::unique_ptr<PID> iTurnPID = nullptr,
 			std::unique_ptr<PID> iAnglePID = nullptr);
@@ -32,7 +33,7 @@ class Chassis: public TaskWrapper, public StateMachine<DriveState>{
 	Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
 			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
 			const ChassisScales& iScale,
-			std::unique_ptr<SlewController> iSlew = nullptr,
+			std::unique_ptr<Slew> iSlew = nullptr,
 			std::unique_ptr<PID> iDrivePID = nullptr, 
 			std::unique_ptr<PID> iTurnPID = nullptr,
 			std::unique_ptr<PID> iAnglePID = nullptr,
@@ -58,17 +59,20 @@ class Chassis: public TaskWrapper, public StateMachine<DriveState>{
     void setPower(const std::pair<double, double>& power) const;
 	void setVelocity(const double& lVelocity, const double& rVelocity) const;
     void setVelocity(const std::pair<double, double>& velocity) const;
+    void setVelocity(const std::pair<okapi::QSpeed, okapi::QAcceleration>& leftKinematics, const std::pair<okapi::QSpeed, okapi::QAcceleration>& rightKinematics) const;
 	void move(const double& lPower, const double& rPower, const QTime& timeLim) const;
 	void moveDistance(const okapi::QLength& dist, Settler = Settler::getDefaultSettler()) const;
 	void turnAngle(const okapi::QAngle& angle, Settler = Settler::getDefaultSettler()) const;
 
+    // chassis math functions
     std::pair<double, double> desaturate(const double& left, const double& right, const double& max) const;
 	std::pair<double, double> scaleSpeed(const double& linear, const double& yaw, const double& max) const;
+    std::pair<okapi::QSpeed, okapi::QSpeed> inverseKinematics(okapi::QSpeed velocity, okapi::QAngularSpeed angularVelocity) const;
+    std::pair<okapi::QAcceleration, okapi::QAcceleration> inverseKinematics(okapi::QAcceleration acceleration, okapi::QAngularAcceleration angularAcceleration) const;
 
     // driver control functions
 	void tank(const double& left, const double& right);
 	void arcade(const double& fwd, const double& yaw);
-
 
 	private:
 	std::vector<std::shared_ptr<Motor> > left {nullptr};
@@ -76,7 +80,7 @@ class Chassis: public TaskWrapper, public StateMachine<DriveState>{
     std::shared_ptr<IMU> inertial {nullptr};
     ChassisScales dimension;
 
-	std::unique_ptr<SlewController> driveSlew {nullptr};
+	std::unique_ptr<Slew> driveSlew {nullptr};
     std::unique_ptr<PID> drivePID {nullptr};
     std::unique_ptr<PID> turnPID {nullptr};
     std::unique_ptr<PID> anglePID {nullptr};
@@ -87,9 +91,6 @@ class Chassis: public TaskWrapper, public StateMachine<DriveState>{
 /*
 class Drive{
     public:
-    enum State{
-      TANK, ARCADE
-    };
 
     Drive(const std::initializer_list<okapi::Motor> &l, const std::initializer_list<okapi::Motor> &r);
     Drive& withOdometry(const CustomOdometry& tracker);
@@ -104,28 +105,13 @@ class Drive{
     State getState();
     void setState(State s);
 
-    void resetIMU();
-    double getAngle();
-
-    void move(double voltage);
-    void move(double  voltage, okapi::QTime time);
-
-    void moveDistance(double distance, okapi::QTime timeLimit);
-    void moveTo(Point2D target, double turnScale, okapi::QTime timeLimit);
-    void turnAngle(double angle, okapi::QTime timeLimit);
-    void turnToAngle(double angle, okapi::QTime timeLimit);
-
     void moveDistanceLMP(double distance);
     void moveDistanceLMPD(double distance);
 
     void followPath(SimplePath path);
-    void followPath(std::string name);
 
-    static void driveTask(void *ptr);
 
   protected:
-    okapi::MotorGroup left{nullptr};
-    okapi::MotorGroup right;
 
     private:
     std::shared_ptr<CustomOdometry> odom{nullptr};
@@ -133,18 +119,8 @@ class Drive{
     SlewController driveSlew;
     PurePursuitFollower PPTenshi;
     LinearMotionProfileController* bruhMobile;
-    MotorVelocityController leftVelController, rightVelController;
 
-    double gearRatio, trackWidth, wheelSize;
-    State driveState = TANK;
-    int prevAState = 0;
 
-    Point2D scaleSpeed(double linear, double turn, double turnScale);
-    void updateState();
-    void run();
-
-    void tank();
-    void arcade();
 };
 
 */

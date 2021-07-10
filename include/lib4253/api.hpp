@@ -23,7 +23,6 @@
 #include "lib4253/Filter/Biquad.hpp" // done
 
 #include "lib4253/Controller/AbstractVelocityController.hpp"
-#include "lib4253/Controller/MotorVelocity.hpp" // done
 #include "lib4253/Controller/PID.hpp" // done
 #include "lib4253/Controller/Slew.hpp" // done
 #include "lib4253/Controller/PurePursuit.hpp" // done
@@ -31,8 +30,11 @@
 #include "lib4253/Controller/TakeBackHalf.hpp" // done
 #include "lib4253/Controller/LinearMotionProfile.hpp" // done
 
-#include "lib4253/Chassis/Motor.hpp" // done
-#include "lib4253/Chassis/Odometry.hpp" // done
-#include "lib4253/Chassis/Drive.hpp" // done
-#include "lib4253/Chassis/OdomController.hpp" // done
-#include "lib4253/Chassis/RamseteController.hpp"
+#include "lib4253/Chassis/Device/Motor.hpp" // done
+#include "lib4253/Chassis/Device/Odometry.hpp" // done
+#include "lib4253/Chassis/Device/Chassis.hpp" // done
+
+#include "lib4253/Chassis/Controller/MotorController.hpp" // done
+#include "lib4253/Chassis/Controller/OdomController.hpp" // done
+#include "lib4253/Chassis/Controller/TrajectoryFollower.hpp"
+#include "lib4253/Chassis/Controller/RamseteController.hpp" 

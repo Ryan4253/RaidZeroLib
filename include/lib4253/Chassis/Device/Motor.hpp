@@ -1,5 +1,5 @@
 #pragma once
-#include "lib4253/Controller/MotorVelocity.hpp"
+#include "lib4253/Chassis/Controller/MotorController.hpp" // done
 #include "lib4253/Filter/EMA.hpp"
 #include "okapi/impl/device/motor/motor.hpp"
 #include "okapi/api/device/motor/abstractMotor.hpp"
@@ -13,8 +13,7 @@ class Motor : public okapi::Motor{
 
     public:
     Motor(const int& iport, const okapi::AbstractMotor::gearset& cartridge, const double& ia, const MotorControllerGain& constant);
-    void setRPM(const std::int16_t& ivelocity);
-    void setRPM(const std::int16_t& ivelocity, const std::int16_t& iacceleration);
-    double getFilteredVelocity();
+    void setVelocity(const okapi::QSpeed& velocity, const okapi::QAcceleration& acceleration, const okapi::QSpeed& currentSpeed);
+    double getFilteredRPM();
 };
 }

@@ -24,7 +24,7 @@ struct SlewGain {
  * @brief Slew controller class
  *
  */
-class SlewController : public AbstractVelocityController<SlewGain> {
+class Slew : public AbstractVelocityController<SlewGain> {
     protected:
     double speed;
     SlewGain gain;
@@ -34,7 +34,7 @@ class SlewController : public AbstractVelocityController<SlewGain> {
      * @brief Construct a new Slew Controller object
      *
      */
-    SlewController() = default;
+    Slew() = default;
     
     /**
      * @brief Construct a new Slew Controller object
@@ -42,13 +42,13 @@ class SlewController : public AbstractVelocityController<SlewGain> {
      * @param accel acceleration step (how much the velocity increases everytime the robot refreshes)
      * @param decel deceleration step (^ vise versa)
      */
-    SlewController(const SlewGain& gain);
+    Slew(const SlewGain& gain);
 
     /**
      * @brief Destroys the Slew Controller object
      * 
      */
-    ~SlewController() = default;
+    ~Slew() = default;
     
     
     /**

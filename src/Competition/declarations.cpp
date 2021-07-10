@@ -52,7 +52,7 @@ void initSubsystems(){
         std::initializer_list<std::shared_ptr<lib4253::Motor>>{rightFront, rightBack, leftTop},
         ChassisScales({4.14_in, 12.44_in}, 360),
         std::make_shared<IMU>(3),
-        std::move(std::make_unique<SlewController>()),
+        std::move(std::make_unique<Slew>()),
         std::move(std::make_unique<PID>()),
         std::move(std::make_unique<PID>()),
         std::move(std::make_unique<PID>())
@@ -63,7 +63,7 @@ void initSubsystems(){
         std::move(std::make_unique<PID>()),
         std::move(std::make_unique<PID>()),
         std::move(std::make_unique<PID>()),
-        std::move(std::make_unique<SlewController>(SlewGain{9, 256}))
+        std::move(std::make_unique<Slew>(SlewGain{9, 256}))
     );
 
     odom->reset();

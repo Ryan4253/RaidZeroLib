@@ -16,6 +16,8 @@ void RamseteController::followPath(const Trajectory& path){
     for(int i = 0; i < path.size(); i++){
         TrajectoryPoint p = path[i];
         std::pair<okapi::QSpeed, okapi::QAngularSpeed> velocity = update(p, odometry->getPos());
+        std::pair<okapi::QSpeed, okapi::QSpeed> vel = chassis->inverseKinematics(velocity.first, velocity.second);
+        chassis->setVelocity({vel.first, 0 * okapi::mps2}, {vel.second, 0 * okapi::mps2});
         pros::delay(10);
     }
 }

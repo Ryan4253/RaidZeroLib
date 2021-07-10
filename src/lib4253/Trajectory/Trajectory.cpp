@@ -1,4 +1,4 @@
-#include "lib4253/Splines/Trajectory.hpp"
+#include "lib4253/Trajectory/Trajectory.hpp"
 namespace lib4253{
 
 TrajectoryPoint::TrajectoryPoint(const Pose2D& p, 

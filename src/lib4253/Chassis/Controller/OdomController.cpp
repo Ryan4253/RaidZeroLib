@@ -53,11 +53,11 @@ void OdomController::moveToPoint(const Point2D& target, const double& turnScale,
 
         chassis->setPower(driveSpeed.first, driveSpeed.second);
         pros::delay(10);
-    } while(!settler.isSettled(&time, distToTarget.convert(inch)));
+    } while(!settler.isSettled(&time, distToTarget.convert(okapi::inch)));
     chassis->setPower(0, 0);
 }
 
-void OdomController::moveToX(const QLength& targetX, Settler settler){
+void OdomController::moveToX(const okapi::QLength& targetX, Settler settler){
     drivePID->initialize();
     anglePID->initialize();
     driveSlew->reset();
@@ -78,7 +78,7 @@ void OdomController::moveToX(const QLength& targetX, Settler settler){
     chassis->setPower(0, 0);
 }
 
-void OdomController::moveToY(const QLength& targetY, Settler settler){
+void OdomController::moveToY(const okapi::QLength& targetY, Settler settler){
     drivePID->initialize();
     anglePID->initialize();
     driveSlew->reset();

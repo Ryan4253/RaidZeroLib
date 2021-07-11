@@ -110,5 +110,7 @@ namespace Math{
      * @return sinc(x)
      */
     double sinc(double x);
+
+    double clamp(double val, double min, double max);
 };
 }

@@ -47,4 +47,11 @@ double Math::sinc(double x){
     return std::sin(x) / x;
   }
 }
+
+double Math::clamp(double val, double min, double max){
+  if(min > max){
+    throw std::runtime_error("Math::Clamp: minimun is larger than maximum!");
+  }
+  return fmin(max, fmax(min, val));
+}
 }

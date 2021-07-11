@@ -34,6 +34,6 @@ double Slew::step(const double& val){
     }
 
     //return fmin(speed, 127);
-    return output = target;
+    return output = Math::clamp(target, -12000, 12000);
 }
 }

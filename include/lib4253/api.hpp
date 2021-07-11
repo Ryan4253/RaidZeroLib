@@ -31,10 +31,11 @@
 #include "lib4253/Controller/LinearMotionProfile.hpp" // done
 
 #include "lib4253/Chassis/Device/Motor.hpp" // done
-#include "lib4253/Chassis/Device/Odometry.hpp" // done
 #include "lib4253/Chassis/Device/Chassis.hpp" // done
+#include "lib4253/Chassis/Device/Odometry.hpp" // done
 
 #include "lib4253/Chassis/Controller/MotorController.hpp" // done
+#include "lib4253/Chassis/Controller/ChassisControllerPID.hpp"
 #include "lib4253/Chassis/Controller/OdomController.hpp" // done
 #include "lib4253/Chassis/Controller/TrajectoryFollower.hpp"
 #include "lib4253/Chassis/Controller/RamseteController.hpp" 

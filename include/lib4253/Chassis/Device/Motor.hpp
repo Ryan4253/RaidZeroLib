@@ -5,7 +5,6 @@
 #include "okapi/api/device/motor/abstractMotor.hpp"
 
 namespace lib4253{
-using namespace okapi;
 class Motor : public okapi::Motor{
     private:
     std::unique_ptr<MotorController> velController {nullptr};

@@ -10,7 +10,6 @@ okapi::Motor LB(9, false, okapi::AbstractMotor::gearset::blue, okapi::AbstractMo
 okapi::Motor RF(8, false, okapi::AbstractMotor::gearset::blue, okapi::AbstractMotor::encoderUnits::degrees);
 okapi::Motor RB(7, true, okapi::AbstractMotor::gearset::blue, okapi::AbstractMotor::encoderUnits::degrees);
 
-
 okapi::ADIEncoder leftEncoder('A', 'B', true);
 okapi::ADIEncoder rightEncoder('E', 'F', false);
 okapi::ADIEncoder midEncoder('C', 'D', false);
@@ -32,13 +31,15 @@ std::shared_ptr<lib4253::Odometry> odom;
 std::shared_ptr<lib4253::Chassis> chassis;
 std::shared_ptr<lib4253::OdomController> odomController;
 
+using namespace okapi;
+
 void initSubsystems(){
-    leftBack = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, MotorControllerGain{1, 1, 1});
-    leftFront = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, MotorControllerGain{1, 1, 1});
-    leftTop = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, MotorControllerGain{1, 1, 1});
-    rightBack = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, MotorControllerGain{1, 1, 1});
+    leftBack   = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, MotorControllerGain{1, 1, 1});
+    leftFront  = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, MotorControllerGain{1, 1, 1});
+    leftTop    = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, MotorControllerGain{1, 1, 1});
+    rightBack  = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, MotorControllerGain{1, 1, 1});
     rightFront = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, MotorControllerGain{1, 1, 1});
-    rightTop = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, MotorControllerGain{1, 1, 1});
+    rightTop   = std::make_shared<lib4253::Motor>(1, AbstractMotor::gearset::blue, 1, MotorControllerGain{1, 1, 1});
 
     odom = std::make_shared<ThreeWheelOdometry>(
         std::make_shared<ADIEncoder>('A', 'B', true), 
@@ -51,25 +52,21 @@ void initSubsystems(){
         std::initializer_list<std::shared_ptr<lib4253::Motor>>{leftFront, leftBack, leftTop},
         std::initializer_list<std::shared_ptr<lib4253::Motor>>{rightFront, rightBack, leftTop},
         ChassisScales({4.14_in, 12.44_in}, 360),
-        std::make_shared<IMU>(3),
-        std::move(std::make_unique<Slew>()),
-        std::move(std::make_unique<PID>()),
-        std::move(std::make_unique<PID>()),
-        std::move(std::make_unique<PID>())
+        std::make_shared<IMU>(3)
     );
 
+    PID test;
     odomController = std::make_shared<OdomController>(
         chassis, odom, 3_in,
+        std::move(std::make_unique<PID>(test)),
         std::move(std::make_unique<PID>()),
         std::move(std::make_unique<PID>()),
-        std::move(std::make_unique<PID>()),
-        std::move(std::make_unique<Slew>(SlewGain{9, 256}))
+        std::move(std::make_unique<Slew>())
     );
 
     odom->reset();
     chassis->initialize();
 
-    chassis->moveDistance(25_in, Settler::makeSettler().withMaxTime(5_s).withMaxError(0.5).withMaxDeriv(0).wait(200_ms));
     odomController->moveToPoint({3_in, 6_in}, 1.5, Settler::makeSettler().withMaxTime(40000_ms).withMaxError(1).wait(200_ms));
 }
 
@@ -81,11 +78,8 @@ void startTask(){
 /*
   drive
     .withDimensions({4.35}, {36, 84}, {12})
-    .withDrivePID({0, 0, 0}, {1, 1}, {1})
-    .withTurnPID({0, 0, 0}, {1, 1}, {1})
-    .withPurePursuit({6}, {2}, {1, 1})
-    .withSlew(256, 9)
-    .initialize();
+\\    .withPurePursuit({6}, {2}, {1, 1})
+\    .initialize();
     */
 
 void initPaths(){

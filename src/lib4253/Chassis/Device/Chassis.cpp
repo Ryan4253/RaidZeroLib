@@ -1,40 +1,15 @@
 #include "Chassis.hpp"
 namespace lib4253{
-
+// Constructor
 Chassis::Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
 			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
-			const ChassisScales& idimension,
-			std::shared_ptr<IMU> imu,
-			std::unique_ptr<Slew> iSlew,
-			std::unique_ptr<PID> iDrivePID, 
-			std::unique_ptr<PID> iTurnPID,
-			std::unique_ptr<PID> iAnglePID):
-left(iLeft), right(iRight), dimension(idimension)
-{
-    inertial = imu;
-    driveSlew = std::move(iSlew);
-    drivePID = std::move(iDrivePID);
-    turnPID = std::move(iTurnPID);
-    anglePID = std::move(iAnglePID);    
-}
+			const okapi::ChassisScales& idimension,
+			std::shared_ptr<okapi::IMU> imu):
+left(iLeft), right(iRight), dimension(idimension), inertial(imu)
+{}
 
-Chassis::Chassis(const std::initializer_list<std::shared_ptr<Motor> >& iLeft, 
-			const std::initializer_list<std::shared_ptr<Motor> >& iRight, 
-			const ChassisScales& idimension,
-			std::unique_ptr<Slew> iDriveSlew,
-			std::unique_ptr<PID> iDrivePID, 
-			std::unique_ptr<PID> iTurnPID,
-			std::unique_ptr<PID> iAnglePID,
-			std::shared_ptr<IMU> imu):
-left(iLeft), right(iRight), dimension(idimension)
-{
-    inertial = imu;
-    driveSlew = std::move(iDriveSlew);
-    drivePID = std::move(iDrivePID);
-    turnPID = std::move(iTurnPID);
-    anglePID = std::move(iAnglePID);    
-}
 
+// Task Function
 void Chassis::loop(){
     auto t = pros::millis();
     while(true){
@@ -55,6 +30,7 @@ void Chassis::loop(){
     }
 }
 
+// Initializer
 void Chassis::initialize() const{
     for(auto& motor : left){
         motor->tarePosition();
@@ -66,34 +42,11 @@ void Chassis::initialize() const{
         motor->setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
     }
 
-    if(driveSlew){
-        driveSlew->reset();
-    }
-
-    if(drivePID){
-        drivePID->initialize();
-    }
-
-    if(turnPID){
-        turnPID->initialize();
-    }
-
-    if(anglePID){
-        anglePID->initialize();
-    }
-
     if(inertial){
         inertial->calibrate();
-    }
-}
-
-void Chassis::setBrakeType(const AbstractMotor::brakeMode& iMode) const{
-    for(auto& motor : left){
-        motor->setBrakeMode(iMode);
-    }
-
-    for(auto& motor : right){
-        motor->setBrakeMode(iMode);
+        while(inertial->isCalibrating()){
+            pros::delay(10);
+        }
     }
 }
 
@@ -111,8 +64,21 @@ void Chassis::resetSensor() const{
     }
 }
 
-double Chassis::getIMUReading() const{
-    return inertial->get();
+// Getter
+okapi::QAngle Chassis::getAngle() const{
+    okapi::QAngle angle;
+    if(inertial){
+        angle = inertial->get() * okapi::degree;
+    }
+    else{
+        angle = Math::angleToYaw((getLeftEncoderReading() - getRightEncoderReading()) * okapi::degree, dimension);
+    }
+
+    return Math::angleWrap180(angle);
+}
+
+okapi::QLength Chassis::getDistance() const{
+    return Math::angleToArcLength(getEncoderReading() * okapi::degree, dimension.wheelDiameter/2);
 }
 
 double Chassis::getEncoderReading() const{
@@ -145,6 +111,21 @@ double Chassis::getRightEncoderReading() const{
 
     return total / (right.size());
 }   
+
+okapi::ChassisScales Chassis::getDimension() const{
+    return dimension;
+}
+
+// Setter
+void Chassis::setBrakeType(const okapi::AbstractMotor::brakeMode& iMode) const{
+    for(auto& motor : left){
+        motor->setBrakeMode(iMode);
+    }
+
+    for(auto& motor : right){
+        motor->setBrakeMode(iMode);
+    }
+}
 
 void Chassis::setPower(const double& lPower, const double& rPower) const{
     for(auto& motor : left){
@@ -199,98 +180,14 @@ void Chassis::setVelocity(const std::pair<okapi::QSpeed, okapi::QAcceleration>& 
     }
 }
 
-void Chassis::move(const double& lPower, const double& rPower, const QTime& timeLim) const{
+// Chassis Movement Method
+void Chassis::move(const double& lPower, const double& rPower, const okapi::QTime& timeLim) const{
     setPower(lPower, rPower);
-    pros::delay(timeLim.convert(millisecond));
+    pros::delay(timeLim.convert(okapi::millisecond));
     setPower(0, 0);
 }
 
-void Chassis::moveDistance(const okapi::QLength& dist, Settler settler) const{
-    auto time = pros::millis();
-    okapi::QLength distTravelled;
-    double power;
-
-    if(drivePID == nullptr){ // open loop control based on IME if pid isn't 
-        do{
-            distTravelled = Math::angleToArcLength(getEncoderReading() * okapi::degree, dimension.wheelDiameter/2);
-            power = driveSlew->step(12000);
-            dist < 0 * okapi::meter ? setPower(-power, -power) : setPower(power, power);
-            pros::delay(10); 
-        }while(abs(dist) > abs(distTravelled));
-    }
-    else{
-        driveSlew->reset();
-        drivePID->initialize();
-        if(anglePID){
-            anglePID->initialize();
-        }
-        resetSensor();
-
-        do{
-            okapi::QLength error = dist - Math::angleToArcLength(getEncoderReading() * okapi::degree, dimension.wheelDiameter/2);
-            double power = drivePID->step(error.convert(okapi::inch)), adjustment;
-
-            if(!anglePID){
-                adjustment = 0;
-            }
-            else if(!inertial){
-                double tickTravelled = getLeftEncoderReading() - getRightEncoderReading();
-                adjustment = anglePID->step(Math::angleWrap180(Math::angleToYaw(tickTravelled * okapi::degree, dimension)).convert(okapi::degree));
-            }
-            else{
-                adjustment = anglePID->step(Math::angleWrap180(inertial->get() * okapi::degree).convert(okapi::degree));
-            }
-            
-            std::pair<double, double> finalPower = scaleSpeed(power, adjustment, driveSlew->step(std::fabs(power + adjustment)));
-            setPower(finalPower.first, finalPower.second);
-            pros::delay(10); 
-        }while(!settler.isSettled(&time, drivePID->getError()));
-    }
-
-    setPower(0, 0);
-}
-
-void Chassis::turnAngle(const okapi::QAngle& angle, Settler settler) const{
-    double startTime = pros::millis();
-    okapi::QAngle target = Math::angleWrap180(angle);
-    auto time = pros::millis();
-    resetSensor();
-
-    if(turnPID == nullptr){
-        okapi::QAngle degTravelled;
-        do{
-            if(inertial != nullptr){
-                degTravelled = Math::angleWrap180(inertial->get() * okapi::degree);
-            }
-            else{
-                double tickTravelled = getLeftEncoderReading() - getRightEncoderReading();
-                degTravelled = Math::angleWrap180(Math::angleToYaw(tickTravelled * okapi::degree, dimension));
-            }
-
-            target > 0 * okapi::degree ? setPower(127, -127) : setPower(-127, 127);
-            pros::delay(10); 
-        }while(abs(angle) > abs(degTravelled));
-    }
-    else{
-        okapi::QAngle error;
-        do{
-            if(inertial != nullptr){
-                error = target - Math::angleWrap180(inertial->get() * okapi::degree);
-            }
-            else{
-                double tickTravelled = getLeftEncoderReading() - getRightEncoderReading();
-                error = target - Math::angleWrap180(Math::angleToYaw(tickTravelled * okapi::degree, dimension));
-            }
-
-            double power = turnPID->step(error.convert(okapi::degree));
-            setPower(desaturate(power, -power, driveSlew->step(std::abs(power))));
-            pros::delay(10); 
-        }while(!settler.isSettled(&time, turnPID->getError()));
-    }
-
-    setPower(0, 0);
-}
-
+// Chassis Math Method
 std::pair<double, double> Chassis::scaleSpeed(const double& linear, const double& yaw, const double& max) const{
     double left = linear - yaw;
     double right = linear + yaw;

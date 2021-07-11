@@ -3,6 +3,7 @@
 #include "lib4253/Utility/TaskWrapper.hpp"
 #include "okapi/api/units/QLength.hpp"
 #include "okapi/api/units/RQuantity.hpp"
+#include "display/lvgl.h"
 
 // credits to Theo Lemay from team 7842F for coding this display
 // original repo: https://github.com/theol0403/7842F-Competition-Code

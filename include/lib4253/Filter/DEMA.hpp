@@ -11,7 +11,7 @@
 
 #pragma once
 //#include "main.h"
-#include "lib4253/Filter/Filter.hpp"
+#include "lib4253/Filter/AbstractFilter.hpp"
 
 namespace lib4253{
 // #include "main.h"
@@ -22,18 +22,13 @@ namespace lib4253{
    *
    */
 
-class DemaFilter: public AbstractFilter{
-    private:
-    double alpha, beta;
-    double outputS, outputB;
-    double prevOutputS, prevOutputB;
-
+class DemaFilter: public AbstractFilter<double>{
     public:
     /**
      * @brief Construct a new Dema Filter object
      *
      */
-    DemaFilter();
+    DemaFilter() = default;
 
     /**
      * @brief Construct a new Dema Filter object
@@ -57,12 +52,13 @@ class DemaFilter: public AbstractFilter{
      */
     void setGain(const double& a, const double& b);
 
+    void initialize() override;
+
     /**
-     * @brief Gets output values
+     * @brief Resets the filter
      *
-     * @return filtered values
      */
-    double getOutput() const;
+    void reset() override;
 
     /**
      * @brief Runs raw input through the DEMA filter
@@ -73,9 +69,15 @@ class DemaFilter: public AbstractFilter{
     double filter(const double& input) override;
 
     /**
-     * @brief Resets the filter
+     * @brief Gets output values
      *
+     * @return filtered values
      */
-    void reset() override;
+    double getOutput() const override;
+
+    private:
+    double alpha, beta;
+    double outputS, outputB;
+    double prevOutputS, prevOutputB;
 };
 }

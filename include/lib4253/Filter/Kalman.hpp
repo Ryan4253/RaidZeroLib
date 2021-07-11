@@ -10,14 +10,20 @@
  */
 
 #pragma once
+#include "lib4253/Filter/AbstractFilter.hpp"
 #include "Eigen/Core"
 #include "Eigen/LU"
 #include "Eigen/MatrixFunctions"
 
 namespace lib4253{
 
-class KalmanFilter{
-    
+class KalmanFilter : public AbstractFilter<Eigen::VectorXd>{
+    public:
+    /**
+     * Create a blank estimator.
+     */
+    KalmanFilter() = default;
+
     /**
      * Create a Kalman filter with the specified matrices.
      *   A - System dynamics matrix
@@ -35,38 +41,40 @@ class KalmanFilter{
         const Eigen::MatrixXd& P
     );
 
-    /**
-     * Create a blank estimator.
-     */
-    KalmanFilter();
+    ~KalmanFilter() = default;
 
     /**
      * Initialize the filter with initial states as zero.
      */
-    void init();
+    void initialize() override;
 
     /**
      * Initialize the filter with a guess for initial states.
      */
-    void init(double t0, const Eigen::VectorXd& x0);
+    void initialize(double t0, const Eigen::VectorXd& x0);
+
+    void reset() override;
+
+    void reset(double t0, const Eigen::VectorXd& x0);
 
     /**
      * Update the estimated state based on measured values. The
      * time step is assumed to remain constant.
      */
-    void update(const Eigen::VectorXd& y);
+    Eigen::VectorXd filter(const Eigen::VectorXd& y) override;
 
     /**
      * Update the estimated state based on measured values,
      * using the given time step and dynamics matrix.
      */
-    void update(const Eigen::VectorXd& y, double dt, const Eigen::MatrixXd A);
+    Eigen::VectorXd filter(const Eigen::VectorXd& y, double dt, const Eigen::MatrixXd A);
 
     /**
      * Return the current state and time.
      */
-    Eigen::VectorXd state() { return x_hat; };
-    double time() { return t; };
+    Eigen::VectorXd getOutput() const override;
+
+    double getTime() const;
 
     private:
 
@@ -90,5 +98,8 @@ class KalmanFilter{
 
     // Estimated states
     Eigen::VectorXd x_hat, x_hat_new;
+
+    // Initial Guess
+    Eigen::VectorXd x0;
 };
 }

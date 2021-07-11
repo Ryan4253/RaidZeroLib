@@ -15,8 +15,13 @@ void DemaFilter::setGain(const double& a, const double& b){
     alpha = a, beta = b;
 }
 
-double DemaFilter::getOutput() const {
-    return outputS + outputB;
+void DemaFilter::initialize(){
+    outputS = outputB = prevOutputS = prevOutputB = 0;
+
+}
+
+void DemaFilter::reset(){
+    initialize();
 }
 
 double DemaFilter::filter(const double& input) {
@@ -28,7 +33,7 @@ double DemaFilter::filter(const double& input) {
     return outputS + outputB;
 }
 
-void DemaFilter::reset() {
-    outputS = outputB = prevOutputS = prevOutputB = 0;
+double DemaFilter::getOutput() const {
+    return outputS + outputB;
 }
 }

@@ -10,7 +10,7 @@
  */
 
 #pragma once
-#include "lib4253/Filter/Filter.hpp"
+#include "lib4253/Filter/AbstractFilter.hpp"
 // #include <math.h>
 #define _USE_MATH_DEFINES
 #include <cmath>
@@ -21,19 +21,17 @@ namespace lib4253{
    * @brief Biquadratic filter class: Inherited class from Filter
    *
    */
-class BiquadFilter : public AbstractFilter{
-    double prevInput[2];
-    double prevOutput[2];
-    double a1, a2, b0, b1, b2; // a0 defaulted to 0
-    double sample, cutoff, initVal;
-
+class BiquadFilter : public AbstractFilter<double>{
+    public:
     /**
      * @brief Enumerator for High & Low pass
      *
      */
-    enum state{
+    enum State{
       HIGHPASS, LOWPASS
     };
+
+    BiquadFilter() = default;
 
     /**
      * @brief Construct a new Biquad Filter object
@@ -43,7 +41,13 @@ class BiquadFilter : public AbstractFilter{
      * @param cutoffFreq cut off frequency
      * @param initValue intial value
      */
-    BiquadFilter(const BiquadFilter::state& type, const double& sampleFreq, const double& cutoffFreq, const double& initValue);
+    BiquadFilter(const BiquadFilter::State& type, const double& sampleFreq, const double& cutoffFreq, const double& initValue);
+
+    ~BiquadFilter() = default;
+
+    void setGain(const BiquadFilter::State& type, const double& sampleFreq, const double& cutoffFreq, const double& initValue);
+
+    void initialize() override;
 
     /**
      * @brief Resets the filter
@@ -58,5 +62,14 @@ class BiquadFilter : public AbstractFilter{
      * @return filted values
      */
     double filter(const double& input) override;
+
+    double getOutput() const override;
+
+    private:
+    double prevInput[2];
+    double prevOutput[2];
+    double a1, a2, b0, b1, b2; // a0 defaulted to 0
+    double sample, cutoff, initVal;
+    double output;
 };
 }

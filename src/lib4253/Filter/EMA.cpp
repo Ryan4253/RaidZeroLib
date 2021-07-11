@@ -6,13 +6,17 @@ EmaFilter::EmaFilter(const double& a){
     reset();
 }
 
-EmaFilter::EmaFilter(){
-    alpha = 1;
-    reset();
-}
-
 void EmaFilter::setGain(const double& a){
     alpha = a;
+}
+
+void EmaFilter::initialize(){
+    output = 0, prevOutput = 0;
+    run = false;
+}
+
+void EmaFilter::reset(){
+    initialize();
 }
 
 double EmaFilter::filter(const double& input){
@@ -26,11 +30,6 @@ double EmaFilter::filter(const double& input){
     }
 
     return output;
-}
-
-void EmaFilter::reset(){
-    output = 0, prevOutput = 0;
-    run = false;
 }
 
 double EmaFilter::getOutput() const {

@@ -25,6 +25,10 @@ protected:
      */
     virtual void startTask(const char*  iname = "TaskWrapper");
 
+    virtual void resumeTask();
+
+    virtual void pauseTask();
+
     /**
      * Kill the task.
      */

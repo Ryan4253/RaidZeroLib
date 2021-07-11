@@ -15,7 +15,7 @@
 #include "lib4253/Trajectory/SimplePath.hpp" // done
 #include "lib4253/Trajectory/Trajectory.hpp" // done
 
-#include "lib4253/Filter/Filter.hpp" // done
+#include "lib4253/Filter/AbstractFilter.hpp" // done
 #include "lib4253/Filter/EMA.hpp" // done
 #include "lib4253/Filter/DEMA.hpp" // done
 #include "lib4253/Filter/SMA.hpp" // done
@@ -38,3 +38,6 @@
 #include "lib4253/Chassis/Controller/OdomController.hpp" // done
 #include "lib4253/Chassis/Controller/TrajectoryFollower.hpp"
 #include "lib4253/Chassis/Controller/RamseteController.hpp" 
+
+#include "lib4253/GUI/OdomDisplay.hpp"
+#include "lib4253/GUI/gif-pros/gifclass.hpp"

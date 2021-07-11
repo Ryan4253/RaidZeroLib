@@ -11,7 +11,7 @@
 
 #pragma once
 // #include "main.h"
-#include "lib4253/Filter/Filter.hpp"
+#include "lib4253/Filter/AbstractFilter.hpp"
 
 namespace lib4253{
 
@@ -19,17 +19,13 @@ namespace lib4253{
  * @brief Exponential moving average (EMA) filter class - inherited from Filter
  *
  */
-class EmaFilter : public AbstractFilter{
-    private:
-    double alpha, output = 0, prevOutput = 0;
-    bool run = false;
-
+class EmaFilter : public AbstractFilter<double>{
     public:
     /**
      * @brief Construct a new Ema Filter object
      *
      */
-    EmaFilter();
+    EmaFilter() = default;
     
     /**
      * @brief Construct a new Ema Filter object
@@ -51,12 +47,13 @@ class EmaFilter : public AbstractFilter{
      */
     void setGain(const double& a);
 
+    void initialize() override;
+
     /**
-     * @brief Gets filtered values
+     * @brief Resets EMA filter
      *
-     * @return filtered values
      */
-    double getOutput() const;
+    void reset() override;
 
     /**
      * @brief Filters raw values
@@ -67,9 +64,14 @@ class EmaFilter : public AbstractFilter{
     double filter(const double& input) override;
 
     /**
-     * @brief Resets EMA filter
+     * @brief Gets filtered values
      *
+     * @return filtered values
      */
-    void reset() override;
+    double getOutput() const override;
+
+    private:
+    double alpha{1}, output{0}, prevOutput{0};
+    bool run = false;
 };
 }

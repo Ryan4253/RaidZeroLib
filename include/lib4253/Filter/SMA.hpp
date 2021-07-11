@@ -10,7 +10,7 @@
  */
 
 #pragma once
-#include "lib4253/Filter/Filter.hpp"
+#include "lib4253/Filter/AbstractFilter.hpp"
 #include<queue>
 
 namespace lib4253{
@@ -20,10 +20,8 @@ namespace lib4253{
    *
    */
 template<int N> 
-class SmaFilter : public AbstractFilter{
-    std::queue<double> value; // ngl i was thinking about coding a segment tree
-    double total, output;
-
+class SmaFilter : public AbstractFilter<double>{
+    public:
     /**
      * @brief Construct a new Sma Filter object
      *
@@ -35,6 +33,14 @@ class SmaFilter : public AbstractFilter{
      * 
      */
     ~SmaFilter() = default;
+    
+    void initialize() override;
+
+    /**
+     * @brief Resets SMA filter
+     *
+     */
+    void reset() override;
 
     /**
      * @brief filters raw values through SMA filter
@@ -49,12 +55,10 @@ class SmaFilter : public AbstractFilter{
      *
      * @return filtered value
      */
-    double getOutput() const;
+    double getOutput() const override;
 
-    /**
-     * @brief Resets SMA filter
-     *
-     */
-    void reset() override;
+    private:
+    std::queue<double> value; // ngl i was thinking about coding a segment tree
+    double total, output;
 };
 }

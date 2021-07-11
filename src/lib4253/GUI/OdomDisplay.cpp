@@ -1,4 +1,4 @@
-#include "lib4253/Display/OdomDisplay.hpp"
+#include "lib4253/GUI/OdomDisplay.hpp"
 namespace lib4253{
 
 // credits to Theo Lemay from team 7842F for coding this display

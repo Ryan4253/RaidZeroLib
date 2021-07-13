@@ -1,92 +1,112 @@
 #include "lib4253/Chassis/Controller/AdaptivePurePursuitController.hpp"
 namespace lib4253{
 
-// void PurePursuitFollower::initialize(){
-//     settled = false;
-//     prevClosestPoint = 0; closestPoint = 0;
-//     prevLookAheadPoint = 0;
-// }
-
-// void PurePursuitFollower::setPath(const SimplePath& p){
-//     path = p;
-//     lookAheadPoint = path.getWaypoint(0);
-//     generateVelocity();
-//     initialize();
-// }
-
-
-
-// void PurePursuitFollower::calcClosestPoint(const Pose2D& currentPos){
-//     double minDist = currentPos.distanceTo(path.getWaypoint(prevClosestPoint));
-//     double minIndex = prevClosestPoint;
-
-//     for(int i = prevClosestPoint+1; i < path.getSize(); i++){
-//         double dist = currentPos.distanceTo(path.getWaypoint(i));
-//         if(dist < minDist){
-//             minDist = dist;
-//             minIndex = i;
-//         }
-//     }
-
-//     closestPoint = minIndex;
-//     prevClosestPoint = closestPoint;
-// }
-
-// void PurePursuitFollower::calcLookAheadPoint(const Pose2D& currentPos){
-//   for(int i = prevLookAheadPoint; i < path.getSize()-1; i++){
-//         Point2D start = path.getWaypoint(i);
-//         Point2D end = path.getWaypoint(i+1);
-
-//         Point2D d = end - start;
-//         Point2D f = start - currentPos;
-
-//         double a = d * d;
-//         double b = 2 * (f * d);
-//         double c = f * f - radius * radius;
-//         double discriminant = b * b - 4 * a * c;
-
-//         if(discriminant >= 0){
-//             discriminant = sqrt(discriminant);
-//             double t1 = (-b - discriminant) / (2 * a);
-//             double t2 = (-b + discriminant) / (2 * a);
-
-//             if(t2 >= 0 && t2 <= 0){
-//                 prevLookAheadPoint = i;
-//                 lookAheadPoint = start + d * t2;
-//                 return;
-//             }
-//             else if(t1 >= 0 && t1 <= 0){
-//                 prevLookAheadPoint = i;
-//                 lookAheadPoint = start + d * t1;
-//                 return;
-//             }   
-//         }
-//     }
-// }
-
-// void PurePursuitFollower::calcCurvature(const Pose2D& currentPos){
-//     double a = -tan(currentPos.theta), b = 1, c = tan(currentPos.theta)*currentPos.x - currentPos.y;
-//     double x = abs(lookAheadPoint.x * a + lookAheadPoint.y * b + c) / sqrt(a * a + b * b);
-//     double side = sin(currentPos.theta) * (lookAheadPoint.x * currentPos.x) - cos(currentPos.theta) * (lookAheadPoint.y - currentPos.y);
-//     side /= abs(side);
-
-//     curvature = (2 * x) / (radius * radius) * side;
-// }
-
-// std::pair<double, double> PurePursuitFollower::calcPower(const Pose2D& currentPos){
-//     double lTarget = velocity[closestPoint] * (2 + curvature * trackWidth) / 2;
-//     double rTarget = velocity[closestPoint] * (2 + curvature * trackWidth) / 2;
-
-//     if(lTarget < 0.2 && rTarget < 0.2){
-//         settled = true;
-//     }
-
-//     return std::make_pair(lTarget, rTarget);
-// }   
-
-
-
-// bool PurePursuitFollower::isSettled() const {
-//     return settled;
-// }
+AdaptivePurePursuitController::AdaptivePurePursuitController(
+std::shared_ptr<Chassis> iChassis, std::shared_ptr<Odometry> iOdometry, okapi::QLength iLookAheadDist){
+    chassis = std::move(iChassis);
+    odometry = std::move(iOdometry);
+    lookAheadDist = iLookAheadDist;
 }
+
+void AdaptivePurePursuitController::followPath(const PurePursuitPath& path){
+    initialize();
+    this->path = path;
+
+    while(!isSettled()){
+        currentPos = odometry->getPos();
+        updateClosestPoint();
+        calculateLookAheadPoint();
+        calculateCurvature();
+        calculateVelocity();
+
+        auto sideVel = chassis->inverseKinematics(vel, angularVel);
+        chassis->setVelocity({sideVel.first, 0 * okapi::mps2}, {sideVel.second, 0 * okapi::mps2});
+    }
+    chassis->setPower(0, 0);
+}
+
+void AdaptivePurePursuitController::setLookAhead(okapi::QLength iLookAhead){
+    lookAheadDist = iLookAhead;
+}
+
+AdaptivePurePursuitController& AdaptivePurePursuitController::withLookAhead(okapi::QLength iLookAhead){
+    lookAheadDist = iLookAhead;
+    return *this;
+}
+
+void AdaptivePurePursuitController::initialize(){
+    settle = false;
+    prevClosestPoint = 0; closestPoint = 0;
+    prevLookAheadPoint = 0;
+}
+
+void AdaptivePurePursuitController::updateClosestPoint(){
+    okapi::QLength minDist = currentPos.getTranslation().distanceTo(path.getPoint(prevClosestPoint));
+    int minIndex = prevClosestPoint;
+
+    for(int i = prevClosestPoint+1; i < path.getSize(); i++){
+        okapi::QLength dist = currentPos.getTranslation().distanceTo(path.getPoint(i));
+        if(dist < minDist){
+            minDist = dist;
+            minIndex = i;
+        }
+    }
+
+    closestPoint = minIndex;
+    prevClosestPoint = closestPoint;
+}
+
+void AdaptivePurePursuitController::calculateLookAheadPoint(){
+    for(int i = prevLookAheadPoint; i < path.getSize()-1; i++){
+        Point2D start = path.getPoint(i);
+        Point2D end = path.getPoint(i+1);
+
+        Point2D d = end - start;
+        Point2D f = start - currentPos.getTranslation();
+
+        okapi::QArea a = d * d;
+        okapi::QArea b = 2 * (f * d);
+        okapi::QArea c = f * f - lookAheadDist * lookAheadDist;
+        auto discriminant = b * b - 4 * a * c; // i do not want to define a 4 length degree unit so let it slide
+
+        if(discriminant.getValue() >= 0){
+            okapi::QArea dis = sqrt(discriminant);
+            double t1 = ((-b - dis) / (2 * a)).convert(okapi::number);
+            double t2 = ((-b + dis) / (2 * a)).convert(okapi::number);
+
+            if(t2 >= 0 && t2 <= 0){
+                prevLookAheadPoint = i;
+                lookAheadPoint = start + d * t2;
+                return;
+            }
+            else if(t1 >= 0 && t1 <= 0){
+                prevLookAheadPoint = i;
+                lookAheadPoint = start + d * t1;
+                return;
+            }   
+        }
+    }
+}
+
+void AdaptivePurePursuitController::calculateCurvature(){
+    double a = -tan(currentPos.getTheta()).convert(okapi::number); 
+    double b = 1;
+    okapi::QLength c = tan(currentPos.getTheta())*currentPos.getX() - currentPos.getY();
+
+    okapi::QLength x = abs(lookAheadPoint.x * a + lookAheadPoint.y * b + c) / sqrt(a * a + b * b);
+    okapi::QLength sideL = sin(currentPos.getTheta()) * (lookAheadPoint.x - currentPos.getX()) - cos(currentPos.getTheta()) * (lookAheadPoint.y - currentPos.getY());
+    okapi::Number side = sideL / abs(sideL);
+
+    curvature = (2 * x) / (lookAheadDist * lookAheadDist) * okapi::radian * side;
+}
+
+void AdaptivePurePursuitController::calculateVelocity(){
+    vel = path.getVelocity(closestPoint);
+    angularVel = vel * curvature;
+}   
+
+bool AdaptivePurePursuitController::isSettled(){
+    return settle;
+}
+}
+

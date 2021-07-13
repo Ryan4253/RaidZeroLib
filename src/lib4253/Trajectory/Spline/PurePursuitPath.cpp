@@ -6,7 +6,7 @@ PurePursuitPath::PurePursuitPath(const DiscretePath& iPath, const PurePursuitLim
     velocity = iVelocity;
 }
 
-int PurePursuitPath::getSize(int index){
+int PurePursuitPath::getSize(){
     return path.getSize();
 }
 

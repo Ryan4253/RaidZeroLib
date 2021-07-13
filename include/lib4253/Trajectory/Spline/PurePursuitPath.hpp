@@ -4,6 +4,7 @@
 namespace lib4253{
 
 class PathGenerator;
+class AdaptivePurePursuitController;
 
 struct PurePursuitLimit{
     okapi::QSpeed maxVelocity;
@@ -13,15 +14,17 @@ struct PurePursuitLimit{
 
 class PurePursuitPath{
     public:
-    int getSize(int index);
+    int getSize();
     Point2D getPoint(int index);
     okapi::QSpeed getVelocity(int index);
     okapi::QCurvature getCurvature(int index);
 
     protected:
     // dont interface with this class directly, let pathgenerator do the work
+    PurePursuitPath() = default;
     PurePursuitPath(const DiscretePath& iPath, const PurePursuitLimit& iLimit, std::vector<okapi::QSpeed> iVelocity);
     friend class PathGenerator;
+    friend class AdaptivePurePursuitController;
 
     private:
     DiscretePath path;

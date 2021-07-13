@@ -11,132 +11,112 @@
 
 #pragma once
 #include "lib4253/Trajectory/Spline/PurePursuitPath.hpp"
-#include "lib4253/Trajectory/Geometry/Point2D.hpp"
+#include "lib4253/Trajectory/Geometry/Pose2D.hpp"
 #include "lib4253/Chassis/Device/Chassis.hpp"
+#include "lib4253/Chassis/Device/Odometry.hpp"
 #include <vector>
 
 
 namespace lib4253 {
 
-class AdaptivePurePursuitController{
-    public:
-    AdaptivePurePursuitController(std::shared_ptr<Chassis> iChassis, okapi::QLength iLookAheadDist);
-
-    void followPath(const PurePursuitPath& path);
-
-    private:
-    std::shared_ptr<Chassis> chassis;
-    okapi::QLength iLookAheadDist;
-
-};
-
-
 /**
  * @brief Pure pursuit class
  *
  */
-// class PurePursuitFollower{
-//     private:
-//     SimplePath path;
-//     std::vector<double> velocity;
-//     double maxAcceleration = 0, maxVelocity = 0, trackWidth, radius, kT;
-//     int prevClosestPoint = 0, closestPoint = 0;
-//     int prevLookAheadPoint = 0; Point2D lookAheadPoint;
-//     double curvature;
-//     bool settled = false;
-    
-//     /**
-//      * @brief Generates the desired velocity
-//      *
-//      */
-//     void generateVelocity();
-    
-//     /**
-//      * @brief Calculates closest point on path to generate desired motor velocities
-//      *
-//      * @param currentPos
-//      */
-//     void calcClosestPoint(const Pose2D& currentPos);
-    
-//     /**
-//      * @brief Calculates the look ahead point (aka. the next target point)
-//      *
-//      * @param currentPos
-//      */
-//     void calcLookAheadPoint(const Pose2D& currentPos);
-    
-//     /**
-//      * @brief Calculates curvature of the path to assist with turning
-//      *
-//      * @param currentPos
-//      */
-//     void calcCurvature(const Pose2D& currentPos);
-    
-//     /**
-//      * @brief Calculates power for drive
-//      *
-//      * @param currentPos current position of robot
-//      * @return motor velocities for each side
-//      */
-//     std::pair<double, double> calcPower(const Pose2D& currentPos);
-    
-//     public:
-//     /**
-//      * @brief Set the Path for pure pursuit controller
-//      *
-//      * @param path the path to be followed
-//      */
-//     void setPath(const SimplePath& path);
-    
-//     /**
-//      * @brief Initializes pure pursuit controller
-//      *
-//      */
-//     void initialize();
-    
-//     /**
-//      * @brief
-//      *
-//      * @param CurrentPos
-//      * @return std::pair<double, double>
-//      */
-//     std::pair<double, double> step(const Pose2D& CurrentPos);
-    
-//     /**
-//      * @brief Sets turn gain
-//      *
-//      * @param k turn gain
-//      */
-//     void setTurnGain(const double& k);
-    
-//     /**
-//      * @brief Sets maximum acceleration and velocity
-//      *
-//      * @param v maximum velocity
-//      * @param a maximum acceleration
-//      */
-//     void setKinematics(const double& v, const double& a);
-    
-//     /**
-//      * @brief Sets track width of drive
-//      *
-//      * @param size track width in inches
-//      */
-//     void setTrackWidth(const double& size);
-    
-//     /**
-//      * @brief Sets radius of look-ahead distance
-//      *
-//      * @param dist radius of the look-ahead distance
-//      */
-//     void setLookAhead(const double& dist);
-    
-//     /**
-//      * @brief Checks if drive has stopped
-//      * 
-//      * @return true - drive stopped
-//      * @return false - drive in motion
-//      */
-//     bool isSettled() const;
-// };
+class AdaptivePurePursuitController{
+    public:
+
+    /**
+     * @brief Constructor
+     * 
+     * @param iChassis - the chassis instance
+     * @param iOdometry - the odometry instance
+     * @param iLookAheadDist - lookahead distance
+     */
+    AdaptivePurePursuitController(std::shared_ptr<Chassis> iChassis, std::shared_ptr<Odometry> iOdometry, okapi::QLength iLookAheadDist);
+
+    /**
+     * @brief follows a given path
+     * 
+     * @param path - the path to follow
+     */
+    void followPath(const PurePursuitPath& path);
+
+    /**
+     * @brief sets instance's lookahead distance
+     * 
+     * @param iLookAhead - new lookahead dist
+     */
+    void setLookAhead(okapi::QLength iLookAhead);
+
+    /**
+     * @brief sets instance's lookahead distance, returns itself for function chaining
+     * 
+     * @param iLookAhead - new lookahead dist
+     * @return the instance of the adaptive pure pursuit controller
+     */
+    AdaptivePurePursuitController& withLookAhead(okapi::QLength iLookAhead);
+
+    private:
+
+    /**
+     * @brief Initializes pure pursuit controller
+     *
+     */
+    void initialize();
+
+    /**
+     * @brief Calculates closest point on path to generate desired motor velocities
+     *
+     */
+    void updateClosestPoint();
+
+    /**
+      * @brief Calculates the look ahead point (aka. the next target point)
+      *
+      */
+    void calculateLookAheadPoint();
+
+    /**
+     * @brief Calculates curvature of the path to assist with turning
+     *
+     */
+    void calculateCurvature();
+
+    /**
+      * @brief Calculates power for drive
+      *
+      */
+    void calculateVelocity();
+
+    /**
+     * @brief Checks if drive has stopped
+     * 
+     * @return true - drive stopped
+     * @return false - drive in motion
+     */
+    bool isSettled();
+
+    std::shared_ptr<Chassis> chassis;
+    std::shared_ptr<Odometry> odometry;
+    okapi::QLength lookAheadDist;
+
+    PurePursuitPath path;
+
+    Pose2D currentPos;
+
+    int closestPoint;
+    int prevClosestPoint;
+
+    int prevLookAheadPoint;
+    Point2D lookAheadPoint;
+
+    okapi::QCurvature curvature;
+
+    okapi::QSpeed vel;
+    okapi::QAngularSpeed angularVel;
+
+    bool settle;
+
+};
 }

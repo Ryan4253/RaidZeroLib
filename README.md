@@ -1,7 +1,7 @@
 # lib4253
 Advanced Programming Library For VEX V5
 
-##Features:
+## Features:
 - Object Oriented Design
 - 6 different versions of odometry supported
 - Custom PID MoveTo using odom feedback
@@ -13,7 +13,7 @@ Advanced Programming Library For VEX V5
 - Feedback velocity controllers - Bang Bang, PID, Take Back Half
 - gif and odom debugger display
 
-##Installing:
+## Installing:
 1. Go to releases and install the latest version of the library
 2. Open comman prompt in where you installed the zip
 3. run ```prosv5 c fetch lib4253@VERSION.zip```, replacing VERSION with the version downloaded

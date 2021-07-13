@@ -12,7 +12,7 @@
 #pragma once
 #include "lib4253/Utility/Math.hpp"
 #include "lib4253/Controller/AbstractVelocityController.hpp"
-#include <math.h>
+#include <cmath>
 
 namespace lib4253{
 

@@ -54,4 +54,43 @@ double Math::clamp(double val, double min, double max){
   }
   return fmin(max, fmax(min, val));
 }
+
+constexpr long long Math::power(unsigned val, unsigned exp){
+  if(exp == 1 || exp == 0){
+    return 1;
+  }
+  else if(exp % 2 == 0){
+    long long pow = power(val, exp / 2);
+    return pow * pow;
+  }
+  else{
+    long long pow = power(val, exp / 2);
+    return pow * pow * val;
+  }
+}
+
+constexpr long long Math::fact(unsigned n){
+  return n * fact(n-1);
+}
+
+constexpr long long Math::ncr(unsigned n, unsigned r){
+    if (r == 0) return 1;
+
+    /*
+     Extra computation saving for large R,
+     using property:
+     N choose R = N choose (N-R)
+    */
+    if (r > n / 2) return ncr(n, n - r); 
+
+    long long res = 1; 
+
+    for (int i = 1; i <= r; i++)
+    {
+        res *= n - i + 1;
+        res /= i;
+    }
+
+    return res;
+}
 }

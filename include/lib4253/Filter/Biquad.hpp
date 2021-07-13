@@ -11,7 +11,6 @@
 
 #pragma once
 #include "lib4253/Filter/AbstractFilter.hpp"
-// #include <math.h>
 #define _USE_MATH_DEFINES
 #include <cmath>
 

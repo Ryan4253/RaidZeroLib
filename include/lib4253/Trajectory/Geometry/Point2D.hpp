@@ -23,6 +23,8 @@ class Translation2D{
 
     Translation2D(const okapi::QLength& magnitude, const Rotation2D& angle);
 
+    Translation2D(const Translation2D& old);
+
     ~Translation2D() = default;
 
     okapi::QLength getX() const;

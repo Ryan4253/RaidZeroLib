@@ -112,5 +112,11 @@ namespace Math{
     double sinc(double x);
 
     double clamp(double val, double min, double max);
+
+    constexpr long long power(unsigned int val, unsigned int exp);
+
+    constexpr long long fact(unsigned int n);
+
+    constexpr long long ncr(unsigned int n, unsigned int r);
 };
 }

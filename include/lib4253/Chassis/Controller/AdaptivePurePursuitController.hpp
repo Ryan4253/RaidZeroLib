@@ -2,19 +2,34 @@
  * @file PurePursuit.hpp
  * @author Ryan Liao (23RyanL@students.tas.tw)
  * @brief Pure pursuit controller - https://media.istockphoto.com/vectors/kitten-guiding-puppy-with-bone-vector-id1283672337?k=6&m=1283672337&s=612x612&w=0&h=yi3d4m_LMXtYzhZZamDOLE800JJ69VL1TVd1fGbFWSo=
- * @version 0.1
- * @date 2021-05-20
+ * @version 1.0
+ * @date 2021-07-13
  *
  * @copyright Copyright (c) 2021
  *
  */
 
 #pragma once
-#include "lib4253/Trajectory/SimplePath.hpp"
+#include "lib4253/Trajectory/Spline/PurePursuitPath.hpp"
 #include "lib4253/Trajectory/Geometry/Point2D.hpp"
+#include "lib4253/Chassis/Device/Chassis.hpp"
 #include <vector>
 
+
 namespace lib4253 {
+
+class AdaptivePurePursuitController{
+    public:
+    AdaptivePurePursuitController(std::shared_ptr<Chassis> iChassis, okapi::QLength iLookAheadDist);
+
+    void followPath(const PurePursuitPath& path);
+
+    private:
+    std::shared_ptr<Chassis> chassis;
+    okapi::QLength iLookAheadDist;
+
+};
+
 
 /**
  * @brief Pure pursuit class

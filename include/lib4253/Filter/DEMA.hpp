@@ -10,12 +10,9 @@
  */
 
 #pragma once
-//#include "main.h"
 #include "lib4253/Filter/AbstractFilter.hpp"
 
 namespace lib4253{
-// #include "main.h"
-
 
   /**
    * @brief Double exponential moving average (DEMA) filter class - inherited from Filter

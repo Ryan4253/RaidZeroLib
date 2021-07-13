@@ -10,7 +10,6 @@
  */
 
 #pragma once
-// #include <math.h> hahaha, cmath is the way to go lmao
 #include <cmath>
 #include "lib4253/Controller/AbstractVelocityController.hpp"
 #include "lib4253/Utility/Math.hpp"

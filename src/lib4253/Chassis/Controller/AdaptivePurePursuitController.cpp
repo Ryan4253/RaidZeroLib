@@ -1,4 +1,4 @@
-#include "lib4253/Controller/PurePursuit.hpp"
+#include "lib4253/Chassis/Controller/AdaptivePurePursuitController.hpp"
 namespace lib4253{
 
 // void PurePursuitFollower::initialize(){
@@ -14,36 +14,7 @@ namespace lib4253{
 //     initialize();
 // }
 
-// void PurePursuitFollower::setTurnGain(const double& k){
-//     kT = k;
-// }
 
-// void PurePursuitFollower::setKinematics(const double& v, const double& a){
-//     maxVelocity = v;
-//     maxAcceleration = a;
-// }
-
-// void PurePursuitFollower::setTrackWidth(const double& size){
-//     trackWidth = size;
-// }
-
-// void PurePursuitFollower::setLookAhead(const double& dist){
-//     radius = dist;
-// }
-
-// void PurePursuitFollower::generateVelocity(){
-//     velocity.clear();
-//     for(int i = 0; i < path.getSize(); i++){
-//         velocity.push_back(fmin(maxVelocity, kT / path.getCurvature(i)));
-//     }
-
-//     velocity[velocity.size()-1] = 0;
-
-//     for(int i = velocity.size()-2; i >= 0; i--){
-//         double dist = path.getWaypoint(i).distanceTo(path.getWaypoint(i+1));
-//         velocity[i] = fmin(velocity[i], sqrt(velocity[i+1]*velocity[i+1] + 2 * maxAcceleration * dist));
-//     }
-// }
 
 // void PurePursuitFollower::calcClosestPoint(const Pose2D& currentPos){
 //     double minDist = currentPos.distanceTo(path.getWaypoint(prevClosestPoint));
@@ -113,12 +84,7 @@ namespace lib4253{
 //     return std::make_pair(lTarget, rTarget);
 // }   
 
-// std::pair<double, double> PurePursuitFollower::step(const Pose2D& currentPos){
-//     calcClosestPoint(currentPos);
-//     calcLookAheadPoint(currentPos);
-//     calcCurvature(currentPos);
-//     return calcPower(currentPos);
-// }
+
 
 // bool PurePursuitFollower::isSettled() const {
 //     return settled;

@@ -1,26 +1,25 @@
-# 4253B
-Code for VEX team 4253B
+# lib4253
+Advanced Programming Library For VEX V5
 
-**Features**:
-- Supports 6 different versions of odometry (three wheel, two wheel + imu, two wheel, rotaion / 3 wire sensors)
+##Features:
+- Object Oriented Design
+- 6 different versions of odometry supported
 - Custom PID MoveTo using odom feedback
-- very op motion profile thats non okapi (to some extent)
 - 5 Different Sensor Filters
-- Adaptive Pure Pursuit & ~~Simple~~ shitty Path Generator
-- ~~Finite State Machine for individual subsystems~~ non chassis subsystems are no longer supported
-- Everything written in classes, easily instantiable by entering motor & sensor ports
-- ~~Custom task declaration using maps -> easily start/end-able~~ custom wrapper for any classes that involve tasks
-- Very clean code, even idiots like Andre can read it /s
+- Adaptive Pure Pursuit & Path Generator (Bezier)
+- 2D motion profile + Ramsete controller
+- Custom Linear Motion Profile Generator
+- custom wrappers for any classes that involve tasks or state machine 
+- Feedback velocity controllers - Bang Bang, PID, Take Back Half
+- gif and odom debugger display
 
-**To Do**
-- Make stuff wor
-- Yilan refs can't ref, watch esun big daddy spank them hard
-- Custom 32D [redacted]
-- OPPA GANGNAM STYLE
-- autism
-- Bro chill no one cares about this private repo
+##Installing:
+1. Go to releases and install the latest version of the library
+2. Open comman prompt in where you installed the zip
+3. run ```prosv5 c fetch lib4253@VERSION.zip```, replacing VERSION with the version downloaded
+4. run ```prosv5 c apply kappaframework``` in your project directory to install
+
 
 對了，我幹你南投縣政府 🖕🖕🖕
 有種發公文叫我把網站撤掉阿，小王八蛋
 
-~~**The code currently have no comments, since I'm lazy**~~

@@ -32,7 +32,7 @@
 #include "lib4253/Controller/Slew.hpp" // done
 #include "lib4253/Controller/BangBang.hpp" // done
 #include "lib4253/Controller/TakeBackHalf.hpp" // done
-//#include "lib4253/Controller/LinearMotionProfile.hpp" // done
+#include "lib4253/Controller/LinearMotionProfile.hpp"
 
 #include "lib4253/Chassis/Device/Motor.hpp" // done
 #include "lib4253/Chassis/Device/Chassis.hpp" // done
@@ -44,6 +44,7 @@
 #include "lib4253/Chassis/Controller/TrajectoryFollower.hpp" // done
 #include "lib4253/Chassis/Controller/RamseteController.hpp" // done
 #include "lib4253/Chassis/Controller/AdaptivePurePursuitController.hpp" // done
+#include "lib4253/Chassis/Controller/LinearMotionProfileFollower.hpp" // done
 
 #include "lib4253/GUI/OdomDisplay.hpp" // done
 #include "lib4253/GUI/gif-pros/gifclass.hpp"  // done

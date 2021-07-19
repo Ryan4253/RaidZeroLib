@@ -7,6 +7,8 @@
 #include "okapi/api/units/QSpeed.hpp"
 #include "okapi/api/units/QAcceleration.hpp"
 #include "okapi/api/units/QTime.hpp"
+#include "okapi/api/units/QAngularJerk.hpp"
+#include "okapi/api/units/QJerk.hpp"
 
 
 namespace okapi{
@@ -34,6 +36,12 @@ constexpr QDCurvatureDt radpmps = radpm / second;
 // Predefined Angular Acceleration Unit
 constexpr QAngularAcceleration radps2 = radps / second;
 
+// Predefined Jerk Unit
+constexpr QJerk mps3 = mps2 / second;
+
+// Predefined Angular Jerk Unit
+constexpr QAngularJerk radps3 = radps2 / second;
+
 inline namespace literals{
 // Length Unit Literals
 constexpr QLength operator"" _tile(long double x) { return static_cast<double>(x)*tile; }
@@ -60,6 +68,17 @@ constexpr QAngularSpeed operator"" _radps(unsigned long long int x) { return sta
 // Angular Acceleration literals
 constexpr QAngularAcceleration operator"" _radps2(long double x) { return static_cast<double>(x)*radps2; }
 constexpr QAngularAcceleration operator"" _radps2(unsigned long long int x) { return static_cast<double>(x)*radps2; }
+
+// Jerk Literals
+constexpr QJerk operator"" _mps3(long double x) { return static_cast<double>(x)*mps3; }
+constexpr QJerk operator"" _mps3(unsigned long long int x) { return static_cast<double>(x)*mps3; }
+
+// Angular Jerk Literals
+constexpr QAngularJerk operator"" _radps3(long double x) { return static_cast<double>(x)*radps3; }
+constexpr QAngularJerk operator"" _radps3(unsigned long long int x) { return static_cast<double>(x)*radps3; }
+
 } // namespace literals
 } // namespace okapi
+
+
 

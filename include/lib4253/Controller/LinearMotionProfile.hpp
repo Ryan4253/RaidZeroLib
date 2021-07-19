@@ -1,96 +1,90 @@
-/**
- * @file LinearMotionProfile.hpp
- * @author Ryan Liao (23RyanL@students.tas.tw)
- * @brief Generates and executes linear motion profiles
- * @version 0.1
- * @date 2021-05-20
- *
- * @copyright Copyright (c) 2021
- *
- */
-
 #pragma once
-#include <math.h>
+#include "lib4253/Utility/Units.hpp"
+#include<iostream>
+#include<vector>
+
 namespace lib4253{
 
-/**
- * @brief Linear motion profile controller class
- *
- */
-class LinearMotionProfileController{
-    private:
-    double maxAcc, decel, maxVel;
-    double tAcc, tCruise;
-    double dAcc, dCruise;
-    double dist;
-
-    //double startVel, endVel
-
-    /**
-     * @brief Construct a new Linear Motion Profile Controller object
-     *
-     */
-    LinearMotionProfileController();
-
-    /**
-     * @brief Construct a new Linear Motion Profile Controller object
-     *
-     * @param a maximum acceleration
-     * @param maxV maximum velocity
-     */
-    LinearMotionProfileController(const double& a, const double& maxVel);
-
-    /**
-     * @brief Destroys the Linear Motion Profile Controller object
-     * 
-     */
-    ~LinearMotionProfileController() = default;
+template<typename Unit>
+class LinearMotionProfile{
+    protected:
+    using Distance = decltype(Unit{1.0});
+    using Velocity = decltype(Unit{1.0} / okapi::QTime{1.0});
+    using Acceleration = decltype(Velocity{1.0} / okapi::QTime{1.0});
+    using Jerk = decltype(Acceleration{1.0} / okapi::QTime{1.0});
 
     public:
-    /**
-     * @brief Set maximum velocity and acceleration
-     *
-     * @param maxV max velocity
-     * @param maxA max acceleration
-     */
-    void setKinematics(const double& maxV, const double& maxA);
+    
 
-    /**
-     * @brief Sets desired distance for the controller
-     *
-     * @param d desired distance
-     */
-    void setDistance(const double& d);
+    LinearMotionProfile(const Velocity& iMaxVelocity, const Acceleration& iMaxAcceleration, const Jerk& iMaxJerk = 2000000000 * Jerk{1.0});
+    virtual ~LinearMotionProfile() = default;
 
-    /**
-     * @brief Gets velocity at specified time step
-     *
-     * @param t time step
-     * @return velocity at t
-     */
-    double getVelocityTime(const double& t) const;
+    bool isInitialized() const;
+    okapi::QTime getTime() const;
+    bool isSettled() const;
 
-    /**
-     * @brief Gets velocity at specified distance
-     *
-     * @param d distance
-     * @return velocity at d
-     */
-    double getVelocityDist(const double& d) const;
+    virtual void setDistance(const Distance& iTarget) = 0;
 
-    /**
-     * @brief Gets predicted execution time
-     *
-     * @return total time
-     */
-    double getTotalTime() const;
+    virtual std::pair<Velocity, Acceleration> calculate(const okapi::QTime& currentTime) = 0;
+    virtual std::pair<Velocity, Acceleration> calculate(const Distance& currentDist) = 0;
+
+    protected:
+    Velocity maxVelocity;
+    Acceleration maxAcceleration;
+    Jerk maxJerk;
+
+    Distance targetDist;
+    okapi::QTime totalTime;
+    bool initialize;
+    bool reversed;
+    bool settled;
 };
 
-class TrapezoidalProfileController : LinearMotionProfileController{
+template<typename Unit>
+class TrapezoidalMotionProfile : public LinearMotionProfile<Unit>{
+    public:
+    using Distance = decltype(Unit{1.0});
+    using Velocity = decltype(Unit{1.0} / okapi::QTime{1.0});
+    using Acceleration = decltype(Velocity{1.0} / okapi::QTime{1.0});
+    using Jerk = decltype(Acceleration{1.0} / okapi::QTime{1.0});
 
+    public:
+    TrapezoidalMotionProfile(const Velocity& iMaxVelocity, const Acceleration& iMaxAcceleration, const Jerk& iMaxJerk = 2000000000 * Jerk{1.0});
+    ~TrapezoidalMotionProfile() = default;
+
+    void setDistance(const Distance& iTarget) override;
+
+    std::pair<Velocity, Acceleration> calculate(const okapi::QTime& currentTime) override;
+    std::pair<Velocity, Acceleration> calculate(const Distance& currentDist) override;
+
+    private:
+    std::vector<okapi::QTime> timePhase;
+    std::vector<Distance> distPhase;
 };
 
-class SCurveMotionProfileController : LinearMotionProfileController{
+template<typename Unit>
+class SCurveMotionProfile : public LinearMotionProfile<Unit>{
+    using Distance = decltype(Unit{1.0});
+    using Velocity = decltype(Unit{1.0} / okapi::QTime{1.0});
+    using Acceleration = decltype(Velocity{1.0} / okapi::QTime{1.0});
+    using Jerk = decltype(Acceleration{1.0} / okapi::QTime{1.0});
 
+    public:
+    SCurveMotionProfile(const Velocity& iMaxVelocity, const Acceleration& iMaxAcceleration, const Jerk& iMaxJerk = 2000000000 * Jerk{1.0});
+    ~SCurveMotionProfile() = default;
+
+    void setDistance(const Distance& iTarget) override;
+
+    std::pair<Velocity, Acceleration> calculate(const okapi::QTime& currentTime) override;
+    std::pair<Velocity, Acceleration> calculate(const Distance& currentDist) override;
+
+    private:
+    std::vector<okapi::QTime> timePhase;
+    std::vector<Distance> distPhase;
+    std::vector<Velocity> velPhase;
 };
+
+
 }
+
+

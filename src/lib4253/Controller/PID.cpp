@@ -50,7 +50,7 @@ double PID::step(const double& val) {
     prevError = error;
     // I calculation
     integral += error * (error <= gain.minDist); // where to start collecting
-    integral *= (signbit(error) != signbit(prevError)); // set to 0 once passes setpoint
+    integral *= (std::signbit(error) != std::signbit(prevError)); // set to 0 once passes setpoint
     integral = fmin(integral, gain.maxIntegral); // cap integral to a limit
     return output = error * gain.kP + integral * gain.kI + derivative * gain.kD; // final power output
 }

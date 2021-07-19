@@ -113,10 +113,43 @@ namespace Math{
 
     double clamp(double val, double min, double max);
 
-    constexpr long long power(unsigned int val, unsigned int exp);
+    constexpr long long power(unsigned int val, unsigned int exp){
+        if(exp == 1 || exp == 0){
+            return 1;
+        }
+        else if(exp % 2 == 0){
+            long long pow = power(val, exp / 2);
+            return pow * pow;
+        }
+         else{
+            long long pow = power(val, exp / 2);
+            return pow * pow * val;
+        }
+    }
 
-    constexpr long long fact(unsigned int n);
+    constexpr long long fact(unsigned int n){   
+        return n * fact(n-1);
+    }
 
-    constexpr long long ncr(unsigned int n, unsigned int r);
+    constexpr long long ncr(unsigned int n, unsigned int r){
+        if (r == 0) return 1;
+
+        /*
+        Extra computation saving for large R,
+        using property:
+        N choose R = N choose (N-R)
+        */
+        if (r > n / 2) return ncr(n, n - r); 
+
+        long long res = 1; 
+
+        for (int i = 1; i <= r; i++)
+        {
+            res *= n - i + 1;
+            res /= i;
+        }
+
+        return res;
+    }
 };
 }

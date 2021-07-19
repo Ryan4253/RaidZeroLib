@@ -8,7 +8,7 @@ namespace lib4253{
 
 class Bezier{
     public:
-    Bezier::Bezier(std::vector<Point2D> control_point);
+    Bezier(std::vector<Point2D> control_point);
 
     Point2D getFirstPoint();
 

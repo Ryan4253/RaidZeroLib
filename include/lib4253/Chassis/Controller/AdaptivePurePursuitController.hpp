@@ -59,7 +59,7 @@ class AdaptivePurePursuitController{
 
     private:
 
-    /**
+    /** 
      * @brief Initializes pure pursuit controller
      *
      */
@@ -70,6 +70,8 @@ class AdaptivePurePursuitController{
      *
      */
     void updateClosestPoint();
+
+    // TO DO: optimize    
 
     /**
       * @brief Calculates the look ahead point (aka. the next target point)
@@ -96,6 +98,7 @@ class AdaptivePurePursuitController{
      * @return false - drive in motion
      */
     bool isSettled();
+
 
     std::shared_ptr<Chassis> chassis;
     std::shared_ptr<Odometry> odometry;

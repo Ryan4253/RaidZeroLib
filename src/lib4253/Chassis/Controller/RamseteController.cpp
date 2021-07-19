@@ -32,6 +32,7 @@ std::pair<okapi::QSpeed, okapi::QAngularSpeed> RamseteController::update(const T
     double vRef = target.linVelocity.convert(okapi::mps);
     double omegaRef = target.angVelocity.convert(okapi::radps);
 
+    // Unit inconsistent dark magic ?!?!??!?!!!??!?!
     double k = 2.0 * zeta * std::sqrt(std::pow(omegaRef, 2) + b * vRef * vRef);
 
     okapi::QSpeed v{(vRef * cos(eTheta) + k * eX) * okapi::mps};

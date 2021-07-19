@@ -2,6 +2,7 @@
 namespace lib4253{
 
 AdaptivePurePursuitController::AdaptivePurePursuitController(
+
 std::shared_ptr<Chassis> iChassis, std::shared_ptr<Odometry> iOdometry, okapi::QLength iLookAheadDist){
     chassis = std::move(iChassis);
     odometry = std::move(iOdometry);

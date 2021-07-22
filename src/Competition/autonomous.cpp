@@ -1,6 +1,4 @@
 #include "main.h"
-#include "auton.hpp"
-#include "declarations.hpp"
 
 
 /**
@@ -15,7 +13,4 @@
  * from where it left off.
  */
 void autonomous() {
-    //matchState = AUTONOMOUS;
-    pros::lcd::print(0, "auton");
-    //drive.followPath("10");
 }

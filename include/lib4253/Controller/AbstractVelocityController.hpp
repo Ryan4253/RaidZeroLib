@@ -35,15 +35,15 @@ class AbstractVelocityController {
         return gain;
     }
 
-    double getTarget() const{
+    double getTarget() const {
         return target;
     }
    
-    double getError() const{
+    double getError() const {
         return error;
     }
 
-    double getOutput() const{
+    double getOutput() const {
         return output;
     }
 

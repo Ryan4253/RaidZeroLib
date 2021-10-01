@@ -25,7 +25,7 @@ class DemaFilter: public AbstractFilter<double>{
      * @brief Construct a new Dema Filter object
      *
      */
-    DemaFilter() = default;
+    DemaFilter();
 
     /**
      * @brief Construct a new Dema Filter object

@@ -225,6 +225,31 @@ void Chassis::arcade(const double& fwd, const double& yaw){
     lControllerY = fwd * 12000;
     rControllerX = yaw * 12000;
 }
+void Chassis::curvature(const double& throttle, const double& turn, const bool& quickTurn) {
+    // declaring variables
+    double leftSpeed = 0.0;
+    double rightSpeed = 0.0;
+
+    if (quickTurn) {
+        leftSpeed = moveC + turnC;
+        rightSpeed = moveC - turnC;
+    } else {
+        // curvature math
+        leftSpeed = moveC + fabs(moveC) * turnC;
+        rightSpeed = moveC - fabs(moveC) * turnC;
+    }
+
+    // Normalize wheel speeds
+    double maxMagnitude = std::max(fabs(leftSpeed), fabs(rightSpeed));
+    if (maxMagnitude > 1.0) {
+        leftSpeed /= maxMagnitude;
+        rightSpeed /= maxMagnitude;
+    }
+
+    // output
+    lControllerY = leftSpeed * 12000;
+    rControllerX = rightSpeed * 12000;
+}
 }
 /*
 Drive& Drive::withDrivePID(std::tuple<double, double, double> gain, std::tuple<double, double> IGain, std::tuple<double> emaGain){

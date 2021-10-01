@@ -64,6 +64,17 @@ class Chassis: public TaskWrapper, public StateMachine<DriveState>{
 	void tank(const double& left, const double& right);
 	void arcade(const double& fwd, const double& yaw);
 
+    /**
+     * @brief Although similar to arcade drive, curvature drives allows more accurate
+     *        turning by taking the drive's curvature into account instead of just 
+     *        controller input. In simpler terms, turning is nerfed. 
+     * 
+     * @param throttle forwards & backwards, controlled by leftY
+     * @param turn turn, controller by rightX
+     * @param quickTurn switches between arcade & curvature drive
+     */
+    void curvature(const double& throttle, const double& turn, const bool& quickTurn);
+
 	private:
 	std::vector<std::shared_ptr<Motor> > left {nullptr};
     std::vector<std::shared_ptr<Motor> > right {nullptr};

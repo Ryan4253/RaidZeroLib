@@ -65,13 +65,13 @@ void AdaptivePurePursuitController::calculateLookAheadPoint(){
         Point2D d = end - start;
         Point2D f = start - currentPos.getTranslation();
 
-        okapi::QArea a = d * d;
-        okapi::QArea b = 2 * (f * d);
-        okapi::QArea c = f * f - lookAheadDist * lookAheadDist;
-        auto discriminant = b * b - 4 * a * c; // i do not want to define a 4 length degree unit so let it slide
+        auto a = d * d;
+        auto b = 2 * (f * d);
+        auto c = f * f - lookAheadDist * lookAheadDist;
+        auto discriminant = b * b - 4 * a * c; 
 
         if(discriminant.getValue() >= 0){
-            okapi::QArea dis = sqrt(discriminant);
+            auto dis = sqrt(discriminant);
             double t1 = ((-b - dis) / (2 * a)).convert(okapi::number);
             double t2 = ((-b + dis) / (2 * a)).convert(okapi::number);
 

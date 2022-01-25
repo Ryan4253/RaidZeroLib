@@ -41,7 +41,7 @@ Point2D DiscretePath::operator[](const int& index) const{
     return path[index];
 }
 
-DiscretePath& DiscretePath::generate(int step, bool end = true){
+DiscretePath& DiscretePath::generate(int step, bool end){
     if(step < 1){
         throw std::runtime_error("DiscretePath:: step < 1");
     }
@@ -65,7 +65,7 @@ DiscretePath& DiscretePath::generate(int step, bool end = true){
     return *this;
 }
 
-DiscretePath& DiscretePath::generate(okapi::QLength dist, bool end = true){
+DiscretePath& DiscretePath::generate(okapi::QLength dist, bool end){
     if(dist == 0 * okapi::meter){
         throw std::runtime_error("DiscretePath: dist == 0");
     }

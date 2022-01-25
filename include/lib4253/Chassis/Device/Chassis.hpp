@@ -84,36 +84,3 @@ class Chassis: public TaskWrapper, public StateMachine<DriveState>{
     double lControllerY = 0, rControllerX = 0, rControllerY = 0;
 };
 }
-/*
-class Drive{
-    public:
-
-    Drive(const std::initializer_list<okapi::Motor> &l, const std::initializer_list<okapi::Motor> &r);
-    Drive& withOdometry(const CustomOdometry& tracker);
-    Drive& withDimensions(std::tuple<double> wheel, std::tuple<double, double> gear, std::tuple<double> track);
-    Drive& withDrivePID(std::tuple<double, double, double> gain, std::tuple<double, double> IGain, std::tuple<double> emaGain);
-    Drive& withTurnPID(std::tuple<double, double, double> gain, std::tuple<double, double> IGain, std::tuple<double> emaGain);
-    Drive& withPurePursuit(std::tuple<double> lookAhead, std::tuple<double> turnGain, std::tuple<double, double> kinematics);
-    Drive& withSlew(int acc, int dec);
-    Drive& withVelocityFeedForward(std::tuple<double, double, double> l, std::tuple<double, double, double> r);
-    void initialize();
-
-    State getState();
-    void setState(State s);
-
-    void moveDistanceLMP(double distance);
-    void moveDistanceLMPD(double distance);
-
-    void followPath(SimplePath path);
-
-
-  protected:
-
-    private:
-    PurePursuitFollower PPTenshi;
-    LinearMotionProfileController* bruhMobile;
-
-
-};
-
-*/

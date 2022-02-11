@@ -1,19 +1,17 @@
 #include "lib4253/Controller/Slew.hpp"
 namespace lib4253{
 
-Slew::Slew(const SlewGain& gain){
-    this->gain = gain, speed = 0;
+SlewController::SlewController(double iAccStep, double iDecStep): SlewController(Gains(iAccStep, iDecStep)){}
+
+SlewController::SlewController(const Gains& iGain){
+    gain = iGain, speed = 0;
 }
 
-void Slew::reset(){
+void SlewController::reset(){
     speed = 0, output = 0;
 }
 
-void Slew::initialize(){
-    reset();
-}
-
-double Slew::step(const double& val){
+double SlewController::step(const double& val){
     double step;
 
     if(std::fabs(speed) < std::fabs(val)){

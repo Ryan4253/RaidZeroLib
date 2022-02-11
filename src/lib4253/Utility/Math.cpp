@@ -55,4 +55,34 @@ double Math::clamp(double val, double min, double max){
   return fmin(max, fmax(min, val));
 }
 
+/*
+std::pair<double, double> scaleSpeed(const double& linear, const double& yaw, const double& max) const{
+    double left = linear - yaw;
+    double right = linear + yaw;
+    return desaturate(left, right, max);
+}
+
+std::pair<double, double> desaturate(const double& left, const double& right, const double& max) const{
+    double leftPower = left, rightPower = right, maxPower = fmax(std::fabs(left), std::fabs(right));
+    if(maxPower > std::fabs(max)){
+        leftPower = left / maxPower * max;
+        rightPower = right / maxPower * max;
+    }
+
+    return {leftPower, rightPower};
+}   
+
+std::pair<okapi::QSpeed, okapi::QSpeed> inverseKinematics(okapi::QSpeed velocity, okapi::QAngularSpeed angularVelocity) const{
+    double angVel = angularVelocity.convert(okapi::radps);
+    okapi::QSpeed diff = angVel * dimension.wheelTrack.convert(okapi::meter) * okapi::mps;
+    return {velocity - diff, velocity + diff};
+}
+
+std::pair<okapi::QAcceleration, okapi::QAcceleration> inverseKinematics(okapi::QAcceleration acceleration, okapi::QAngularAcceleration angularAcceleration) const{
+    double angAccel = angularAcceleration.convert(okapi::radps2);
+    okapi::QAcceleration diff = angAccel * dimension.wheelTrack.convert(okapi::meter) * okapi::mps2;
+    return {acceleration - diff, acceleration + diff};
+}
+*/
+
 }

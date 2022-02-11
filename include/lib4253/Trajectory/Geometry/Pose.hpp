@@ -5,6 +5,7 @@
 
 namespace lib4253{
 using namespace okapi;
+class Transform;
 
 class Pose{
     public:

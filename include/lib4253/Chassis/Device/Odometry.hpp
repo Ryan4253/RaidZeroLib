@@ -1,125 +1,74 @@
 #pragma once
-#include "lib4253/Trajectory/Geometry/Pose2D.hpp"
 #include "lib4253/Utility/Math.hpp"
-#include "lib4253/Utility/TaskWrapper.hpp"
 #include "lib4253/Utility/Units.hpp"
-#include "okapi/impl/device/rotarysensor/adiEncoder.hpp"
-#include "okapi/impl/device/rotarysensor/rotationSensor.hpp"
 #include "okapi/impl/device/rotarysensor/IMU.hpp"
+#include "okapi/api/odometry/odometry.hpp"
+#include "okapi/api/util/timeUtil.hpp"
+#include "okapi/impl/util/timeUtilFactory.hpp"
+#include "okapi/impl/device/rotarysensor/rotationSensor.hpp"
 #include <tuple>
 #include <atomic>
 namespace lib4253{
+using namespace okapi;
 
-/*
-* CustomOdometry.hpp
-*
-* This file contains the declaration for
-* the robot's odometry system. It is a mean to use sensor feedback from encoders
-* and imus to estimate the robot's absolute position on the field, therefore
-* allowing a lot of new possibilities such as error autocorrection or path following
-*
-* As there are many different methods to implement odometry, The code consists of
-* multiple classes. The base class is CustomOdometry, which provides general methods
-* (ex. getter, setter) and virtual methods for its subclasses
-*
-* Each of the other classes are subclasses of CustomOdometry, where they all use
-* different sensor and have slightly different
-*/
-
-class OdomDimension{
+class OneEncoderImuOdometry : public Odometry{
     public:
-    okapi::QLength wheelDiameter{0 * okapi::inch};
-    okapi::QLength lDist{0 * okapi::inch}, mDist{0 * okapi::inch}, rDist{0 * okapi::inch};
-    okapi::QAngle tpr;
+    OneEncoderImuOdometry(const std::shared_ptr<ContinuousRotarySensor>& iSide,
+                          const std::shared_ptr<IMU>& Imu,
+                          const ChassisScales& iScales,
+                          const TimeUtil& iTimeUtil = TimeUtilFactory::createDefault(),
+                          const std::shared_ptr<Logger>& iLogger = Logger::getDefaultLogger());
 
-    OdomDimension(const okapi::QLength& wheelDiam, const okapi::QLength& leftOffset, const okapi::QLength& midOffset, const okapi::QLength& rightOffset);
-    OdomDimension(const okapi::QLength& wheelDiam, const okapi::QLength& offset1, const okapi::QLength& offset2);
-    ~OdomDimension() = default;
-};
+    virtual ~OneEncoderImuOdometry() = default;
 
-class Odometry: public TaskWrapper{
-    protected:
-    Pose2D globalPos{0 * okapi::meter, 0 * okapi::meter, Rotation2D(0 * okapi::radian)}; // the global position of the robot
-    OdomDimension dimension{-1 * okapi::inch, -1 * okapi::inch, -1 * okapi::inch, -1 * okapi::inch};
+    void setScales(const ChassisScales& ichassisScales) override;
 
-    public:
-    Odometry() = default;
-    ~Odometry() = default;
+    void step() override;
+
+    OdomState getState(const StateMode &imode = StateMode::FRAME_TRANSFORMATION) const override;
+
+    void setState(const OdomState& istate,
+                  const StateMode& imode = StateMode::FRAME_TRANSFORMATION) override;
+
+    ChassisScales getScales() override;
     
-    Pose2D getPos() const; // return current position as a struct
-    okapi::QLength getX() const; // return x position as type QLength
-    okapi::QLength getY() const; // return y position in type QLength
-    okapi::QAngle getAngle() const; // return angle in radians
+    protected:
+    std::shared_ptr<Logger> logger;
+    std::unique_ptr<AbstractRate> rate;
+    std::unique_ptr<AbstractTimer> timer;
+    std::shared_ptr<ContinuousRotarySensor> side;
+    std::shared_ptr<IMU> imu;
+    ChassisScales chassisScales;
+    OdomState state;
+    std::valarray<std::int32_t> newTicks{0, 0, 0}, tickDiff{0, 0, 0}, lastTicks{0, 0, 0};
+    const std::int32_t maximumTickDiff{1000};
 
-    virtual double getEncoderLeft() const; // gets the left encoder reading
-    virtual double getEncoderRight() const; // gets the right encoder reading
-    virtual double getEncoderMid() const; // gets the mid encoder reading
-    virtual double getEncoderSide() const; // gets the side encoder reading
+    virtual OdomState odomMathStep(const std::valarray<std::int32_t> &itickDiff,
+                                   const QTime &ideltaT) const;
 
-    void setPos(const Pose2D& newPos); // sets the current position
-    void setX(const okapi::QLength& inch); // sets the x position of the robot
-    void setY(const okapi::QLength& inch); // sets the y position of the robot
-    void setAngle(const okapi::QAngle& theta); // sets the angle of the robot in radians
-
-    void displayPosition() const; // outputs the x, y, angle of the robot on the robot screen and the console
-
-    void resetState();
-    virtual void resetSensors() = 0;
-    void reset();
-};
-
-// Odometry using 3 encoders - 2 parallel to drive and one perpendicular
-class ThreeWheelOdometry : public Odometry{
     private:
-    void loop() override; // updates position based on encoder values
-    double lVal{0}, mVal{0}, rVal{0}; // readings from the left, middle and right encoders
-    double lPrev{0}, mPrev{0}, rPrev{0}; // previous reading from the left, middle and right encoders
-    std::shared_ptr<okapi::ContinuousRotarySensor> left{nullptr}, mid{nullptr}, right{nullptr}; // the 3 encoders
+    std::shared_ptr<ReadOnlyChassisModel> getModel() override;
 
-    public:
-    ThreeWheelOdometry(const std::shared_ptr<okapi::ADIEncoder>& l, const std::shared_ptr<okapi::ADIEncoder>& m, const std::shared_ptr<okapi::ADIEncoder>& r, const OdomDimension& dim); // constructor
-    ThreeWheelOdometry(const std::shared_ptr<okapi::RotationSensor>& l, const std::shared_ptr<okapi::RotationSensor>& m, const std::shared_ptr<okapi::RotationSensor>& r, const OdomDimension& dim);
-    ~ThreeWheelOdometry() = default;
-
-    void resetSensors() override; // reset sensors
-    double getEncoderLeft() const override; // gets reading from the left encoder
-    double getEncoderRight() const override; // gets reading from the right encoder
-    double getEncoderMid() const override; // gets reading fom the middle encoder
 };
 
-// Odometry using 2 encoder that are perpendicular to each other, as well as an imu to gather angle information
-class TwoWheelIMUOdometry:public Odometry{
-    private:
-    void loop() override;  // updates position based on encoder values
-    double mVal{0}, sVal{0}, aVal{0}; // readings from the side, middle encoder + imu sensor
-    double mPrev{0}, sPrev{0}, aPrev{0}; // previous readings from the side, middle encoder + imu sensor
-    std::shared_ptr<okapi::ContinuousRotarySensor> side{nullptr}, mid{nullptr};
-    std::shared_ptr<okapi::IMU> inertial{nullptr};
-
+class TwoEncoderImuOdometry : public OneEncoderImuOdometry{
     public:
-    TwoWheelIMUOdometry(const std::shared_ptr<okapi::ADIEncoder>& s, const std::shared_ptr<okapi::ADIEncoder>& m, const std::shared_ptr<okapi::IMU>& imu, const OdomDimension& dim); // constructor
-    TwoWheelIMUOdometry(const std::shared_ptr<okapi::RotationSensor>& s, const std::shared_ptr<okapi::RotationSensor>& m, const std::shared_ptr<okapi::IMU>& imu, const OdomDimension& dim); // constructor
-    TwoWheelIMUOdometry() = default;
+    TwoEncoderImuOdometry(const std::shared_ptr<ContinuousRotarySensor>& iSide,
+                          const std::shared_ptr<ContinuousRotarySensor>& iMiddle,
+                          const std::shared_ptr<IMU>& Imu,
+                          const ChassisScales& iScales,
+                          const TimeUtil& iTimeUtil = TimeUtilFactory::createDefault(), 
+                          const std::shared_ptr<Logger>& iLogger = Logger::getDefaultLogger());
 
-    void resetSensors() override; // reset sensors
-    double getEncoderSide() const override; // gets reading from the side encoder
-    double getEncoderMid() const override; // gets reading from the middle encoder
+    virtual ~TwoEncoderImuOdometry() = default;
+
+    void step() override;
+
+    protected:
+    std::shared_ptr<ContinuousRotarySensor> middle;
+
+    virtual OdomState odomMathStep(const std::valarray<std::int32_t> &itickDiff,
+                                   const QTime &ideltaT) const override;
 };
 
-class TwoWheelOdometry : public Odometry{
-    private:
-    void loop() override;  // updates position based on encoder values
-    double lVal{0}, rVal{0}; // readings from the side, middle encoder + imu sensor
-    double lPrev{0}, rPrev{0}; // previous readings from the side, middle encoder + imu sensor
-    std::shared_ptr<okapi::ContinuousRotarySensor> left{nullptr}, right{nullptr};
-
-    public:
-    TwoWheelOdometry(const std::shared_ptr<okapi::ADIEncoder>& l, const std::shared_ptr<okapi::ADIEncoder>& r, const OdomDimension& dim); // constructor
-    TwoWheelOdometry(const std::shared_ptr<okapi::RotationSensor>& l, const std::shared_ptr<okapi::RotationSensor>& r, const OdomDimension& dim); // constructor
-    ~TwoWheelOdometry() = default;
-
-    void resetSensors() override; // reset sensors
-    double getEncoderLeft() const override; // gets reading from the side encoder
-    double getEncoderRight() const override; // gets reading from the middle encoder
-};
 }

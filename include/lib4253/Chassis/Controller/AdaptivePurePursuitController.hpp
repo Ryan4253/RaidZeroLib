@@ -11,7 +11,7 @@
 
 #pragma once
 #include "lib4253/Trajectory/Spline/PurePursuitPath.hpp"
-#include "lib4253/Trajectory/Geometry/Pose2D.hpp"
+#include "lib4253/Trajectory/Geometry/Pose.hpp"
 #include "lib4253/Chassis/Device/Chassis.hpp"
 #include "lib4253/Chassis/Device/Odometry.hpp"
 #include <vector>

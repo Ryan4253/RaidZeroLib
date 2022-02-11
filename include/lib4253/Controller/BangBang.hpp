@@ -11,7 +11,8 @@
 
 
 #pragma once
-#include "lib4253/Controller/AbstractVelocityController.hpp"
+#include "okapi/api/control/iterative/iterativeController.hpp"
+#include "okapi/api/control/iterative/iterativeVelocityController.hpp"
 namespace lib4253{
 
 struct BangBangGain {
@@ -22,7 +23,7 @@ struct BangBangGain {
  * @brief BangBang class
  *
  */
-class BangBang : public AbstractVelocityController<BangBangGain>{
+class IterativeVelBangBangController : okapi::IterativeVelocityController<double, double>{
     public:
     /**
      * @brief Construct a new Bang Bang object

@@ -19,10 +19,11 @@
 #include "lib4253/Trajectory/Trajectory.hpp"
 #include "lib4253/Trajectory/PathGenerator.hpp"
 
+#include "lib4253/Controller/Iterative/IterativeVelBangBangController.hpp" // done
+#include "lib4253/Controller/Iterative/IterativeVelTBHController.hpp" // done
+#include "lib4253/Controller/Async/AsyncVelBangBangController.hpp" // done
+#include "lib4253/Controller/Async/AsyncVelTBHController.hpp" // done
 #include "lib4253/Controller/Slew.hpp" 
-#include "lib4253/Controller/BangBang.hpp" 
-#include "lib4253/Controller/IterativeVelTBHController.hpp" // done
-#include "lib4253/Controller/Async/AsyncVelTBHController.hpp"
 #include "lib4253/Controller/LinearMotionProfile.hpp"
 #include "lib4253/Controller/MotorVelocityController.hpp" // done
 

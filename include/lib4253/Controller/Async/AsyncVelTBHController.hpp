@@ -1,5 +1,5 @@
 #pragma once
-#include "lib4253/Controller/IterativeVelTBHController.hpp"
+#include "lib4253/Controller/Iterative/IterativeVelTBHController.hpp"
 #include "okapi/api/control/async/asyncVelocityController.hpp"
 #include "okapi/api/control/async/asyncWrapper.hpp"
 #include "okapi/api/control/controllerInput.hpp"
@@ -32,6 +32,8 @@ class AsyncVelTBHController : public AsyncWrapper<double, double>,
     std::unique_ptr<VelMath> iVelMath,
     double iRatio = 1,
     const std::shared_ptr<Logger> &iLogger = Logger::getDefaultLogger());
+
+  ~AsyncVelTBHController() throw()= default;
 
   /**
    * Set controller gains.

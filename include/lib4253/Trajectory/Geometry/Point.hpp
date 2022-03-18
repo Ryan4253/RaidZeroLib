@@ -60,6 +60,11 @@ class Translation{
 
     Translation rotateBy(const Rotation& rhs) const;
 
+    void setX(QLength iX);
+
+    void setY(QLength iY);
+    
+    private:
     QLength x = 0 * meter;
     QLength y = 0 * meter;
 };

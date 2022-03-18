@@ -11,6 +11,10 @@
 namespace lib4253{
 using namespace okapi;
 
+/**
+ * @brief Note, for the imu odom, wheel track = dist from center to side wheel
+ * 
+ */
 class OneEncoderImuOdometry : public Odometry{
     public:
     OneEncoderImuOdometry(const std::shared_ptr<ContinuousRotarySensor>& iSide,
@@ -40,10 +44,10 @@ class OneEncoderImuOdometry : public Odometry{
     std::shared_ptr<IMU> imu;
     ChassisScales chassisScales;
     OdomState state;
-    std::valarray<std::int32_t> newTicks{0, 0, 0}, tickDiff{0, 0, 0}, lastTicks{0, 0, 0};
-    const std::int32_t maximumTickDiff{1000};
+    std::valarray<double> newTicks{0, 0, 0}, tickDiff{0, 0, 0}, lastTicks{0, 0, 0};
+    const double maximumTickDiff{1000};
 
-    virtual OdomState odomMathStep(const std::valarray<std::int32_t> &itickDiff,
+    virtual OdomState odomMathStep(const std::valarray<double> &itickDiff,
                                    const QTime &ideltaT) const;
 
     private:
@@ -67,7 +71,7 @@ class TwoEncoderImuOdometry : public OneEncoderImuOdometry{
     protected:
     std::shared_ptr<ContinuousRotarySensor> middle;
 
-    virtual OdomState odomMathStep(const std::valarray<std::int32_t> &itickDiff,
+    virtual OdomState odomMathStep(const std::valarray<double> &itickDiff,
                                    const QTime &ideltaT) const override;
 };
 

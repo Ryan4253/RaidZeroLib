@@ -79,4 +79,12 @@ QLength Translation::mag() const{
 Translation Translation::rotateBy(const Rotation& rhs) const{
       return {x * rhs.Cos() - y * rhs.Sin(), x * rhs.Sin() + y * rhs.Cos()};
 }
+
+void Translation::setX(QLength iX){
+    x = iX;
+}
+
+void Translation::setY(QLength iY){
+    y = iY;
+}
 }

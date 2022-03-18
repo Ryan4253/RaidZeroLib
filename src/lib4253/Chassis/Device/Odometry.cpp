@@ -22,9 +22,9 @@ void OneEncoderImuOdometry::step(){
     const auto deltaT = timer->getDt();
     if(deltaT.getValue() != 0){
         newTicks[0] = side->get();
-
-        newTicks[2] = imu->get();
+        newTicks[1] = Math::angleWrap180(-imu->get()*degree).convert(degree);
         tickDiff = newTicks - lastTicks;
+        tickDiff[1] = Math::angleWrap180(tickDiff[1]*degree).convert(degree);
         lastTicks = newTicks;
 
         const auto newState = odomMathStep(tickDiff, deltaT);
@@ -58,40 +58,33 @@ ChassisScales OneEncoderImuOdometry::getScales(){
     return chassisScales;
 }
 
-OdomState OneEncoderImuOdometry::odomMathStep(const std::valarray<std::int32_t> &itickDiff, const QTime &ideltaT) const{
-    /*
-    if (itickDiff.size() < 3) {
-    LOG_ERROR_S("ThreeEncoderOdometry: itickDiff did not have at least three elements.");
-    return OdomState{};
-  }
+OdomState OneEncoderImuOdometry::odomMathStep(const std::valarray<double> &itickDiff, const QTime &ideltaT) const{
+        if (itickDiff.size() < 2) {
+        LOG_ERROR_S("OneEncoderIMUOdometry: itickDiff did not have at least three elements.");
+        return OdomState{};
+    }
 
     for (auto &&elem : itickDiff) {
         if (std::abs(elem) > maximumTickDiff) {
-        LOG_ERROR("ThreeEncoderOdometry: A tick diff (" + std::to_string(elem) +
-                    ") was greater than the maximum allowable diff (" +
-                    std::to_string(maximumTickDiff) + "). Skipping this odometry step.");
-        return OdomState{};
+            LOG_ERROR("OneEncoderIMUOdometry: A tick diff (" + std::to_string(elem) +
+                        ") was greater than the maximum allowable diff (" +
+                        std::to_string(maximumTickDiff) + "). Skipping this odometry step.");
+            return OdomState{};
         }
     }
 
     const double deltaS = itickDiff[0] / chassisScales.straight;
-    const double deltaM = itickDiff[1] / chassisScales.middle;
-
-    double deltaTheta = (itickDiff[2] * degree).convert(radian);
+    double deltaTheta = (itickDiff[1] * degree).convert(radian);
     double localOffX, localOffY;
 
-    const auto deltaM = static_cast<const double>(
-        itickDiff[2] / chassisScales.middle -
-        ((deltaTheta / 2_pi) * 1_pi * chassisScales.middleWheelDistance.convert(meter) * 2));
-
     if (deltaTheta == 0) {
-        localOffX = deltaM;
+        localOffX = 0;
         localOffY = deltaS;
     } else {
         localOffX = 2 * std::sin(deltaTheta / 2) *
                     (deltaM / deltaTheta + chassisScales.middleWheelDistance.convert(meter) * 2);
         localOffY = 2 * std::sin(deltaTheta / 2) *
-                    (deltaS / deltaTheta + chassisScales.wheelTrack.convert(meter) / 2);
+                    (deltaS / deltaTheta + chassisScales.wheelTrack.convert(meter));
     }
 
     double avgA = state.theta.convert(radian) + (deltaTheta / 2);
@@ -115,7 +108,6 @@ OdomState OneEncoderImuOdometry::odomMathStep(const std::valarray<std::int32_t> 
     }
 
     return OdomState{dX * meter, dY * meter, deltaTheta * radian};
-    */
 }
 
 std::shared_ptr<ReadOnlyChassisModel> OneEncoderImuOdometry::getModel(){
@@ -138,8 +130,9 @@ void TwoEncoderImuOdometry::step(){
     if(deltaT.getValue() != 0){
         newTicks[0] = side->get();
         newTicks[1] = middle->get();
-        newTicks[2] = imu->get();
+        newTicks[2] = Math::angleWrap180(-imu->get()*degree).convert(degree);
         tickDiff = newTicks - lastTicks;
+        tickDiff[2] = Math::angleWrap180(tickDiff[2]*degree).convert(degree);
         lastTicks = newTicks;
 
         const auto newState = odomMathStep(tickDiff, deltaT);
@@ -150,9 +143,61 @@ void TwoEncoderImuOdometry::step(){
     }
 }
 
-OdomState TwoEncoderImuOdometry::odomMathStep(const std::valarray<std::int32_t> &itickDiff,
+OdomState TwoEncoderImuOdometry::odomMathStep(const std::valarray<double> &itickDiff,
                                               const QTime &ideltaT) const{
+    if (itickDiff.size() < 3) {
+        LOG_ERROR_S("TwoEncoderIMUOdometry: itickDiff did not have at least three elements.");
+        return OdomState{};
+    }
 
+    for (auto &&elem : itickDiff) {
+        if (std::abs(elem) > maximumTickDiff) {
+            LOG_ERROR("TwoEncoderIMUOdometry: A tick diff (" + std::to_string(elem) +
+                        ") was greater than the maximum allowable diff (" +
+                        std::to_string(maximumTickDiff) + "). Skipping this odometry step.");
+            return OdomState{};
+        }
+    }
+
+    const double deltaS = itickDiff[0] / chassisScales.straight;
+    double deltaTheta = (itickDiff[2] * degree).convert(radian);
+    const auto deltaM = static_cast<const double>(
+        itickDiff[2] / chassisScales.middle -
+        ((deltaTheta / 2_pi) * 1_pi * chassisScales.middleWheelDistance.convert(meter) * 2));
+
+    double localOffX, localOffY;
+
+    if (deltaTheta == 0) {
+        localOffX = deltaM;
+        localOffY = deltaS;
+    } else {
+        localOffX = 2 * std::sin(deltaTheta / 2) *
+                    (deltaM / deltaTheta + chassisScales.middleWheelDistance.convert(meter) * 2);
+        localOffY = 2 * std::sin(deltaTheta / 2) *
+                    (deltaS / deltaTheta + chassisScales.wheelTrack.convert(meter));
+    }
+
+    double avgA = state.theta.convert(radian) + (deltaTheta / 2);
+
+    double polarR = std::sqrt((localOffX * localOffX) + (localOffY * localOffY));
+    double polarA = std::atan2(localOffY, localOffX) - avgA;
+
+    double dX = std::sin(polarA) * polarR;
+    double dY = std::cos(polarA) * polarR;
+
+    if (isnan(dX)) {
+        dX = 0;
+    }
+
+    if (isnan(dY)) {
+        dY = 0;
+    }
+
+    if (isnan(deltaTheta)) {
+        deltaTheta = 0;
+    }
+
+    return OdomState{dX * meter, dY * meter, deltaTheta * radian};
 }
 
 

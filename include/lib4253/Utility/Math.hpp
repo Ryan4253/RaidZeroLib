@@ -50,13 +50,11 @@ namespace Math{
      */
     okapi::QAngle angleToYaw(const okapi::QAngle& angle, const okapi::ChassisScales& scale);
 
-    /**
-     * @brief Scales the input power cubically, used in driver control for more precise control (theoretically)
-     * 
-     * @param power input power
-     * @return cubically scalled power
-     */
-    double cubicControl(double power);
+    double angleWrap360(double angle);
+
+    double angleWrapp180(double angle);
+
+    double angleWrap90(double angle);
 
     /**
      * @brief Limits angles between the range [0, 360]
@@ -151,5 +149,7 @@ namespace Math{
 
         return res;
     }
+
+    okapi::QLength circumradius(const Translation& side, const Translation& mid, const Translation& right);
 };
 }

@@ -9,6 +9,11 @@ Pose::Pose(const Translation& iTranslation, const Rotation& iRotation){
 Pose::Pose(QLength iX, QLength iY, const Rotation& iRotation)
     : translation(iX, iY), rotation(iRotation){}
 
+Pose::Pose(const OdomState& iState){
+    translation = Translation(iState.x, -1*iState.y);
+    rotation = Rotation(iState.theta);
+}
+
 const Translation& Pose::getTranslation() const{
     return translation;
 }

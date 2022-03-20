@@ -1,113 +1,210 @@
 #include "lib4253/Chassis/Controller/AdaptivePurePursuitController.hpp"
 namespace lib4253{
 
-AdaptivePurePursuitController::AdaptivePurePursuitController(
-
-std::shared_ptr<Chassis> iChassis, std::shared_ptr<Odometry> iOdometry, okapi::QLength iLookAheadDist){
+AsyncAdaptivePurePursuitController::AsyncAdaptivePurePursuitController(const std::shared_ptr<OdomChassisController>& iChassis, 
+                                                             const PurePursuitGains& iGains,
+                                                             QLength iLookAhead,
+                                                             const MotorFFController& iLeftController,
+                                                             const MotorFFController& iRightController,
+                                                             const TimeUtil& iTimeUtil): timeUtil(iTimeUtil){
     chassis = std::move(iChassis);
-    odometry = std::move(iOdometry);
-    lookAheadDist = iLookAheadDist;
+    leftMotor = std::static_pointer_cast<SkidSteerModel>(chassis->getModel())->getLeftSideMotor();
+    rightMotor = std::static_pointer_cast<SkidSteerModel>(chassis->getModel())->getLeftSideMotor();
+    gains = iGains;
+    lookAhead = iLookAhead;
+    leftController = iLeftController;
+    rightController = iRightController;
+    
+    rate = std::move(timeUtil.getRate());
+    timer = std::move(timeUtil.getTimer());
+    this->startTask();
 }
 
-void AdaptivePurePursuitController::followPath(const PurePursuitPath& path){
+AsyncAdaptivePurePursuitController::AsyncAdaptivePurePursuitController(const std::shared_ptr<OdomChassisController>& iChassis, 
+                                                             const PurePursuitGains& iGains,
+                                                             QLength iLookAhead,
+                                                             const TimeUtil& iTimeUtil): timeUtil(iTimeUtil){
+    chassis = std::move(iChassis);
+    leftMotor = std::static_pointer_cast<SkidSteerModel>(chassis->getModel())->getLeftSideMotor();
+    rightMotor = std::static_pointer_cast<SkidSteerModel>(chassis->getModel())->getLeftSideMotor();
+    gains = iGains;
+    lookAhead = iLookAhead;
+    leftController = std::nullopt;
+    rightController = std::nullopt;
+
+    rate = std::move(timeUtil.getRate());
+    timer = std::move(timeUtil.getTimer());
+    this->startTask();
+}
+
+void AsyncAdaptivePurePursuitController::followPath(const DiscretePath& iPath){
+    lock.take(5);
     initialize();
-    this->path = path;
+    path = PurePursuitPath(iPath, gains);
+    lock.give();
+}
 
-    while(!isSettled()){
-        currentPos = odometry->getPos();
-        updateClosestPoint();
-        calculateLookAheadPoint();
-        calculateCurvature();
-        calculateVelocity();
+void AsyncAdaptivePurePursuitController::setLookAhead(QLength iLookAhead){
+    lock.take(5);
+    lookAhead = iLookAhead;
+    lock.give();
+}
 
-        auto sideVel = chassis->inverseKinematics(vel, angularVel);
-        chassis->setVelocity({sideVel.first, 0 * okapi::mps2}, {sideVel.second, 0 * okapi::mps2});
+void AsyncAdaptivePurePursuitController::setGains(const PurePursuitGains& iGains){
+    lock.take(5);
+    gains = iGains;
+    lock.give();
+}
+
+void AsyncAdaptivePurePursuitController::initialize(){
+    settled = false;
+    prevClosest = std::nullopt; 
+    prevLookAheadIndex = 0;
+    prevLookAheadT = 0;
+}
+
+std::optional<double> AsyncAdaptivePurePursuitController::getT(const Point& iStart, const Point& iEnd, const Pose& iPos){
+    Point d = iEnd - iStart;
+    Point f = iStart - iPos.getTranslation();
+
+    auto a = d * d;
+    auto b = 2 * (f * d);
+    auto c = f * f - lookAhead * lookAhead;
+    auto discriminant = b * b - 4 * a * c; 
+
+    if(discriminant.getValue() >= 0){
+        auto dis = sqrt(discriminant);
+        double t1 = ((-b - dis) / (2 * a)).convert(okapi::number);
+        double t2 = ((-b + dis) / (2 * a)).convert(okapi::number);
+
+        if(t2 >= 0 && t2 <= 1){
+            return t2;
+        }
+        else if(t1 >= 0 && t1 <= 1){
+            return t1;
+        }   
     }
-    chassis->setPower(0, 0);
+
+    return std::nullopt;
 }
 
-void AdaptivePurePursuitController::setLookAhead(okapi::QLength iLookAhead){
-    lookAheadDist = iLookAhead;
-}
+int AsyncAdaptivePurePursuitController::getClosestPoint(const Pose& currentPos){
+    QLength minDist {std::numeric_limits<double>::max()};
+    int closest = prevClosest.value_or(0);
 
-AdaptivePurePursuitController& AdaptivePurePursuitController::withLookAhead(okapi::QLength iLookAhead){
-    lookAheadDist = iLookAhead;
-    return *this;
-}
-
-void AdaptivePurePursuitController::initialize(){
-    settle = false;
-    prevClosestPoint = 0; closestPoint = 0;
-    prevLookAheadPoint = 0;
-}
-
-void AdaptivePurePursuitController::updateClosestPoint(){
-    okapi::QLength minDist = currentPos.getTranslation().distanceTo(path.getPoint(prevClosestPoint));
-    int minIndex = prevClosestPoint;
-
-    for(int i = prevClosestPoint+1; i < path.getSize(); i++){
-        okapi::QLength dist = currentPos.getTranslation().distanceTo(path.getPoint(i));
+    for(int i = closest; i < path.size(); i++){
+        QLength dist = currentPos.getTranslation().distTo(path.getPoint(i));
         if(dist < minDist){
             minDist = dist;
-            minIndex = i;
+            closest = i;
         }
     }
 
-    closestPoint = minIndex;
-    prevClosestPoint = closestPoint;
+    prevClosest = closest;
+    return closest;
 }
 
-void AdaptivePurePursuitController::calculateLookAheadPoint(){
-    for(int i = prevLookAheadPoint; i < path.getSize()-1; i++){
-        Point2D start = path.getPoint(i);
-        Point2D end = path.getPoint(i+1);
+Point AsyncAdaptivePurePursuitController::getLookAheadPoint(const Pose& currentPos){
 
-        Point2D d = end - start;
-        Point2D f = start - currentPos.getTranslation();
+    int closestIndex = prevClosest.value_or(0);
 
-        auto a = d * d;
-        auto b = 2 * (f * d);
-        auto c = f * f - lookAheadDist * lookAheadDist;
-        auto discriminant = b * b - 4 * a * c; 
 
-        if(discriminant.getValue() >= 0){
-            auto dis = sqrt(discriminant);
-            double t1 = ((-b - dis) / (2 * a)).convert(okapi::number);
-            double t2 = ((-b + dis) / (2 * a)).convert(okapi::number);
+    for(int i = std::max(closestIndex, prevLookAheadIndex); i < path.size()-1; i++){
+        Point start = path.getPoint(i);
+        Point end = path.getPoint(i+1);
 
-            if(t2 >= 0 && t2 <= 0){
-                prevLookAheadPoint = i;
-                lookAheadPoint = start + d * t2;
-                return;
+        auto t = getT(start, end, currentPos);
+
+        if(t){
+            if(i > prevLookAheadIndex || t.value() > prevLookAheadT){
+                prevLookAheadIndex = i;
+                prevLookAheadT = t.value();
+                break;
             }
-            else if(t1 >= 0 && t1 <= 0){
-                prevLookAheadPoint = i;
-                lookAheadPoint = start + d * t1;
-                return;
-            }   
         }
     }
+
+    return path[prevLookAheadIndex] + (path[prevLookAheadIndex+1] - path[prevLookAheadIndex]) * prevLookAheadT;
 }
 
-void AdaptivePurePursuitController::calculateCurvature(){
-    double a = -tan(currentPos.getTheta()).convert(okapi::number); 
+QCurvature AsyncAdaptivePurePursuitController::calcCurvature(const Pose& iPos, const Point& lookAheadPt){
+    double a = -tan(iPos.Theta()).convert(okapi::number); 
     double b = 1;
-    okapi::QLength c = tan(currentPos.getTheta())*currentPos.getX() - currentPos.getY();
+    QLength c = tan(iPos.Theta())*iPos.X() - iPos.Y();
 
-    okapi::QLength x = abs(lookAheadPoint.x * a + lookAheadPoint.y * b + c) / sqrt(a * a + b * b);
-    okapi::QLength sideL = sin(currentPos.getTheta()) * (lookAheadPoint.x - currentPos.getX()) - cos(currentPos.getTheta()) * (lookAheadPoint.y - currentPos.getY());
-    okapi::Number side = sideL / abs(sideL);
+    QLength x = abs(lookAheadPt.X() * a + lookAheadPt.Y() * b + c) / sqrt(a * a + b * b);
+    QLength sideL = sin(iPos.Theta()) * (lookAheadPt.X() - iPos.X()) - cos(iPos.Theta()) * (lookAheadPt.Y() - iPos.Y());
+    Number side = sideL / abs(sideL);
 
-    curvature = (2 * x) / (lookAheadDist * lookAheadDist) * okapi::radian * side;
+    if(sideL.convert(meter) == 0){
+        return 0 * radpm;
+    }
+
+    return (2 * x) / (lookAhead * lookAhead) * okapi::radian * side;
 }
 
-void AdaptivePurePursuitController::calculateVelocity(){
-    vel = path.getVelocity(closestPoint);
-    angularVel = vel * curvature;
+std::pair<QSpeed, QSpeed> AsyncAdaptivePurePursuitController::calcVelocity(QCurvature iCurvature, int iClosestPt){
+    QSpeed vel = isReversed ? -path.getVelocity(iClosestPt) : path.getVelocity(iClosestPt);
+    QSpeed vl = vel * (2+iCurvature.convert(radpm)*chassis->getChassisScales().wheelTrack.convert(meter)) / 2;
+    QSpeed vr = vel * (2-iCurvature.convert(radpm)*chassis->getChassisScales().wheelTrack.convert(meter)) / 2;
+
+    if(isReversed){
+        return {vr, vl};
+    }
+    else{
+        return {vl, vr};
+    }
 }   
 
-bool AdaptivePurePursuitController::isSettled(){
-    return settle;
-}
+std::pair<QAcceleration, QAcceleration> AsyncAdaptivePurePursuitController::calcAcceleration(QCurvature iCurvature, int iClosestPt){
+    QAcceleration accel = isReversed ? -path.getAcceleration(iClosestPt) : path.getAcceleration(iClosestPt);
+    QAcceleration al = accel * (2+iCurvature.convert(radpm)*chassis->getChassisScales().wheelTrack.convert(meter)) / 2;
+    QAcceleration ar = accel * (2-iCurvature.convert(radpm)*chassis->getChassisScales().wheelTrack.convert(meter)) / 2;
+
+    if(isReversed){
+        return {ar, al};
+    }
+    else{
+        return {al, ar};
+    }
+}   
+
+bool AsyncAdaptivePurePursuitController::isSettled(){
+    return settled;
 }
 
+void AsyncAdaptivePurePursuitController::waitUntilSettled(){
+    while(!settled){
+        pros::delay(10);
+    }
+}
+
+void AsyncAdaptivePurePursuitController::loop(){
+    while(true){
+        lock.take(5);
+        if(settled){
+            lock.give();
+            rate->delayUntil(10);
+            continue;
+        }
+
+        Pose pos = chassis->getState();
+        int closest = getClosestPoint(pos);
+        Point lookAheadPt = getLookAheadPoint(pos);
+        QCurvature curvature = calcCurvature(pos, lookAheadPt);
+        std::pair<QSpeed, QSpeed> vel = calcVelocity(curvature, closest);
+        std::pair<QAcceleration, QAcceleration> accel = calcAcceleration(curvature, closest);
+
+        if(leftController && rightController){
+            double leftPower = leftController->step(0 * meter, vel.first, accel.first, 0 * meter, 0 * mps);
+            double rightPower = leftController->step(0 * meter, vel.first, accel.first, 0 * meter, 0 * mps);
+            chassis->getModel()->tank(leftPower, rightPower);
+        }
+        else{
+            
+        }
+        lock.give();
+        rate->delayUntil(10);
+    }
+}
+}

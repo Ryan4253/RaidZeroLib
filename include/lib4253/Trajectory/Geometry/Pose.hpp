@@ -2,6 +2,7 @@
 #include "Point.hpp"
 #include "Transform.hpp"
 #include "Twist.hpp"
+#include "okapi/api/odometry/odomState.hpp"
 
 namespace lib4253{
 using namespace okapi;
@@ -14,6 +15,8 @@ class Pose{
     Pose(const Translation& iTranslation, const Rotation& iRotation);
 
     Pose(QLength iX, QLength iY, const Rotation& iRotation);
+
+    Pose(const OdomState& iState);
 
     ~Pose() = default;
 

@@ -8,7 +8,7 @@ class TaskWrapper {
 protected:
     TaskWrapper() = default;
     TaskWrapper(const TaskWrapper& itask) = delete;
-    TaskWrapper(TaskWrapper&& itask) = default;
+    //TaskWrapper(TaskWrapper&& itask) = default;
     virtual ~TaskWrapper() = default;
     
     /**

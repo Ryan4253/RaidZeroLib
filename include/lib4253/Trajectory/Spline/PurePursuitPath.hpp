@@ -8,6 +8,7 @@ struct PurePursuitGains{
     QSpeed maxVelocity;
     QAcceleration maxAcceleration;
     QAngularSpeed maxAngularVelocity;
+    PurePursuitGains() = default;
     PurePursuitGains(QSpeed iMaxVelocity, QAcceleration iMaxAcceleration, QAngularSpeed iMaxAngularVelocity);
 };
 

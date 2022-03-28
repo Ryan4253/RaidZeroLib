@@ -52,6 +52,8 @@ class Translation{
 
     QAngle Theta() const;
 
+    std::pair<double, double> norm() const;
+
     QLength distTo(const Translation& rhs) const;
 
     QAngle angleTo(const Translation& rhs) const;

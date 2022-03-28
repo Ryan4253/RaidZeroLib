@@ -1,6 +1,9 @@
 #include "lib4253/Controller/Slew.hpp"
 namespace lib4253{
 
+SlewController::Gains::Gains(double accStep, double decStep):
+    accStep(accStep), decStep(decStep){}
+
 SlewController::SlewController(double iAccStep, double iDecStep): SlewController(Gains(iAccStep, iDecStep)){}
 
 SlewController::SlewController(const Gains& iGain){
@@ -32,6 +35,6 @@ double SlewController::step(const double& val){
     }
 
     //return fmin(speed, 127);
-    return output = Math::clamp(target, -12000, 12000);
+    return output = std::clamp(target, -12000.0, 12000.0);
 }
 }

@@ -102,6 +102,7 @@ class AsyncAdaptivePurePursuitController : public TaskWrapper{
     std::shared_ptr<OdomChassisController> chassis;
     std::shared_ptr<AbstractMotor> leftMotor;
     std::shared_ptr<AbstractMotor> rightMotor;
+    ChassisScales scales;
     
     QLength lookAhead;
 	TimeUtil timeUtil;

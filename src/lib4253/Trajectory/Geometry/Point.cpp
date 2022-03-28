@@ -60,6 +60,16 @@ void Translation::operator=(const Translation& rhs){
     x = rhs.x, y = rhs.y;
 }
 
+std::pair<double, double> Translation::norm() const{
+    QLength magnitude = this->mag();
+    if(magnitude.getValue() == 0){
+        return {0, 0};
+    }
+    else{
+        return {(x / magnitude).convert(number), (y / magnitude).convert(number)};
+    }
+};
+
 QAngle Translation::Theta() const{
     return atan2(y, x);
 }

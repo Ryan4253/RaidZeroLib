@@ -1,3 +1,4 @@
+#pragma once
 #include "lib4253/Trajectory/Geometry/Point.hpp"
 #include "lib4253/Trajectory/Spline/DiscretePath.hpp"
 

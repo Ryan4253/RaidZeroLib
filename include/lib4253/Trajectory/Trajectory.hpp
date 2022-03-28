@@ -23,10 +23,10 @@ using namespace okapi;
  *
  */
 struct TrajectoryPoint{
-    Pose position{0_m, 0_m, 0_rad};
-    QLength leftDist{0_m}, rightDist{0_m};
-    QSpeed leftVel{0_mps}, rightVel{0_mps};
-    QAcceleration leftAccel{0_mps2}, rightAccel{0_mps2};
+    Pose position{0_ft, 0_ft, 0_rad};
+    QLength leftDist{0_ft}, rightDist{0_ft};
+    QSpeed leftVel{0_ftps}, rightVel{0_ftps};
+    QAcceleration leftAccel{0_ftps2}, rightAccel{0_ftps2};
 
     /**
      * @brief Construct a new Trajectory Point object
@@ -47,8 +47,13 @@ struct TrajectoryPoint{
      */
     TrajectoryPoint(const QLength iLeftDist, const QLength iRightDist,
                     const QSpeed iLeftVel, const QSpeed iRightVel,
-                    const QAcceleration leftAccel, const QAcceleration rightAccel,
-                    const Pose& iPosition = Pose{0_m, 0_m, 0_rad});
+                    const QAcceleration iLeftAccel, const QAcceleration iRightAccel,
+                    const Pose& iPosition = Pose{0_ft, 0_ft, 0_rad});
+
+    TrajectoryPoint(double iLeftDist, double iRightDist,
+                double iLeftVel, double iRightVel,
+                double iLeftAccel, double iRightAccel,
+                double iX = 0, double iY = 0, double iTheta = 0);
 
     /**
      * @brief Destroy the Trajectory Point object

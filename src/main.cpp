@@ -74,14 +74,6 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	pros::Controller master(pros::E_CONTROLLER_MASTER);
-	auto LB = std::make_shared<lib4253::Motor>();
-	auto LM = std::make_shared<lib4253::Motor>();
-	auto LF = std::make_shared<lib4253::Motor>();
-	auto RB = std::make_shared<lib4253::Motor>();
-	auto RM = std::make_shared<lib4253::Motor>();
-	auto RF = std::make_shared<lib4253::Motor>();
-	auto chassis = std::make_shared<lib4253::Chassis>();
-	chassis->startTask();
-	chassis->setState(lib4253::DriveState::TANK);
+
 }
+

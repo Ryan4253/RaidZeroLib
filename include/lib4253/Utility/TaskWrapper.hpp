@@ -5,7 +5,7 @@
 namespace lib4253{
 
 class TaskWrapper {
-protected:
+    protected:
     TaskWrapper() = default;
     TaskWrapper(const TaskWrapper& itask) = delete;
     //TaskWrapper(TaskWrapper&& itask) = default;

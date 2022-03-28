@@ -1,29 +1,29 @@
 #pragma once
-#include "lib4253/Chassis/Device/Chassis.hpp"
-#include "lib4253/Chassis/Device/Odometry.hpp"
+#include "okapi/api/chassis/controller/odomChassisController.hpp"
 #include "lib4253/Trajectory/Trajectory.hpp"
 #include "lib4253/Utility/Units.hpp"
+#include "lib4253/Utility/Math.hpp"
+#include <memory>
 namespace lib4253{
+using namespace okapi;
 
 class RamseteController{
     public:
     RamseteController(
-        std::shared_ptr<Chassis> iChassis,
-        std::shared_ptr<Odometry> iOdometry,
-        const double& iB,
-        const double& iZeta
+        std::shared_ptr<OdomChassisController> iChassis,
+        double iB = 2.0,
+        double iZeta = 0.7
     );
 
     void followPath(const Trajectory& path);
 
     private:
-    std::shared_ptr<Chassis> chassis;
-    std::shared_ptr<Odometry> odometry;
-    Pose2D tolerance;
+    std::shared_ptr<OdomChassisController> chassis;
+    Pose tolerance;
     double b;
     double zeta;
 
-    std::pair<okapi::QSpeed, okapi::QAngularSpeed> update(const TrajectoryPoint& target, const Pose2D& currentPos);
+    std::pair<QSpeed, QSpeed> getTargetVelocity(QSpeed vel, QAngularSpeed angularVel, const Pose& error);
 
 };
 }

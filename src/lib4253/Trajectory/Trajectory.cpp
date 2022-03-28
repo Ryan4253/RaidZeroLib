@@ -13,11 +13,21 @@ TrajectoryPoint::TrajectoryPoint(const QLength iLeftDist, const QLength iRightDi
     leftAccel(iLeftAccel), rightAccel(iRightAccel), 
     position(iPosition){}
 
+TrajectoryPoint::TrajectoryPoint(double iLeftDist, double iRightDist,
+            double iLeftVel, double iRightVel,
+            double iLeftAccel, double iRightAccel,
+            double iX, double iY, double iTheta){
+    leftDist = iLeftDist * foot, rightDist = iRightDist * foot;
+    leftVel = iLeftVel * ftps, rightVel = iRightVel * ftps;
+    leftAccel = iLeftAccel * ftps2, rightAccel = iRightAccel * ftps2;
+    position = Pose(iX * foot, iY * foot, iTheta * degree);
+}
+
 std::ostream& operator<<(std::ostream& os, TrajectoryPoint& pt){
-    os << pt.position.X().convert(meter) << " " << pt.position.Y().convert(meter) << " " << pt.position.Theta().convert(radian) << " "
-       << pt.leftDist.convert(meter) << " " << pt.rightDist.convert(meter) << " " 
-       << pt.leftVel.convert(mps) << " " << pt.rightVel.convert(mps) << " "
-       << pt.leftAccel.convert(mps2) << " " << pt.rightAccel.convert(mps2) << std::endl;
+    os << "(" << pt.position.X().convert(foot) << ", " << pt.position.Y().convert(foot) << ", " << pt.position.Theta().convert(degree) << "),  "
+       << pt.leftDist.convert(foot) << " " << pt.rightDist.convert(foot) << " " 
+       << pt.leftVel.convert(ftps) << " " << pt.rightVel.convert(ftps) << " "
+       << pt.leftAccel.convert(ftps2) << " " << pt.rightAccel.convert(ftps2) << std::endl;
 
     return os;
 }
@@ -31,5 +41,4 @@ TrajectoryPoint Trajectory::operator[](int index) const{
 int Trajectory::size() const{
     return path.size();
 }
-
 }

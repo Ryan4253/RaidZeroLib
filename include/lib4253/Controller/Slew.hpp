@@ -80,7 +80,7 @@ class SlewController : okapi::IterativeController<double, double>{
     double step(const double& val);
 
     protected:
-    double speed{0.0};
+    double speed{0.0}, output{0.0}, target{0.0};
     Gains gain;
 };
 }

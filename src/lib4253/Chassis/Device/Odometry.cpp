@@ -35,7 +35,7 @@ void OneEncoderImuOdometry::step(){
     }
 }
 
-OdomState OneEncoderImuOdometry::getState(const StateMode &imode = StateMode::FRAME_TRANSFORMATION) const{
+OdomState OneEncoderImuOdometry::getState(const StateMode &imode) const{
     if(imode == StateMode::FRAME_TRANSFORMATION){
         return state;
     }
@@ -59,6 +59,7 @@ ChassisScales OneEncoderImuOdometry::getScales(){
 }
 
 OdomState OneEncoderImuOdometry::odomMathStep(const std::valarray<double> &itickDiff, const QTime &ideltaT) const{
+    /*
         if (itickDiff.size() < 2) {
         LOG_ERROR_S("OneEncoderIMUOdometry: itickDiff did not have at least three elements.");
         return OdomState{};
@@ -108,6 +109,8 @@ OdomState OneEncoderImuOdometry::odomMathStep(const std::valarray<double> &itick
     }
 
     return OdomState{dX * meter, dY * meter, deltaTheta * radian};
+    */
+   return OdomState{0*meter, 0*meter, 0*radian};
 }
 
 std::shared_ptr<ReadOnlyChassisModel> OneEncoderImuOdometry::getModel(){
@@ -124,6 +127,9 @@ TwoEncoderImuOdometry::TwoEncoderImuOdometry(const std::shared_ptr<ContinuousRot
 
     middle = std::move(iMiddle);
 }
+
+
+
 
 void TwoEncoderImuOdometry::step(){
     const auto deltaT = timer->getDt();

@@ -39,15 +39,15 @@ class AsyncAdaptivePurePursuitController : public TaskWrapper{
                               	  QLength iLookAheadDist,
                               	  const TimeUtil& iTimeUtil);
 
-	void operator=(const AsyncAdaptivePurePursuitController& rhs) = delete;
+    void operator=(const AsyncAdaptivePurePursuitController& rhs) = delete;
 
     void followPath(const DiscretePath& iPath);
 
     void setLookAhead(QLength iLookAhead);
 
-	void setGains(const PurePursuitGains& iGains);
+    void setGains(const PurePursuitGains& iGains);
 
-	void waitUntilSettled();
+    void waitUntilSettled();
 
     private:
 

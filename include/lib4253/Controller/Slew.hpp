@@ -15,12 +15,13 @@
 #include "okapi/api/control/iterative/iterativeController.hpp"
 
 namespace lib4253{
+using namespace okapi;
 
 /**
  * @brief Slew controller class
  *
  */
-class SlewController : okapi::IterativeController<double, double>{
+class SlewController : IterativeController<double, double>{
 
     public:
     struct Gains{

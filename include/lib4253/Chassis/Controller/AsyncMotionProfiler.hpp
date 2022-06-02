@@ -19,10 +19,6 @@ enum class MotionProfileState{
     MOVE, FOLLOW, IDLE
 };
 
-enum class TurnType{
-    GLOBAL, LOCAL
-};
-
 // forward declare
 template class StateMachine<MotionProfileState>;
 
@@ -43,41 +39,13 @@ class AsyncMotionProfiler : public StateMachine<MotionProfileState, MotionProfil
      * @param iRightTrajectory right velocity controller for trajectories
      * @param iTimeUtil timer utility
      */
-    AsyncMotionProfiler(std::shared_ptr<okapi::ChassisController> iChassis, 
+    AsyncMotionProfiler(std::shared_ptr<ChassisController> iChassis, 
                         std::unique_ptr<LinearMotionProfile> iMove, 
-                        std::unique_ptr<MotorFFController> iLeftLinear, 
-                        std::unique_ptr<MotorFFController> iRightLinear,
-                        std::unique_ptr<MotorFFController> iLeftTrajectory,
-                        std::unique_ptr<MotorFFController> iRightTrajectory,
-                        const okapi::TimeUtil& iTimeUtil);
-
-    /**
-     * @brief Construct a new Async Motion Profiler object (using internal velocity control)
-     * 
-     * @param iChassis chassis to output to
-     * @param iMove linear motion profile constraint to generate
-     * @param iTimeUtil timer utility
-     */
-    AsyncMotionProfiler(std::shared_ptr<okapi::ChassisController> iChassis, 
-                    std::unique_ptr<LinearMotionProfile> iMove, 
-                    const okapi::TimeUtil& iTimeUtil);
-
-    /**
-     * @brief Construct a new Async Motion Profiler object (using either custom or internal velocity control depending on the constructor)
-     * 
-     * @param iChassis chassis to output to
-     * @param iMove linear motion profile to generate
-     * @param iLeft left velocity controller (true for linear, false for trajectory)
-     * @param iRight right velocity controller (true for linear, false for trajectory)
-     * @param velFlag whether linear is custom (true) or trajectory is custom (true)
-     * @param iTimeUtil timer utility
-     */
-    AsyncMotionProfiler(std::shared_ptr<okapi::ChassisController> iChassis, 
-                    std::unique_ptr<LinearMotionProfile> iMove, 
-                    std::unique_ptr<MotorFFController> iLeft,
-                    std::unique_ptr<MotorFFController> iRight,
-                    bool velFlag,
-                    const okapi::TimeUtil& iTimeUtil);
+                        const std::optional<MotorFFController>& iLeftLinear, 
+                        const std::optional<MotorFFController>& iRightLinear,
+                        const std::optional<MotorFFController>& iLeftTrajectory,
+                        const std::optional<MotorFFController>& iRightTrajectory,
+                        const TimeUtil& iTimeUtil);
 
     void operator=(const AsyncMotionProfiler& rhs) = delete;
 
@@ -85,7 +53,7 @@ class AsyncMotionProfiler : public StateMachine<MotionProfileState, MotionProfil
      * @brief generate this class using AsyncMotionProfilerBuilder only
      * 
      */
-    friend class AsyncMotionProfilerBuilder;
+    friend class Builder;
 
     public:
 
@@ -95,7 +63,7 @@ class AsyncMotionProfiler : public StateMachine<MotionProfileState, MotionProfil
      * @param iDistance target distance
      * @param waitUntilSettled whether or not to wait until the motion profile is settled
      */
-    void setTarget(okapi::QLength iDistance, bool waitUntilSettled = false);
+    void setTarget(QLength iDistance, bool waitUntilSettled = false);
 
     /**
      * @brief Set the Target trajectoryr
@@ -112,15 +80,9 @@ class AsyncMotionProfiler : public StateMachine<MotionProfileState, MotionProfil
      * @param iType whether to do a global or local turn
      * @param waitUntilSettled whether or not to wait until the motion profile is settled
      */ 
-    void setTarget(okapi::QAngle iAngle, TurnType iType = TurnType::GLOBAL, bool waitUntilSettled = false);
+    void setTarget(QAngle iAngle, QAngle iCurrentAngle = 0_deg, bool waitUntilSettled = false);
 
-    void logLeftVelocity(bool flag);
-
-    void logRightVelocity(bool flag);
-
-    void logLeftPosition(bool flag);
-
-    void logRightPosition(bool flag);
+    void setConstraint(ProfileConstraint iConstraint);
 
     /**
      * @brief stop the chassis from moving
@@ -134,106 +96,103 @@ class AsyncMotionProfiler : public StateMachine<MotionProfileState, MotionProfil
      */
     void waitUntilSettled();
 
+    /**
+     * @brief An AsyncMotionProfile builder class which allows more intuitive instantiation of the class
+     * 
+     */
+    class Builder{
+        public:
+        /**
+         * @brief Constructs a new Async Motion Profiler Builder object
+         * 
+         */
+        Builder();
+
+        /**
+         * @brief Destroys the Async Motion Profiler Builder object
+         * 
+         */
+        ~Builder() = default;
+
+        /**
+         * @brief sets the chassis object for the profiler to output to
+         * 
+         * @param iChassis the chassis object to output to
+         * @return AsyncMotionProfilerBuilder& an ongoing builder
+         */
+        Builder& withOutput(std::shared_ptr<ChassisController> iChassis);
+
+        /**
+         * @brief sets the motion profile generator to use for linear movements
+         * 
+         * @param iProfiler the profile generator
+         * @return AsyncMotionProfilerBuilder& 
+         */
+        Builder& withProfiler(std::unique_ptr<LinearMotionProfile> iProfiler);
+
+        /**
+         * @brief sets the motor controller to use for linear movements
+         * 
+         * @param iLeft 
+         * @param iRight 
+         * @return AsyncMotionProfilerBuilder& 
+         */
+        Builder& withLinearController(MotorFFController iLeft, MotorFFController iRight);
+
+        /**
+         * @brief sets the motor controller to use when following paths    
+         * 
+         * @param iLeft 
+         * @param iRight 
+         * @return AsyncMotionProfilerBuilder& 
+         */
+        Builder& withTrajectoryController(MotorFFController iLeft, MotorFFController iRight);
+
+        /**
+         * @brief builds the async motion profiler object with the specified parameters. The thread is started automaically
+         * 
+         * @return std::shared_ptr<AsyncMotionProfiler> the built async motion profiler
+         */
+        std::shared_ptr<AsyncMotionProfiler> build();
+
+        private:
+        std::unique_ptr<LinearMotionProfile> profile{nullptr};
+        std::shared_ptr<ChassisController> chassis{nullptr};
+        std::optional<MotorFFController> leftL{std::nullopt};
+        std::optional<MotorFFController> rightL{std::nullopt};
+        std::optional<MotorFFController> leftT{std::nullopt};
+        std::optional<MotorFFController> rightT{std::nullopt};
+
+    };
+
     protected:
-    std::shared_ptr<okapi::ChassisController> chassis;
-    std::shared_ptr<okapi::AbstractMotor> leftMotor;
-    std::shared_ptr<okapi::AbstractMotor> rightMotor;
+    std::shared_ptr<ChassisController> chassis;
+    std::shared_ptr<AbstractMotor> leftMotor;
+    std::shared_ptr<AbstractMotor> rightMotor;
 
     std::unique_ptr<LinearMotionProfile> profiler;
-    std::unique_ptr<MotorFFController> leftLinear{nullptr};
-    std::unique_ptr<MotorFFController> rightLinear{nullptr};
-    std::unique_ptr<MotorFFController> leftTrajectory{nullptr};
-    std::unique_ptr<MotorFFController> rightTrajectory{nullptr};
+    std::optional<MotorFFController> leftLinear{std::nullopt};
+    std::optional<MotorFFController> rightLinear{std::nullopt};
+    std::optional<MotorFFController> leftTrajectory{std::nullopt};
+    std::optional<MotorFFController> rightTrajectory{std::nullopt};
 
-    okapi::TimeUtil timeUtil;
-    std::unique_ptr<okapi::AbstractRate> rate;
-    std::unique_ptr<okapi::AbstractTimer> timer;
-    okapi::QTime maxTime{0.0};
+    TimeUtil timeUtil;
+    std::unique_ptr<AbstractRate> rate;
+    std::unique_ptr<AbstractTimer> timer;
+    QTime maxTime{0.0};
 
     Trajectory path;
     pros::Mutex lock;
-
-    bool trajectoryCustom = false;
-    bool linearCustom = false;
 
     /**
      * @brief task loop
      * 
      */
     void loop() override;
+
+
 };
 
 
-/**
- * @brief An AsyncMotionProfile builder class which allows more intuitive instantiation of the class
- * 
- */
-class AsyncMotionProfilerBuilder{
-    public:
-    /**
-     * @brief Constructs a new Async Motion Profiler Builder object
-     * 
-     */
-    AsyncMotionProfilerBuilder();
 
-    /**
-     * @brief Destroys the Async Motion Profiler Builder object
-     * 
-     */
-    ~AsyncMotionProfilerBuilder() = default;
-
-    /**
-     * @brief sets the chassis object for the profiler to output to
-     * 
-     * @param iChassis the chassis object to output to
-     * @return AsyncMotionProfilerBuilder& an ongoing builder
-     */
-    AsyncMotionProfilerBuilder& withOutput(std::shared_ptr<okapi::ChassisController> iChassis);
-
-    /**
-     * @brief sets the motion profile generator to use for linear movements
-     * 
-     * @param iProfiler the profile generator
-     * @return AsyncMotionProfilerBuilder& 
-     */
-    AsyncMotionProfilerBuilder& withProfiler(std::unique_ptr<LinearMotionProfile> iProfiler);
-
-    /**
-     * @brief sets the motor controller to use for linear movements
-     * 
-     * @param iLeft 
-     * @param iRight 
-     * @return AsyncMotionProfilerBuilder& 
-     */
-    AsyncMotionProfilerBuilder& withLinearController(MotorFFController iLeft, MotorFFController iRight);
-
-    /**
-     * @brief sets the motor controller to use when following paths    
-     * 
-     * @param iLeft 
-     * @param iRight 
-     * @return AsyncMotionProfilerBuilder& 
-     */
-    AsyncMotionProfilerBuilder& withTrajectoryController(MotorFFController iLeft, MotorFFController iRight);
-
-    /**
-     * @brief builds the async motion profiler object with the specified parameters. The thread is started automaically
-     * 
-     * @return std::shared_ptr<AsyncMotionProfiler> the built async motion profiler
-     */
-    std::shared_ptr<AsyncMotionProfiler> build();
-
-    private:
-    std::unique_ptr<LinearMotionProfile> profile;
-    std::shared_ptr<okapi::ChassisController> chassis;
-    MotorFFController leftL;
-    MotorFFController rightL;
-    MotorFFController leftT;
-    MotorFFController rightT;
-
-    bool linearInit = false;
-    bool trajInit = false;
-    bool driveInit = false;
-    bool profileInit = false;
-};
 }

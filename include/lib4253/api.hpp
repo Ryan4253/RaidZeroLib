@@ -27,7 +27,7 @@
 #include "lib4253/Controller/LinearMotionProfile.hpp" // done
 #include "lib4253/Controller/MotorVelocityController.hpp" // done
 
-#include "lib4253/Chassis/Device/ExpandedSkidSteerModel.hpp" // done
+#include "lib4253/Chassis/Device/ExpandedSkidSteerModel.hpp" // done // tested
 #include "lib4253/Chassis/Device/Odometry.hpp" 
 
 #include "lib4253/Chassis/Controller/OdomController.hpp" 

@@ -52,8 +52,8 @@ bool Pose::operator!=(const Pose& rhs) const{
 }
 
 void Pose::operator=(const Pose& rhs){
-    translation = getTranslation();
-    rotation = getRotation();
+    translation = rhs.getTranslation();
+    rotation = rhs.getRotation();
 }
 
 Point Pose::closestTo(const Point& rhs) const{

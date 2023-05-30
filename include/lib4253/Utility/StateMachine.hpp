@@ -1,7 +1,7 @@
 #pragma once
 namespace lib4253{
 
-template <class State>
+template <class State, State initState = State::IDLE>
 class StateMachine{
     public:
     StateMachine() = default;

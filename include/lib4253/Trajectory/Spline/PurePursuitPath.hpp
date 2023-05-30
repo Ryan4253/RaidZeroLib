@@ -2,35 +2,32 @@
 #include "lib4253/Trajectory/Spline/DiscretePath.hpp"
 #include "lib4253/Utility/Units.hpp"
 namespace lib4253{
+using namespace okapi;
 
-class PathGenerator;
-class AdaptivePurePursuitController;
-
-struct PurePursuitLimit{
-    okapi::QSpeed maxVelocity;
-    okapi::QAcceleration maxAcceleration;
-    okapi::QAngularSpeed k;
+struct PurePursuitGains{
+    QSpeed maxVelocity;
+    QAcceleration maxAcceleration;
+    QAngularSpeed maxAngularVelocity;
+    PurePursuitGains() = default;
+    PurePursuitGains(QSpeed iMaxVelocity, QAcceleration iMaxAcceleration, QAngularSpeed iMaxAngularVelocity);
 };
 
 class PurePursuitPath{
     public:
-    int getSize();
-    Point2D getPoint(int index);
-    okapi::QSpeed getVelocity(int index);
-    okapi::QCurvature getCurvature(int index);
-
-    protected:
-    // dont interface with this class directly, let pathgenerator do the work
     PurePursuitPath() = default;
-    PurePursuitPath(const DiscretePath& iPath, const PurePursuitLimit& iLimit, std::vector<okapi::QSpeed> iVelocity);
-    friend class PathGenerator;
-    friend class AdaptivePurePursuitController;
+    PurePursuitPath(const DiscretePath& iPath, const PurePursuitGains& iLimits);
+
+    int size() const;
+    Point getPoint(int index) const;
+    QSpeed getVelocity(int index) const;
+    QAcceleration getAcceleration(int index) const;
+    QCurvature getCurvature(int index) const;
+    Point operator[](int index) const;
 
     private:
     DiscretePath path;
-    std::vector<okapi::QSpeed> velocity;
-    PurePursuitLimit limit;
-
+    std::vector<QSpeed> velocity;
+    std::vector<QAcceleration> acceleration;
 };
 
 }

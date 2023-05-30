@@ -1,34 +1,36 @@
-#include "lib4253/Chassis/Device/Chassis.hpp"
 #include "lib4253/Chassis/Device/Odometry.hpp"
+#include "okapi/api/chassis/controller/odomChassisController.hpp"
+#include "okapi/api/control/iterative/iterativePosPidController.hpp"
+#include "lib4253/Controller/Slew.hpp"
+#include "lib4253/Trajectory/Geometry/Pose.hpp"
 
 namespace lib4253{
+using namespace okapi;
 
 class OdomController{
     public:
-    OdomController(std::shared_ptr<Chassis> iChassis, 
-                                   std::shared_ptr<Odometry> iOdometry, 
-                                   const okapi::QLength& iAngleCorrectionRadius,
-                                   std::unique_ptr<PID> iDrivePID, 
-                                   std::unique_ptr<PID> iTurnPID, 
-                                   std::unique_ptr<PID> iAnglePID, 
-                                   std::unique_ptr<Slew> iSlew);
+    OdomController(std::shared_ptr<OdomChassisController> iChassis, 
+                                   QLength iAngleCorrectionRadius,
+                                   std::unique_ptr<IterativePosPIDController> iDrivePID, 
+                                   std::unique_ptr<IterativePosPIDController> iTurnPID, 
+                                   std::unique_ptr<IterativePosPIDController> iHeadingPID, 
+                                   std::unique_ptr<SlewController> iSlew);
                                 
     ~OdomController() = default;  
 
-    void moveToPoint(const Point2D& target, const double& turnScale, Settler settler = Settler::getDefaultSettler());
-    void moveToX(const okapi::QLength& targetX, Settler settler = Settler::getDefaultSettler());
-    void moveToY(const okapi::QLength& targetY, Settler settler = Settler::getDefaultSettler());
-    void turnToAngle(const okapi::QAngle& angle, Settler settler = Settler::getDefaultSettler());
-    void turnToPoint(const Point2D& target, Settler settler = Settler::getDefaultSettler());
+    void moveToPoint(const Point& target, double turnScale);
+    void moveToX(QLength targetX);
+    void moveToY(QLength targetY);
+    void turnToAngle(QAngle angle);
+    void turnToPoint(const Point& target);
 
     private:
-    std::shared_ptr<Chassis> chassis;
-    std::shared_ptr<Odometry> odom;
-    std::unique_ptr<PID> drivePID;
-    std::unique_ptr<PID> turnPID;
-    std::unique_ptr<PID> anglePID;
-    std::unique_ptr<Slew> driveSlew;
-    okapi::QLength angleCorrectionRadius;
+    std::shared_ptr<OdomChassisController> chassis;
+    std::unique_ptr<IterativePosPIDController> drivePID;
+    std::unique_ptr<IterativePosPIDController> turnPID;
+    std::unique_ptr<IterativePosPIDController> headingPID;
+    std::unique_ptr<SlewController> driveSlew;
+    QLength angleCorrectionRadius;
 };
 
 }

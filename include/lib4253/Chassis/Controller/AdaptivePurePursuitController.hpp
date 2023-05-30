@@ -11,51 +11,43 @@
 
 #pragma once
 #include "lib4253/Trajectory/Spline/PurePursuitPath.hpp"
-#include "lib4253/Trajectory/Geometry/Pose2D.hpp"
-#include "lib4253/Chassis/Device/Chassis.hpp"
 #include "lib4253/Chassis/Device/Odometry.hpp"
-#include <vector>
+#include "okapi/api/chassis/controller/odomChassisController.hpp"
+#include "lib4253/Controller/MotorVelocityController.hpp"
+#include "lib4253/Utility/TaskWrapper.hpp"
+#include "okapi/api/util/timeUtil.hpp"
+#include "lib4253/Trajectory/Geometry/Pose.hpp"
+#include <optional>
+#include <mutex>
 
 
 namespace lib4253 {
+using namespace okapi;
 
-/**
- * @brief Pure pursuit class
- *
- */
-class AdaptivePurePursuitController{
+class AsyncAdaptivePurePursuitController : public TaskWrapper{
     public:
 
-    /**
-     * @brief Constructor
-     * 
-     * @param iChassis - the chassis instance
-     * @param iOdometry - the odometry instance
-     * @param iLookAheadDist - lookahead distance
-     */
-    AdaptivePurePursuitController(std::shared_ptr<Chassis> iChassis, std::shared_ptr<Odometry> iOdometry, okapi::QLength iLookAheadDist);
+    AsyncAdaptivePurePursuitController(const std::shared_ptr<OdomChassisController>& iChassis, 
+                                  const PurePursuitGains& iGains,
+                                  QLength iLookAheadDist,
+                                  const MotorFFController& iLeftController,
+                                  const MotorFFController& iRightController,
+                                  const TimeUtil& iTimeUtil);
 
-    /**
-     * @brief follows a given path
-     * 
-     * @param path - the path to follow
-     */
-    void followPath(const PurePursuitPath& path);
+    AsyncAdaptivePurePursuitController(const std::shared_ptr<OdomChassisController>& iChassis, 
+                              	  const PurePursuitGains& iGains,
+                              	  QLength iLookAheadDist,
+                              	  const TimeUtil& iTimeUtil);
 
-    /**
-     * @brief sets instance's lookahead distance
-     * 
-     * @param iLookAhead - new lookahead dist
-     */
-    void setLookAhead(okapi::QLength iLookAhead);
+    void operator=(const AsyncAdaptivePurePursuitController& rhs) = delete;
 
-    /**
-     * @brief sets instance's lookahead distance, returns itself for function chaining
-     * 
-     * @param iLookAhead - new lookahead dist
-     * @return the instance of the adaptive pure pursuit controller
-     */
-    AdaptivePurePursuitController& withLookAhead(okapi::QLength iLookAhead);
+    void followPath(const DiscretePath& iPath);
+
+    void setLookAhead(QLength iLookAhead);
+
+    void setGains(const PurePursuitGains& iGains);
+
+    void waitUntilSettled();
 
     private:
 
@@ -65,11 +57,13 @@ class AdaptivePurePursuitController{
      */
     void initialize();
 
+    std::optional<double> getT(const Point& iStart, const Point& iEnd, const Pose& iPos);
+
     /**
      * @brief Calculates closest point on path to generate desired motor velocities
      *
      */
-    void updateClosestPoint();
+    int getClosestPoint(const Pose& currentPos);
 
     // TO DO: optimize    
 
@@ -77,19 +71,21 @@ class AdaptivePurePursuitController{
       * @brief Calculates the look ahead point (aka. the next target point)
       *
       */
-    void calculateLookAheadPoint();
+    Point getLookAheadPoint(const Pose& currentPos);
 
     /**
      * @brief Calculates curvature of the path to assist with turning
      *
      */
-    void calculateCurvature();
+    QCurvature calcCurvature(const Pose& iPos, const Point& lookAheadPt);
 
     /**
       * @brief Calculates power for drive
       *
       */
-    void calculateVelocity();
+    std::pair<QSpeed, QSpeed> calcVelocity(QCurvature iCurvature, int iClosestPt);
+
+    std::pair<QAcceleration, QAcceleration> calcAcceleration(QCurvature iCurvature, int iClosestPt);
 
     /**
      * @brief Checks if drive has stopped
@@ -100,26 +96,32 @@ class AdaptivePurePursuitController{
     bool isSettled();
 
 
-    std::shared_ptr<Chassis> chassis;
-    std::shared_ptr<Odometry> odometry;
-    okapi::QLength lookAheadDist;
+	void loop() override;
+
+
+    std::shared_ptr<OdomChassisController> chassis;
+    std::shared_ptr<AbstractMotor> leftMotor;
+    std::shared_ptr<AbstractMotor> rightMotor;
+    ChassisScales scales;
+    
+    QLength lookAhead;
+	TimeUtil timeUtil;
+	std::optional<MotorFFController> leftController;
+	std::optional<MotorFFController> rightController;
+	PurePursuitGains gains;
+
+	std::unique_ptr<AbstractTimer> timer;
+	std::unique_ptr<AbstractRate> rate;
 
     PurePursuitPath path;
+    bool isReversed;
+	pros::Mutex lock;
 
-    Pose2D currentPos;
+	std::optional<int> prevClosest {std::nullopt};
+	int prevLookAheadIndex {0};
+	double prevLookAheadT{0};
 
-    int closestPoint;
-    int prevClosestPoint;
-
-    int prevLookAheadPoint;
-    Point2D lookAheadPoint;
-
-    okapi::QCurvature curvature;
-
-    okapi::QSpeed vel;
-    okapi::QAngularSpeed angularVel;
-
-    bool settle;
+    bool settled{false};
 
 };
 }

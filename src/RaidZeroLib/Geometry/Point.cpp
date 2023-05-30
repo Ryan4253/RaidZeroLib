@@ -1,20 +1,11 @@
-#include "Point.hpp"
+#include "RaidZeroLib/Geometry/Point.hpp"
 namespace rz{
 
-Translation::Translation(QLength iX, QLength iY){
-    x = iX;
-    y = iY;
-}
+Translation::Translation(QLength iX, QLength iY) : x(iX), y(iY){}
 
-Translation::Translation(QLength iMag, const Rotation& iAngle){
-    x = iMag * iAngle.Cos();
-    y = iMag * iAngle.Sin();
-}
+Translation::Translation(QLength iMag, const Rotation& iAngle) : x(iMag * iAngle.Cos()), y(iMag * iAngle.Sin()){}
 
-Translation::Translation(const Translation& rhs){
-    x = rhs.x;
-    y = rhs.y;
-}
+Translation::Translation(const Translation& rhs) : x(rhs.x), y(rhs.y){}
 
 QLength Translation::X() const{
     return x;
@@ -49,7 +40,7 @@ Translation Translation::operator*(double scalar) const{
 }
 
 Translation Translation::operator/(double scalar) const{
-    return *this * (1/scalar);
+    return *this * (1.0/scalar);
 }
 
 bool Translation::operator==(const Translation& rhs) const{

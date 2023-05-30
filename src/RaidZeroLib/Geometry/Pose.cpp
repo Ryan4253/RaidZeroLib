@@ -1,13 +1,10 @@
-#include "Pose.hpp"
-namespace lib4253{
+#include "RaidZeroLib/Geometry/Pose.hpp"
 
-Pose::Pose(const Translation& iTranslation, const Rotation& iRotation){
-    translation = iTranslation;
-    rotation = iRotation;
-}
+namespace rz{
 
-Pose::Pose(QLength iX, QLength iY, const Rotation& iRotation)
-    : translation(iX, iY), rotation(iRotation){}
+Pose::Pose(const Translation& iTranslation, const Rotation& iRotation) : translation(iTranslation), rotation(iRotation){}
+
+Pose::Pose(QLength iX, QLength iY, const Rotation& iRotation) : translation(iX, iY), rotation(iRotation){}
 
 Pose::Pose(const OdomState& iState){
     translation = Translation(iState.x, -1*iState.y);
@@ -43,6 +40,14 @@ Transform Pose::operator-(const Pose& rhs) const{
     return Transform(pose.getTranslation(), pose.getRotation());
 }
 
+Pose Pose::operator*(double scalar) const{
+    return Pose(translation * scalar, rotation * scalar);
+}
+
+Pose Pose::operator/(double scalar) const{
+    return *this * (1.0 / scalar);
+}
+
 bool Pose::operator==(const Pose& rhs) const{
     return translation == rhs.translation && rotation == rhs.rotation;
 }
@@ -56,33 +61,13 @@ void Pose::operator=(const Pose& rhs){
     rotation = rhs.getRotation();
 }
 
-Point Pose::closestTo(const Point& rhs) const{
-    /*
-    Point current = translation;
-    Point heading(sin(rotation.getVal()), cos(rotation.getVal()));
-    Point n = heading.normalize();
-    Point v = target-translation;
-    double d = n*v  ;
-    return (current)+((n*d));
-    */
-    Point diff = rhs - translation;
-    QLength mag = diff.mag();
-    QAngle angle = (*this).angleTo(diff);
-    QLength inc = mag * cos(angle);
-    return translation + Translation(inc * cos(angle), inc * sin(angle));
-}
-
 Pose Pose::transformBy(const Transform& rhs) const{
-    return {translation + (rhs.getTranslation().rotateBy(rotation)), rotation + rhs.getRotation()};
+    return Pose(translation + rhs.getTranslation().rotateBy(rotation), rotation + rhs.getRotation());
 }
 
 Pose Pose::relativeTo(const Pose& rhs) const{
-    const Transform transform{rhs, *this};
-    return {transform.getTranslation(), transform.getRotation()};
-}
-
-QAngle Pose::angleTo(const Point& rhs) const{
-    return rotation.Theta() - (rhs-translation).Theta();
+    const Transform transform(rhs, *this);
+    return Pose(transform.getTranslation(), transform.getRotation());
 }
 
 Pose Pose::exp(const Twist& rhs) const{
@@ -90,8 +75,8 @@ Pose Pose::exp(const Twist& rhs) const{
     const QLength dy = rhs.dY();
     const double dtheta = rhs.dTheta().convert(radian);
 
-    const auto sinTheta = std::sin(dtheta);
-    const auto cosTheta = std::cos(dtheta);
+    const double sinTheta = std::sin(dtheta);
+    const double cosTheta = std::cos(dtheta);
 
     double s, c;
     if(std::abs(dtheta) < 1E-9){
@@ -103,7 +88,7 @@ Pose Pose::exp(const Twist& rhs) const{
         c = (1 - cosTheta) / dtheta;
     }
 
-    const Transform transform{Translation{dx * s - dy * c, dx * c + dy * s}, Rotation{cosTheta * meter, sinTheta * meter}};
+    const Transform transform(Translation{dx * s - dy * c, dx * c + dy * s}, Rotation{cosTheta * meter, sinTheta * meter});
 
     return *this + transform;
 }
@@ -126,7 +111,8 @@ Twist Pose::log(const Pose& rhs) const{
     }
 
     const Translation translationPart =
-    transform.getTranslation().rotateBy({halfThetaByTanOfHalfDtheta, -halfDtheta}) * std::hypot(halfThetaByTanOfHalfDtheta, halfDtheta);
+    transform.getTranslation().rotateBy(Rotation(halfThetaByTanOfHalfDtheta, -halfDtheta)) * 
+    std::hypot(halfThetaByTanOfHalfDtheta, halfDtheta);
 
     return {translationPart.X(), translationPart.Y(), (dtheta * radian)};
 }

@@ -1,10 +1,10 @@
 #pragma once
-#include "Point.hpp"
-#include "Transform.hpp"
-#include "Twist.hpp"
+#include "RaidZeroLib/Geometry/Point.hpp"
+#include "RaidZeroLib/Geometry/Transform.hpp"
+#include "RaidZeroLib/Geometry/Twist.hpp"
 #include "okapi/api/odometry/odomState.hpp"
 
-namespace lib4253{
+namespace rz{
 using namespace okapi;
 class Transform;
 
@@ -34,19 +34,19 @@ class Pose{
     
     Transform operator-(const Pose& rhs) const;
 
+    Pose operator*(double scalar) const;
+
+    Pose operator/(double scalar) const;
+
     bool operator==(const Pose& rhs) const;
 
     bool operator!=(const Pose& rhs) const;
 
     void operator=(const Pose& rhs);
 
-    Point closestTo(const Point& rhs) const;
-
     Pose transformBy(const Transform& rhs) const;
 
     Pose relativeTo(const Pose& rhs) const;
-
-    QAngle angleTo(const Point& rhs) const;
 
     Pose exp(const Twist& rhs) const;
 
@@ -56,5 +56,6 @@ class Pose{
     Translation translation;
     Rotation rotation;
 };
+
 }
 

@@ -72,5 +72,6 @@ class Translation{
 };
 
 typedef Translation Point;
+
 }
 

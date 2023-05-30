@@ -1,9 +1,8 @@
-#include "Twist.hpp"
-namespace lib4253{
+#include "RaidZeroLib/Geometry/Twist.hpp"
 
-Twist::Twist(QLength iX, QLength iY, QAngle iTheta){
-    dx = iX, dy = iY, dtheta = iTheta;
-}
+namespace rz{
+
+Twist::Twist(QLength dX, QLength dY, QAngle dTheta) : dx(dX), dy(dY), dtheta(dTheta){}
 
 QLength Twist::dX() const{
     return dx;
@@ -32,6 +31,5 @@ void Twist::operator=(const Twist& rhs){
     dy = rhs.dY();
     dtheta = rhs.dTheta();
 }
-
 
 }

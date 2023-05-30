@@ -1,17 +1,13 @@
-#include "Transform.hpp"
+#include "RaidZeroLib/Geometry/Transform.hpp" 
 
-namespace lib4253{
+namespace rz{
 
-Transform::Transform(const Pose& initial, const Pose& final){
-    translation = (final.getTranslation() - initial.getTranslation()).rotateBy(-initial.getRotation());
-
-    rotation = final.getRotation() - initial.getRotation();
+Transform::Transform(const Pose& iInitial, const Pose& iFinal){
+    translation = (iFinal.getTranslation() - iInitial.getTranslation()).rotateBy(-iInitial.getRotation());
+    rotation = iFinal.getRotation() - iInitial.getRotation();
 }
 
-Transform::Transform(const Translation& iTranslation, const Rotation& iRotation){
-    translation = iTranslation;
-    rotation = iRotation;
-}
+Transform::Transform(const Translation& iTranslation, const Rotation& iRotation) : translation(iTranslation), rotation(iRotation){}
 
 const Translation& Transform::getTranslation() const{
     return translation;
@@ -29,6 +25,22 @@ okapi::QLength Transform::Y() const{
     return translation.Y();
 }
 
+QAngle Transform::Theta() const{
+    return rotation.Theta();
+}
+
+Transform Transform::operator+(const Transform& rhs) const{
+    return Transform(Pose(), Pose().transformBy(*this).transformBy(rhs));
+}
+
+Transform Transform::operator*(double scalar) const{
+    return Transform(translation * scalar, rotation * scalar);
+}
+
+Transform Transform::operator/(double scalar) const{
+    return *this * (1.0 / scalar);
+}
+
 bool Transform::operator==(const Transform& rhs) const{
     return translation == rhs.translation && rotation == rhs.rotation;
 }
@@ -42,16 +54,8 @@ void Transform::operator=(const Transform& rhs){
     rotation = rhs.getRotation();
 }
 
-Transform Transform::operator*(double scalar) const{
-    return Transform(translation * scalar, rotation * scalar);
-}
-
-Transform Transform::operator/(double scalar) const{
-    return Transform(translation / scalar, rotation / scalar);
-}
-
 Transform Transform::inverse() const{
-    return Transform{(-translation).rotateBy(-rotation), -rotation};
+    return Transform((-translation).rotateBy(-rotation), -rotation);
 }
 
 }

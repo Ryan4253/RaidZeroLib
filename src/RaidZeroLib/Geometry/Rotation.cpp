@@ -1,4 +1,4 @@
-#include "Rotation.hpp"
+#include "RaidZeroLib/Geometry/Rotation.hpp"
 namespace rz{
 
 Rotation::Rotation(QAngle iTheta){
@@ -19,9 +19,7 @@ Rotation::Rotation(QLength iX, QLength iY){
     theta = std::atan2(sine, cosine) * radian;
 }
 
-Rotation::Rotation(double iX, double iY){
-    Rotation(iX * meter, iY * meter);
-}
+Rotation::Rotation(double iX, double iY) : Rotation(iX * meter, iY * meter){}
 
 QAngle Rotation::Theta() const{
     return theta;
@@ -56,7 +54,7 @@ Rotation Rotation::operator*(double scalar) const{
 }
 
 Rotation Rotation::operator/(double scalar) const{
-    return *this * (1/scalar);
+    return *this * (1.0/scalar);
 }
 
 bool Rotation::operator==(const Rotation& rhs) const{
@@ -76,4 +74,5 @@ void Rotation::operator=(const Rotation& rhs){
 Rotation Rotation::rotateBy(const Rotation& rhs) const{
     return Rotation((cosine * rhs.cosine - sine * rhs.sine) * meter, (cosine * rhs.sine + sine * rhs.cosine) * meter);
 }
+
 }

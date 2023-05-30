@@ -1,8 +1,8 @@
 #pragma once
-#include "Point.hpp"
-#include "Pose.hpp"
+#include "RaidZeroLib/Geometry/Point.hpp"
+#include "RaidZeroLib/Geometry/Pose.hpp"
 
-namespace lib4253{
+namespace rz{
 class Pose;
 using namespace okapi;
 
@@ -10,7 +10,7 @@ class Transform{
     public:
     constexpr Transform() = default;
 
-    Transform(const Pose& initial, const Pose& final);
+    Transform(const Pose& iInitial, const Pose& iFinal);
 
     Transform(const Translation& iTranslation, const Rotation& iRotation);
 
@@ -24,15 +24,19 @@ class Transform{
 
     QLength Y() const;
 
+    QAngle Theta() const;
+
+    Transform operator+(const Transform& rhs) const;
+
+    Transform operator*(double scalar) const;
+
+    Transform operator/(double scalar) const;
+
     bool operator==(const Transform& rhs) const;
 
     bool operator!=(const Transform& rhs) const;
 
     void operator=(const Transform& rhs);
-
-    Transform operator*(double scalar) const;
-
-    Transform operator/(double scalar) const;
 
     Transform inverse() const;
 

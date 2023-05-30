@@ -54,6 +54,8 @@ class Translation{
 
     QArea wedge(const Translation& rhs) const;
 
+    Translation project(const Translation& rhs) const;
+
     Translation rotateBy(const Rotation& rhs) const;
 
     private:

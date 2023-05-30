@@ -79,6 +79,10 @@ QArea Translation::wedge(const Translation& rhs) const{
     return x * rhs.y - y * rhs.x;
 }
 
+Translation Translation::project(const Translation& rhs) const{
+    return rhs * (this->dot(rhs) / this->dot(*this)).convert(number);
+}
+
 Translation Translation::rotateBy(const Rotation& rhs) const{
       return {x * rhs.Cos() - y * rhs.Sin(), x * rhs.Sin() + y * rhs.Cos()};
 }

@@ -13,7 +13,7 @@
 #include "Rotation.hpp"
 #include "okapi/api/units/QArea.hpp"
 
-namespace lib4253{
+namespace rz{
 using namespace okapi;
 
 class Translation{
@@ -32,6 +32,10 @@ class Translation{
 
     QLength Y() const;
 
+    void setX(QLength iX);
+
+    void setY(QLength iY);
+
     Translation operator+(const Translation& rhs) const;
 
     Translation operator-(const Translation& rhs) const;
@@ -39,8 +43,6 @@ class Translation{
     Translation operator-() const;
 
     Translation operator*(double scalar) const;
-
-    QArea operator*(const Translation& rhs) const;
 
     Translation operator/(double scalar) const;
 
@@ -50,22 +52,20 @@ class Translation{
 
     void operator=(const Translation& rhs);
 
-    QAngle Theta() const;
+    QAngle theta() const;
 
-    std::pair<double, double> norm() const;
+    QLength mag() const;
 
     QLength distTo(const Translation& rhs) const;
 
     QAngle angleTo(const Translation& rhs) const;
 
-    QLength mag() const;
+    QArea dot(const Translation& rhs) const;
+
+    QArea wedge(const Translation& rhs) const;
 
     Translation rotateBy(const Rotation& rhs) const;
 
-    void setX(QLength iX);
-
-    void setY(QLength iY);
-    
     private:
     QLength x = 0 * meter;
     QLength y = 0 * meter;

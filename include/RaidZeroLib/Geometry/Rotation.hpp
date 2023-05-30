@@ -1,8 +1,9 @@
 #pragma once
 #include "okapi/api/units/QAngle.hpp"
 #include "okapi/api/units/QLength.hpp"
+#include "RaidZeroLib/Utility/Math.hpp"
 
-namespace lib4253{
+namespace rz{
 using namespace okapi;
 
 class Rotation{

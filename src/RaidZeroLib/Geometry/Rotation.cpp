@@ -1,10 +1,10 @@
 #include "Rotation.hpp"
-namespace lib4253{
+namespace rz{
 
 Rotation::Rotation(QAngle iTheta){
-    theta = iTheta;
-    sine = (sin(iTheta)).convert(number);
-    cosine = (cos(iTheta)).convert(number);
+    theta = constrainAngle180(iTheta);
+    sine = sin(iTheta).convert(number);
+    cosine = cos(iTheta).convert(number);
 }
 
 Rotation::Rotation(QLength iX, QLength iY){
@@ -48,7 +48,7 @@ Rotation Rotation::operator-(const Rotation& rhs) const{
 }
 
 Rotation Rotation::operator-() const{
-    return Rotation(theta * -1);
+    return *this * -1;
 }   
 
 Rotation Rotation::operator*(double scalar) const{
@@ -56,7 +56,7 @@ Rotation Rotation::operator*(double scalar) const{
 }
 
 Rotation Rotation::operator/(double scalar) const{
-    return Rotation(theta / scalar);
+    return *this * (1/scalar);
 }
 
 bool Rotation::operator==(const Rotation& rhs) const{
@@ -64,17 +64,16 @@ bool Rotation::operator==(const Rotation& rhs) const{
 }
 
 bool Rotation::operator!=(const Rotation& rhs) const{
-    return !(operator==(rhs));
+    return !(*this == rhs);
 }
 
 void Rotation::operator=(const Rotation& rhs){
     theta = rhs.theta;
     sine = rhs.sine;
     cosine = rhs.cosine;
-
 }
 
 Rotation Rotation::rotateBy(const Rotation& rhs) const{
-    return {(cosine * rhs.cosine - sine * rhs.sine) * meter, (cosine * rhs.sine + sine * rhs.cosine) * meter};
+    return Rotation((cosine * rhs.cosine - sine * rhs.sine) * meter, (cosine * rhs.sine + sine * rhs.cosine) * meter);
 }
 }

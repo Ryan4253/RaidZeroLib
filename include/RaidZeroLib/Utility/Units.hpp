@@ -23,8 +23,7 @@ QUANTITY_TYPE(0, -1, 0, 1, QCurvature);
 constexpr Number pct = number / 100;
 
 // Predefined Length Units
-constexpr QLength tile = 2 * foot;
-constexpr QLength court = 12 * foot;
+constexpr QLength field = 12 * foot;
 
 // Predefined Angle Units
 constexpr QAngle rotationTick = degree * 360 / 4096;
@@ -54,10 +53,8 @@ constexpr Number operator"" _pct(long double x) { return static_cast<double>(x)*
 constexpr Number operator"" _pct(unsigned long long int x) { return static_cast<double>(x)*pct; }
 
 // Length Unit Literals
-constexpr QLength operator"" _tile(long double x) { return static_cast<double>(x)*tile; }
-constexpr QLength operator"" _tile(unsigned long long int x) { return static_cast<double>(x)*tile; }
-constexpr QLength operator"" _court(long double x) { return static_cast<double>(x)*court; }
-constexpr QLength operator"" _court(unsigned long long int x) { return static_cast<double>(x)*court; }
+constexpr QLength operator"" _field(long double x) { return static_cast<double>(x)*field; }
+constexpr QLength operator"" _field(unsigned long long int x) { return static_cast<double>(x)*field; }
 
 // Curvature Unit Literals
 constexpr QCurvature operator"" _radpm(long double x) { return static_cast<double>(x)*radpm; }

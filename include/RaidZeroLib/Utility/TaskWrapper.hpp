@@ -2,9 +2,9 @@
 #include "pros/rtos.hpp"
 #include <memory>
 
-namespace lib4253{
+namespace rz{
 
-class TaskWrapper {
+class TaskWrapper{
     protected:
     TaskWrapper() = default;
     TaskWrapper(const TaskWrapper& itask) = delete;

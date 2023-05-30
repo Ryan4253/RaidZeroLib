@@ -1,20 +1,10 @@
-/**
- * @file Point.hpp
- * @author Ryan Liao (23RyanL@students.tas.tw)
- * @brief  Point structs
- * @version 0.1
- * @date 2021-05-21
- *
- * @copyright Copyright (c) 2021
- *
- */
-
 #pragma once
-#include "Rotation.hpp"
+#include "RaidZeroLib/Geometry/Rotation.hpp"
 #include "okapi/api/units/QArea.hpp"
 
 namespace rz{
 using namespace okapi;
+class Rotation;
 
 class Translation{
     public:
@@ -71,7 +61,7 @@ class Translation{
     QLength y = 0 * meter;
 };
 
-typedef Translation Point;
+using Point = Translation;
 
 }
 

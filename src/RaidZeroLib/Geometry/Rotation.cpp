@@ -1,4 +1,5 @@
 #include "RaidZeroLib/Geometry/Rotation.hpp"
+
 namespace rz{
 
 Rotation::Rotation(QAngle iTheta){

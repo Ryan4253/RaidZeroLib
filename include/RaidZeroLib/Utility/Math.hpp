@@ -1,6 +1,5 @@
 #pragma once
 #include "RaidZeroLib/Geometry/Point.hpp"
-#include "okapi/api/chassis/controller/chassisScales.hpp"
 #include "RaidZeroLib/Utility/Units.hpp"
 #include <cmath>
 #include <memory>
@@ -8,6 +7,7 @@
 
 namespace rz{
 using namespace okapi;
+class Translation;
 
 double constrainAngle360(double iAngle);
 

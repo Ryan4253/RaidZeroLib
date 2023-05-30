@@ -2,6 +2,7 @@
 #include "RaidZeroLib/Geometry/Pose.hpp"
 #include "RaidZeroLib/Geometry/CoordinateAxis.hpp"
 #include "RaidZeroLib/Geometry/CoordinateRotation.hpp"
+#include <stdexcept>
 
 namespace rz{
 
@@ -26,7 +27,6 @@ class CoordinateSystem{
                         const CoordinateSystem& to = CoordinateSystem::Standard());
 
     protected:
-    friend class CoordinateSystem;
     CoordinateAxis x, y;
     CoordinateRotation rotation;
 };

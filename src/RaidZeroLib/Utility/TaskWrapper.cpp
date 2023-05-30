@@ -1,5 +1,6 @@
-#include "lib4253/Utility/TaskWrapper.hpp"
-namespace lib4253{
+#include "RaidZeroLib/Utility/TaskWrapper.hpp"
+
+namespace rz{
 
 void TaskWrapper::loop(){
     throw "task loop isn't overridden!";
@@ -31,5 +32,6 @@ void TaskWrapper::trampoline(void* iparam){
         that->loop();
     }
 }
+
 }
 

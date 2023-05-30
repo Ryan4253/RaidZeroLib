@@ -1,4 +1,5 @@
 #include "RaidZeroLib/Utility/Math.hpp"
+
 namespace rz{
 
 double constrainAngle360(double iAngle){
@@ -9,11 +10,11 @@ double constrainAngle180(double iAngle){
 	return iAngle - 360.0 * std::floor((iAngle + 180.0) * (1.0 / 360.0));
 }
 
-QAngle angleWrap360(QAngle iAngle){
+QAngle constrainAngle360(QAngle iAngle){
 	return iAngle - 360.0 * floor(iAngle * (1.0 / 360.0), 1 * radian);
 }
 
-QAngle angleWrap180(QAngle iAngle){
+QAngle constrainAngle180(QAngle iAngle){
 	return iAngle - 360.0 * floor((iAngle + 180.0 * degree) * (1.0 / 360.0), 1 * radian);
 }
 

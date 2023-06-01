@@ -1,4 +1,16 @@
 #include "main.h"
+#include "RaidZeroLib/Control/Feedforward/SimpleMotorFeedforward.hpp"
+#include "RaidZeroLib/Units/Units.hpp"
+
+void test(){
+	using namespace okapi::literals;
+
+	rz::SimpleMotorFeedforward<okapi::QLength> controller(1, 1, 1);
+	controller.calculate(3_mps, 5_mps2);
+
+	rz::SimpleMotorFeedforward<okapi::QAngle> controller2(1, 1, 1);
+	controller2.calculate(3_radps, 5_radps2);
+}
 
 /**
  * A callback function for LLEMU's center button.

@@ -9,6 +9,10 @@ namespace rz{
 using namespace okapi;
 class Translation;
 
+template <typename T> int sgn(T val) {
+    return (T(0) < val) - (val < T(0));
+}
+
 double constrainAngle360(double iAngle);
 
 double constrainAngle180(double iAngle);

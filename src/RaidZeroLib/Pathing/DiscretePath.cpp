@@ -89,4 +89,21 @@ Iterator closestPoint(Iterator begin, Iterator end, const Point& point){
     return std::min_element(begin, end, comparison);
 }
 
+template<typename Iterator>
+std::optional<Translation> circlePathIntersection(Iterator& begin, Iterator end, const Translation& point, QLength radius){
+
+    for(auto it = begin; it != std::prev(end); it++){
+        const Point start = *it;
+        const Point end = *(it+1);
+        const auto t = circleLineIntersection(start, end, point, radius);
+
+        if(!t){
+            begin = it;
+            return start + (end - start) * t.value();
+        }
+    }
+
+    return std::nullopt;
+}
+
 } 

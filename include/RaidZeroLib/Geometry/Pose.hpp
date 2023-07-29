@@ -2,6 +2,7 @@
 #include "RaidZeroLib/Geometry/Point.hpp"
 #include "RaidZeroLib/Geometry/Transform.hpp"
 #include "RaidZeroLib/Geometry/Twist.hpp"
+#include "RaidZeroLib/Units/Units.hpp"
 #include "okapi/api/odometry/odomState.hpp"
 
 namespace rz{
@@ -56,6 +57,8 @@ class Pose{
     Translation translation;
     Rotation rotation;
 };
+
+QCurvature curvatureToReachPoint(const Pose& position, const Point& point);
 
 }
 

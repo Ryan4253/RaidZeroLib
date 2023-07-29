@@ -117,4 +117,22 @@ Twist Pose::log(const Pose& rhs) const{
     return {translationPart.X(), translationPart.Y(), (dtheta * radian)};
 }
 
+QCurvature curvatureToReachPoint(const Pose& position, const Point& point){
+    const double a = -tan(position.Theta()).convert(number); 
+    const double b = 1;
+    const QLength c = tan(position.Theta())*position.X() - position.Y();
+
+    const QLength x = abs(point.X() * a + point.Y() * b + c) / sqrt(a * a + b * b);
+    const QLength sideL = sin(position.Theta()) * (point.X() - position.X()) - cos(position.Theta()) * (point.Y() - position.Y());
+    const Number side = sideL / abs(sideL);
+
+    if(sideL.convert(meter) == 0){
+        return 0 * radpm;
+    }
+
+    const QLength chord = position.getTranslation().distTo(point);
+
+    return (2 * x) / (chord * chord) * radian * side;
+}
+
 }

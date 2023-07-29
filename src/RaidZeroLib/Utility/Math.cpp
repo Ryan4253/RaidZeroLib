@@ -27,27 +27,6 @@ double sinc(double x){
 	}
 }
 
-QLength circumradius(const Translation& iLeft, const Translation& iMid, const Translation& iRight){
-        Point A = iLeft;
-        Point B = iMid;
-        Point C = iRight;
-
-        QLength a = B.distTo(C);
-        QLength b = A.distTo(C);
-        QLength c = A.distTo(B);
-        auto a2 = a * a, b2 = b * b, c2 = c * c;
-
-        Point pa = A * (a2 * (b2 + c2 - a2) / ((b+c)*(b+c)-a2) / (a2-(b-c)*(b-c))).convert(number);
-        Point pb = B * (b2 * (a2 + c2 - b2) / ((a+c)*(a+c)-b2) / (b2-(a-c)*(a-c))).convert(number);
-        Point pc = C * (c2 * (a2 + b2 - c2) / ((a+b)*(a+b)-c2) / (c2-(a-b)*(a-b))).convert(number);
-
-        Point center = pa + pb + pc;
-
-        QLength radius = center.distTo(A);
-
-		return radius;
-}
-
 std::optional<std::pair<double, double>> quadraticFormula(double a, double b, double c){
 	double discriminant = b * b - 4 * a * c;
 	if(discriminant == 0){
@@ -58,6 +37,28 @@ std::optional<std::pair<double, double>> quadraticFormula(double a, double b, do
 	}
 	
 	return std::nullopt;
+}
+
+std::pair<QSpeed, QSpeed> curvatureToWheelVelocity(QSpeed velocity, QCurvature curvature, QLength wheelTrack, bool isReversed){
+	const QSpeed left = velocity * (2 + curvature.convert(radpm) * wheelTrack.convert(meter)) / 2;
+	const QSpeed right = velocity * (2 - curvature.convert(radpm) * wheelTrack.convert(meter)) / 2;
+
+	if(isReversed){
+		return {right, left};
+	}
+
+	return {left, right};
+}
+
+std::pair<QAcceleration, QAcceleration> curvatureToWheelAcceleration(QAcceleration accel, QCurvature curvature, QLength wheelTrack, bool isReversed){
+	const QAcceleration left = accel * (2 + curvature.convert(radpm) * wheelTrack.convert(meter)) / 2;
+	const QAcceleration right = accel * (2 - curvature.convert(radpm) * wheelTrack.convert(meter)) / 2;
+
+	if(isReversed){
+		return {right, left};
+	}
+
+	return {left, right};
 }
 
 }

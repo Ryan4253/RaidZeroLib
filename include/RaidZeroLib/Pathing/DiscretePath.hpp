@@ -38,4 +38,7 @@ class DiscretePath{
 template<typename Iterator>
 Iterator closestPoint(Iterator begin, Iterator end, const Point& point);
 
+template<typename Iterator>
+std::optional<Translation> circlePathIntersection(Iterator& begin, Iterator end, const Translation& point, QLength radius);
+
 }

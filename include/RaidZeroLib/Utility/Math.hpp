@@ -1,5 +1,4 @@
 #pragma once
-#include "RaidZeroLib/Geometry/Point.hpp"
 #include "RaidZeroLib/Units/Units.hpp"
 #include <cmath>
 #include <memory>
@@ -7,7 +6,6 @@
 
 namespace rz{
 using namespace okapi;
-class Translation;
 
 template <typename T> int sgn(T val) {
     return (T(0) < val) - (val < T(0));
@@ -23,8 +21,10 @@ QAngle constrainAngle180(QAngle iAngle);
 
 double sinc(double x);
 
-QLength circumradius(const Translation& iLeft, const Translation& iMid, const Translation& iRight);
-
 std::optional<std::pair<double, double>> quadraticFormula(double a, double b, double c);
+
+std::pair<QSpeed, QSpeed> curvatureToWheelVelocity(QSpeed speed, QCurvature curvature, QLength wheelTrack, bool isReversed = false);
+
+std::pair<QAcceleration, QAcceleration> curvatureToWheelAcceleration(QAcceleration accel, QCurvature curvature, QLength wheelTrack, bool isReversed = false);
 
 };

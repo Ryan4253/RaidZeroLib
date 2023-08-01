@@ -20,14 +20,22 @@ class DiscretePath{
     DiscretePath& operator+=(const Point& rhs);
 
     std::vector<Point>::iterator begin();
+    std::vector<Point>::const_iterator begin() const;
     std::vector<Point>::iterator end();
+    std::vector<Point>::const_iterator end() const;
+    
     std::vector<Point>::reverse_iterator rbegin();
+    std::vector<Point>::const_reverse_iterator rbegin() const;
     std::vector<Point>::reverse_iterator rend();
+    std::vector<Point>::const_reverse_iterator rend() const;
+
 
     Point& operator[](int index);
+    const Point& operator[](int index) const;
     Point& front();
+    const Point& front() const;
     Point& back();
-    Point& getPoint(int index);
+    const Point& back() const;
     QCurvature getCurvature(int index) const;
     int size() const;
 
@@ -35,10 +43,5 @@ class DiscretePath{
     std::vector<Point> path;
 };
 
-template<typename Iterator>
-Iterator closestPoint(Iterator begin, Iterator end, const Point& point);
-
-template<typename Iterator>
-std::optional<Translation> circlePathIntersection(Iterator& begin, Iterator end, const Translation& point, QLength radius);
-
+std::vector<Translation>::iterator closestPoint(std::vector<Translation>::iterator begin, std::vector<Translation>::iterator end, const Point& point);
 }

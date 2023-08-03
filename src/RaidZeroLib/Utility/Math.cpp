@@ -2,6 +2,10 @@
 
 namespace rz{
 
+QAngularSpeed linearToWheelVelocity(QSpeed velocity, QLength wheelDiameter){
+	return radian * velocity / (wheelDiameter / 2);
+}
+
 double constrainAngle360(double iAngle){
 	return iAngle - 360.0 * std::floor(iAngle * (1.0 / 360.0));
 }
@@ -37,28 +41,6 @@ std::optional<std::pair<double, double>> quadraticFormula(double a, double b, do
 	}
 	
 	return std::nullopt;
-}
-
-std::pair<QSpeed, QSpeed> curvatureToWheelVelocity(QSpeed velocity, QCurvature curvature, QLength wheelTrack, bool isReversed){
-	const QSpeed left = velocity * (2 + curvature.convert(radpm) * wheelTrack.convert(meter)) / 2;
-	const QSpeed right = velocity * (2 - curvature.convert(radpm) * wheelTrack.convert(meter)) / 2;
-
-	if(isReversed){
-		return {right, left};
-	}
-
-	return {left, right};
-}
-
-std::pair<QAcceleration, QAcceleration> curvatureToWheelAcceleration(QAcceleration accel, QCurvature curvature, QLength wheelTrack, bool isReversed){
-	const QAcceleration left = accel * (2 + curvature.convert(radpm) * wheelTrack.convert(meter)) / 2;
-	const QAcceleration right = accel * (2 - curvature.convert(radpm) * wheelTrack.convert(meter)) / 2;
-
-	if(isReversed){
-		return {right, left};
-	}
-
-	return {left, right};
 }
 
 }

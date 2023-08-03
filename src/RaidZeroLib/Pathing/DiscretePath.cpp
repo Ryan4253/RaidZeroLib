@@ -43,7 +43,27 @@ std::vector<Point>::reverse_iterator DiscretePath::rend(){
     return path.rend();
 }
 
+std::vector<Point>::const_iterator DiscretePath::begin() const{
+    return path.begin();
+}
+
+std::vector<Point>::const_iterator DiscretePath::end() const{
+    return path.end();
+}
+
+std::vector<Point>::const_reverse_iterator DiscretePath::rbegin() const{
+    return path.rbegin();
+}
+
+std::vector<Point>::const_reverse_iterator DiscretePath::rend() const{
+    return path.rend();
+}
+
 Point& DiscretePath::operator[](int index){
+    return path[index];
+}
+
+const Point& DiscretePath::operator[](int index) const{
     return path[index];
 }
 
@@ -51,15 +71,16 @@ Point& DiscretePath::front(){
     return path.front();
 }
 
+const Point& DiscretePath::front() const{
+    return path.front();
+}
+
 Point& DiscretePath::back(){
     return path.back();
 }
 
-Point& DiscretePath::getPoint(int index){
-    if(index < 0 || index >= (int)path.size()){
-        throw std::out_of_range("DiscretePath::getPoint(): index is out of range.");
-    }
-    return path[index];
+const Point& DiscretePath::back() const{
+    return path.back();
 }
 
 int DiscretePath::size() const{
@@ -80,8 +101,7 @@ QCurvature DiscretePath::getCurvature(int index) const{
     return 1 * radian / radius;
 }
 
-template<typename Iterator>
-Iterator closestPoint(Iterator begin, Iterator end, const Point& point){
+std::vector<Translation>::iterator closestPoint(std::vector<Translation>::iterator begin, std::vector<Translation>::iterator end, const Point& point){
     const auto comparison = [point](const Point& a, const Point& b){
         return a.distTo(point) < b.distTo(point);
     };
@@ -89,21 +109,6 @@ Iterator closestPoint(Iterator begin, Iterator end, const Point& point){
     return std::min_element(begin, end, comparison);
 }
 
-template<typename Iterator>
-std::optional<Translation> circlePathIntersection(Iterator& begin, Iterator end, const Translation& point, QLength radius){
 
-    for(auto it = begin; it != std::prev(end); it++){
-        const Point start = *it;
-        const Point end = *(it+1);
-        const auto t = circleLineIntersection(start, end, point, radius);
-
-        if(!t){
-            begin = it;
-            return start + (end - start) * t.value();
-        }
-    }
-
-    return std::nullopt;
-}
 
 } 

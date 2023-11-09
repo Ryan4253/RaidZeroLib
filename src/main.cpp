@@ -1,6 +1,6 @@
 #include "main.h"
-#include "RaidZeroLib/Control/Feedforward/SimpleMotorFeedforward.hpp"
-#include "RaidZeroLib/Units/Units.hpp"
+#include "RaidZeroLib/api/Control/Feedforward/SimpleMotorFeedforward.hpp"
+#include "RaidZeroLib/api/Units/Units.hpp"
 
 void test(){
 	using namespace okapi::literals;

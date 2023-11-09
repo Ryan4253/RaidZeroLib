@@ -1,0 +1,6 @@
+[submodule "FakeIt"]
+	path = include/RaidZeroLib/test/FakeIt
+	url = https://github.com/eranpeer/FakeIt.git
+[submodule "snowhouse"]
+	path = include/RaidZeroLib/test/snowhouse
+	url = https://github.com/banditcpp/snowhouse.git

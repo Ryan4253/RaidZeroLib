@@ -1,6 +1,6 @@
 #pragma once
 #include "RaidZeroLib/api/Pathing/DiscretePath.hpp"
-#include "RaidZeroLib/api/Control/Feedforward/FeedForwardController.hpp"
+#include "RaidZeroLib/api/Control/Feedforward/FeedforwardController.hpp"
 #include "RaidZeroLib/api/Filter/SlewRate.hpp"
 #include "RaidZeroLib/api/Geometry/Pose.hpp"
 #include "RaidZeroLib/api/Utility/Math.hpp"

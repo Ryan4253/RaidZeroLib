@@ -16,6 +16,7 @@
 #include "okapi/api/util/timeUtil.hpp"
 #include <atomic>
 #include <chrono>
+#include <thread>
 #include <gtest/gtest.h>
 
 namespace okapi {

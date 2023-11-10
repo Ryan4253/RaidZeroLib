@@ -2,11 +2,14 @@
 
 namespace rz {
 
+void doNothing(void*) {
+}
+
 AdaptivePurePursuitController::AdaptivePurePursuitController(
     const std::shared_ptr<OdomChassisController>& chassis, const Gains& gains,
     std::unique_ptr<FeedforwardController<QLength>> leftController,
     std::unique_ptr<FeedforwardController<QLength>> rightController, const TimeUtil& timeUtil)
-    : chassis(chassis), gains(gains), timeUtil(timeUtil), task([]() {}) {
+    : chassis(chassis), gains(gains), timeUtil(timeUtil), task(&doNothing, 0, "AdaptivePurePursuitController") {
 
     leftMotor = std::static_pointer_cast<SkidSteerModel>(chassis->getModel())->getLeftSideMotor();
     rightMotor = std::static_pointer_cast<SkidSteerModel>(chassis->getModel())->getLeftSideMotor();
@@ -54,11 +57,11 @@ void AdaptivePurePursuitController::followPath(DiscretePath& path, QTime timeout
             rightMotor->moveVelocity(rightRPM);
         }
     } while (*closestPointIter != path.back() && timeUtil.getTimer()->getDtFromMark() < timeout &&
-             !pros::Task::notify_take(true, 10));
+             !task.notifyTake(10));
 }
 
 void AdaptivePurePursuitController::stop() {
-    task.notify();
+    //task.notify();
     pros::delay(10);
     chassis->stop();
 }

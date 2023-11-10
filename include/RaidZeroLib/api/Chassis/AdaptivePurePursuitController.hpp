@@ -6,6 +6,7 @@
 #include "RaidZeroLib/api/Utility/Math.hpp"
 #include "okapi/api/chassis/controller/odomChassisController.hpp"
 #include "okapi/impl/util/timeUtilFactory.hpp"
+#include "okapi/api/coreProsAPI.hpp"
 #include <memory>
 
 namespace rz {
@@ -52,7 +53,7 @@ class AdaptivePurePursuitController {
     std::unique_ptr<FeedforwardController<QLength>> leftController;
     std::unique_ptr<FeedforwardController<QLength>> rightController;
 
-    pros::Task task;
+    CrossplatformThread task;
 };
 
 } // namespace rz

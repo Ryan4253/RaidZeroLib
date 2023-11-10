@@ -5,5 +5,5 @@ using namespace okapi;
 
 TEST(RotationTest, constructor) {
     rz::Rotation angle(3_ft, 3_ft);
-    ASSERT_EQ(angle.Theta().convert(radian), ((M_PI) / 4));
+    ASSERT_EQ(angle.Theta(), ((1_pi) / 4));
 }

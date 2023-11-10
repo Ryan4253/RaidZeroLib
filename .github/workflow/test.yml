@@ -1,0 +1,37 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Dependency
+
+      - name: Build
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          cmake --build .
+
+      - name: Test
+        working-directory: build
+        run: ./RaidZeroLib
+
+      - name: Collect Coverage
+        run: |
+          lcov --directory . --capture --output-file coverage.info
+          lcov --remove coverage.info '/usr/*' --output-file coverage.info
+          lcov --remove coverage.info '*/RaidZeroLib/build/*' --output-file coverage.info 
+          lcov --remove coverage.info '*/RaidZeroLib/include/okapi/*' --output-file coverage.info
+          lcov --remove coverage.info '*/RaidZeroLib/test/*' --output-file coverage.info  
+          lcov --list coverage.info
+
+      # - name: Upload Coverage
+      #   uses: codecov/codecov-action@v1
+      #   with:
+      #     fail_ci_if_error: true

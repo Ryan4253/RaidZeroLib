@@ -1,3 +1,6 @@
+# Cmake
+build/
+
 # Compiled Object files
 *.o
 *.obj

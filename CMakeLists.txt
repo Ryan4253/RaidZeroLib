@@ -125,10 +125,15 @@ add_executable(RaidZeroLib
         include/okapi/api/util/mathUtil.hpp
         include/okapi/api/util/supplier.hpp
         include/okapi/api/coreProsAPI.hpp
-        include/test/tests/api/implMocks.hpp
         include/okapi/api/odometry/point.hpp
         include/okapi/api/odometry/stateMode.hpp
-        include/okapi/api/odometry/odomState.hpp)
+        include/okapi/api/odometry/odomState.hpp
+        include/RaidZeroLib/api/Geometry/Rotation.hpp
+        include/RaidZeroLib/api/Utility/Math.hpp
+        include/RaidZeroLib/api/Units/Units.hpp
+        src/RaidZeroLib/api/Geometry/Rotation.cpp
+        src/RaidZeroLib/api/Utility/Math.cpp
+        test/RotationTest.cpp)
 
 # Link against gtest
 target_link_libraries(RaidZeroLib gtest_main)

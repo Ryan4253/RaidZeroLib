@@ -36,7 +36,7 @@ jobs:
           lcov --remove coverage.info '*/RaidZeroLib/test/*' --output-file coverage.info  
           lcov --list coverage.info
 
-      - name: Upload Coverage
-        uses: codecov/codecov-action@v1
-        with:
-          fail_ci_if_error: true
+      # - name: Upload Coverage
+      #   uses: codecov/codecov-action@v1
+      #   with:
+      #     fail_ci_if_error: true

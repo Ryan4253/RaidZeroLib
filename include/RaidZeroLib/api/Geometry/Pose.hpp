@@ -5,11 +5,11 @@
 #include "RaidZeroLib/api/Units/Units.hpp"
 #include "okapi/api/odometry/odomState.hpp"
 
-namespace rz{
+namespace rz {
 using namespace okapi;
 class Transform;
 
-class Pose{
+class Pose {
     public:
     constexpr Pose() = default;
 
@@ -32,7 +32,7 @@ class Pose{
     QAngle Theta() const;
 
     Pose operator+(const Transform& rhs) const;
-    
+
     Transform operator-(const Pose& rhs) const;
 
     Pose operator*(double scalar) const;
@@ -60,5 +60,4 @@ class Pose{
 
 QCurvature curvatureToReachPoint(const Pose& position, const Point& point);
 
-}
-
+} // namespace rz

@@ -2,15 +2,15 @@
 #include "pros/rtos.hpp"
 #include <memory>
 
-namespace rz{
+namespace rz {
 
-class TaskWrapper{
+class TaskWrapper {
     protected:
     TaskWrapper() = default;
     TaskWrapper(const TaskWrapper& itask) = delete;
-    //TaskWrapper(TaskWrapper&& itask) = default;
+    // TaskWrapper(TaskWrapper&& itask) = default;
     virtual ~TaskWrapper() = default;
-    
+
     /**
      * Override this function to implement a custom task loop.
      * Will throw if not overridden.
@@ -18,12 +18,12 @@ class TaskWrapper{
     virtual void loop();
 
     public:
-    /**   
+    /**
      * Start the task.
      *
      * @param iname The task name, optional.
      */
-    virtual void startTask(const char*  iname = "TaskWrapper");
+    virtual void startTask(const char* iname = "TaskWrapper");
 
     virtual void resumeTask();
 
@@ -43,6 +43,6 @@ class TaskWrapper{
 
     private:
     static void trampoline(void* iparam);
-    std::unique_ptr<pros::Task> task {nullptr};
+    std::unique_ptr<pros::Task> task{nullptr};
 };
-}
+} // namespace rz

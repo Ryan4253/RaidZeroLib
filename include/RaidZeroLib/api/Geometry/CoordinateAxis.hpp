@@ -1,8 +1,8 @@
 #pragma once
 
-namespace rz{
+namespace rz {
 
-class CoordinateAxis{
+class CoordinateAxis {
     public:
     CoordinateAxis(double c1, double c2);
 
@@ -20,4 +20,4 @@ class CoordinateAxis{
     double c1, c2;
 };
 
-}
+} // namespace rz

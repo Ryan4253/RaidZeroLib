@@ -2,11 +2,11 @@
 #include "RaidZeroLib/api/Geometry/Point.hpp"
 #include "RaidZeroLib/api/Geometry/Pose.hpp"
 
-namespace rz{
+namespace rz {
 class Pose;
 using namespace okapi;
 
-class Transform{
+class Transform {
     public:
     constexpr Transform() = default;
 
@@ -45,4 +45,4 @@ class Transform{
     Rotation rotation;
 };
 
-}
+} // namespace rz

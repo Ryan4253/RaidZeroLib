@@ -1,13 +1,13 @@
 #pragma once
 #include "RaidZeroLib/api/Geometry/Point.hpp"
-#include<vector>   
-#include<exception>
-#include<algorithm>
+#include <algorithm>
+#include <exception>
+#include <vector>
 
-namespace rz{
+namespace rz {
 using namespace okapi;
 
-class DiscretePath{
+class DiscretePath {
     public:
     DiscretePath() = default;
     DiscretePath(const std::initializer_list<Point>& waypoint);
@@ -23,12 +23,11 @@ class DiscretePath{
     std::vector<Point>::const_iterator begin() const;
     std::vector<Point>::iterator end();
     std::vector<Point>::const_iterator end() const;
-    
+
     std::vector<Point>::reverse_iterator rbegin();
     std::vector<Point>::const_reverse_iterator rbegin() const;
     std::vector<Point>::reverse_iterator rend();
     std::vector<Point>::const_reverse_iterator rend() const;
-
 
     Point& operator[](int index);
     const Point& operator[](int index) const;
@@ -43,5 +42,6 @@ class DiscretePath{
     std::vector<Point> path;
 };
 
-std::vector<Translation>::iterator closestPoint(std::vector<Translation>::iterator begin, std::vector<Translation>::iterator end, const Point& point);
-}
+std::vector<Translation>::iterator closestPoint(std::vector<Translation>::iterator begin,
+                                                std::vector<Translation>::iterator end, const Point& point);
+} // namespace rz

@@ -1,20 +1,16 @@
 #pragma once
 #include "okapi/api/control/iterative/iterativeVelocityController.hpp"
-#include "okapi/api/util/timeUtil.hpp"
 #include "okapi/api/filter/velMath.hpp"
+#include "okapi/api/util/timeUtil.hpp"
 #include <cmath>
 
-namespace rz{
+namespace rz {
 using namespace okapi;
 
-class IterativeVelTBHController : public IterativeVelocityController<double, double>{
+class IterativeVelTBHController : public IterativeVelocityController<double, double> {
     public:
-
-    IterativeVelTBHController(
-        double iGain, 
-        std::unique_ptr<VelMath> iVelMath,
-        const TimeUtil& iTimeUtil,
-        std::shared_ptr<Logger> iLogger = Logger::getDefaultLogger());
+    IterativeVelTBHController(double iGain, std::unique_ptr<VelMath> iVelMath, const TimeUtil& iTimeUtil,
+                              std::shared_ptr<Logger> iLogger = Logger::getDefaultLogger());
 
     /**
      * Do one iteration of the controller. Returns the reading in the range [-1, 1] unless the
@@ -198,4 +194,4 @@ class IterativeVelTBHController : public IterativeVelocityController<double, dou
     std::unique_ptr<AbstractTimer> loopDtTimer;
     std::unique_ptr<SettledUtil> settledUtil;
 };
-}
+} // namespace rz

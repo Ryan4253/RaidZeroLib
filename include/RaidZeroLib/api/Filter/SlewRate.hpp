@@ -1,13 +1,12 @@
 #pragma once
-#include <algorithm>
 #include "okapi/api/filter/filter.hpp"
+#include <algorithm>
 
-namespace rz{
+namespace rz {
 using namespace okapi;
 
-class SlewRate : public Filter{
-    public:    
-
+class SlewRate : public Filter {
+    public:
     SlewRate(double iAccStep, double iDecStep);
 
     SlewRate(double iStep);
@@ -22,4 +21,4 @@ class SlewRate : public Filter{
     double speed{0.0};
     double accStep, decStep;
 };
-}
+} // namespace rz

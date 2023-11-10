@@ -1,14 +1,13 @@
 #pragma once
 #include "RaidZeroLib/api/Control/Feedforward/FeedforwardController.hpp"
 #include "RaidZeroLib/api/Utility/Math.hpp"
-#include "okapi/api/units/QLength.hpp"
 #include "okapi/api/units/QAngle.hpp"
+#include "okapi/api/units/QLength.hpp"
 
-namespace rz{
+namespace rz {
 using namespace okapi;
 
-template<isRQuantity Distance>
-class SimpleMotorFeedforward : public FeedforwardController<Distance>{
+template <isRQuantity Distance> class SimpleMotorFeedforward : public FeedforwardController<Distance> {
     public:
     using typename FeedforwardController<Distance>::Velocity;
     using typename FeedforwardController<Distance>::Acceleration;
@@ -26,4 +25,4 @@ class SimpleMotorFeedforward : public FeedforwardController<Distance>{
 template class SimpleMotorFeedforward<QLength>;
 template class SimpleMotorFeedforward<QAngle>;
 
-}
+} // namespace rz

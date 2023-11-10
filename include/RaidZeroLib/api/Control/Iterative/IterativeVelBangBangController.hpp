@@ -1,15 +1,15 @@
 #pragma once
 #include "okapi/api/control/iterative/iterativeVelocityController.hpp"
-#include "okapi/api/util/timeUtil.hpp"
 #include "okapi/api/filter/velMath.hpp"
+#include "okapi/api/util/timeUtil.hpp"
 #include <cmath>
 
-namespace rz{
+namespace rz {
 using namespace okapi;
 
-class IterativeVelBangBangController : public IterativeVelocityController<double, double>{
+class IterativeVelBangBangController : public IterativeVelocityController<double, double> {
     public:
-    struct Gains{
+    struct Gains {
         double highPower{0.0}, targetPower{0.0}, lowPower{0.0}, deadband{0.0};
         Gains() = default;
         ~Gains() = default;
@@ -18,11 +18,8 @@ class IterativeVelBangBangController : public IterativeVelocityController<double
         bool operator!=(const Gains& rhs) const;
     };
 
-    IterativeVelBangBangController(
-        Gains iGains, 
-        std::unique_ptr<VelMath> iVelMath,
-        const TimeUtil& iTimeUtil,
-        std::shared_ptr<Logger> iLogger = Logger::getDefaultLogger());
+    IterativeVelBangBangController(Gains iGains, std::unique_ptr<VelMath> iVelMath, const TimeUtil& iTimeUtil,
+                                   std::shared_ptr<Logger> iLogger = Logger::getDefaultLogger());
 
     /**
      * Do one iteration of the controller. Returns the reading in the range [-1, 1] unless the
@@ -207,5 +204,4 @@ class IterativeVelBangBangController : public IterativeVelocityController<double
     std::unique_ptr<SettledUtil> settledUtil;
 };
 
-}
-
+} // namespace rz

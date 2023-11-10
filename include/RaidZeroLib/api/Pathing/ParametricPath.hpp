@@ -1,15 +1,15 @@
 #pragma once
 #include "RaidZeroLib/api/Pathing/DiscretePath.hpp"
 
-namespace rz{
+namespace rz {
 using namespace okapi;
-    
-class ParametricPath{
+
+class ParametricPath {
     public:
     virtual QLength getX(double t) const = 0;
 
     virtual QLength getY(double t) const = 0;
-    
+
     virtual Rotation getTheta(double t) const;
 
     virtual Point getPoint(double t) const;
@@ -37,4 +37,4 @@ class ParametricPath{
     virtual double stepT(double t, QLength distance) const;
 };
 
-}
+} // namespace rz

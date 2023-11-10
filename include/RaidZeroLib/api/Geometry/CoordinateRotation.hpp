@@ -1,8 +1,8 @@
 #pragma once
 
-namespace rz{
+namespace rz {
 
-class CoordinateRotation{
+class CoordinateRotation {
     public:
     CoordinateRotation(double scale);
 
@@ -16,4 +16,4 @@ class CoordinateRotation{
     double scale;
 };
 
-}
+} // namespace rz

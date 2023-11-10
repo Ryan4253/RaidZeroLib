@@ -1,20 +1,19 @@
 #pragma once
-#include "RaidZeroLib/api/Pathing/DiscretePath.hpp"
 #include "RaidZeroLib/api/Control/Feedforward/FeedforwardController.hpp"
 #include "RaidZeroLib/api/Filter/SlewRate.hpp"
 #include "RaidZeroLib/api/Geometry/Pose.hpp"
+#include "RaidZeroLib/api/Pathing/DiscretePath.hpp"
 #include "RaidZeroLib/api/Utility/Math.hpp"
 #include "okapi/api/chassis/controller/odomChassisController.hpp"
 #include "okapi/impl/util/timeUtilFactory.hpp"
-#include<memory>
+#include <memory>
 
-
-namespace rz{
+namespace rz {
 using namespace okapi;
 
-class AdaptivePurePursuitController{
+class AdaptivePurePursuitController {
     public:
-    struct Gains{
+    struct Gains {
         QSpeed maxVelocity{0.0};
         QAcceleration maxAcceleration{0.0};
         QAngularSpeed maxTurnVelocity{0.0};
@@ -27,8 +26,7 @@ class AdaptivePurePursuitController{
         bool operator!=(const Gains& rhs) const;
     };
 
-    AdaptivePurePursuitController(const std::shared_ptr<OdomChassisController>& chassis, 
-                                  const Gains& gains,
+    AdaptivePurePursuitController(const std::shared_ptr<OdomChassisController>& chassis, const Gains& gains,
                                   std::unique_ptr<FeedforwardController<QLength>> leftController = nullptr,
                                   std::unique_ptr<FeedforwardController<QLength>> rightController = nullptr,
                                   const TimeUtil& timeUtil = okapi::TimeUtilFactory::createDefault());
@@ -40,22 +38,21 @@ class AdaptivePurePursuitController{
     void waitUntilSettled();
 
     private:
-
     std::optional<Point> getLookaheadPoint(DiscretePath& path, double& minIndex, const Point& point, QLength radius);
     void generateKinematics();
 
     std::shared_ptr<OdomChassisController> chassis;
     std::shared_ptr<AbstractMotor> leftMotor;
     std::shared_ptr<AbstractMotor> rightMotor;
-    
+
     Gains gains;
 
-	TimeUtil timeUtil;
+    TimeUtil timeUtil;
 
-	std::unique_ptr<FeedforwardController<QLength>> leftController;
-	std::unique_ptr<FeedforwardController<QLength>> rightController;
+    std::unique_ptr<FeedforwardController<QLength>> leftController;
+    std::unique_ptr<FeedforwardController<QLength>> rightController;
 
     pros::Task task;
 };
 
-}
+} // namespace rz

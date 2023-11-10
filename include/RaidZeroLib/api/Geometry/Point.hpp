@@ -1,13 +1,13 @@
 #pragma once
 #include "RaidZeroLib/api/Geometry/Rotation.hpp"
 #include "okapi/api/units/QArea.hpp"
-#include<optional>
+#include <optional>
 
-namespace rz{
+namespace rz {
 using namespace okapi;
 class Rotation;
 
-class Translation{
+class Translation {
     public:
     constexpr Translation() = default;
 
@@ -68,7 +68,7 @@ using Point = Translation;
 
 QLength circumradius(const Translation& iLeft, const Translation& iMid, const Translation& iRight);
 
-std::optional<double> circleLineIntersection(const Translation& start, const Translation& end, const Translation& point, QLength radius);
+std::optional<double> circleLineIntersection(const Translation& start, const Translation& end, const Translation& point,
+                                             QLength radius);
 
-}
-
+} // namespace rz

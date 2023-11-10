@@ -7,34 +7,28 @@
 #include "okapi/api/util/timeUtil.hpp"
 #include <memory>
 
-namespace rz{
+namespace rz {
 using namespace okapi;
 
-class AsyncVelBangBangController : public AsyncWrapper<double, double>,
-                              public AsyncVelocityController<double, double> {
+class AsyncVelBangBangController : public AsyncWrapper<double, double>, public AsyncVelocityController<double, double> {
     public:
     /**
-   * An async velocity TBH controller.
-   *
-   * @param iInput The controller input.
-   * @param iOutput The controller output.
-   * @param iTimeUtil The TimeUtil.
-   * @param iGain the tbh gain
-   * @param iVelMath The VelMath used for calculating velocity.
-   * @param iRatio Any external gear ratio.
-   * @param iLogger the logger instance to log to
-   */
-    AsyncVelBangBangController(
-        const std::shared_ptr<ControllerInput<double>> &iInput,
-        const std::shared_ptr<ControllerOutput<double>> &iOutput,
-        const TimeUtil &iTimeUtil,
-        const IterativeVelBangBangController::Gains& iGain,
-        std::unique_ptr<VelMath> iVelMath,
-        double iRatio = 1,
-        const std::shared_ptr<Logger> &iLogger = Logger::getDefaultLogger());
+     * An async velocity TBH controller.
+     *
+     * @param iInput The controller input.
+     * @param iOutput The controller output.
+     * @param iTimeUtil The TimeUtil.
+     * @param iGain the tbh gain
+     * @param iVelMath The VelMath used for calculating velocity.
+     * @param iRatio Any external gear ratio.
+     * @param iLogger the logger instance to log to
+     */
+    AsyncVelBangBangController(const std::shared_ptr<ControllerInput<double>>& iInput,
+                               const std::shared_ptr<ControllerOutput<double>>& iOutput, const TimeUtil& iTimeUtil,
+                               const IterativeVelBangBangController::Gains& iGain, std::unique_ptr<VelMath> iVelMath,
+                               double iRatio = 1, const std::shared_ptr<Logger>& iLogger = Logger::getDefaultLogger());
 
-    ~AsyncVelBangBangController() throw()= default;
-
+    ~AsyncVelBangBangController() throw() = default;
 
     /**
      * Set controller gains.
@@ -53,4 +47,4 @@ class AsyncVelBangBangController : public AsyncWrapper<double, double>,
     protected:
     std::shared_ptr<IterativeVelBangBangController> internalController;
 };
-}
+} // namespace rz

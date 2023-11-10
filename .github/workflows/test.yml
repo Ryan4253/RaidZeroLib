@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Dependency
+      - name: Install Dependencies
         run: |
           sudo apt install build-essential
           sudo apt install git
@@ -35,7 +35,7 @@ jobs:
 
       - name: Cppcheck
         working-directory: .
-        run: cppcheck --enable=all --suppress=missingInclude --suppress=unusedFunction --error-exitcode=1 ./src/RaidZeroLib ./test
+        run: cppcheck --enable=all --suppress=missingInclude --suppress=unusedFunction --error-exitcode=1 -I include/RaidZeroLib src/RaidZeroLib test
 
       - name: Collect Coverage
         working-directory: build

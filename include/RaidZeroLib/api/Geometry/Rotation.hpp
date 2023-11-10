@@ -1,12 +1,12 @@
 #pragma once
+#include "RaidZeroLib/api/Utility/Math.hpp"
 #include "okapi/api/units/QAngle.hpp"
 #include "okapi/api/units/QLength.hpp"
-#include "RaidZeroLib/api/Utility/Math.hpp"
 
-namespace rz{
+namespace rz {
 using namespace okapi;
 
-class Rotation{
+class Rotation {
     public:
     constexpr Rotation() = default;
 
@@ -50,4 +50,4 @@ class Rotation{
     double sine{0.0};
 };
 
-}
+} // namespace rz

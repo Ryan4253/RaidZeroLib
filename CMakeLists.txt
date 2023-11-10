@@ -128,12 +128,59 @@ add_executable(RaidZeroLib
         include/okapi/api/odometry/point.hpp
         include/okapi/api/odometry/stateMode.hpp
         include/okapi/api/odometry/odomState.hpp
-        include/RaidZeroLib/api/Geometry/Rotation.hpp
+        
+        include/RaidZeroLib/api/Control/Async/AsyncVelBangBangController.hpp
+        include/RaidZeroLib/api/Control/Async/AsyncVelTBHController.hpp
+        include/RaidZeroLib/api/Control/Iterative/IterativeVelTBHController.hpp
+        include/RaidZeroLib/api/Control/Iterative/IterativeVelBangBangController.hpp
+        include/RaidZeroLib/api/Control/Feedforward/FeedforwardController.hpp
+        include/RaidZeroLib/api/Control/Feedforward/SimpleMotorFeedforward.hpp
+        include/RaidZeroLib/api/Chassis/AdaptivePurePursuitController.hpp
+        include/RaidZeroLib/api/Utility/StateMachine.hpp
+        include/RaidZeroLib/api/Utility/Util.hpp
+        include/RaidZeroLib/api/Utility/CrossPlatformThread.hpp
+        include/RaidZeroLib/api/Utility/CrossPlatformMutex.hpp
         include/RaidZeroLib/api/Utility/Math.hpp
+        include/RaidZeroLib/api/Pathing/DiscretePath.hpp
+        include/RaidZeroLib/api/Pathing/ParametricPath.hpp
+        include/RaidZeroLib/api/Trajectory/MotionProfile/TrapezoidalMotionProfile.hpp
+        include/RaidZeroLib/api/Trajectory/MotionProfile/MotionProfile.hpp
+        include/RaidZeroLib/api/Filter/SlewRate.hpp
+        include/RaidZeroLib/api/Geometry/CoordinateAxis.hpp
+        include/RaidZeroLib/api/Geometry/CoordinateRotation.hpp
+        include/RaidZeroLib/api/Geometry/CoordinateSystem.hpp
+        include/RaidZeroLib/api/Geometry/Point.hpp
+        include/RaidZeroLib/api/Geometry/Rotation.hpp
+        include/RaidZeroLib/api/Geometry/Transform.hpp
+        include/RaidZeroLib/api/Geometry/Twist.hpp
+        include/RaidZeroLib/api/Geometry/Pose.hpp
         include/RaidZeroLib/api/Units/Units.hpp
-        src/RaidZeroLib/api/Geometry/Rotation.cpp
+        include/RaidZeroLib/api.hpp
+        
+        src/RaidZeroLib/api/Control/Async/AsyncVelTBHController.cpp
+        src/RaidZeroLib/api/Control/Async/AsyncVelBangBangController.cpp
+        src/RaidZeroLib/api/Control/Iterative/IterativeVelTBHController.cpp
+        src/RaidZeroLib/api/Control/Iterative/IterativeVelBangBangController.cpp
+        src/RaidZeroLib/api/Control/Feedforward/SimpleMotorFeedforward.cpp
+        src/RaidZeroLib/api/Chassis/AdaptivePurePursuitController.cpp
+        src/RaidZeroLib/api/Utility/CrossPlatformMutex.cpp
         src/RaidZeroLib/api/Utility/Math.cpp
-        test/RotationTest.cpp)
+        src/RaidZeroLib/api/Utility/CrossPlatformThread.cpp
+        src/RaidZeroLib/api/Pathing/ParametricPath.cpp
+        src/RaidZeroLib/api/Pathing/DiscretePath.cpp
+        src/RaidZeroLib/api/Filter/SlewRate.cpp
+        src/RaidZeroLib/api/Geometry/CoordinateSystem.cpp
+        src/RaidZeroLib/api/Geometry/Twist.cpp
+        src/RaidZeroLib/api/Geometry/Point.cpp
+        src/RaidZeroLib/api/Geometry/Transform.cpp
+        src/RaidZeroLib/api/Geometry/Rotation.cpp
+        src/RaidZeroLib/api/Geometry/CoordinateAxis.cpp
+        src/RaidZeroLib/api/Geometry/CoordinateRotation.cpp
+        src/RaidZeroLib/api/Geometry/Pose.cpp
+        
+        test/RotationTest.cpp
+        test/include/mocks.hpp
+        test/src/mocks.cpp)
 
 # Link against gtest
-target_link_libraries(RaidZeroLib gtest_main)
+target_link_libraries(RaidZeroLib ${CMAKE_SOURCE_DIR}/test/firmware/OkapiLibTest.a gtest_main)

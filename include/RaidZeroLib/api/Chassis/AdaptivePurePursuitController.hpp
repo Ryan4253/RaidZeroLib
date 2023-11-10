@@ -3,8 +3,8 @@
 #include "RaidZeroLib/api/Filter/SlewRate.hpp"
 #include "RaidZeroLib/api/Geometry/Pose.hpp"
 #include "RaidZeroLib/api/Pathing/DiscretePath.hpp"
-#include "RaidZeroLib/api/Utility/Math.hpp"
 #include "RaidZeroLib/api/Utility/CrossPlatformThread.hpp"
+#include "RaidZeroLib/api/Utility/Math.hpp"
 #include "okapi/api/chassis/controller/odomChassisController.hpp"
 #include "okapi/impl/util/timeUtilFactory.hpp"
 #include <memory>

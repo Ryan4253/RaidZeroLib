@@ -1,6 +1,7 @@
 #pragma once
 
 #ifdef THREADS_STD
+#include <sstream>
 #include <thread>
 
 #else

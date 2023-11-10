@@ -16,7 +16,7 @@ void CrossPlatformMutex::lock() {
 void CrossPlatformMutex::unlock() {
 #ifdef THREADS_STD
     mutex.unlock();
-    
+
 #else
     mutex.give();
 

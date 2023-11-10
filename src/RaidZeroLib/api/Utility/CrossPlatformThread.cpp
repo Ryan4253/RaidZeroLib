@@ -10,7 +10,7 @@ CrossPlatformThread::CrossPlatformThread(void (*ptr)(void*), void* params, const
 }
 #endif
 
-CrossPlatformThread::~CrossPlatformThread() {
+      CrossPlatformThread::~CrossPlatformThread() {
 #ifdef THREADS_STD
     thread.join();
 

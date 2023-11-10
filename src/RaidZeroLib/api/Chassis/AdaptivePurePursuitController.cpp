@@ -9,7 +9,7 @@ AdaptivePurePursuitController::AdaptivePurePursuitController(
     const std::shared_ptr<OdomChassisController>& chassis, const Gains& gains,
     std::unique_ptr<FeedforwardController<QLength>> leftController,
     std::unique_ptr<FeedforwardController<QLength>> rightController, const TimeUtil& timeUtil)
-    : chassis(chassis), gains(gains), timeUtil(timeUtil), task([](void*){}, 0, "AdaptivePurePursuitController") {
+    : chassis(chassis), gains(gains), timeUtil(timeUtil), task([](void*) {}, 0, "AdaptivePurePursuitController") {
 
     leftMotor = std::static_pointer_cast<SkidSteerModel>(chassis->getModel())->getLeftSideMotor();
     rightMotor = std::static_pointer_cast<SkidSteerModel>(chassis->getModel())->getLeftSideMotor();
@@ -62,13 +62,13 @@ void AdaptivePurePursuitController::followPath(DiscretePath& path, QTime timeout
 
 void AdaptivePurePursuitController::stop() {
     task.notify();
-    pros::delay(10);
+    timeUtil.getRate()->delayUntil(10);
     chassis->stop();
 }
 
-void waitUntilSettled() {
+void AdaptivePurePursuitController::waitUntilSettled() {
     while (true) {
-        pros::delay(10);
+        timeUtil.getRate()->delayUntil(10);
     }
 }
 

@@ -42,7 +42,7 @@ DiscretePath ParametricPath::toDiscrete(int numPoints, bool end) const{
     std::vector<Point> path;
     const double increment = 1.0 / (numPoints-1);
 
-    for(double t = 0; t < t; t += increment){
+    for(double t = 0; t < 1; t += increment){
         path.emplace_back(getPoint(t));
     }
 

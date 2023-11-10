@@ -2,6 +2,11 @@ name: Test
 
 on: [push, pull_request]
 
+# stages:
+#   - dependency-installation
+#   - static-code-analysis
+#   - coverage
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -14,8 +19,10 @@ jobs:
           sudo apt install build-essential
           sudo apt install git
           sudo apt install cmake
+          sudo apt install valgrind
+          sudo apt install cppcheck
           sudo apt install lcov
-
+          
       - name: Build
         run: |
           mkdir build
@@ -27,7 +34,16 @@ jobs:
         working-directory: build
         run: ./RaidZeroLib
 
+      - name: Valgrind
+        working-directory: build
+        run: valgrind --tool=memcheck --leak-check=full --leak-resolution=med --show-leak-kinds=all --undef-value-errors=yes --track-origins=yes  --error-exitcode=1 --show-reachable=no ./RaidZeroLib
+
+      - name: Cppcheck
+        working-directory: .
+        run: cppcheck --enable=all --suppress=missingInclude --suppress=unusedFunction ./src/RaidZeroLib
+
       - name: Collect Coverage
+        working-directory: build
         run: |
           lcov --directory . --capture --output-file coverage.info
           lcov --remove coverage.info '/usr/*' --output-file coverage.info

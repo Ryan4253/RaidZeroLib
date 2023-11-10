@@ -40,7 +40,7 @@ jobs:
 
       - name: Cppcheck
         working-directory: .
-        run: cppcheck --enable=all --suppress=missingInclude --suppress=unusedFunction ./src/RaidZeroLib
+        run: cppcheck --enable=all --suppress=missingInclude --error-exitcode=1 ./src/RaidZeroLib
 
       - name: Collect Coverage
         working-directory: build

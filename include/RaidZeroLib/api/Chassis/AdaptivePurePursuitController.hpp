@@ -4,9 +4,9 @@
 #include "RaidZeroLib/api/Geometry/Pose.hpp"
 #include "RaidZeroLib/api/Pathing/DiscretePath.hpp"
 #include "RaidZeroLib/api/Utility/Math.hpp"
+#include "RaidZeroLib/api/Utility/CrossPlatformThread.hpp"
 #include "okapi/api/chassis/controller/odomChassisController.hpp"
 #include "okapi/impl/util/timeUtilFactory.hpp"
-#include "okapi/api/coreProsAPI.hpp"
 #include <memory>
 
 namespace rz {
@@ -53,7 +53,7 @@ class AdaptivePurePursuitController {
     std::unique_ptr<FeedforwardController<QLength>> leftController;
     std::unique_ptr<FeedforwardController<QLength>> rightController;
 
-    CrossplatformThread task;
+    CrossPlatformThread task;
 };
 
 } // namespace rz

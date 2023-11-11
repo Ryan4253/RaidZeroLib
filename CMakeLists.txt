@@ -1,12 +1,6 @@
 cmake_minimum_required(VERSION 3.6)
 project(RaidZeroLib)
 
-# set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
-# if(CMAKE_COMPILER_IS_GNUCXX)
-#     include(CodeCoverage)
-#     setup_target_for_coverage(${PROJECT_NAME}_coverage tests coverage)
-# endif()
-
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++20 -Wall -Wextra -Wshadow -Wnull-dereference -Wno-psabi -Wno-unused-function -pthread -g -O0 -fprofile-arcs -ftest-coverage -D THREADS_STD")
 
 enable_testing()
@@ -182,5 +176,5 @@ add_executable(RaidZeroLib
         test/include/mocks.hpp
         test/src/mocks.cpp)
 
-# Link against gtest
+# Link against gtest and okapi
 target_link_libraries(RaidZeroLib ${CMAKE_SOURCE_DIR}/test/firmware/OkapiLibTest.a gtest_main)

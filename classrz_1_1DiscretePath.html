@@ -1,162 +1,218 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.9.5"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>RaidZeroLib: rz::DiscretePath Class Reference</title>
-<link href="tabs.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="dynsections.js"></script>
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="search/searchdata.js"></script>
-<script type="text/javascript" src="search/search.js"></script>
-<link href="doxygen.css" rel="stylesheet" type="text/css" />
+  <meta charset="UTF-8" />
+  <title>rz::DiscretePath class | RaidZeroLib</title>
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
 </head>
 <body>
-<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
-<div id="titlearea">
-<table cellspacing="0" cellpadding="0">
- <tbody>
- <tr id="projectrow">
-  <td id="projectalign">
-   <div id="projectname">RaidZeroLib<span id="projectnumber">&#160;1.0.0</span>
-   </div>
-  </td>
- </tr>
- </tbody>
-</table>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">RaidZeroLib</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+          <path id="m-doc-search-icon-path" d="m6 0c-3.31 0-6 2.69-6 6 0 3.31 2.69 6 6 6 1.49 0 2.85-0.541 3.89-1.44-0.0164 0.338 0.147 0.759 0.5 1.15l3.22 3.79c0.552 0.614 1.45 0.665 2 0.115 0.55-0.55 0.499-1.45-0.115-2l-3.79-3.22c-0.392-0.353-0.812-0.515-1.15-0.5 0.895-1.05 1.44-2.41 1.44-3.89 0-3.31-2.69-6-6-6zm0 1.56a4.44 4.44 0 0 1 4.44 4.44 4.44 4.44 0 0 1-4.44 4.44 4.44 4.44 0 0 1-4.44-4.44 4.44 4.44 0 0 1 4.44-4.44z"/>
+        </svg></a>
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+            <li class="m-show-m"><a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+              <use href="#m-doc-search-icon-path" />
+            </svg></a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="namespacerz.html">rz</a>::<wbr/></span>DiscretePath <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="DiscretePath_8hpp.html">&lt;/home/runner/work/RaidZeroLib/RaidZeroLib/include/RaidZeroLib/api/Pathing/DiscretePath.hpp&gt;</a></div>
+        </h1>
+        <p><span></span></p>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
+                <li><a href="#pub-methods">Public functions</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="typeless-methods">
+          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
+          <dl class="m-doc">
+            <dt id="a7e8a0d555cd39f917606c0fc6b9027f8">
+              <span class="m-doc-wrap-bumper"><a href="#a7e8a0d555cd39f917606c0fc6b9027f8" class="m-doc-self">DiscretePath</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a94c4b649581c889d116ac6e54f4ff7bb">
+              <span class="m-doc-wrap-bumper"><a href="#a94c4b649581c889d116ac6e54f4ff7bb" class="m-doc-self">DiscretePath</a>(</span><span class="m-doc-wrap">const std::initializer_list&lt;<a href="classrz_1_1Translation.html" class="m-doc">Point</a>&gt;&amp; waypoint)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a86bcf02a147f955f6e4ddace5c6069a2">
+              <span class="m-doc-wrap-bumper"><a href="#a86bcf02a147f955f6e4ddace5c6069a2" class="m-doc-self">DiscretePath</a>(</span><span class="m-doc-wrap">const std::vector&lt;<a href="classrz_1_1Translation.html" class="m-doc">Point</a>&gt;&amp; waypoint)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="aaec9ddd93a6c1139b64a847adbbe4bac">
+              <span class="m-doc-wrap-bumper"><a href="#aaec9ddd93a6c1139b64a847adbbe4bac" class="m-doc-self">~DiscretePath</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span></span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="pub-methods">
+          <h2><a href="#pub-methods">Public functions</a></h2>
+          <dl class="m-doc">
+            <dt id="a555aec89005e50540ff67ab18e5a65fd">
+              <span class="m-doc-wrap-bumper">auto <a href="#a555aec89005e50540ff67ab18e5a65fd" class="m-doc-self">operator+</a>(</span><span class="m-doc-wrap">const <a href="classrz_1_1DiscretePath.html" class="m-doc">DiscretePath</a>&amp; rhs) const -&gt; <a href="classrz_1_1DiscretePath.html" class="m-doc">DiscretePath</a></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a964f6bba1be982e3c0b670e8b86a741e">
+              <span class="m-doc-wrap-bumper">auto <a href="#a964f6bba1be982e3c0b670e8b86a741e" class="m-doc-self">operator+</a>(</span><span class="m-doc-wrap">const <a href="classrz_1_1Translation.html" class="m-doc">Point</a>&amp; rhs) const -&gt; <a href="classrz_1_1DiscretePath.html" class="m-doc">DiscretePath</a></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a0d58dfdd52bf72e22fda8803007df9de">
+              <span class="m-doc-wrap-bumper">auto <a href="#a0d58dfdd52bf72e22fda8803007df9de" class="m-doc-self">operator+=</a>(</span><span class="m-doc-wrap">const <a href="classrz_1_1DiscretePath.html" class="m-doc">DiscretePath</a>&amp; rhs) -&gt; <a href="classrz_1_1DiscretePath.html" class="m-doc">DiscretePath</a>&amp;</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a06350d99894d6fb61bfe39dab4517b0d">
+              <span class="m-doc-wrap-bumper">auto <a href="#a06350d99894d6fb61bfe39dab4517b0d" class="m-doc-self">operator+=</a>(</span><span class="m-doc-wrap">const <a href="classrz_1_1Translation.html" class="m-doc">Point</a>&amp; rhs) -&gt; <a href="classrz_1_1DiscretePath.html" class="m-doc">DiscretePath</a>&amp;</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a3f312e4715733536c7326678c68fefc6">
+              <span class="m-doc-wrap-bumper">auto <a href="#a3f312e4715733536c7326678c68fefc6" class="m-doc-self">begin</a>(</span><span class="m-doc-wrap">) -&gt; std::vector&lt;<a href="classrz_1_1Translation.html" class="m-doc">Point</a>&gt;::iterator</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ae992975aa27dae21d7e019f26f0d3bfb">
+              <span class="m-doc-wrap-bumper">auto <a href="#ae992975aa27dae21d7e019f26f0d3bfb" class="m-doc-self">begin</a>(</span><span class="m-doc-wrap">) const -&gt; std::vector&lt;<a href="classrz_1_1Translation.html" class="m-doc">Point</a>&gt;::const_iterator</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a96d4651f5042dc623402c6158c9b3c4b">
+              <span class="m-doc-wrap-bumper">auto <a href="#a96d4651f5042dc623402c6158c9b3c4b" class="m-doc-self">end</a>(</span><span class="m-doc-wrap">) -&gt; std::vector&lt;<a href="classrz_1_1Translation.html" class="m-doc">Point</a>&gt;::iterator</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a4b4ee68734d6ccd455a9f085858e4a2b">
+              <span class="m-doc-wrap-bumper">auto <a href="#a4b4ee68734d6ccd455a9f085858e4a2b" class="m-doc-self">end</a>(</span><span class="m-doc-wrap">) const -&gt; std::vector&lt;<a href="classrz_1_1Translation.html" class="m-doc">Point</a>&gt;::const_iterator</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ac9dc6096c74b9642e611d6e728269415">
+              <span class="m-doc-wrap-bumper">auto <a href="#ac9dc6096c74b9642e611d6e728269415" class="m-doc-self">rbegin</a>(</span><span class="m-doc-wrap">) -&gt; std::vector&lt;<a href="classrz_1_1Translation.html" class="m-doc">Point</a>&gt;::reverse_iterator</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a99e1611fb992ae8d85c75f4107fe2f79">
+              <span class="m-doc-wrap-bumper">auto <a href="#a99e1611fb992ae8d85c75f4107fe2f79" class="m-doc-self">rbegin</a>(</span><span class="m-doc-wrap">) const -&gt; std::vector&lt;<a href="classrz_1_1Translation.html" class="m-doc">Point</a>&gt;::const_reverse_iterator</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a2f3029dd61bbd918c9a1edecbb85aba4">
+              <span class="m-doc-wrap-bumper">auto <a href="#a2f3029dd61bbd918c9a1edecbb85aba4" class="m-doc-self">rend</a>(</span><span class="m-doc-wrap">) -&gt; std::vector&lt;<a href="classrz_1_1Translation.html" class="m-doc">Point</a>&gt;::reverse_iterator</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a496ce96aeeb435c7f03fdc51a67bb9de">
+              <span class="m-doc-wrap-bumper">auto <a href="#a496ce96aeeb435c7f03fdc51a67bb9de" class="m-doc-self">rend</a>(</span><span class="m-doc-wrap">) const -&gt; std::vector&lt;<a href="classrz_1_1Translation.html" class="m-doc">Point</a>&gt;::const_reverse_iterator</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a6ca0003dffafad39b5fd90ab045b6191">
+              <span class="m-doc-wrap-bumper">auto <a href="#a6ca0003dffafad39b5fd90ab045b6191" class="m-doc-self">operator[]</a>(</span><span class="m-doc-wrap">int index) -&gt; <a href="classrz_1_1Translation.html" class="m-doc">Point</a>&amp;</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a3d98b821c7152ace1ecba62dc098a73a">
+              <span class="m-doc-wrap-bumper">auto <a href="#a3d98b821c7152ace1ecba62dc098a73a" class="m-doc-self">operator[]</a>(</span><span class="m-doc-wrap">int index) const -&gt; const <a href="classrz_1_1Translation.html" class="m-doc">Point</a>&amp;</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a523bbe61841aa206a05f60203b237ac3">
+              <span class="m-doc-wrap-bumper">auto <a href="#a523bbe61841aa206a05f60203b237ac3" class="m-doc-self">front</a>(</span><span class="m-doc-wrap">) -&gt; <a href="classrz_1_1Translation.html" class="m-doc">Point</a>&amp;</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a049651d0ce7480c30a523edb0a8bbf10">
+              <span class="m-doc-wrap-bumper">auto <a href="#a049651d0ce7480c30a523edb0a8bbf10" class="m-doc-self">front</a>(</span><span class="m-doc-wrap">) const -&gt; const <a href="classrz_1_1Translation.html" class="m-doc">Point</a>&amp;</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a567ac0e385faf45723f5914fa04f1455">
+              <span class="m-doc-wrap-bumper">auto <a href="#a567ac0e385faf45723f5914fa04f1455" class="m-doc-self">back</a>(</span><span class="m-doc-wrap">) -&gt; <a href="classrz_1_1Translation.html" class="m-doc">Point</a>&amp;</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a056e6f853203259386a590a5c1877f83">
+              <span class="m-doc-wrap-bumper">auto <a href="#a056e6f853203259386a590a5c1877f83" class="m-doc-self">back</a>(</span><span class="m-doc-wrap">) const -&gt; const <a href="classrz_1_1Translation.html" class="m-doc">Point</a>&amp;</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a5b391695ef78819b4d5d7921def85902">
+              <span class="m-doc-wrap-bumper">auto <a href="#a5b391695ef78819b4d5d7921def85902" class="m-doc-self">getCurvature</a>(</span><span class="m-doc-wrap">int index) const -&gt; QCurvature</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ad3f8556ff1cef990446b68fe38425961">
+              <span class="m-doc-wrap-bumper">auto <a href="#ad3f8556ff1cef990446b68fe38425961" class="m-doc-self">size</a>(</span><span class="m-doc-wrap">) const -&gt; int</span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<div class="m-doc-search" id="search">
+  <a href="#!" onclick="return hideSearch()"></a>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-m-8 m-push-m-2">
+        <div class="m-doc-search-header m-text m-small">
+          <div><span class="m-label m-default">Tab</span> / <span class="m-label m-default">T</span> to search, <span class="m-label m-default">Esc</span> to close</div>
+          <div id="search-symbolcount">&hellip;</div>
+        </div>
+        <div class="m-doc-search-content">
+          <form>
+            <input type="search" name="q" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" autocomplete="off" spellcheck="false" />
+          </form>
+          <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
+          <div id="search-help" class="m-text m-dim m-text-center">
+            <p class="m-noindent">Search for symbols, directories, files, pages or
+            modules. You can omit any prefix from the symbol or file path; adding a
+            <code>:</code> or <code>/</code> suffix lists all members of given symbol or
+            directory.</p>
+            <p class="m-noindent">Use <span class="m-label m-dim">&darr;</span>
+            / <span class="m-label m-dim">&uarr;</span> to navigate through the list,
+            <span class="m-label m-dim">Enter</span> to go.
+            <span class="m-label m-dim">Tab</span> autocompletes common prefix, you can
+            copy a link to the result using <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">L</span> while <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">M</span> produces a Markdown link.</p>
+          </div>
+          <div id="search-notfound" class="m-text m-warning m-text-center">Sorry, nothing was found.</div>
+          <ul id="search-results"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<!-- end header part -->
-<!-- Generated by Doxygen 1.9.5 -->
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-var searchBox = new SearchBox("searchBox", "search/",'.html');
-/* @license-end */
-</script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
-});
-/* @license-end */
-</script>
-<div id="main-nav"></div>
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow"
-     onmouseover="return searchBox.OnSearchSelectShow()"
-     onmouseout="return searchBox.OnSearchSelectHide()"
-     onkeydown="return searchBox.OnSearchSelectKey(event)">
-</div>
-
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<div id="MSearchResults">
-<div class="SRPage">
-<div id="SRIndex">
-<div id="SRResults"></div>
-<div class="SRStatus" id="Loading">Loading...</div>
-<div class="SRStatus" id="Searching">Searching...</div>
-<div class="SRStatus" id="NoMatches">No Matches</div>
-</div>
-</div>
-</div>
-</div>
-
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><b>rz</b></li><li class="navelem"><a class="el" href="classrz_1_1DiscretePath.html">DiscretePath</a></li>  </ul>
-</div>
-</div><!-- top -->
-<div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="classrz_1_1DiscretePath-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rz::DiscretePath Class Reference</div></div>
-</div><!--header-->
-<div class="contents">
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a94c4b649581c889d116ac6e54f4ff7bb"><td class="memItemLeft" align="right" valign="top"><a id="a94c4b649581c889d116ac6e54f4ff7bb" name="a94c4b649581c889d116ac6e54f4ff7bb"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DiscretePath</b> (const std::initializer_list&lt; <a class="el" href="classrz_1_1Translation.html">Point</a> &gt; &amp;waypoint)</td></tr>
-<tr class="separator:a94c4b649581c889d116ac6e54f4ff7bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86bcf02a147f955f6e4ddace5c6069a2"><td class="memItemLeft" align="right" valign="top"><a id="a86bcf02a147f955f6e4ddace5c6069a2" name="a86bcf02a147f955f6e4ddace5c6069a2"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DiscretePath</b> (const std::vector&lt; <a class="el" href="classrz_1_1Translation.html">Point</a> &gt; &amp;waypoint)</td></tr>
-<tr class="separator:a86bcf02a147f955f6e4ddace5c6069a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a555aec89005e50540ff67ab18e5a65fd"><td class="memItemLeft" align="right" valign="top"><a id="a555aec89005e50540ff67ab18e5a65fd" name="a555aec89005e50540ff67ab18e5a65fd"></a>
-<a class="el" href="classrz_1_1DiscretePath.html">DiscretePath</a>&#160;</td><td class="memItemRight" valign="bottom"><b>operator+</b> (const <a class="el" href="classrz_1_1DiscretePath.html">DiscretePath</a> &amp;rhs) const</td></tr>
-<tr class="separator:a555aec89005e50540ff67ab18e5a65fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a964f6bba1be982e3c0b670e8b86a741e"><td class="memItemLeft" align="right" valign="top"><a id="a964f6bba1be982e3c0b670e8b86a741e" name="a964f6bba1be982e3c0b670e8b86a741e"></a>
-<a class="el" href="classrz_1_1DiscretePath.html">DiscretePath</a>&#160;</td><td class="memItemRight" valign="bottom"><b>operator+</b> (const <a class="el" href="classrz_1_1Translation.html">Point</a> &amp;rhs) const</td></tr>
-<tr class="separator:a964f6bba1be982e3c0b670e8b86a741e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d58dfdd52bf72e22fda8803007df9de"><td class="memItemLeft" align="right" valign="top"><a id="a0d58dfdd52bf72e22fda8803007df9de" name="a0d58dfdd52bf72e22fda8803007df9de"></a>
-<a class="el" href="classrz_1_1DiscretePath.html">DiscretePath</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator+=</b> (const <a class="el" href="classrz_1_1DiscretePath.html">DiscretePath</a> &amp;rhs)</td></tr>
-<tr class="separator:a0d58dfdd52bf72e22fda8803007df9de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06350d99894d6fb61bfe39dab4517b0d"><td class="memItemLeft" align="right" valign="top"><a id="a06350d99894d6fb61bfe39dab4517b0d" name="a06350d99894d6fb61bfe39dab4517b0d"></a>
-<a class="el" href="classrz_1_1DiscretePath.html">DiscretePath</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator+=</b> (const <a class="el" href="classrz_1_1Translation.html">Point</a> &amp;rhs)</td></tr>
-<tr class="separator:a06350d99894d6fb61bfe39dab4517b0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f312e4715733536c7326678c68fefc6"><td class="memItemLeft" align="right" valign="top"><a id="a3f312e4715733536c7326678c68fefc6" name="a3f312e4715733536c7326678c68fefc6"></a>
-std::vector&lt; <a class="el" href="classrz_1_1Translation.html">Point</a> &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> ()</td></tr>
-<tr class="separator:a3f312e4715733536c7326678c68fefc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae992975aa27dae21d7e019f26f0d3bfb"><td class="memItemLeft" align="right" valign="top"><a id="ae992975aa27dae21d7e019f26f0d3bfb" name="ae992975aa27dae21d7e019f26f0d3bfb"></a>
-std::vector&lt; <a class="el" href="classrz_1_1Translation.html">Point</a> &gt;::const_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> () const</td></tr>
-<tr class="separator:ae992975aa27dae21d7e019f26f0d3bfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96d4651f5042dc623402c6158c9b3c4b"><td class="memItemLeft" align="right" valign="top"><a id="a96d4651f5042dc623402c6158c9b3c4b" name="a96d4651f5042dc623402c6158c9b3c4b"></a>
-std::vector&lt; <a class="el" href="classrz_1_1Translation.html">Point</a> &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> ()</td></tr>
-<tr class="separator:a96d4651f5042dc623402c6158c9b3c4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b4ee68734d6ccd455a9f085858e4a2b"><td class="memItemLeft" align="right" valign="top"><a id="a4b4ee68734d6ccd455a9f085858e4a2b" name="a4b4ee68734d6ccd455a9f085858e4a2b"></a>
-std::vector&lt; <a class="el" href="classrz_1_1Translation.html">Point</a> &gt;::const_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> () const</td></tr>
-<tr class="separator:a4b4ee68734d6ccd455a9f085858e4a2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9dc6096c74b9642e611d6e728269415"><td class="memItemLeft" align="right" valign="top"><a id="ac9dc6096c74b9642e611d6e728269415" name="ac9dc6096c74b9642e611d6e728269415"></a>
-std::vector&lt; <a class="el" href="classrz_1_1Translation.html">Point</a> &gt;::reverse_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>rbegin</b> ()</td></tr>
-<tr class="separator:ac9dc6096c74b9642e611d6e728269415"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99e1611fb992ae8d85c75f4107fe2f79"><td class="memItemLeft" align="right" valign="top"><a id="a99e1611fb992ae8d85c75f4107fe2f79" name="a99e1611fb992ae8d85c75f4107fe2f79"></a>
-std::vector&lt; <a class="el" href="classrz_1_1Translation.html">Point</a> &gt;::const_reverse_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>rbegin</b> () const</td></tr>
-<tr class="separator:a99e1611fb992ae8d85c75f4107fe2f79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f3029dd61bbd918c9a1edecbb85aba4"><td class="memItemLeft" align="right" valign="top"><a id="a2f3029dd61bbd918c9a1edecbb85aba4" name="a2f3029dd61bbd918c9a1edecbb85aba4"></a>
-std::vector&lt; <a class="el" href="classrz_1_1Translation.html">Point</a> &gt;::reverse_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>rend</b> ()</td></tr>
-<tr class="separator:a2f3029dd61bbd918c9a1edecbb85aba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a496ce96aeeb435c7f03fdc51a67bb9de"><td class="memItemLeft" align="right" valign="top"><a id="a496ce96aeeb435c7f03fdc51a67bb9de" name="a496ce96aeeb435c7f03fdc51a67bb9de"></a>
-std::vector&lt; <a class="el" href="classrz_1_1Translation.html">Point</a> &gt;::const_reverse_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>rend</b> () const</td></tr>
-<tr class="separator:a496ce96aeeb435c7f03fdc51a67bb9de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ca0003dffafad39b5fd90ab045b6191"><td class="memItemLeft" align="right" valign="top"><a id="a6ca0003dffafad39b5fd90ab045b6191" name="a6ca0003dffafad39b5fd90ab045b6191"></a>
-<a class="el" href="classrz_1_1Translation.html">Point</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (int index)</td></tr>
-<tr class="separator:a6ca0003dffafad39b5fd90ab045b6191"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d98b821c7152ace1ecba62dc098a73a"><td class="memItemLeft" align="right" valign="top"><a id="a3d98b821c7152ace1ecba62dc098a73a" name="a3d98b821c7152ace1ecba62dc098a73a"></a>
-const <a class="el" href="classrz_1_1Translation.html">Point</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (int index) const</td></tr>
-<tr class="separator:a3d98b821c7152ace1ecba62dc098a73a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a523bbe61841aa206a05f60203b237ac3"><td class="memItemLeft" align="right" valign="top"><a id="a523bbe61841aa206a05f60203b237ac3" name="a523bbe61841aa206a05f60203b237ac3"></a>
-<a class="el" href="classrz_1_1Translation.html">Point</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>front</b> ()</td></tr>
-<tr class="separator:a523bbe61841aa206a05f60203b237ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a049651d0ce7480c30a523edb0a8bbf10"><td class="memItemLeft" align="right" valign="top"><a id="a049651d0ce7480c30a523edb0a8bbf10" name="a049651d0ce7480c30a523edb0a8bbf10"></a>
-const <a class="el" href="classrz_1_1Translation.html">Point</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>front</b> () const</td></tr>
-<tr class="separator:a049651d0ce7480c30a523edb0a8bbf10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a567ac0e385faf45723f5914fa04f1455"><td class="memItemLeft" align="right" valign="top"><a id="a567ac0e385faf45723f5914fa04f1455" name="a567ac0e385faf45723f5914fa04f1455"></a>
-<a class="el" href="classrz_1_1Translation.html">Point</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>back</b> ()</td></tr>
-<tr class="separator:a567ac0e385faf45723f5914fa04f1455"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a056e6f853203259386a590a5c1877f83"><td class="memItemLeft" align="right" valign="top"><a id="a056e6f853203259386a590a5c1877f83" name="a056e6f853203259386a590a5c1877f83"></a>
-const <a class="el" href="classrz_1_1Translation.html">Point</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>back</b> () const</td></tr>
-<tr class="separator:a056e6f853203259386a590a5c1877f83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b391695ef78819b4d5d7921def85902"><td class="memItemLeft" align="right" valign="top"><a id="a5b391695ef78819b4d5d7921def85902" name="a5b391695ef78819b4d5d7921def85902"></a>
-QCurvature&#160;</td><td class="memItemRight" valign="bottom"><b>getCurvature</b> (int index) const</td></tr>
-<tr class="separator:a5b391695ef78819b4d5d7921def85902"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3f8556ff1cef990446b68fe38425961"><td class="memItemLeft" align="right" valign="top"><a id="ad3f8556ff1cef990446b68fe38425961" name="ad3f8556ff1cef990446b68fe38425961"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>size</b> () const</td></tr>
-<tr class="separator:ad3f8556ff1cef990446b68fe38425961"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/RaidZeroLib/api/Pathing/<a class="el" href="DiscretePath_8hpp_source.html">DiscretePath.hpp</a></li>
-<li>src/RaidZeroLib/api/Pathing/DiscretePath.cpp</li>
-</ul>
-</div><!-- contents -->
-<!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
-</small></address>
+<script src="search-v2.js"></script>
+<script src="searchdata-v2.js" async="async"></script>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>RaidZeroLib. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
 </body>
 </html>

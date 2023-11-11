@@ -1,929 +1,647 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.9.5"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>RaidZeroLib: rz::IterativeVelTBHController Class Reference</title>
-<link href="tabs.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="dynsections.js"></script>
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="search/searchdata.js"></script>
-<script type="text/javascript" src="search/search.js"></script>
-<link href="doxygen.css" rel="stylesheet" type="text/css" />
+  <meta charset="UTF-8" />
+  <title>rz::IterativeVelTBHController class | RaidZeroLib</title>
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
 </head>
 <body>
-<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
-<div id="titlearea">
-<table cellspacing="0" cellpadding="0">
- <tbody>
- <tr id="projectrow">
-  <td id="projectalign">
-   <div id="projectname">RaidZeroLib<span id="projectnumber">&#160;1.0.0</span>
-   </div>
-  </td>
- </tr>
- </tbody>
-</table>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">RaidZeroLib</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+          <path id="m-doc-search-icon-path" d="m6 0c-3.31 0-6 2.69-6 6 0 3.31 2.69 6 6 6 1.49 0 2.85-0.541 3.89-1.44-0.0164 0.338 0.147 0.759 0.5 1.15l3.22 3.79c0.552 0.614 1.45 0.665 2 0.115 0.55-0.55 0.499-1.45-0.115-2l-3.79-3.22c-0.392-0.353-0.812-0.515-1.15-0.5 0.895-1.05 1.44-2.41 1.44-3.89 0-3.31-2.69-6-6-6zm0 1.56a4.44 4.44 0 0 1 4.44 4.44 4.44 4.44 0 0 1-4.44 4.44 4.44 4.44 0 0 1-4.44-4.44 4.44 4.44 0 0 1 4.44-4.44z"/>
+        </svg></a>
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+            <li class="m-show-m"><a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+              <use href="#m-doc-search-icon-path" />
+            </svg></a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="namespacerz.html">rz</a>::<wbr/></span>IterativeVelTBHController <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="IterativeVelTBHController_8hpp.html">&lt;/home/runner/work/RaidZeroLib/RaidZeroLib/include/RaidZeroLib/api/Control/Iterative/IterativeVelTBHController.hpp&gt;</a></div>
+        </h1>
+        <p><span></span></p>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
+                <li><a href="#pub-methods">Public functions</a></li>
+                <li><a href="#pro-attribs">Protected variables</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="typeless-methods">
+          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
+          <dl class="m-doc">
+            <dt id="a7bf6e5ad623ed6600a1589828a83e780">
+              <span class="m-doc-wrap-bumper"><a href="#a7bf6e5ad623ed6600a1589828a83e780" class="m-doc-self">IterativeVelTBHController</a>(</span><span class="m-doc-wrap">double iGain,
+              std::unique_ptr&lt;VelMath&gt; iVelMath,
+              const TimeUtil&amp; iTimeUtil,
+              std::shared_ptr&lt;Logger&gt; iLogger = Logger::getDefaultLogger())</span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="pub-methods">
+          <h2><a href="#pub-methods">Public functions</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a6537acde8cbec164f418757f64053a0a" class="m-doc">step</a>(</span><span class="m-doc-wrap">double iNewReading) -&gt; double <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#aefc99755f5bc0f8068e0220d48303d54" class="m-doc">setTarget</a>(</span><span class="m-doc-wrap">double iTarget) <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#af55a52e8519e73f4ad77e71e8d66ee6f" class="m-doc">controllerSet</a>(</span><span class="m-doc-wrap">double iValue) <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a45d116164a8baf5f3e4b8b4c385de85d" class="m-doc">getTarget</a>(</span><span class="m-doc-wrap">) -&gt; double <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a2085b1d0ffa9fe86fae891676a395c65" class="m-doc">getTarget</a>(</span><span class="m-doc-wrap">) const -&gt; double</span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#af6c3dd90355f4cb6ab001aa019836a4c" class="m-doc">getProcessValue</a>(</span><span class="m-doc-wrap">) const -&gt; double <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#abf06d898479be057d3ce02c63f75f614" class="m-doc">getOutput</a>(</span><span class="m-doc-wrap">) const -&gt; double <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#ab49538bd589a7c65aebed19197893b87" class="m-doc">getMaxOutput</a>(</span><span class="m-doc-wrap">) -&gt; double <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#ae29b5b022d444746d33cd49286ccd99c" class="m-doc">getMinOutput</a>(</span><span class="m-doc-wrap">) -&gt; double <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a35b1619146fff32c4a3174ee8259eea1" class="m-doc">getError</a>(</span><span class="m-doc-wrap">) const -&gt; double <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a14c5078ae5d4cdc2f2e837c72d6c30a1" class="m-doc">isSettled</a>(</span><span class="m-doc-wrap">) -&gt; bool <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#ac0f529bafc9f5fb89dd87cc29b9e8aae" class="m-doc">setSampleTime</a>(</span><span class="m-doc-wrap">QTime iSampleTime) <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#ab9bafb703d5fad54dd8a2cbf290c91e1" class="m-doc">setOutputLimits</a>(</span><span class="m-doc-wrap">double iMax,
+              double iMin) <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a6f2cf33ce2c855bad1e0ac9e694e128b" class="m-doc">setControllerSetTargetLimits</a>(</span><span class="m-doc-wrap">double iTargetMax,
+              double iTargetMin) <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a918db1e40eb6ecea5dfb71522c4c42c0" class="m-doc">reset</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#af8b7cc21b326ea4abb675bf92cfa9947" class="m-doc">flipDisable</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#ab1a0a766560980d9ee531481cb6f83c0" class="m-doc">flipDisable</a>(</span><span class="m-doc-wrap">bool iIsDisabled) <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#ad60057906f9a4b7ea80089a96c423aed" class="m-doc">isDisabled</a>(</span><span class="m-doc-wrap">) const -&gt; bool <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a985448487364a6bbb0587d07e29dc5e7" class="m-doc">getSampleTime</a>(</span><span class="m-doc-wrap">) const -&gt; QTime <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a9c3d840172a247592e580756366747b2" class="m-doc">stepVel</a>(</span><span class="m-doc-wrap">double iNewReading) -&gt; QAngularSpeed <span class="m-label m-flat m-warning">virtual</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#adfc9737dceb1545633a2f1d37046ee95" class="m-doc">setGains</a>(</span><span class="m-doc-wrap">const double iGain) <span class="m-label m-flat m-warning">virtual</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a031749119b6d57a1edb432b2d21a31a1" class="m-doc">getGains</a>(</span><span class="m-doc-wrap">) const -&gt; double</span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a719643b3531deedc8cf57eb699981ee1" class="m-doc">setTicksPerRev</a>(</span><span class="m-doc-wrap">double iTPR) <span class="m-label m-flat m-warning">virtual</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a745c1dc2b9045e7f5272a8be97d44b85" class="m-doc">getVel</a>(</span><span class="m-doc-wrap">) const -&gt; QAngularSpeed <span class="m-label m-flat m-warning">virtual</span></span>
+            </dt>
+            <dd></dd>
+          </dl>
+        </section>
+        <section id="pro-attribs">
+          <h2><a href="#pro-attribs">Protected variables</a></h2>
+          <dl class="m-doc">
+            <dt id="ae3484b10d7f3bf10c8145ce512f8c5c9">
+              double <a href="#ae3484b10d7f3bf10c8145ce512f8c5c9" class="m-doc-self">gain</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a0e6d9546407e05538deefc34ccea9661">
+              QTime <a href="#a0e6d9546407e05538deefc34ccea9661" class="m-doc-self">sampleTime</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a78c54b6b2c811ce31e04241497a07069">
+              double <a href="#a78c54b6b2c811ce31e04241497a07069" class="m-doc-self">target</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ab0c0cc5f01feb6f731864e398a358229">
+              double <a href="#ab0c0cc5f01feb6f731864e398a358229" class="m-doc-self">error</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a6c389a5bfbe2552c54c1edf712a5d33c">
+              double <a href="#a6c389a5bfbe2552c54c1edf712a5d33c" class="m-doc-self">prevError</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="aace28cb0958be58a747960f2cb1e6ff6">
+              double <a href="#aace28cb0958be58a747960f2cb1e6ff6" class="m-doc-self">tbh</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="aeff994b0db1323de44b346fe8f312a79">
+              double <a href="#aeff994b0db1323de44b346fe8f312a79" class="m-doc-self">output</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a5c3fe794913451f81cedb8dc377d6ac3">
+              double <a href="#a5c3fe794913451f81cedb8dc377d6ac3" class="m-doc-self">outputMax</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a1988411f132eb6c436efd62c92be5c88">
+              double <a href="#a1988411f132eb6c436efd62c92be5c88" class="m-doc-self">outputMin</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a4408598d3569839ca8a8e77c9dae1c7a">
+              double <a href="#a4408598d3569839ca8a8e77c9dae1c7a" class="m-doc-self">controllerSetTargetMax</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="aa8f88b2348206ba70c91dfee4d3e70e9">
+              double <a href="#aa8f88b2348206ba70c91dfee4d3e70e9" class="m-doc-self">controllerSetTargetMin</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="add68acae7965dad13304ad8221528a54">
+              bool <a href="#add68acae7965dad13304ad8221528a54" class="m-doc-self">controllerIsDisabled</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ae1e3ef5669dfa9599d16d3d5ff665375">
+              std::shared_ptr&lt;Logger&gt; <a href="#ae1e3ef5669dfa9599d16d3d5ff665375" class="m-doc-self">logger</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a7b7e70c10e60cd5406ba78c48dfe12a2">
+              std::unique_ptr&lt;VelMath&gt; <a href="#a7b7e70c10e60cd5406ba78c48dfe12a2" class="m-doc-self">velMath</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="afa16fd731deb7fc26991d65f3b4d7d35">
+              std::unique_ptr&lt;AbstractTimer&gt; <a href="#afa16fd731deb7fc26991d65f3b4d7d35" class="m-doc-self">loopDtTimer</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a6825b85ba7149d3bab9074c94062abd8">
+              std::unique_ptr&lt;SettledUtil&gt; <a href="#a6825b85ba7149d3bab9074c94062abd8" class="m-doc-self">settledUtil</a>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="a6537acde8cbec164f418757f64053a0a"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">double rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a6537acde8cbec164f418757f64053a0a" class="m-doc-self">step</a>(</span><span class="m-doc-wrap">double iNewReading) <span class="m-label m-warning">override</span></span></span>
+            </h3>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">iNewReading</td>
+                  <td>new measurement</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td>controller output</td>
+                </tr>
+              </tfoot>
+            </table>
+<p>Do one iteration of the controller. Returns the reading in the range [-1, 1] unless the bounds have been changed with <a href="classrz_1_1IterativeVelTBHController.html#ab9bafb703d5fad54dd8a2cbf290c91e1" class="m-doc">setOutputLimits()</a>.</p>
+          </div></section>
+          <section class="m-doc-details" id="aefc99755f5bc0f8068e0220d48303d54"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#aefc99755f5bc0f8068e0220d48303d54" class="m-doc-self">setTarget</a>(</span><span class="m-doc-wrap">double iTarget) <span class="m-label m-warning">override</span></span></span>
+            </h3>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">iTarget</td>
+                  <td>new target velocity</td>
+                </tr>
+              </tbody>
+            </table>
+<p>Sets the target for the controller.</p>
+          </div></section>
+          <section class="m-doc-details" id="af55a52e8519e73f4ad77e71e8d66ee6f"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#af55a52e8519e73f4ad77e71e8d66ee6f" class="m-doc-self">controllerSet</a>(</span><span class="m-doc-wrap">double iValue) <span class="m-label m-warning">override</span></span></span>
+            </h3>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">iValue</td>
+                  <td>the controller&#x27;s output in the range [-1, 1]</td>
+                </tr>
+              </tbody>
+            </table>
+<p>Writes the value of the controller output. This method might be automatically called in another thread by the controller. The range of input values is expected to be [-1, 1].</p>
+          </div></section>
+          <section class="m-doc-details" id="a45d116164a8baf5f3e4b8b4c385de85d"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">double rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a45d116164a8baf5f3e4b8b4c385de85d" class="m-doc-self">getTarget</a>(</span><span class="m-doc-wrap">) <span class="m-label m-warning">override</span></span></span>
+            </h3>
+            <table class="m-table m-fullwidth m-flat">
+              <tfoot>
+                <tr>
+                  <th style="width: 1%">Returns</th>
+                  <td>the last target</td>
+                </tr>
+              </tfoot>
+            </table>
+<p>Gets the last set target, or the default target if none was set.</p>
+          </div></section>
+          <section class="m-doc-details" id="a2085b1d0ffa9fe86fae891676a395c65"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">double rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a2085b1d0ffa9fe86fae891676a395c65" class="m-doc-self">getTarget</a>(</span><span class="m-doc-wrap">) const</span></span>
+            </h3>
+            <table class="m-table m-fullwidth m-flat">
+              <tfoot>
+                <tr>
+                  <th style="width: 1%">Returns</th>
+                  <td>the last target</td>
+                </tr>
+              </tfoot>
+            </table>
+<p>Gets the last set target, or the default target if none was set.</p>
+          </div></section>
+          <section class="m-doc-details" id="af6c3dd90355f4cb6ab001aa019836a4c"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">double rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#af6c3dd90355f4cb6ab001aa019836a4c" class="m-doc-self">getProcessValue</a>(</span><span class="m-doc-wrap">) const <span class="m-label m-warning">override</span></span></span>
+            </h3>
+            <table class="m-table m-fullwidth m-flat">
+              <tfoot>
+                <tr>
+                  <th style="width: 1%">Returns</th>
+                  <td>The most recent value of the process variable.</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="abf06d898479be057d3ce02c63f75f614"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">double rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#abf06d898479be057d3ce02c63f75f614" class="m-doc-self">getOutput</a>(</span><span class="m-doc-wrap">) const <span class="m-label m-warning">override</span></span></span>
+            </h3>
+<p>Returns the last calculated output of the controller.</p>
+          </div></section>
+          <section class="m-doc-details" id="ab49538bd589a7c65aebed19197893b87"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">double rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ab49538bd589a7c65aebed19197893b87" class="m-doc-self">getMaxOutput</a>(</span><span class="m-doc-wrap">) <span class="m-label m-warning">override</span></span></span>
+            </h3>
+            <table class="m-table m-fullwidth m-flat">
+              <tfoot>
+                <tr>
+                  <th style="width: 1%">Returns</th>
+                  <td>the upper output bound</td>
+                </tr>
+              </tfoot>
+            </table>
+<p>Get the upper output bound.</p>
+          </div></section>
+          <section class="m-doc-details" id="ae29b5b022d444746d33cd49286ccd99c"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">double rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ae29b5b022d444746d33cd49286ccd99c" class="m-doc-self">getMinOutput</a>(</span><span class="m-doc-wrap">) <span class="m-label m-warning">override</span></span></span>
+            </h3>
+            <table class="m-table m-fullwidth m-flat">
+              <tfoot>
+                <tr>
+                  <th style="width: 1%">Returns</th>
+                  <td>the lower output bound</td>
+                </tr>
+              </tfoot>
+            </table>
+<p>Get the lower output bound.</p>
+          </div></section>
+          <section class="m-doc-details" id="a35b1619146fff32c4a3174ee8259eea1"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">double rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a35b1619146fff32c4a3174ee8259eea1" class="m-doc-self">getError</a>(</span><span class="m-doc-wrap">) const <span class="m-label m-warning">override</span></span></span>
+            </h3>
+<p>Returns the last error of the controller. Does not update when disabled.</p>
+          </div></section>
+          <section class="m-doc-details" id="a14c5078ae5d4cdc2f2e837c72d6c30a1"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">bool rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a14c5078ae5d4cdc2f2e837c72d6c30a1" class="m-doc-self">isSettled</a>(</span><span class="m-doc-wrap">) <span class="m-label m-warning">override</span></span></span>
+            </h3>
+            <table class="m-table m-fullwidth m-flat">
+              <tfoot>
+                <tr>
+                  <th style="width: 1%">Returns</th>
+                  <td>whether the controller is settled</td>
+                </tr>
+              </tfoot>
+            </table>
+<p>Returns whether the controller has settled at the target. Determining what settling means is implementation-dependent.</p><p>If the controller is disabled, this method must return true.</p>
+          </div></section>
+          <section class="m-doc-details" id="ac0f529bafc9f5fb89dd87cc29b9e8aae"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ac0f529bafc9f5fb89dd87cc29b9e8aae" class="m-doc-self">setSampleTime</a>(</span><span class="m-doc-wrap">QTime iSampleTime) <span class="m-label m-warning">override</span></span></span>
+            </h3>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">iSampleTime</td>
+                  <td>time between loops</td>
+                </tr>
+              </tbody>
+            </table>
+<p>Set time between loops in ms.</p>
+          </div></section>
+          <section class="m-doc-details" id="ab9bafb703d5fad54dd8a2cbf290c91e1"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ab9bafb703d5fad54dd8a2cbf290c91e1" class="m-doc-self">setOutputLimits</a>(</span><span class="m-doc-wrap">double iMax,
+              double iMin) <span class="m-label m-warning">override</span></span></span>
+            </h3>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">iMax</td>
+                  <td>max output</td>
+                </tr>
+                <tr>
+                  <td>iMin</td>
+                  <td>min output</td>
+                </tr>
+              </tbody>
+            </table>
+<p>Set controller output bounds. Default bounds are [-1, 1].</p>
+          </div></section>
+          <section class="m-doc-details" id="a6f2cf33ce2c855bad1e0ac9e694e128b"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a6f2cf33ce2c855bad1e0ac9e694e128b" class="m-doc-self">setControllerSetTargetLimits</a>(</span><span class="m-doc-wrap">double iTargetMax,
+              double iTargetMin) <span class="m-label m-warning">override</span></span></span>
+            </h3>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">iTargetMax</td>
+                  <td>The new max target for <a href="classrz_1_1IterativeVelTBHController.html#af55a52e8519e73f4ad77e71e8d66ee6f" class="m-doc">controllerSet()</a>.</td>
+                </tr>
+                <tr>
+                  <td>iTargetMin</td>
+                  <td>The new min target for <a href="classrz_1_1IterativeVelTBHController.html#af55a52e8519e73f4ad77e71e8d66ee6f" class="m-doc">controllerSet()</a>.</td>
+                </tr>
+              </tbody>
+            </table>
+<p>Sets the (soft) limits for the target range that <a href="classrz_1_1IterativeVelTBHController.html#af55a52e8519e73f4ad77e71e8d66ee6f" class="m-doc">controllerSet()</a> scales into. The target computed by <a href="classrz_1_1IterativeVelTBHController.html#af55a52e8519e73f4ad77e71e8d66ee6f" class="m-doc">controllerSet()</a> is scaled into the range [-itargetMin, itargetMax].</p>
+          </div></section>
+          <section class="m-doc-details" id="a918db1e40eb6ecea5dfb71522c4c42c0"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a918db1e40eb6ecea5dfb71522c4c42c0" class="m-doc-self">reset</a>(</span><span class="m-doc-wrap">) <span class="m-label m-warning">override</span></span></span>
+            </h3>
+<p>Resets the controller&#x27;s internal state so it is similar to when it was first initialized, while keeping any user-configured information.</p>
+          </div></section>
+          <section class="m-doc-details" id="af8b7cc21b326ea4abb675bf92cfa9947"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#af8b7cc21b326ea4abb675bf92cfa9947" class="m-doc-self">flipDisable</a>(</span><span class="m-doc-wrap">) <span class="m-label m-warning">override</span></span></span>
+            </h3>
+<p>Changes whether the controller is off or on. Turning the controller on after it was off will cause the controller to move to its last set target, unless it was reset in that time.</p>
+          </div></section>
+          <section class="m-doc-details" id="ab1a0a766560980d9ee531481cb6f83c0"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ab1a0a766560980d9ee531481cb6f83c0" class="m-doc-self">flipDisable</a>(</span><span class="m-doc-wrap">bool iIsDisabled) <span class="m-label m-warning">override</span></span></span>
+            </h3>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">iIsDisabled</td>
+                  <td>whether the controller is disabled</td>
+                </tr>
+              </tbody>
+            </table>
+<p>Sets whether the controller is off or on. Turning the controller on after it was off will cause the controller to move to its last set target, unless it was reset in that time.</p>
+          </div></section>
+          <section class="m-doc-details" id="ad60057906f9a4b7ea80089a96c423aed"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">bool rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ad60057906f9a4b7ea80089a96c423aed" class="m-doc-self">isDisabled</a>(</span><span class="m-doc-wrap">) const <span class="m-label m-warning">override</span></span></span>
+            </h3>
+            <table class="m-table m-fullwidth m-flat">
+              <tfoot>
+                <tr>
+                  <th style="width: 1%">Returns</th>
+                  <td>whether the controller is currently disabled</td>
+                </tr>
+              </tfoot>
+            </table>
+<p>Returns whether the controller is currently disabled.</p>
+          </div></section>
+          <section class="m-doc-details" id="a985448487364a6bbb0587d07e29dc5e7"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">QTime rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a985448487364a6bbb0587d07e29dc5e7" class="m-doc-self">getSampleTime</a>(</span><span class="m-doc-wrap">) const <span class="m-label m-warning">override</span></span></span>
+            </h3>
+            <table class="m-table m-fullwidth m-flat">
+              <tfoot>
+                <tr>
+                  <th style="width: 1%">Returns</th>
+                  <td>sample time</td>
+                </tr>
+              </tfoot>
+            </table>
+<p>Get the last set sample time.</p>
+          </div></section>
+          <section class="m-doc-details" id="a9c3d840172a247592e580756366747b2"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">QAngularSpeed rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a9c3d840172a247592e580756366747b2" class="m-doc-self">stepVel</a>(</span><span class="m-doc-wrap">double iNewReading) <span class="m-label m-warning">virtual</span></span></span>
+            </h3>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">iNewReading</td>
+                  <td>new measurement</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td>filtered velocity</td>
+                </tr>
+              </tfoot>
+            </table>
+<p>Do one iteration of velocity calculation.</p>
+          </div></section>
+          <section class="m-doc-details" id="adfc9737dceb1545633a2f1d37046ee95"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#adfc9737dceb1545633a2f1d37046ee95" class="m-doc-self">setGains</a>(</span><span class="m-doc-wrap">const double iGain) <span class="m-label m-warning">virtual</span></span></span>
+            </h3>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">iGain</td>
+                  <td>The new gain.</td>
+                </tr>
+              </tbody>
+            </table>
+<p>Set controller gain.</p>
+          </div></section>
+          <section class="m-doc-details" id="a031749119b6d57a1edb432b2d21a31a1"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">double rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a031749119b6d57a1edb432b2d21a31a1" class="m-doc-self">getGains</a>(</span><span class="m-doc-wrap">) const</span></span>
+            </h3>
+            <table class="m-table m-fullwidth m-flat">
+              <tfoot>
+                <tr>
+                  <th style="width: 1%">Returns</th>
+                  <td>The current gain.</td>
+                </tr>
+              </tfoot>
+            </table>
+<p>Gets the current gain.</p>
+          </div></section>
+          <section class="m-doc-details" id="a719643b3531deedc8cf57eb699981ee1"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a719643b3531deedc8cf57eb699981ee1" class="m-doc-self">setTicksPerRev</a>(</span><span class="m-doc-wrap">double iTPR) <span class="m-label m-warning">virtual</span></span></span>
+            </h3>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">iTPR</td>
+                  <td>number of measured units per revolution</td>
+                </tr>
+              </tbody>
+            </table>
+<p>Sets the number of encoder ticks per revolution. Default is 1800.</p>
+          </div></section>
+          <section class="m-doc-details" id="a745c1dc2b9045e7f5272a8be97d44b85"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">QAngularSpeed rz::<wbr />IterativeVelTBHController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a745c1dc2b9045e7f5272a8be97d44b85" class="m-doc-self">getVel</a>(</span><span class="m-doc-wrap">) const <span class="m-label m-warning">virtual</span></span></span>
+            </h3>
+<p>Returns the current velocity.</p>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<div class="m-doc-search" id="search">
+  <a href="#!" onclick="return hideSearch()"></a>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-m-8 m-push-m-2">
+        <div class="m-doc-search-header m-text m-small">
+          <div><span class="m-label m-default">Tab</span> / <span class="m-label m-default">T</span> to search, <span class="m-label m-default">Esc</span> to close</div>
+          <div id="search-symbolcount">&hellip;</div>
+        </div>
+        <div class="m-doc-search-content">
+          <form>
+            <input type="search" name="q" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" autocomplete="off" spellcheck="false" />
+          </form>
+          <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
+          <div id="search-help" class="m-text m-dim m-text-center">
+            <p class="m-noindent">Search for symbols, directories, files, pages or
+            modules. You can omit any prefix from the symbol or file path; adding a
+            <code>:</code> or <code>/</code> suffix lists all members of given symbol or
+            directory.</p>
+            <p class="m-noindent">Use <span class="m-label m-dim">&darr;</span>
+            / <span class="m-label m-dim">&uarr;</span> to navigate through the list,
+            <span class="m-label m-dim">Enter</span> to go.
+            <span class="m-label m-dim">Tab</span> autocompletes common prefix, you can
+            copy a link to the result using <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">L</span> while <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">M</span> produces a Markdown link.</p>
+          </div>
+          <div id="search-notfound" class="m-text m-warning m-text-center">Sorry, nothing was found.</div>
+          <ul id="search-results"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<!-- end header part -->
-<!-- Generated by Doxygen 1.9.5 -->
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-var searchBox = new SearchBox("searchBox", "search/",'.html');
-/* @license-end */
-</script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
-});
-/* @license-end */
-</script>
-<div id="main-nav"></div>
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow"
-     onmouseover="return searchBox.OnSearchSelectShow()"
-     onmouseout="return searchBox.OnSearchSelectHide()"
-     onkeydown="return searchBox.OnSearchSelectKey(event)">
-</div>
-
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<div id="MSearchResults">
-<div class="SRPage">
-<div id="SRIndex">
-<div id="SRResults"></div>
-<div class="SRStatus" id="Loading">Loading...</div>
-<div class="SRStatus" id="Searching">Searching...</div>
-<div class="SRStatus" id="NoMatches">No Matches</div>
-</div>
-</div>
-</div>
-</div>
-
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><b>rz</b></li><li class="navelem"><a class="el" href="classrz_1_1IterativeVelTBHController.html">IterativeVelTBHController</a></li>  </ul>
-</div>
-</div><!-- top -->
-<div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="classrz_1_1IterativeVelTBHController-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rz::IterativeVelTBHController Class Reference</div></div>
-</div><!--header-->
-<div class="contents">
-<div class="dynheader">
-Inheritance diagram for rz::IterativeVelTBHController:</div>
-<div class="dyncontent">
-<div class="center"><img src="classrz_1_1IterativeVelTBHController__inherit__graph.png" border="0" usemap="#arz_1_1IterativeVelTBHController_inherit__map" alt="Inheritance graph"/></div>
-<map name="arz_1_1IterativeVelTBHController_inherit__map" id="arz_1_1IterativeVelTBHController_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,93,192,119"/>
-<area shape="rect" title=" " alt="" coords="13,5,184,45"/>
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for rz::IterativeVelTBHController:</div>
-<div class="dyncontent">
-<div class="center"><img src="classrz_1_1IterativeVelTBHController__coll__graph.png" border="0" usemap="#arz_1_1IterativeVelTBHController_coll__map" alt="Collaboration graph"/></div>
-<map name="arz_1_1IterativeVelTBHController_coll__map" id="arz_1_1IterativeVelTBHController_coll__map">
-<area shape="rect" title=" " alt="" coords="5,93,192,119"/>
-<area shape="rect" title=" " alt="" coords="13,5,184,45"/>
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a7bf6e5ad623ed6600a1589828a83e780"><td class="memItemLeft" align="right" valign="top"><a id="a7bf6e5ad623ed6600a1589828a83e780" name="a7bf6e5ad623ed6600a1589828a83e780"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>IterativeVelTBHController</b> (double iGain, std::unique_ptr&lt; VelMath &gt; iVelMath, const TimeUtil &amp;iTimeUtil, std::shared_ptr&lt; Logger &gt; iLogger=Logger::getDefaultLogger())</td></tr>
-<tr class="separator:a7bf6e5ad623ed6600a1589828a83e780"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6537acde8cbec164f418757f64053a0a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#a6537acde8cbec164f418757f64053a0a">step</a> (double iNewReading) override</td></tr>
-<tr class="separator:a6537acde8cbec164f418757f64053a0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefc99755f5bc0f8068e0220d48303d54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#aefc99755f5bc0f8068e0220d48303d54">setTarget</a> (double iTarget) override</td></tr>
-<tr class="separator:aefc99755f5bc0f8068e0220d48303d54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af55a52e8519e73f4ad77e71e8d66ee6f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#af55a52e8519e73f4ad77e71e8d66ee6f">controllerSet</a> (double iValue) override</td></tr>
-<tr class="separator:af55a52e8519e73f4ad77e71e8d66ee6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45d116164a8baf5f3e4b8b4c385de85d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#a45d116164a8baf5f3e4b8b4c385de85d">getTarget</a> () override</td></tr>
-<tr class="separator:a45d116164a8baf5f3e4b8b4c385de85d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2085b1d0ffa9fe86fae891676a395c65"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#a2085b1d0ffa9fe86fae891676a395c65">getTarget</a> () const</td></tr>
-<tr class="separator:a2085b1d0ffa9fe86fae891676a395c65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6c3dd90355f4cb6ab001aa019836a4c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#af6c3dd90355f4cb6ab001aa019836a4c">getProcessValue</a> () const override</td></tr>
-<tr class="separator:af6c3dd90355f4cb6ab001aa019836a4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf06d898479be057d3ce02c63f75f614"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#abf06d898479be057d3ce02c63f75f614">getOutput</a> () const override</td></tr>
-<tr class="separator:abf06d898479be057d3ce02c63f75f614"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab49538bd589a7c65aebed19197893b87"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#ab49538bd589a7c65aebed19197893b87">getMaxOutput</a> () override</td></tr>
-<tr class="separator:ab49538bd589a7c65aebed19197893b87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae29b5b022d444746d33cd49286ccd99c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#ae29b5b022d444746d33cd49286ccd99c">getMinOutput</a> () override</td></tr>
-<tr class="separator:ae29b5b022d444746d33cd49286ccd99c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35b1619146fff32c4a3174ee8259eea1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#a35b1619146fff32c4a3174ee8259eea1">getError</a> () const override</td></tr>
-<tr class="separator:a35b1619146fff32c4a3174ee8259eea1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14c5078ae5d4cdc2f2e837c72d6c30a1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#a14c5078ae5d4cdc2f2e837c72d6c30a1">isSettled</a> () override</td></tr>
-<tr class="separator:a14c5078ae5d4cdc2f2e837c72d6c30a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0f529bafc9f5fb89dd87cc29b9e8aae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#ac0f529bafc9f5fb89dd87cc29b9e8aae">setSampleTime</a> (QTime iSampleTime) override</td></tr>
-<tr class="separator:ac0f529bafc9f5fb89dd87cc29b9e8aae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9bafb703d5fad54dd8a2cbf290c91e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#ab9bafb703d5fad54dd8a2cbf290c91e1">setOutputLimits</a> (double iMax, double iMin) override</td></tr>
-<tr class="separator:ab9bafb703d5fad54dd8a2cbf290c91e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f2cf33ce2c855bad1e0ac9e694e128b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#a6f2cf33ce2c855bad1e0ac9e694e128b">setControllerSetTargetLimits</a> (double iTargetMax, double iTargetMin) override</td></tr>
-<tr class="separator:a6f2cf33ce2c855bad1e0ac9e694e128b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a918db1e40eb6ecea5dfb71522c4c42c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#a918db1e40eb6ecea5dfb71522c4c42c0">reset</a> () override</td></tr>
-<tr class="separator:a918db1e40eb6ecea5dfb71522c4c42c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8b7cc21b326ea4abb675bf92cfa9947"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#af8b7cc21b326ea4abb675bf92cfa9947">flipDisable</a> () override</td></tr>
-<tr class="separator:af8b7cc21b326ea4abb675bf92cfa9947"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1a0a766560980d9ee531481cb6f83c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#ab1a0a766560980d9ee531481cb6f83c0">flipDisable</a> (bool iIsDisabled) override</td></tr>
-<tr class="separator:ab1a0a766560980d9ee531481cb6f83c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad60057906f9a4b7ea80089a96c423aed"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#ad60057906f9a4b7ea80089a96c423aed">isDisabled</a> () const override</td></tr>
-<tr class="separator:ad60057906f9a4b7ea80089a96c423aed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a985448487364a6bbb0587d07e29dc5e7"><td class="memItemLeft" align="right" valign="top">QTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#a985448487364a6bbb0587d07e29dc5e7">getSampleTime</a> () const override</td></tr>
-<tr class="separator:a985448487364a6bbb0587d07e29dc5e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c3d840172a247592e580756366747b2"><td class="memItemLeft" align="right" valign="top">virtual QAngularSpeed&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#a9c3d840172a247592e580756366747b2">stepVel</a> (double iNewReading)</td></tr>
-<tr class="separator:a9c3d840172a247592e580756366747b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfc9737dceb1545633a2f1d37046ee95"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#adfc9737dceb1545633a2f1d37046ee95">setGains</a> (const double iGain)</td></tr>
-<tr class="separator:adfc9737dceb1545633a2f1d37046ee95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a031749119b6d57a1edb432b2d21a31a1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#a031749119b6d57a1edb432b2d21a31a1">getGains</a> () const</td></tr>
-<tr class="separator:a031749119b6d57a1edb432b2d21a31a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a719643b3531deedc8cf57eb699981ee1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#a719643b3531deedc8cf57eb699981ee1">setTicksPerRev</a> (double iTPR)</td></tr>
-<tr class="separator:a719643b3531deedc8cf57eb699981ee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a745c1dc2b9045e7f5272a8be97d44b85"><td class="memItemLeft" align="right" valign="top">virtual QAngularSpeed&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrz_1_1IterativeVelTBHController.html#a745c1dc2b9045e7f5272a8be97d44b85">getVel</a> () const</td></tr>
-<tr class="separator:a745c1dc2b9045e7f5272a8be97d44b85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:ae3484b10d7f3bf10c8145ce512f8c5c9"><td class="memItemLeft" align="right" valign="top"><a id="ae3484b10d7f3bf10c8145ce512f8c5c9" name="ae3484b10d7f3bf10c8145ce512f8c5c9"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>gain</b> {0.0}</td></tr>
-<tr class="separator:ae3484b10d7f3bf10c8145ce512f8c5c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e6d9546407e05538deefc34ccea9661"><td class="memItemLeft" align="right" valign="top"><a id="a0e6d9546407e05538deefc34ccea9661" name="a0e6d9546407e05538deefc34ccea9661"></a>
-QTime&#160;</td><td class="memItemRight" valign="bottom"><b>sampleTime</b> {10 * millisecond}</td></tr>
-<tr class="separator:a0e6d9546407e05538deefc34ccea9661"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78c54b6b2c811ce31e04241497a07069"><td class="memItemLeft" align="right" valign="top"><a id="a78c54b6b2c811ce31e04241497a07069" name="a78c54b6b2c811ce31e04241497a07069"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>target</b> {0}</td></tr>
-<tr class="separator:a78c54b6b2c811ce31e04241497a07069"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0c0cc5f01feb6f731864e398a358229"><td class="memItemLeft" align="right" valign="top"><a id="ab0c0cc5f01feb6f731864e398a358229" name="ab0c0cc5f01feb6f731864e398a358229"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>error</b> {0}</td></tr>
-<tr class="separator:ab0c0cc5f01feb6f731864e398a358229"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c389a5bfbe2552c54c1edf712a5d33c"><td class="memItemLeft" align="right" valign="top"><a id="a6c389a5bfbe2552c54c1edf712a5d33c" name="a6c389a5bfbe2552c54c1edf712a5d33c"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>prevError</b> {0}</td></tr>
-<tr class="separator:a6c389a5bfbe2552c54c1edf712a5d33c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aace28cb0958be58a747960f2cb1e6ff6"><td class="memItemLeft" align="right" valign="top"><a id="aace28cb0958be58a747960f2cb1e6ff6" name="aace28cb0958be58a747960f2cb1e6ff6"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>tbh</b> {0}</td></tr>
-<tr class="separator:aace28cb0958be58a747960f2cb1e6ff6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeff994b0db1323de44b346fe8f312a79"><td class="memItemLeft" align="right" valign="top"><a id="aeff994b0db1323de44b346fe8f312a79" name="aeff994b0db1323de44b346fe8f312a79"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>output</b> {0}</td></tr>
-<tr class="separator:aeff994b0db1323de44b346fe8f312a79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c3fe794913451f81cedb8dc377d6ac3"><td class="memItemLeft" align="right" valign="top"><a id="a5c3fe794913451f81cedb8dc377d6ac3" name="a5c3fe794913451f81cedb8dc377d6ac3"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>outputMax</b> {1}</td></tr>
-<tr class="separator:a5c3fe794913451f81cedb8dc377d6ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1988411f132eb6c436efd62c92be5c88"><td class="memItemLeft" align="right" valign="top"><a id="a1988411f132eb6c436efd62c92be5c88" name="a1988411f132eb6c436efd62c92be5c88"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>outputMin</b> {-1}</td></tr>
-<tr class="separator:a1988411f132eb6c436efd62c92be5c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4408598d3569839ca8a8e77c9dae1c7a"><td class="memItemLeft" align="right" valign="top"><a id="a4408598d3569839ca8a8e77c9dae1c7a" name="a4408598d3569839ca8a8e77c9dae1c7a"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>controllerSetTargetMax</b> {1}</td></tr>
-<tr class="separator:a4408598d3569839ca8a8e77c9dae1c7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8f88b2348206ba70c91dfee4d3e70e9"><td class="memItemLeft" align="right" valign="top"><a id="aa8f88b2348206ba70c91dfee4d3e70e9" name="aa8f88b2348206ba70c91dfee4d3e70e9"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>controllerSetTargetMin</b> {-1}</td></tr>
-<tr class="separator:aa8f88b2348206ba70c91dfee4d3e70e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add68acae7965dad13304ad8221528a54"><td class="memItemLeft" align="right" valign="top"><a id="add68acae7965dad13304ad8221528a54" name="add68acae7965dad13304ad8221528a54"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>controllerIsDisabled</b> {false}</td></tr>
-<tr class="separator:add68acae7965dad13304ad8221528a54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1e3ef5669dfa9599d16d3d5ff665375"><td class="memItemLeft" align="right" valign="top"><a id="ae1e3ef5669dfa9599d16d3d5ff665375" name="ae1e3ef5669dfa9599d16d3d5ff665375"></a>
-std::shared_ptr&lt; Logger &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b></td></tr>
-<tr class="separator:ae1e3ef5669dfa9599d16d3d5ff665375"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b7e70c10e60cd5406ba78c48dfe12a2"><td class="memItemLeft" align="right" valign="top"><a id="a7b7e70c10e60cd5406ba78c48dfe12a2" name="a7b7e70c10e60cd5406ba78c48dfe12a2"></a>
-std::unique_ptr&lt; VelMath &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>velMath</b></td></tr>
-<tr class="separator:a7b7e70c10e60cd5406ba78c48dfe12a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa16fd731deb7fc26991d65f3b4d7d35"><td class="memItemLeft" align="right" valign="top"><a id="afa16fd731deb7fc26991d65f3b4d7d35" name="afa16fd731deb7fc26991d65f3b4d7d35"></a>
-std::unique_ptr&lt; AbstractTimer &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>loopDtTimer</b></td></tr>
-<tr class="separator:afa16fd731deb7fc26991d65f3b4d7d35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6825b85ba7149d3bab9074c94062abd8"><td class="memItemLeft" align="right" valign="top"><a id="a6825b85ba7149d3bab9074c94062abd8" name="a6825b85ba7149d3bab9074c94062abd8"></a>
-std::unique_ptr&lt; SettledUtil &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>settledUtil</b></td></tr>
-<tr class="separator:a6825b85ba7149d3bab9074c94062abd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="af55a52e8519e73f4ad77e71e8d66ee6f" name="af55a52e8519e73f4ad77e71e8d66ee6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af55a52e8519e73f4ad77e71e8d66ee6f">&#9670;&#160;</a></span>controllerSet()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void rz::IterativeVelTBHController::controllerSet </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>iValue</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Writes the value of the controller output. This method might be automatically called in another thread by the controller. The range of input values is expected to be [-1, 1].</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">iValue</td><td>the controller's output in the range [-1, 1] </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="af8b7cc21b326ea4abb675bf92cfa9947" name="af8b7cc21b326ea4abb675bf92cfa9947"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8b7cc21b326ea4abb675bf92cfa9947">&#9670;&#160;</a></span>flipDisable() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void rz::IterativeVelTBHController::flipDisable </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Changes whether the controller is off or on. Turning the controller on after it was off will cause the controller to move to its last set target, unless it was reset in that time. </p>
-
-</div>
-</div>
-<a id="ab1a0a766560980d9ee531481cb6f83c0" name="ab1a0a766560980d9ee531481cb6f83c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1a0a766560980d9ee531481cb6f83c0">&#9670;&#160;</a></span>flipDisable() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void rz::IterativeVelTBHController::flipDisable </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>iIsDisabled</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Sets whether the controller is off or on. Turning the controller on after it was off will cause the controller to move to its last set target, unless it was reset in that time.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">iIsDisabled</td><td>whether the controller is disabled </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a35b1619146fff32c4a3174ee8259eea1" name="a35b1619146fff32c4a3174ee8259eea1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35b1619146fff32c4a3174ee8259eea1">&#9670;&#160;</a></span>getError()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double rz::IterativeVelTBHController::getError </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Returns the last error of the controller. Does not update when disabled. </p>
-
-</div>
-</div>
-<a id="a031749119b6d57a1edb432b2d21a31a1" name="a031749119b6d57a1edb432b2d21a31a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a031749119b6d57a1edb432b2d21a31a1">&#9670;&#160;</a></span>getGains()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double rz::IterativeVelTBHController::getGains </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >Gets the current gain.</p>
-<dl class="section return"><dt>Returns</dt><dd>The current gain. </dd></dl>
-
-</div>
-</div>
-<a id="ab49538bd589a7c65aebed19197893b87" name="ab49538bd589a7c65aebed19197893b87"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab49538bd589a7c65aebed19197893b87">&#9670;&#160;</a></span>getMaxOutput()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double rz::IterativeVelTBHController::getMaxOutput </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Get the upper output bound.</p>
-<dl class="section return"><dt>Returns</dt><dd>the upper output bound </dd></dl>
-
-</div>
-</div>
-<a id="ae29b5b022d444746d33cd49286ccd99c" name="ae29b5b022d444746d33cd49286ccd99c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae29b5b022d444746d33cd49286ccd99c">&#9670;&#160;</a></span>getMinOutput()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double rz::IterativeVelTBHController::getMinOutput </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Get the lower output bound.</p>
-<dl class="section return"><dt>Returns</dt><dd>the lower output bound </dd></dl>
-
-</div>
-</div>
-<a id="abf06d898479be057d3ce02c63f75f614" name="abf06d898479be057d3ce02c63f75f614"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf06d898479be057d3ce02c63f75f614">&#9670;&#160;</a></span>getOutput()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double rz::IterativeVelTBHController::getOutput </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Returns the last calculated output of the controller. </p>
-
-</div>
-</div>
-<a id="af6c3dd90355f4cb6ab001aa019836a4c" name="af6c3dd90355f4cb6ab001aa019836a4c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6c3dd90355f4cb6ab001aa019836a4c">&#9670;&#160;</a></span>getProcessValue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double rz::IterativeVelTBHController::getProcessValue </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>The most recent value of the process variable. </dd></dl>
-
-</div>
-</div>
-<a id="a985448487364a6bbb0587d07e29dc5e7" name="a985448487364a6bbb0587d07e29dc5e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a985448487364a6bbb0587d07e29dc5e7">&#9670;&#160;</a></span>getSampleTime()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">okapi::QTime rz::IterativeVelTBHController::getSampleTime </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Get the last set sample time.</p>
-<dl class="section return"><dt>Returns</dt><dd>sample time </dd></dl>
-
-</div>
-</div>
-<a id="a2085b1d0ffa9fe86fae891676a395c65" name="a2085b1d0ffa9fe86fae891676a395c65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2085b1d0ffa9fe86fae891676a395c65">&#9670;&#160;</a></span>getTarget() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double rz::IterativeVelTBHController::getTarget </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >Gets the last set target, or the default target if none was set.</p>
-<dl class="section return"><dt>Returns</dt><dd>the last target </dd></dl>
-
-</div>
-</div>
-<a id="a45d116164a8baf5f3e4b8b4c385de85d" name="a45d116164a8baf5f3e4b8b4c385de85d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45d116164a8baf5f3e4b8b4c385de85d">&#9670;&#160;</a></span>getTarget() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double rz::IterativeVelTBHController::getTarget </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Gets the last set target, or the default target if none was set.</p>
-<dl class="section return"><dt>Returns</dt><dd>the last target </dd></dl>
-
-</div>
-</div>
-<a id="a745c1dc2b9045e7f5272a8be97d44b85" name="a745c1dc2b9045e7f5272a8be97d44b85"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a745c1dc2b9045e7f5272a8be97d44b85">&#9670;&#160;</a></span>getVel()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">okapi::QAngularSpeed rz::IterativeVelTBHController::getVel </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Returns the current velocity. </p>
-
-</div>
-</div>
-<a id="ad60057906f9a4b7ea80089a96c423aed" name="ad60057906f9a4b7ea80089a96c423aed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad60057906f9a4b7ea80089a96c423aed">&#9670;&#160;</a></span>isDisabled()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool rz::IterativeVelTBHController::isDisabled </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Returns whether the controller is currently disabled.</p>
-<dl class="section return"><dt>Returns</dt><dd>whether the controller is currently disabled </dd></dl>
-
-</div>
-</div>
-<a id="a14c5078ae5d4cdc2f2e837c72d6c30a1" name="a14c5078ae5d4cdc2f2e837c72d6c30a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14c5078ae5d4cdc2f2e837c72d6c30a1">&#9670;&#160;</a></span>isSettled()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool rz::IterativeVelTBHController::isSettled </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Returns whether the controller has settled at the target. Determining what settling means is implementation-dependent.</p>
-<p >If the controller is disabled, this method must return true.</p>
-<dl class="section return"><dt>Returns</dt><dd>whether the controller is settled </dd></dl>
-
-</div>
-</div>
-<a id="a918db1e40eb6ecea5dfb71522c4c42c0" name="a918db1e40eb6ecea5dfb71522c4c42c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a918db1e40eb6ecea5dfb71522c4c42c0">&#9670;&#160;</a></span>reset()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void rz::IterativeVelTBHController::reset </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Resets the controller's internal state so it is similar to when it was first initialized, while keeping any user-configured information. </p>
-
-</div>
-</div>
-<a id="a6f2cf33ce2c855bad1e0ac9e694e128b" name="a6f2cf33ce2c855bad1e0ac9e694e128b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f2cf33ce2c855bad1e0ac9e694e128b">&#9670;&#160;</a></span>setControllerSetTargetLimits()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void rz::IterativeVelTBHController::setControllerSetTargetLimits </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>iTargetMax</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>iTargetMin</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Sets the (soft) limits for the target range that <a class="el" href="classrz_1_1IterativeVelTBHController.html#af55a52e8519e73f4ad77e71e8d66ee6f">controllerSet()</a> scales into. The target computed by <a class="el" href="classrz_1_1IterativeVelTBHController.html#af55a52e8519e73f4ad77e71e8d66ee6f">controllerSet()</a> is scaled into the range [-itargetMin, itargetMax].</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">iTargetMax</td><td>The new max target for <a class="el" href="classrz_1_1IterativeVelTBHController.html#af55a52e8519e73f4ad77e71e8d66ee6f">controllerSet()</a>. </td></tr>
-    <tr><td class="paramname">iTargetMin</td><td>The new min target for <a class="el" href="classrz_1_1IterativeVelTBHController.html#af55a52e8519e73f4ad77e71e8d66ee6f">controllerSet()</a>. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="adfc9737dceb1545633a2f1d37046ee95" name="adfc9737dceb1545633a2f1d37046ee95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adfc9737dceb1545633a2f1d37046ee95">&#9670;&#160;</a></span>setGains()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void rz::IterativeVelTBHController::setGains </td>
-          <td>(</td>
-          <td class="paramtype">const double&#160;</td>
-          <td class="paramname"><em>iGain</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Set controller gain.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">iGain</td><td>The new gain. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ab9bafb703d5fad54dd8a2cbf290c91e1" name="ab9bafb703d5fad54dd8a2cbf290c91e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9bafb703d5fad54dd8a2cbf290c91e1">&#9670;&#160;</a></span>setOutputLimits()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void rz::IterativeVelTBHController::setOutputLimits </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>iMax</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>iMin</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Set controller output bounds. Default bounds are [-1, 1].</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">iMax</td><td>max output </td></tr>
-    <tr><td class="paramname">iMin</td><td>min output </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ac0f529bafc9f5fb89dd87cc29b9e8aae" name="ac0f529bafc9f5fb89dd87cc29b9e8aae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0f529bafc9f5fb89dd87cc29b9e8aae">&#9670;&#160;</a></span>setSampleTime()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void rz::IterativeVelTBHController::setSampleTime </td>
-          <td>(</td>
-          <td class="paramtype">QTime&#160;</td>
-          <td class="paramname"><em>iSampleTime</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Set time between loops in ms.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">iSampleTime</td><td>time between loops </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aefc99755f5bc0f8068e0220d48303d54" name="aefc99755f5bc0f8068e0220d48303d54"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aefc99755f5bc0f8068e0220d48303d54">&#9670;&#160;</a></span>setTarget()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void rz::IterativeVelTBHController::setTarget </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>iTarget</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Sets the target for the controller.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">iTarget</td><td>new target velocity </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a719643b3531deedc8cf57eb699981ee1" name="a719643b3531deedc8cf57eb699981ee1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a719643b3531deedc8cf57eb699981ee1">&#9670;&#160;</a></span>setTicksPerRev()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void rz::IterativeVelTBHController::setTicksPerRev </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>iTPR</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Sets the number of encoder ticks per revolution. Default is 1800.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">iTPR</td><td>number of measured units per revolution </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a6537acde8cbec164f418757f64053a0a" name="a6537acde8cbec164f418757f64053a0a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6537acde8cbec164f418757f64053a0a">&#9670;&#160;</a></span>step()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double rz::IterativeVelTBHController::step </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>iNewReading</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Do one iteration of the controller. Returns the reading in the range [-1, 1] unless the bounds have been changed with <a class="el" href="classrz_1_1IterativeVelTBHController.html#ab9bafb703d5fad54dd8a2cbf290c91e1">setOutputLimits()</a>.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">iNewReading</td><td>new measurement </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>controller output </dd></dl>
-
-</div>
-</div>
-<a id="a9c3d840172a247592e580756366747b2" name="a9c3d840172a247592e580756366747b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c3d840172a247592e580756366747b2">&#9670;&#160;</a></span>stepVel()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QAngularSpeed rz::IterativeVelTBHController::stepVel </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>iNewReading</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Do one iteration of velocity calculation.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">iNewReading</td><td>new measurement </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>filtered velocity </dd></dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/RaidZeroLib/api/Control/Iterative/<a class="el" href="IterativeVelTBHController_8hpp_source.html">IterativeVelTBHController.hpp</a></li>
-<li>src/RaidZeroLib/api/Control/Iterative/IterativeVelTBHController.cpp</li>
-</ul>
-</div><!-- contents -->
-<!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5
-</small></address>
+<script src="search-v2.js"></script>
+<script src="searchdata-v2.js" async="async"></script>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>RaidZeroLib. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
 </body>
 </html>

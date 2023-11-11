@@ -9,6 +9,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ secret.DOCS_TOKEN }}
+
       - name: Install Dependencies
         run: |
           sudo apt install build-essential

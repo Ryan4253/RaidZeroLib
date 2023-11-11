@@ -19,7 +19,7 @@ jobs:
 
     - name: Build Docs
       working-directory: .
-      run: 
+      run: |
         cd scripts
         ./doxygen.sh
 

@@ -39,10 +39,11 @@ jobs:
         run: cppcheck --enable=all --suppress=missingInclude --suppress=unusedFunction --error-exitcode=1 -I include/RaidZeroLib src/RaidZeroLib test
 
       - name: Formatting Check
-        uses: RafikFarhad/clang-format-github-action@v3
+        uses: DoozyX/clang-format-lint-action@v0.16.2
         with: 
+          clangFormatVersion: 14
           style: file
-          sources: "include/RaidZeroLib/*,src/RaidZeroLib/*,test/*"
+          sources: include/RaidZeroLib src/RaidZeroLib test
 
       - name: Collect Coverage
         working-directory: build

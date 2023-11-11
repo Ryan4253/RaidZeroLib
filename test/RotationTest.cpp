@@ -4,10 +4,7 @@
 using namespace okapi;
 #include "RaidZeroLib/api/Utility/StateMachine.hpp"
 
-
-enum State{
-    OPEN = 0,  CLOSE = 1, IDLE = 2
-};
+enum State { OPEN = 0, CLOSE = 1, IDLE = 2 };
 
 TEST(RotationTest, constructor) {
     rz::Rotation angle(3_ft, 3_ft);

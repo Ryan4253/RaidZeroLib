@@ -3,7 +3,9 @@ namespace rz {
 
 template <class State, State initState = State::IDLE> class StateMachine {
     public:
-    StateMachine() = default;
+    StateMachine() : state(initState) {
+    }
+    
     ~StateMachine() = default;
 
     State getState() const {

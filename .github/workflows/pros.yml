@@ -18,3 +18,14 @@ jobs:
 
       - name: Build Project
         run: pros make --verbose
+      
+      - name: Make Template
+        run: pros make template
+
+      - name: Verify Template
+        run: |
+          pros conduct fetch RaidZeroLib@*.zip
+          pros conduct new-project verify
+          cd verify
+          pros conduct apply RaidZeroLib
+

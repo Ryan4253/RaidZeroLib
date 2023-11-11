@@ -18,3 +18,6 @@ temp.log
 temp.errors
 *.ini
 .d/
+
+# Template
+*.zip

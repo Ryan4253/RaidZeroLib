@@ -43,7 +43,7 @@ jobs:
         with: 
           clangFormatVersion: 14
           style: file
-          sources: include/RaidZeroLib src/RaidZeroLib test
+          source: include/RaidZeroLib src/RaidZeroLib test
 
       - name: Collect Coverage
         working-directory: build

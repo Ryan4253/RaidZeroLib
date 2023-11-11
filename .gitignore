@@ -21,3 +21,7 @@ temp.errors
 
 # Template
 *.zip
+
+# Docs
+html/
+latex/

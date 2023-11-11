@@ -54,7 +54,7 @@ jobs:
           lcov --remove coverage.info '*/RaidZeroLib/include/okapi/*' --output-file coverage.info
           lcov --list coverage.info
 
-      # - name: Upload Coverage
-      #   uses: codecov/codecov-action@v1
-      #   with:
-      #     fail_ci_if_error: true
+      - name: Upload Coverage
+        uses: codecov/codecov-action@v1
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

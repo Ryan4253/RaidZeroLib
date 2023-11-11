@@ -4,21 +4,6 @@ GENERATE_XML = YES
 XML_PROGRAMLISTING = NO
 M_SHOW_UNDOCUMENTED = YES
 
-LINKS_NAVBAR1 = [
-    ("<a href=\"../RaidZeroLib/docs/tutorial/setup/index.html\">Getting Started</a>", []),
-    ("<a href=\"../RaidZeroLib/docs/tutorial/examples/index.html\">Examples</a>", [])
-]
-
-LINKS_NAVBAR2 = [
-	("Classes", 'annotated', []), 
-    ("<a href=\"../RaidZeroLib/docs/api/index.html\">API</a>", [])
-]
-
-STYLESHEETS = [
-	'./m.css/css/m-dark+documentation.compiled.css',
-	'https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600'
-]
-
 ALIASES += \
     "m_div{1}=@xmlonly<mcss:div xmlns:mcss=\"http://mcss.mosra.cz/doxygen/\" mcss:class=\"\1\">@endxmlonly" \
     "m_enddiv=@xmlonly</mcss:div>@endxmlonly" \

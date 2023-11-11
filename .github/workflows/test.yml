@@ -40,10 +40,10 @@ jobs:
 
       - name: Formatting Check
         uses: DoozyX/clang-format-lint-action@v0.16.2
-        with: 
+        with:
           clangFormatVersion: 14
           style: file
-          source: include/RaidZeroLib src/RaidZeroLib test
+          source: 'include/RaidZeroLib src/RaidZeroLib test'
 
       - name: Collect Coverage
         working-directory: build

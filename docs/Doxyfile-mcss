@@ -4,11 +4,16 @@ GENERATE_XML = YES
 XML_PROGRAMLISTING = NO
 M_SHOW_UNDOCUMENTED = YES
 
-M_LINKS_NAVBAR1 = \
-    "md_docs_api_index"
-	"md_docs_tutorials_index" \
+LINKS_NAVBAR1 = [
+    ("<a href=\"../RaidZeroLib/docs/tutorial/setup/index.html\">Getting Started</a>", []),
+    ("<a href=\"../RaidZeroLib/docs/tutorial/examples/index.html\">Examples</a>", [])
+]
 
-M_LINKS_NAVBAR2 = pages annotated
+LINKS_NAVBAR2 = [
+	("Classes", 'annotated', []), 
+    ("<a href=\"../RaidZeroLib/docs/api/index.html\">API</a>", [])
+]
+
 
 HTML_EXTRA_STYLESHEET = \
 	./m.css/css/m-dark+documentation.compiled.css \

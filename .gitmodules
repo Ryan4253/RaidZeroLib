@@ -1,6 +1,0 @@
-[submodule "FakeIt"]
-	path = test/include/FakeIt
-	url = https://github.com/eranpeer/FakeIt.git
-[submodule "snowhouse"]
-	path = test/include/snowhouse
-	url = https://github.com/banditcpp/snowhouse.git

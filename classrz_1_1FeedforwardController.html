@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>rz::FeedforwardController class | RaidZeroLib</title>
+  <title>rz::FeedforwardController class | RaidZeroLib Full Stack Robot Control Library for the VEX Robotics Competition</title>
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,7 +12,7 @@
 <header><nav id="navigation">
   <div class="m-container">
     <div class="m-row">
-      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">RaidZeroLib</a>
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m"><img src="templogo.png" alt="" />RaidZeroLib <span class="m-thin">Full Stack Robot Control Library for the VEX Robotics Competition</span></a>
       <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
         <a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
           <path id="m-doc-search-icon-path" d="m6 0c-3.31 0-6 2.69-6 6 0 3.31 2.69 6 6 6 1.49 0 2.85-0.541 3.89-1.44-0.0164 0.338 0.147 0.759 0.5 1.15l3.22 3.79c0.552 0.614 1.45 0.665 2 0.115 0.55-0.55 0.499-1.45-0.115-2l-3.79-3.22c-0.392-0.353-0.812-0.515-1.15-0.5 0.895-1.05 1.44-2.41 1.44-3.89 0-3.31-2.69-6-6-6zm0 1.56a4.44 4.44 0 0 1 4.44 4.44 4.44 4.44 0 0 1-4.44 4.44 4.44 4.44 0 0 1-4.44-4.44 4.44 4.44 0 0 1 4.44-4.44z"/>
@@ -44,7 +44,7 @@
       <div class="m-col-l-10 m-push-l-1">
         <h1>
           <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="FeedforwardController_8hpp.html">&lt;/home/runner/work/RaidZeroLib/RaidZeroLib/include/RaidZeroLib/api/Control/Feedforward/FeedforwardController.hpp&gt;</a></div>
-          <div class="m-doc-template">template&lt;isRQuantity Distance&gt;</div>
+          <div class="m-doc-template">template&lt;<a href="namespacerz.html#a895dbe2048c0db890fe5d46019481ecb" class="m-doc">isRQuantity</a> Distance&gt;</div>
           <span class="m-breadcrumb"><a href="namespacerz.html">rz</a>::<wbr/></span>FeedforwardController <span class="m-thin">class</span>
         </h1>
         <p><span></span></p>
@@ -65,7 +65,7 @@
           <h2><a href="#derived-classes">Derived classes</a></h2>
           <dl class="m-doc">
             <dt>
-              <div class="m-doc-template">template&lt;isRQuantity Distance&gt;</div>
+              <div class="m-doc-template">template&lt;<a href="namespacerz.html#a895dbe2048c0db890fe5d46019481ecb" class="m-doc">isRQuantity</a> Distance&gt;</div>
               class <a href="classrz_1_1SimpleMotorFeedforward.html" class="m-doc">SimpleMotorFeedforward</a>
             </dt>
             <dd><span></span></dd>
@@ -79,7 +79,7 @@
             </dt>
             <dd><span></span></dd>
             <dt id="aba2768cf9ed719de29c7187733199f98">
-              using <a href="#aba2768cf9ed719de29c7187733199f98" class="m-doc-self">Acceleration</a> = decltype(Velocity{1.0}/QTime{1.0})
+              using <a href="#aba2768cf9ed719de29c7187733199f98" class="m-doc-self">Acceleration</a> = decltype(<a href="classrz_1_1FeedforwardController.html#ae8734a87d61ee7c9855fb951a312fe2c" class="m-doc">Velocity</a>{1.0}/QTime{1.0})
             </dt>
             <dd><span></span></dd>
           </dl>
@@ -88,8 +88,8 @@
           <h2><a href="#pub-methods">Public functions</a></h2>
           <dl class="m-doc">
             <dt id="a935dfd7fe536de74d5a8b19b3b1a48ce">
-              <span class="m-doc-wrap-bumper">auto <a href="#a935dfd7fe536de74d5a8b19b3b1a48ce" class="m-doc-self">calculate</a>(</span><span class="m-doc-wrap">Velocity velocity,
-              Acceleration acceleration = Acceleration{0.0}) const -&gt; double <span class="m-label m-flat m-warning">pure virtual</span></span>
+              <span class="m-doc-wrap-bumper">auto <a href="#a935dfd7fe536de74d5a8b19b3b1a48ce" class="m-doc-self">calculate</a>(</span><span class="m-doc-wrap"><a href="classrz_1_1FeedforwardController.html#ae8734a87d61ee7c9855fb951a312fe2c" class="m-doc">Velocity</a> velocity,
+              <a href="classrz_1_1FeedforwardController.html#aba2768cf9ed719de29c7187733199f98" class="m-doc">Acceleration</a> acceleration = <a href="classrz_1_1FeedforwardController.html#aba2768cf9ed719de29c7187733199f98" class="m-doc">Acceleration</a>{0.0}) const -&gt; double <span class="m-label m-flat m-warning">pure virtual</span></span>
             </dt>
             <dd><span></span></dd>
           </dl>
@@ -138,7 +138,7 @@
   <div class="m-container">
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
-        <p>RaidZeroLib. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+        <p>RaidZeroLib Full Stack Robot Control Library for the VEX Robotics Competition. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
       </div>
     </div>
   </div>

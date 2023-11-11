@@ -12,7 +12,7 @@ jobs:
       - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.6.0
         with:
-          access_token: ${{ secret.DOCS_TOKEN }}
+          access_token: ${{ secrets.DOCS_TOKEN }}
 
       - name: Install Dependencies
         run: |

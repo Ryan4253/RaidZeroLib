@@ -23,5 +23,6 @@ temp.errors
 *.zip
 
 # Docs
-html/
-latex/
+docs/html/
+docs/latex/
+docs/xml

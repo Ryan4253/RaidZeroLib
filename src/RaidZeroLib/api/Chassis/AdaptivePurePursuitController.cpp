@@ -60,7 +60,7 @@ void AdaptivePurePursuitController::followPath(DiscretePath& path, QTime timeout
              !CrossPlatformThread::notifyTake(true, 10));
 }
 
-void AdaptivePurePursuitController::stop(){
+void AdaptivePurePursuitController::stop() {
     task.notify();
     timeUtil.getRate()->delayUntil(10);
     chassis->stop();

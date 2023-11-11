@@ -14,7 +14,7 @@ using namespace okapi;
 
 class AdaptivePurePursuitController {
     public:
-    struct Gains{
+    struct Gains {
         QSpeed maxVelocity{0.0};
         QAcceleration maxAcceleration{0.0};
         QAngularSpeed maxTurnVelocity{0.0};

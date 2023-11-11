@@ -309,7 +309,9 @@
       }
     },
     "upload_options": {
-      "slot": 1
+      "slot": 1,
+      "icon": "pros",
+      "description": "By Ryan, 4253B"
     }
   }
 }

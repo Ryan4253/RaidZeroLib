@@ -3,3 +3,4 @@
 ./cppcheck.sh
 ./valgrind.sh
 ./coverage.sh
+./doxygen.sh

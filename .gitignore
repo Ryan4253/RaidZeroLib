@@ -23,8 +23,9 @@ temp.errors
 *.zip
 
 # Docs
-docs/html/
-docs/latex/
-docs/xml
+docs/doxygen/html
+docs/doxygen/xml
+docs/doxygen/latex
+docs/doxygen/__pycache__
+website/
 .pyc
-docs/__pycache__

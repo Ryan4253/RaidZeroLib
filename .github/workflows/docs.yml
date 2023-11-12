@@ -23,8 +23,7 @@ jobs:
       run: git submodule update --init --recursive
 
     - name: Install Dependencies
-      run: |
-        sudo apt install doxygen
+      run: sudo apt install doxygen
 
     - name: Build Docs
       working-directory: .
@@ -32,12 +31,8 @@ jobs:
         cd scripts
         ./doxygen.sh
 
-    - name: Add Images
-      working-directory: docs
-      run: cp -r images html 
-
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.DOCS_TOKEN }}
-        publish_dir: './docs/html'
+        publish_dir: './website'

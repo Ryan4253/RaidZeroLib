@@ -32,6 +32,10 @@ jobs:
         cd scripts
         ./doxygen.sh
 
+    - name: Add Images
+      working-directory: docs
+      run: cp -r images html 
+
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:

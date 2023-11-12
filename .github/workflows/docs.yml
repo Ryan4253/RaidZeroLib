@@ -25,8 +25,6 @@ jobs:
     - name: Install Dependencies
       run: |
         sudo apt install doxygen
-        # sudo apt-get install python-pip
-        # pip3 install Jinja2
 
     - name: Build Docs
       working-directory: .

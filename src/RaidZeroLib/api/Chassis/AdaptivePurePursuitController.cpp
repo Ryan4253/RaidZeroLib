@@ -2,9 +2,6 @@
 
 namespace rz {
 
-void doNothing(void*) {
-}
-
 AdaptivePurePursuitController::AdaptivePurePursuitController(
     const std::shared_ptr<OdomChassisController>& chassis, const Gains& gains,
     std::unique_ptr<FeedforwardController<QLength>> leftController,

@@ -26,3 +26,5 @@ temp.errors
 docs/html/
 docs/latex/
 docs/xml
+.pyc
+docs/__pycache__

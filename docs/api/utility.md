@@ -7,6 +7,7 @@ explanation
 explanation
 - [CrossPlatformThread](@ref rz::CrossPlatformThread)
 - [CrossPlatformMutex](@ref rz::CrossPlatformMutex)
+- [StateMachine](@ref rz::StateMachine)
 
 ### Misc API
 explanation

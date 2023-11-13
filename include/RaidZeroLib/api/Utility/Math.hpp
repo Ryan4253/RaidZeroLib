@@ -7,7 +7,8 @@
 namespace rz {
 using namespace okapi;
 
-template <typename T> int sgn(T val) {
+template <typename T>
+int sgn(T val) {
     return (T(0) < val) - (val < T(0));
 }
 
@@ -25,7 +26,8 @@ double sinc(double x);
 
 std::optional<std::pair<double, double>> quadraticFormula(double a, double b, double c);
 
-template <typename T> std::pair<T, T> wheelForwardKinematics(T kinematics, QCurvature curvature, QLength wheelTrack) {
+template <typename T>
+std::pair<T, T> wheelForwardKinematics(T kinematics, QCurvature curvature, QLength wheelTrack) {
     const T left = kinematics * (2 + curvature.convert(radpm) * wheelTrack.convert(meter)) / 2;
     const T right = kinematics * (2 - curvature.convert(radpm) * wheelTrack.convert(meter)) / 2;
     return {left, right};

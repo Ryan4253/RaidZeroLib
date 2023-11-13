@@ -5,7 +5,8 @@
 namespace rz {
 using namespace okapi;
 
-template <typename... Args> void RQuantityChecker(RQuantity<Args...>) {
+template <typename... Args>
+void RQuantityChecker(RQuantity<Args...>) {
 }
 
 template <typename T>

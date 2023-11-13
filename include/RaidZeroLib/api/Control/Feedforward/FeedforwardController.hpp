@@ -7,7 +7,8 @@
 namespace rz {
 using namespace okapi;
 
-template <isRQuantity Distance> class FeedforwardController {
+template <isRQuantity Distance>
+class FeedforwardController {
     public:
     using Velocity = decltype(Distance{1.0} / QTime{1.0});
     using Acceleration = decltype(Velocity{1.0} / QTime{1.0});

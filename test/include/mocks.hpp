@@ -409,7 +409,8 @@ void assertControllerIsSettledWhenDisabled(ClosedLoopController<I, O>& controlle
     EXPECT_TRUE(controller.isSettled());
 }
 
-template <typename I, typename O> void assertWaitUntilSettledWorksWhenDisabled(AsyncController<I, O>& controller) {
+template <typename I, typename O>
+void assertWaitUntilSettledWorksWhenDisabled(AsyncController<I, O>& controller) {
     controller.flipDisable(true);
     EXPECT_TRUE(controller.isDisabled());
     controller.waitUntilSettled();

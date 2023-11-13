@@ -23,10 +23,10 @@ TEST(RotationTest, angleConstructor) {
 
 TEST(RotationTest, angleConstructorOver180) {
     rz::Rotation angle(210_deg);
-    
+
     EXPECT_NEAR(angle.Theta().convert(degree), -150, EPSILON);
-    EXPECT_NEAR(angle.Sin(), -1.0/2, EPSILON);
-    EXPECT_NEAR(angle.Cos(), -sqrt(3)/2, EPSILON);
+    EXPECT_NEAR(angle.Sin(), -1.0 / 2, EPSILON);
+    EXPECT_NEAR(angle.Cos(), -sqrt(3) / 2, EPSILON);
 }
 
 TEST(RotationTest, unitPointConstructor) {
@@ -83,7 +83,7 @@ TEST(RotationTest, subtraction) {
     rz::Rotation angle1(30_deg);
     rz::Rotation angle2(60_deg);
     rz::Rotation diff = angle1 - angle2;
-    
+
     EXPECT_NEAR(diff.Theta().convert(degree), -30, EPSILON);
     EXPECT_NEAR(diff.Sin(), -1.0 / 2, EPSILON);
     EXPECT_NEAR(diff.Cos(), sqrt(3) / 2, EPSILON);

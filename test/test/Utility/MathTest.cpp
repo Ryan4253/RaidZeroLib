@@ -4,7 +4,7 @@ using namespace okapi;
 
 constexpr double EPSILON = 0.001;
 
-TEST(MathTest, sign){
+TEST(MathTest, sign) {
     EXPECT_EQ(1, rz::sgn(1));
     EXPECT_EQ(-1, rz::sgn(-1));
     EXPECT_EQ(0, rz::sgn(0));
@@ -25,7 +25,7 @@ TEST(MathTest, constrainAngle360) {
     EXPECT_NEAR(190, rz::constrainAngle360(190_deg).convert(degree), EPSILON);
     EXPECT_NEAR(30, rz::constrainAngle360(390_deg).convert(degree), EPSILON);
     EXPECT_NEAR(270, rz::constrainAngle360(-450_deg).convert(degree), EPSILON);
-    
+
     EXPECT_NEAR(190, rz::constrainAngle360(190), EPSILON);
     EXPECT_NEAR(30, rz::constrainAngle360(390), EPSILON);
     EXPECT_NEAR(270, rz::constrainAngle360(-450), EPSILON);
@@ -35,10 +35,10 @@ TEST(MathTest, constrainAngle180) {
     EXPECT_NEAR(-170, rz::constrainAngle180(190_deg).convert(degree), EPSILON);
     EXPECT_NEAR(30, rz::constrainAngle180(390_deg).convert(degree), EPSILON);
     EXPECT_NEAR(-90, rz::constrainAngle180(-450_deg).convert(degree), EPSILON);
-    
+
     EXPECT_NEAR(-170, rz::constrainAngle180(190), EPSILON);
     EXPECT_NEAR(30, rz::constrainAngle180(390), EPSILON);
-    EXPECT_NEAR(-90, rz::constrainAngle180(-450), EPSILON);   
+    EXPECT_NEAR(-90, rz::constrainAngle180(-450), EPSILON);
 }
 
 TEST(MathTest, sinc) {
@@ -51,7 +51,7 @@ TEST(MathTest, quadraticFormulaTwoRoot) {
     EXPECT_TRUE(result.has_value());
     EXPECT_NEAR(-3, result.value().first, EPSILON);
     EXPECT_NEAR(1, result.value().second, EPSILON);
-}   
+}
 
 TEST(MathTest, quadraticFormulaOneRoot) {
     const auto result = rz::quadraticFormula(1, 2, 1);

@@ -74,7 +74,7 @@ TEST(DiscretePathTest, begin) {
 
 TEST(DiscretePathTest, beginConst) {
     const rz::DiscretePath path({{0_in, 0_in}, {1_in, 1_in}});
-    EXPECT_EQ(*path.begin(), rz::Point(0_in, 0_in));
+    EXPECT_EQ(*path.begin(), path[0]);
 }
 
 TEST(DiscretePathTest, end) {

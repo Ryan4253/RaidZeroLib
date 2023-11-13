@@ -27,7 +27,7 @@ void Translation::setY(QLength iY) {
 }
 
 Translation Translation::operator+(const Translation& rhs) const {
-    return Point(x + rhs.x, x + rhs.y);
+    return Point(x + rhs.x, y + rhs.y);
 }
 
 Translation Translation::operator-(const Translation& rhs) const {
@@ -71,7 +71,7 @@ QLength Translation::distTo(const Translation& rhs) const {
 }
 
 QAngle Translation::angleTo(const Translation& rhs) const {
-    return theta() - rhs.theta();
+    return constrainAngle180(rhs.theta() - theta());
 }
 
 QArea Translation::dot(const Translation& rhs) const {
@@ -83,7 +83,7 @@ QArea Translation::wedge(const Translation& rhs) const {
 }
 
 Translation Translation::project(const Translation& rhs) const {
-    return rhs * (this->dot(rhs) / this->dot(*this)).convert(number);
+    return rhs * (this->dot(rhs) / rhs.dot(rhs)).convert(number);
 }
 
 Translation Translation::rotateBy(const Rotation& rhs) const {

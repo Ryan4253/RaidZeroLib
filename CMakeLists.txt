@@ -172,7 +172,7 @@ add_executable(RaidZeroLib
         src/RaidZeroLib/api/Geometry/CoordinateRotation.cpp
         src/RaidZeroLib/api/Geometry/Pose.cpp
         
-        test/RotationTest.cpp
+        test//test/Geometry/RotationTest.cpp
         test/include/mocks.hpp
         test/src/mocks.cpp)
 

@@ -15,11 +15,11 @@ double constrainAngle180(double iAngle) {
 }
 
 QAngle constrainAngle360(QAngle iAngle) {
-    return iAngle - 360.0 * floor(iAngle * (1.0 / 360.0), 1 * radian);
+    return constrainAngle360(iAngle.convert(degree)) * degree;
 }
 
 QAngle constrainAngle180(QAngle iAngle) {
-    return iAngle - 360.0 * floor((iAngle + 180.0 * degree) * (1.0 / 360.0), 1 * radian);
+    return constrainAngle180(iAngle.convert(degree)) * degree;
 }
 
 double sinc(double x) {

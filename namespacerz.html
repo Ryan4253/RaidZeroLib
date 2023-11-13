@@ -213,6 +213,11 @@
             </dt>
             <dd><span></span></dd>
             <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a8a0639adfd8d3da5cddf8bf753c7acaf" class="m-doc">wheelToLinearVelocity</a>(</span><span class="m-doc-wrap">QAngularSpeed velocity,
+              QLength wheelDiameter) -&gt; QSpeed</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
               <span class="m-doc-wrap-bumper">auto <a href="#a2dc33d34fb20c4267d645931b318f563" class="m-doc">constrainAngle360</a>(</span><span class="m-doc-wrap">double iAngle) -&gt; double</span>
             </dt>
             <dd><span></span></dd>
@@ -239,15 +244,20 @@
             </dt>
             <dd><span></span></dd>
             <dt>
-              <div class="m-doc-template">template&lt;typename T&gt;</div>
-              <span class="m-doc-wrap-bumper">auto <a href="#a95aa90392e55232240569d32df76def0" class="m-doc">sgn</a>(</span><span class="m-doc-wrap">T val) -&gt; int</span>
+              <span class="m-doc-wrap-bumper">auto <a href="#a062f25e5412b515f461abd6ecb07a42c" class="m-doc">wheelForwardKinematics</a>(</span><span class="m-doc-wrap">QSpeed linearVelocity,
+              QCurvature curvature,
+              QLength wheelTrack) -&gt; std::pair&lt;QSpeed, QSpeed&gt;</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a80fc5491f874ceb616a361db2f8c067a" class="m-doc">wheelForwardKinematics</a>(</span><span class="m-doc-wrap">QAcceleration linearAcceleration,
+              QCurvature curvature,
+              QLength wheelTrack) -&gt; std::pair&lt;QAcceleration, QAcceleration&gt;</span>
             </dt>
             <dd><span></span></dd>
             <dt>
               <div class="m-doc-template">template&lt;typename T&gt;</div>
-              <span class="m-doc-wrap-bumper">auto <a href="#a3b790dc0758c40f1f6de556a90243cab" class="m-doc">wheelForwardKinematics</a>(</span><span class="m-doc-wrap">T kinematics,
-              QCurvature curvature,
-              QLength wheelTrack) -&gt; std::pair&lt;T, T&gt;</span>
+              <span class="m-doc-wrap-bumper">auto <a href="#a95aa90392e55232240569d32df76def0" class="m-doc">sgn</a>(</span><span class="m-doc-wrap">T val) -&gt; int</span>
             </dt>
             <dd><span></span></dd>
             <dt>
@@ -330,6 +340,14 @@
             </h3>
             <p><span></span></p>
           </div></section>
+          <section class="m-doc-details" id="a8a0639adfd8d3da5cddf8bf753c7acaf"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">QSpeed rz::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a8a0639adfd8d3da5cddf8bf753c7acaf" class="m-doc-self">wheelToLinearVelocity</a>(</span><span class="m-doc-wrap">QAngularSpeed velocity,
+              QLength wheelDiameter)</span></span>
+              <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="Math_8hpp.html">&lt;include/RaidZeroLib/api/Utility/Math.hpp&gt;</a></div>
+            </h3>
+            <p><span></span></p>
+          </div></section>
           <section class="m-doc-details" id="a2dc33d34fb20c4267d645931b318f563"><div>
             <h3>
               <span class="m-doc-wrap-bumper">double rz::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a2dc33d34fb20c4267d645931b318f563" class="m-doc-self">constrainAngle360</a>(</span><span class="m-doc-wrap">double iAngle)</span></span>
@@ -374,6 +392,24 @@
             </h3>
             <p><span></span></p>
           </div></section>
+          <section class="m-doc-details" id="a062f25e5412b515f461abd6ecb07a42c"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">std::pair&lt;QSpeed, QSpeed&gt; rz::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a062f25e5412b515f461abd6ecb07a42c" class="m-doc-self">wheelForwardKinematics</a>(</span><span class="m-doc-wrap">QSpeed linearVelocity,
+              QCurvature curvature,
+              QLength wheelTrack)</span></span>
+              <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="Math_8hpp.html">&lt;include/RaidZeroLib/api/Utility/Math.hpp&gt;</a></div>
+            </h3>
+            <p><span></span></p>
+          </div></section>
+          <section class="m-doc-details" id="a80fc5491f874ceb616a361db2f8c067a"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">std::pair&lt;QAcceleration, QAcceleration&gt; rz::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a80fc5491f874ceb616a361db2f8c067a" class="m-doc-self">wheelForwardKinematics</a>(</span><span class="m-doc-wrap">QAcceleration linearAcceleration,
+              QCurvature curvature,
+              QLength wheelTrack)</span></span>
+              <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="Math_8hpp.html">&lt;include/RaidZeroLib/api/Utility/Math.hpp&gt;</a></div>
+            </h3>
+            <p><span></span></p>
+          </div></section>
           <section class="m-doc-details" id="a95aa90392e55232240569d32df76def0"><div>
             <h3>
               <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="Math_8hpp.html">&lt;include/RaidZeroLib/api/Utility/Math.hpp&gt;</a></div>
@@ -381,18 +417,6 @@
                 template&lt;typename T&gt;
               </div>
               <span class="m-doc-wrap-bumper">int rz::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a95aa90392e55232240569d32df76def0" class="m-doc-self">sgn</a>(</span><span class="m-doc-wrap">T val)</span></span>
-            </h3>
-            <p><span></span></p>
-          </div></section>
-          <section class="m-doc-details" id="a3b790dc0758c40f1f6de556a90243cab"><div>
-            <h3>
-              <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="Math_8hpp.html">&lt;include/RaidZeroLib/api/Utility/Math.hpp&gt;</a></div>
-              <div class="m-doc-template">
-                template&lt;typename T&gt;
-              </div>
-              <span class="m-doc-wrap-bumper">std::pair&lt;T, T&gt; rz::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a3b790dc0758c40f1f6de556a90243cab" class="m-doc-self">wheelForwardKinematics</a>(</span><span class="m-doc-wrap">T kinematics,
-              QCurvature curvature,
-              QLength wheelTrack)</span></span>
             </h3>
             <p><span></span></p>
           </div></section>

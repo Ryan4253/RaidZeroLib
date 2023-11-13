@@ -53,6 +53,15 @@ TEST(RotationTest, doublePointConstructor) {
     EXPECT_NEAR(angle.Cos(), sqrt(3) / 2, EPSILON);
 }
 
+TEST(RotationTest, copyConstructor) {
+    rz::Rotation angle1(60_deg);
+    rz::Rotation angle2(angle1);
+
+    EXPECT_EQ(angle2.Theta(), 60_deg);
+    EXPECT_NEAR(angle2.Sin(), std::sqrt(3) / 2, EPSILON);
+    EXPECT_NEAR(angle2.Cos(), 0.5, EPSILON);
+}
+
 TEST(RotationTest, Tan) {
     rz::Rotation angle(60_deg);
 

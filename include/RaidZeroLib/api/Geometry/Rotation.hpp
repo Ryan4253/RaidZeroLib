@@ -16,6 +16,8 @@ class Rotation {
 
     Rotation(double iX, double iY);
 
+    Rotation(const Rotation& rhs);
+
     ~Rotation() = default;
 
     QAngle Theta() const;

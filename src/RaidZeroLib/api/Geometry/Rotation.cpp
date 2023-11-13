@@ -23,6 +23,9 @@ Rotation::Rotation(QLength iX, QLength iY) {
 Rotation::Rotation(double iX, double iY) : Rotation(iX * meter, iY * meter) {
 }
 
+Rotation::Rotation(const Rotation& rhs) : theta(rhs.theta), sine(rhs.sine), cosine(rhs.cosine) {
+}
+
 QAngle Rotation::Theta() const {
     return theta;
 }

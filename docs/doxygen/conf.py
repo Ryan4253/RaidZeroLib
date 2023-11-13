@@ -3,8 +3,8 @@ DOXYFILE = 'Doxyfile-mcss'
 FAVICON = '../images/raid_zero.png'
 
 LINKS_NAVBAR1 = [
-    ('Get Started', 'md_docs_tutorials_setup_setup', []),
-    ('Examples', 'md_docs_tutorials_examples_examples', [])
+    ('Get Started', 'md_docs_setup_setup', []),
+    ('Tutorials', 'md_docs_tutorials_tutorials', [])
 ]
 
 LINKS_NAVBAR2 = [

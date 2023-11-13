@@ -1,3 +1,3 @@
-### RaidZeroLib Docs Index  
+# RaidZeroLib Docs Index  
 
 ![Caption](images/templogo.png "Caption")

@@ -3,7 +3,11 @@
 namespace rz {
 
 QAngularSpeed linearToWheelVelocity(QSpeed velocity, QLength wheelDiameter) {
-    return radian * velocity / (wheelDiameter / 2);
+    return velocity / (wheelDiameter / 2) * radian;
+}
+
+QSpeed wheelToLinearVelocity(QAngularSpeed velocity, QLength wheelDiameter) {
+    return (wheelDiameter / 2) * velocity / radian;
 }
 
 double constrainAngle360(double iAngle) {
@@ -39,6 +43,19 @@ std::optional<std::pair<double, double>> quadraticFormula(double a, double b, do
     }
 
     return std::nullopt;
+}
+
+std::pair<QSpeed, QSpeed> wheelForwardKinematics(QSpeed linearVelocity, QCurvature curvature, QLength wheelTrack) {
+    const auto left = linearVelocity * (2 + curvature.convert(radpm) * wheelTrack.convert(meter)) / 2;
+    const auto right = linearVelocity * (2 - curvature.convert(radpm) * wheelTrack.convert(meter)) / 2;
+    return {left, right};
+}
+
+std::pair<QAcceleration, QAcceleration> wheelForwardKinematics(QAcceleration linearAcceleration, QCurvature curvature,
+                                                               QLength wheelTrack) {
+    const auto left = linearAcceleration * (2 + curvature.convert(radpm) * wheelTrack.convert(meter)) / 2;
+    const auto right = linearAcceleration * (2 - curvature.convert(radpm) * wheelTrack.convert(meter)) / 2;
+    return {left, right};
 }
 
 } // namespace rz

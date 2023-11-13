@@ -175,6 +175,7 @@ add_executable(RaidZeroLib
         test/test/Control/Feedforward/SimpleMotorFeedforwardTest.cpp
         test/test/Geometry/RotationTest.cpp
         test/test/Geometry/PointTest.cpp
+        test/test/Utility/MathTest.cpp
         test/include/mocks.hpp
         test/src/mocks.cpp)
 

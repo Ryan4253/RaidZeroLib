@@ -3,16 +3,16 @@
 using namespace okapi;
 const double EPSILON = 0.0001;
 
-TEST(SimpleMotorFeedforwardGainTest, defaultConstructor){
+TEST(SimpleMotorFeedforwardGainTest, defaultConstructor) {
     rz::SimpleMotorFeedforward<QLength>::Gains gains;
-    
+
     ASSERT_NEAR(gains.kS, 0.0, EPSILON);
     ASSERT_NEAR(gains.kV, 0.0, EPSILON);
     ASSERT_NEAR(gains.kA, 0.0, EPSILON);
     ASSERT_NEAR(gains.kD, 0.0, EPSILON);
 }
 
-TEST(SimpleMotorFeedforwardGainTest, constructor){
+TEST(SimpleMotorFeedforwardGainTest, constructor) {
     rz::SimpleMotorFeedforward<QLength>::Gains gains(0.2, 0.3, 0.4, 0.5);
 
     ASSERT_NEAR(gains.kS, 0.2, EPSILON);
@@ -21,7 +21,7 @@ TEST(SimpleMotorFeedforwardGainTest, constructor){
     ASSERT_NEAR(gains.kD, 0.5, EPSILON);
 }
 
-TEST(SimpleMotorFeedforwardGainTest, noDecelConstructor){
+TEST(SimpleMotorFeedforwardGainTest, noDecelConstructor) {
     rz::SimpleMotorFeedforward<QLength>::Gains gains(0.2, 0.3, 0.4);
 
     ASSERT_NEAR(gains.kS, 0.2, EPSILON);
@@ -30,7 +30,7 @@ TEST(SimpleMotorFeedforwardGainTest, noDecelConstructor){
     ASSERT_NEAR(gains.kD, 0.4, EPSILON);
 }
 
-TEST(SimpleMotorFeedforwardGainTest, equality){
+TEST(SimpleMotorFeedforwardGainTest, equality) {
     rz::SimpleMotorFeedforward<QLength>::Gains gains1(0.2, 0.3, 0.4, 0.4);
     rz::SimpleMotorFeedforward<QLength>::Gains gains2(0.2, 0.3, 0.4, 0.4);
     rz::SimpleMotorFeedforward<QLength>::Gains gains3(0.5, 0.1, 0.3, 0.4);
@@ -39,7 +39,7 @@ TEST(SimpleMotorFeedforwardGainTest, equality){
     ASSERT_FALSE(gains1 == gains3);
 }
 
-TEST(SimpleMotorFeedforwardGainTest, inequality){
+TEST(SimpleMotorFeedforwardGainTest, inequality) {
     rz::SimpleMotorFeedforward<QLength>::Gains gains1(0.2, 0.3, 0.4, 0.4);
     rz::SimpleMotorFeedforward<QLength>::Gains gains2(0.2, 0.3, 0.4, 0.4);
     rz::SimpleMotorFeedforward<QLength>::Gains gains3(0.5, 0.1, 0.3, 0.4);

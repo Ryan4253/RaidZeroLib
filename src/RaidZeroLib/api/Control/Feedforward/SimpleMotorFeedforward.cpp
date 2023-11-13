@@ -30,7 +30,8 @@ SimpleMotorFeedforward<Distance>::SimpleMotorFeedforward(const Gains& gains) : g
 template <isRQuantity Distance>
 double SimpleMotorFeedforward<Distance>::calculate(Velocity velocity, Acceleration acceleration) const {
     if (acceleration.getValue() > 0) {
-        return gains.kS * sgn(velocity.getValue()) + gains.kV * velocity.getValue() + gains.kA * acceleration.getValue();
+        return gains.kS * sgn(velocity.getValue()) + gains.kV * velocity.getValue() +
+               gains.kA * acceleration.getValue();
     }
 
     return gains.kS * sgn(velocity.getValue()) + gains.kV * velocity.getValue() + gains.kD * acceleration.getValue();

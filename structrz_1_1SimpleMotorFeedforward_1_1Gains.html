@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>include/RaidZeroLib/api/Control/Feedforward/SimpleMotorFeedforward.hpp file | RaidZeroLib | Documentation</title>
+  <title>rz::SimpleMotorFeedforward::Gains struct | RaidZeroLib | Documentation</title>
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="docs.css" />
@@ -58,7 +58,8 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <span class="m-breadcrumb"><a href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a>/</span><span class="m-breadcrumb"><a href="dir_b78e085a581e5c4118441341cedd068a.html">RaidZeroLib</a>/</span><span class="m-breadcrumb"><a href="dir_8820368a8117510b67c1fa58dc7c9ff8.html">api</a>/</span><span class="m-breadcrumb"><a href="dir_55d62c14db8f42d922a908ae206cb30f.html">Control</a>/</span><span class="m-breadcrumb"><a href="dir_8bffaf28163200db6418126e93bcefe3.html">Feedforward</a>/</span>SimpleMotorFeedforward.hpp <span class="m-thin">file</span>
+          <span class="m-breadcrumb"><a href="namespacerz.html">rz</a>::<wbr/></span><span class="m-breadcrumb"><a href="classrz_1_1SimpleMotorFeedforward.html">SimpleMotorFeedforward</a>::<wbr/></span>Gains <span class="m-thin">struct</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="SimpleMotorFeedforward_8hpp.html">&lt;include/RaidZeroLib/api/Control/Feedforward/SimpleMotorFeedforward.hpp&gt;</a></div>
         </h1>
         <p><span></span></p>
         <nav class="m-block m-default">
@@ -67,29 +68,69 @@
             <li>
               Reference
               <ul>
-                <li><a href="#namespaces">Namespaces</a></li>
-                <li><a href="#nested-classes">Classes</a></li>
+                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
+                <li><a href="#pub-methods">Public functions</a></li>
+                <li><a href="#pub-attribs">Public variables</a></li>
               </ul>
             </li>
           </ul>
         </nav>
-        <section id="namespaces">
-          <h2><a href="#namespaces">Namespaces</a></h2>
+        <section id="typeless-methods">
+          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
-            <dt>namespace <a href="namespacerz.html" class="m-doc">rz</a></dt>
+            <dt id="acb374323623375683f3b2c5f58eb4afb">
+              <span class="m-doc-wrap-bumper"><a href="#acb374323623375683f3b2c5f58eb4afb" class="m-doc-self">Gains</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ae6695be589b0cf6c556b22e3ba266196">
+              <span class="m-doc-wrap-bumper"><a href="#ae6695be589b0cf6c556b22e3ba266196" class="m-doc-self">~Gains</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a537d331d68716270d4725cdf38c303c4">
+              <span class="m-doc-wrap-bumper"><a href="#a537d331d68716270d4725cdf38c303c4" class="m-doc-self">Gains</a>(</span><span class="m-doc-wrap">double kS,
+              double kV,
+              double kA,
+              double kD)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a7cbe82a374542a7726e432304b2dff72">
+              <span class="m-doc-wrap-bumper"><a href="#a7cbe82a374542a7726e432304b2dff72" class="m-doc-self">Gains</a>(</span><span class="m-doc-wrap">double kS,
+              double kV,
+              double kA)</span>
+            </dt>
             <dd><span></span></dd>
           </dl>
         </section>
-        <section id="nested-classes">
-          <h2><a href="#nested-classes">Classes</a></h2>
+        <section id="pub-methods">
+          <h2><a href="#pub-methods">Public functions</a></h2>
           <dl class="m-doc">
-            <dt>
-              <div class="m-doc-template">template&lt;<a href="namespacerz.html#a895dbe2048c0db890fe5d46019481ecb" class="m-doc">isRQuantity</a> Distance&gt;</div>
-              class <a href="classrz_1_1SimpleMotorFeedforward.html" class="m-doc">rz::SimpleMotorFeedforward</a>
+            <dt id="a40cd8c2a5b41f5c9993733d2cf818468">
+              <span class="m-doc-wrap-bumper">auto <a href="#a40cd8c2a5b41f5c9993733d2cf818468" class="m-doc-self">operator==</a>(</span><span class="m-doc-wrap">const <a href="structrz_1_1SimpleMotorFeedforward_1_1Gains.html" class="m-doc">Gains</a>&amp; rhs) const -&gt; bool</span>
             </dt>
             <dd><span></span></dd>
-            <dt>
-              struct <a href="structrz_1_1SimpleMotorFeedforward_1_1Gains.html" class="m-doc">rz::SimpleMotorFeedforward::Gains</a>
+            <dt id="a4970b2833161d33fada7650f54a3ebd1">
+              <span class="m-doc-wrap-bumper">auto <a href="#a4970b2833161d33fada7650f54a3ebd1" class="m-doc-self">operator!=</a>(</span><span class="m-doc-wrap">const <a href="structrz_1_1SimpleMotorFeedforward_1_1Gains.html" class="m-doc">Gains</a>&amp; rhs) const -&gt; bool</span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="pub-attribs">
+          <h2><a href="#pub-attribs">Public variables</a></h2>
+          <dl class="m-doc">
+            <dt id="a74cdc66238a25aeee259b861ae336e56">
+              double <a href="#a74cdc66238a25aeee259b861ae336e56" class="m-doc-self">kS</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="abffa5a5f8af9a7764e47afe87b0db6e8">
+              double <a href="#abffa5a5f8af9a7764e47afe87b0db6e8" class="m-doc-self">kV</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="af26a342526b50783c5e90f76ad8cc8ea">
+              double <a href="#af26a342526b50783c5e90f76ad8cc8ea" class="m-doc-self">kA</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ad2e9b38d114c24b3c4c22898d68aa7c1">
+              double <a href="#ad2e9b38d114c24b3c4c22898d68aa7c1" class="m-doc-self">kD</a>
             </dt>
             <dd><span></span></dd>
           </dl>

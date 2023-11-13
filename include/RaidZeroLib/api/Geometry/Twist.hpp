@@ -9,6 +9,8 @@ class Twist {
     public:
     Twist(QLength dX, QLength dY, QAngle dTheta);
 
+    Twist(const Twist& rhs);
+
     ~Twist() = default;
 
     QLength dX() const;

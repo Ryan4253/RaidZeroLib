@@ -5,6 +5,9 @@ namespace rz {
 Twist::Twist(QLength dX, QLength dY, QAngle dTheta) : dx(dX), dy(dY), dtheta(dTheta) {
 }
 
+Twist::Twist(const Twist& rhs) : dx(rhs.dx), dy(rhs.dy), dtheta(rhs.dtheta) {
+}
+
 QLength Twist::dX() const {
     return dx;
 }

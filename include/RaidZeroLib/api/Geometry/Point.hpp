@@ -60,8 +60,8 @@ class Translation {
     Translation rotateBy(const Rotation& rhs) const;
 
     private:
-    QLength x = 0 * meter;
-    QLength y = 0 * meter;
+    QLength x{0.0};
+    QLength y{0.0};
 };
 
 using Point = Translation;

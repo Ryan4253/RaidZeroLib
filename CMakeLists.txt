@@ -176,6 +176,7 @@ add_executable(RaidZeroLib
         test/test/Geometry/RotationTest.cpp
         test/test/Geometry/PointTest.cpp
         test/test/Geometry/TwistTest.cpp
+        test/test/Geometry/TransformTest.cpp
         test/test/Pathing/DiscretePathTest.cpp
         test/test/Units/UnitsTest.cpp
         test/test/Utility/MathTest.cpp

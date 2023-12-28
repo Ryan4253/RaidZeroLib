@@ -3,7 +3,12 @@
 [![Docs](https://github.com/Ryan4253/RaidZeroLib/actions/workflows/docs.yml/badge.svg)](https://github.com/Ryan4253/RaidZeroLib/actions/workflows/docs.yml)
 [![codecov](https://codecov.io/gh/Ryan4253/RaidZeroLib/graph/badge.svg?token=624PUXE5IV)](https://codecov.io/gh/Ryan4253/RaidZeroLib)
 
-project is currently under major restructuring, considering viewing the following repositories for features:
-1. https://github.com/Ryan4253/4253B-Tipping-Point-Worlds
-2. https://github.com/Ryan4253/ryanlib
+# RaidZeroLib
 
+## Getting Started
+
+## Features
+
+## Installing
+
+## Credits

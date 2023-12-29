@@ -2,20 +2,32 @@
 
 namespace rz {
 
+QLength ParametricPath::getX(double t) const {
+    return getPoint(t).X();
+}
+
+QLength ParametricPath::getY(double t) const {
+    return getPoint(t).Y();
+}
+
+QLength ParametricPath::getdX(double t) const {
+    return getVelocity(t).X();
+}
+
+QLength ParametricPath::getdY(double t) const {
+    return getVelocity(t).Y();
+}
+
+QLength ParametricPath::getddX(double t) const {
+    return getAcceleration(t).X();
+}
+
+QLength ParametricPath::getddY(double t) const {
+    return getAcceleration(t).Y();
+}
+
 Rotation ParametricPath::getTheta(double t) const {
-    return Rotation(getX(t), getY(t));
-}
-
-Point ParametricPath::getPoint(double t) const {
-    return Point(getX(t), getY(t));
-}
-
-Point ParametricPath::getVelocity(double t) const {
-    return Point(getdX(t), getdY(t));
-}
-
-Point ParametricPath::getAcceleration(double t) const {
-    return Point(getddX(t), getddY(t));
+    return Rotation(getdX(t), getdY(t));
 }
 
 QCurvature ParametricPath::getCurvature(double t) const {

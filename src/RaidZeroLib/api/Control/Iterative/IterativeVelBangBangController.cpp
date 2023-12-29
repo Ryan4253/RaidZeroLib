@@ -3,16 +3,16 @@
 namespace rz {
 using namespace okapi;
 
-IterativeVelBangBangController::Gains::Gains(double iHighPower, double iTargetPower, double iLowPower,
-                                             double iDeadband)
-    : highPower(iHighPower), targetPower(iTargetPower), lowPower(iLowPower), deadband(iDeadband) {}
+IterativeVelBangBangController::Gains::Gains(double iHighPower, double iTargetPower, double iLowPower, double iDeadband)
+    : highPower(iHighPower), targetPower(iTargetPower), lowPower(iLowPower), deadband(iDeadband) {
+}
 
-bool IterativeVelBangBangController::Gains::operator==(const Gains& rhs) const{
+bool IterativeVelBangBangController::Gains::operator==(const Gains& rhs) const {
     return highPower == rhs.highPower && targetPower == rhs.targetPower && lowPower == rhs.lowPower &&
            deadband == rhs.deadband;
 }
 
-bool IterativeVelBangBangController::Gains::operator!=(const Gains& rhs) const{
+bool IterativeVelBangBangController::Gains::operator!=(const Gains& rhs) const {
     return !operator==(rhs);
 }
 

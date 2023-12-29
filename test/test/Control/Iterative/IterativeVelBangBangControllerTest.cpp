@@ -11,7 +11,7 @@ TEST(IterativeVelBangBangControllerGainsTest, gainDefaultConstructor) {
     EXPECT_NEAR(gains.targetPower, 0, EPSILON);
     EXPECT_NEAR(gains.lowPower, 0, EPSILON);
     EXPECT_NEAR(gains.deadband, 0, EPSILON);
-}  
+}
 
 TEST(IterativeVelBangBangControllerGainsTest, gainConstructor) {
     rz::IterativeVelBangBangController::Gains gains(12000, 9000, 6000, 2);

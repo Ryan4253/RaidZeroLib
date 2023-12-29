@@ -4,25 +4,25 @@ using namespace okapi;
 
 constexpr double EPSILON = 0.0001;
 
-TEST(IterativeVelBangBangControllerGainsTest, defaultConstructor) {
+TEST(IterativeVelBangBangControllerGainsTest, gainDefaultConstructor) {
     rz::IterativeVelBangBangController::Gains gains;
 
     EXPECT_NEAR(gains.highPower, 0, EPSILON);
     EXPECT_NEAR(gains.targetPower, 0, EPSILON);
     EXPECT_NEAR(gains.lowPower, 0, EPSILON);
     EXPECT_NEAR(gains.deadband, 0, EPSILON);
-}
+}  
 
-TEST(IterativeVelBangBangControllerGainsTest, constructor) {
+TEST(IterativeVelBangBangControllerGainsTest, gainConstructor) {
     rz::IterativeVelBangBangController::Gains gains(12000, 9000, 6000, 2);
 
-    EXPECT_NEAR(gains.highPower, 0, EPSILON);
-    EXPECT_NEAR(gains.targetPower, 0, EPSILON);
-    EXPECT_NEAR(gains.lowPower, 0, EPSILON);
-    EXPECT_NEAR(gains.deadband, 0, EPSILON);
+    EXPECT_NEAR(gains.highPower, 12000, EPSILON);
+    EXPECT_NEAR(gains.targetPower, 9000, EPSILON);
+    EXPECT_NEAR(gains.lowPower, 6000, EPSILON);
+    EXPECT_NEAR(gains.deadband, 2, EPSILON);
 }
 
-TEST(IterativeVelBangBangControllerGainsTest, equality) {
+TEST(IterativeVelBangBangControllerGainsTest, gainEquality) {
     rz::IterativeVelBangBangController::Gains gains(12000, 9000, 6000, 2);
     rz::IterativeVelBangBangController::Gains gains2(12000, 9000, 6000, 2);
     rz::IterativeVelBangBangController::Gains gains3(12100, 9200, 6300, 3);
@@ -31,7 +31,7 @@ TEST(IterativeVelBangBangControllerGainsTest, equality) {
     EXPECT_FALSE(gains == gains3);
 }
 
-TEST(IterativeVelBangBangControllerGainsTest, inequality) {
+TEST(IterativeVelBangBangControllerGainsTest, gainInequality) {
     rz::IterativeVelBangBangController::Gains gains(12000, 9000, 6000, 2);
     rz::IterativeVelBangBangController::Gains gains2(12000, 9000, 6000, 2);
     rz::IterativeVelBangBangController::Gains gains3(12100, 9200, 6300, 3);

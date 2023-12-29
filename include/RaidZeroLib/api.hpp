@@ -15,9 +15,9 @@
 #include "RaidZeroLib/api/Utility/StateMachine.hpp"
 #include "RaidZeroLib/api/Utility/Util.hpp"
 
+#include "RaidZeroLib/api/Pathing/CubicBezier.hpp"
 #include "RaidZeroLib/api/Pathing/DiscretePath.hpp"
 #include "RaidZeroLib/api/Pathing/ParametricPath.hpp"
-#include "RaidZeroLib/api/Pathing/CubicBezier.hpp"
 #include "RaidZeroLib/api/Pathing/PiecewiseCubicBezier.hpp"
 
 #include "RaidZeroLib/api/Filter/SlewRate.hpp"

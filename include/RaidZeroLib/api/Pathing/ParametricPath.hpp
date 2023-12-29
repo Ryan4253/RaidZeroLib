@@ -30,7 +30,7 @@ class ParametricPath {
 
     virtual QLength getLength(double tStart = 0, double tEnd = 1) const;
 
-    virtual DiscretePath toDiscrete(int numPoints, bool end = true) const;
+    virtual DiscretePath toDiscrete(int numSegments, bool end = true) const;
 
     virtual DiscretePath toDiscrete(QLength distance, bool end = true) const;
 

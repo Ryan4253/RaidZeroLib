@@ -31,8 +31,8 @@ Rotation ParametricPath::getTheta(double t) const {
 }
 
 QCurvature ParametricPath::getCurvature(double t) const {
-    Point velocity = getVelocity(t);
-    Point acceleration = getAcceleration(t);
+    const Point velocity = getVelocity(t);
+    const Point acceleration = getAcceleration(t);
 
     if (velocity.mag().getValue() == 0) {
         return 0 * radpm;
@@ -42,20 +42,22 @@ QCurvature ParametricPath::getCurvature(double t) const {
 }
 
 QLength ParametricPath::getLength(double tStart, double tEnd) const {
+    const double dT = 0.01;
+
     QLength length{0.0};
-    for (double t = tStart; t < tEnd; t += 0.01) {
-        length += getPoint(t).distTo(getPoint(t + 0.01));
+    for (double t = tStart; t < tEnd; t += dT) {
+        length += getPoint(t).distTo(getPoint(t + dT));
     }
 
     return length;
 }
 
-DiscretePath ParametricPath::toDiscrete(int numPoints, bool end) const {
+DiscretePath ParametricPath::toDiscrete(int numSegments, bool end) const {
     std::vector<Point> path;
-    const double increment = 1.0 / (numPoints - 1);
+    const double increment = 1.0 / (numSegments);
 
-    for (double t = 0; t < 1; t += increment) {
-        path.emplace_back(getPoint(t));
+    for (int i = 0; i < numSegments; i++) {
+        path.emplace_back(getPoint(i * increment));
     }
 
     if (end) {
@@ -66,22 +68,21 @@ DiscretePath ParametricPath::toDiscrete(int numPoints, bool end) const {
 }
 
 DiscretePath ParametricPath::toDiscrete(QLength distance, bool end) const {
-    const QLength length = getLength();
-    const QLength distPerSegment = length / ceil((length / distance).convert(number));
+    const double dT = 0.001;
 
     QLength traversed{0.0};
     std::vector<Point> path;
     path.emplace_back(getPoint(0));
 
-    for (double t = 0; t < 1; t += 0.01) {
-        traversed += getPoint(t).distTo(getPoint(t + 0.01));
-        if (traversed >= distPerSegment) {
+    for (double t = 0; t < 1; t += dT) {
+        traversed += getPoint(t).distTo(getPoint(t + dT));
+        if (traversed >= distance) {
             traversed = 0_m;
             path.emplace_back(getPoint(t));
         }
     }
 
-    if (path.back().distTo(getPoint(1)) < distPerSegment / 2) {
+    if (path.back().distTo(getPoint(1)) < distance / 2) {
         path.pop_back();
     }
 

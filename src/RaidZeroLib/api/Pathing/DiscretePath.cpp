@@ -96,7 +96,7 @@ QCurvature DiscretePath::getCurvature(int index) const {
 
     QLength radius = circumradius(path[index - 1], path[index], path[index + 1]);
 
-    if (std::isnan(radius.getValue())) {
+    if (std::isnan(radius.getValue()) || radius.getValue() == 0) {
         return 0 * radpm;
     }
 

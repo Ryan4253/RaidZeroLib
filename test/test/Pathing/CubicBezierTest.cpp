@@ -5,7 +5,7 @@ using namespace okapi;
 
 const double EPSILON = 0.0001;
 
-TEST(CubicBezierKnot, constructor) {
+TEST(CubicBezierKnotTest, constructor) {
     rz::CubicBezier::Knot knot(0_m, 0_m, 45_deg, sqrt(2) * meter);
 
     EXPECT_EQ(knot.getPoint(), rz::Point(0_m, 0_m));
@@ -13,7 +13,7 @@ TEST(CubicBezierKnot, constructor) {
     EXPECT_EQ(knot.getBackwardControl(), rz::Point(-1_m, -1_m));
 }
 
-TEST(CubicBezier, getPoint) {
+TEST(CubicBezierTest, getPoint) {
     rz::CubicBezier::Knot knot1(0_m, 0_m, 0_deg, 2_m);
     rz::CubicBezier::Knot knot2(4_m, 2_m, 0_deg, 2_m);
     rz::CubicBezier bezier(knot1, knot2);
@@ -25,7 +25,7 @@ TEST(CubicBezier, getPoint) {
     EXPECT_EQ(bezier.getPoint(1), rz::Point(4_m, 2_m));
 }
 
-TEST(CubicBezier, getVelocity) {
+TEST(CubicBezierTest, getVelocity) {
     rz::CubicBezier::Knot knot1(0_m, 0_m, 0_deg, 2_m);
     rz::CubicBezier::Knot knot2(4_m, 2_m, 0_deg, 2_m);
     rz::CubicBezier bezier(knot1, knot2);
@@ -37,7 +37,7 @@ TEST(CubicBezier, getVelocity) {
     EXPECT_EQ(bezier.getVelocity(1), rz::Point(6_m, 0_m));
 }
 
-TEST(CubicBezier, getAcceleration) {
+TEST(CubicBezierTest, getAcceleration) {
     rz::CubicBezier::Knot knot1(0_m, 0_m, 0_deg, 2_m);
     rz::CubicBezier::Knot knot2(4_m, 2_m, 0_deg, 2_m);
     rz::CubicBezier bezier(knot1, knot2);

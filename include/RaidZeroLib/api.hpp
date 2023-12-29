@@ -17,9 +17,8 @@
 
 #include "RaidZeroLib/api/Pathing/DiscretePath.hpp"
 #include "RaidZeroLib/api/Pathing/ParametricPath.hpp"
-
-#include "RaidZeroLib/api/Trajectory/MotionProfile/MotionProfile.hpp"
-#include "RaidZeroLib/api/Trajectory/MotionProfile/TrapezoidalMotionProfile.hpp"
+#include "RaidZeroLib/api/Pathing/CubicBezier.hpp"
+#include "RaidZeroLib/api/Pathing/PiecewiseCubicBezier.hpp"
 
 #include "RaidZeroLib/api/Filter/SlewRate.hpp"
 

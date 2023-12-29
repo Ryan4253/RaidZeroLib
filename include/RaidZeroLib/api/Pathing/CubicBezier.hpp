@@ -25,8 +25,7 @@ class CubicBezier : public ParametricPath {
         QLength magnitude;
     };
 
-    CubicBezier(Knot start, Knot end)
-        : c0(start.getPoint()), c1(start.getForwardControl()), c2(end.getBackwardControl()), c3(end.getPoint()){};
+    CubicBezier(Knot start, Knot end);
 
     Point getPoint(double t) const override;
 

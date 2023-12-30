@@ -28,7 +28,7 @@ void AdaptivePurePursuitController::followPath(DiscretePath& path, QTime timeout
         lookAheadPoint =
             getLookaheadPoint(path, lookaheadPointT, pos.getTranslation(), gains.lookAhead).value_or(lookAheadPoint);
 
-        QCurvature curvature = curvatureToReachPoint(pos, lookAheadPoint);
+        QCurvature curvature = curvatureToPoint(pos, lookAheadPoint);
         QSpeed velocity;
         QAcceleration acceleration;
 

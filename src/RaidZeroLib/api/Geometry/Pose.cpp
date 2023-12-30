@@ -11,7 +11,7 @@ Pose::Pose(QLength iX, QLength iY, const Rotation& iRotation) : translation(iX, 
 
 Pose::Pose(const OdomState& iState) {
     translation = Translation(iState.x, -1 * iState.y);
-    rotation = Rotation(iState.theta);
+    rotation = Rotation(-1 * iState.theta);
 }
 
 const Translation& Pose::getTranslation() const {
@@ -90,8 +90,7 @@ Pose Pose::exp(const Twist& rhs) const {
         c = (1 - cosTheta) / dtheta;
     }
 
-    const Transform transform(Translation{dx * s - dy * c, dx * c + dy * s},
-                              Rotation{cosTheta * meter, sinTheta * meter});
+    const Transform transform(Translation{dx * s - dy * c, dx * c + dy * s}, Rotation{cosTheta, sinTheta});
 
     return *this + transform;
 }
@@ -118,7 +117,7 @@ Twist Pose::log(const Pose& rhs) const {
     return {translationPart.X(), translationPart.Y(), (dtheta * radian)};
 }
 
-QCurvature curvatureToReachPoint(const Pose& position, const Point& point) {
+QCurvature curvatureToPoint(const Pose& position, const Point& point) {
     const double a = -tan(position.Theta()).convert(number);
     const double b = 1;
     const QLength c = tan(position.Theta()) * position.X() - position.Y();

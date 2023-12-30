@@ -58,6 +58,6 @@ class Pose {
     Rotation rotation;
 };
 
-QCurvature curvatureToReachPoint(const Pose& position, const Point& point);
+QCurvature curvatureToPoint(const Pose& position, const Point& point);
 
 } // namespace rz

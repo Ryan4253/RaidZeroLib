@@ -46,14 +46,14 @@ TEST(IterativeVelBangBangControllerTest, step) {
     auto timeUtil = createConstantTimeUtil(10_ms);
     auto velMath = std::make_unique<VelMath>(360, std::make_unique<okapi::PassthroughFilter>(), 10_ms,
                                              createConstantTimeUtil(10_ms).getTimer());
-    
+
     rz::IterativeVelBangBangController controller(rz::IterativeVelBangBangController::Gains(1, 0.6, 0.2, 100),
                                                   std::move(velMath), createConstantTimeUtil(10_ms));
 
     controller.setTarget(1000);
 
     EXPECT_NEAR(controller.step(100), 0.2, EPSILON); // 1666 rpm
-    EXPECT_NEAR(controller.step(120), 1, EPSILON); // 333 rpm
+    EXPECT_NEAR(controller.step(120), 1, EPSILON);   // 333 rpm
     EXPECT_NEAR(controller.step(180), 0.6, EPSILON); // 1000 rpm
 }
 
@@ -142,9 +142,9 @@ TEST(IterativeVelBangBangControllerTest, stepVel) {
     auto timeUtil = createConstantTimeUtil(10_ms);
     auto velMath = std::make_unique<VelMath>(360, std::make_unique<PassthroughFilter>(), 10_ms,
                                              createConstantTimeUtil(10_ms).getTimer());
-    
+
     auto velMathReference = std::make_unique<VelMath>(360, std::make_unique<PassthroughFilter>(), 10_ms,
-                                             createConstantTimeUtil(10_ms).getTimer());
+                                                      createConstantTimeUtil(10_ms).getTimer());
 
     rz::IterativeVelBangBangController controller(rz::IterativeVelBangBangController::Gains(12000, 9000, 6000, 2),
                                                   std::move(velMath), createConstantTimeUtil(10_ms));
@@ -158,9 +158,9 @@ TEST(IterativeVelBangBangControllerTest, controllerSet) {
     auto timeUtil = createConstantTimeUtil(10_ms);
     auto velMath = std::make_unique<VelMath>(360, std::make_unique<PassthroughFilter>(), 10_ms,
                                              createConstantTimeUtil(10_ms).getTimer());
-    
+
     auto velMathReference = std::make_unique<VelMath>(360, std::make_unique<PassthroughFilter>(), 10_ms,
-                                             createConstantTimeUtil(10_ms).getTimer());
+                                                      createConstantTimeUtil(10_ms).getTimer());
 
     rz::IterativeVelBangBangController controller(rz::IterativeVelBangBangController::Gains(12000, 9000, 6000, 2),
                                                   std::move(velMath), createConstantTimeUtil(10_ms));

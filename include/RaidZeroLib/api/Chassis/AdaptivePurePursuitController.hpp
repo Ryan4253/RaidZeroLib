@@ -6,7 +6,6 @@
 #include "RaidZeroLib/api/Utility/CrossPlatformThread.hpp"
 #include "RaidZeroLib/api/Utility/Math.hpp"
 #include "okapi/api/chassis/controller/odomChassisController.hpp"
-#include "okapi/impl/util/timeUtilFactory.hpp"
 #include <memory>
 
 namespace rz {
@@ -84,7 +83,7 @@ class AdaptivePurePursuitController {
     AdaptivePurePursuitController(const std::shared_ptr<OdomChassisController>& chassis, const Gains& gains,
                                   std::unique_ptr<FeedforwardController<QLength>> leftController = nullptr,
                                   std::unique_ptr<FeedforwardController<QLength>> rightController = nullptr,
-                                  const TimeUtil& timeUtil = okapi::TimeUtilFactory::createDefault());
+                                  const TimeUtil& timeUtil);
 
     /**
      * Follows the given path. The path is followed until the end is reached or the timeout is exceeded.

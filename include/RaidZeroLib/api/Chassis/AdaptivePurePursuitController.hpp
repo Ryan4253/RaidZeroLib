@@ -74,16 +74,16 @@ class AdaptivePurePursuitController {
      *
      * @param chassis The chassis to control
      * @param gains The gains to use
+     * @param timeUtil The time utility to use
      * @param leftController The left side feedforward velocity controller. If this is null, the controller will use
      * vex's internal velocity control
      * @param rightController The right side feedforward velocity controller. If this is null, the controller will use
      * vex's internal velocity control
-     * @param timeUtil The time utility to use
      */
     AdaptivePurePursuitController(const std::shared_ptr<OdomChassisController>& chassis, const Gains& gains,
+                                  const TimeUtil& timeUtil,
                                   std::unique_ptr<FeedforwardController<QLength>> leftController = nullptr,
-                                  std::unique_ptr<FeedforwardController<QLength>> rightController = nullptr,
-                                  const TimeUtil& timeUtil);
+                                  std::unique_ptr<FeedforwardController<QLength>> rightController = nullptr);
 
     /**
      * Follows the given path. The path is followed until the end is reached or the timeout is exceeded.

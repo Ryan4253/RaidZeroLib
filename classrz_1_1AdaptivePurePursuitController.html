@@ -89,11 +89,11 @@
           <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
             <dt>
-              <span class="m-doc-wrap-bumper"><a href="#ade80259bdf48e5975ef18638aac834c3" class="m-doc">AdaptivePurePursuitController</a>(</span><span class="m-doc-wrap">const std::shared_ptr&lt;OdomChassisController&gt;&amp; chassis,
+              <span class="m-doc-wrap-bumper"><a href="#af095b6205ac9806c9b65d95bf4f69734" class="m-doc">AdaptivePurePursuitController</a>(</span><span class="m-doc-wrap">const std::shared_ptr&lt;OdomChassisController&gt;&amp; chassis,
               const <a href="structrz_1_1AdaptivePurePursuitController_1_1Gains.html" class="m-doc">Gains</a>&amp; gains,
+              const TimeUtil&amp; timeUtil,
               std::unique_ptr&lt;<a href="classrz_1_1FeedforwardController.html" class="m-doc">FeedforwardController</a>&lt;QLength&gt;&gt; leftController = nullptr,
-              std::unique_ptr&lt;<a href="classrz_1_1FeedforwardController.html" class="m-doc">FeedforwardController</a>&lt;QLength&gt;&gt; rightController = nullptr,
-              const TimeUtil&amp; timeUtil)</span>
+              std::unique_ptr&lt;<a href="classrz_1_1FeedforwardController.html" class="m-doc">FeedforwardController</a>&lt;QLength&gt;&gt; rightController = nullptr)</span>
             </dt>
             <dd>Constructs a new <a href="classrz_1_1AdaptivePurePursuitController.html" class="m-doc">AdaptivePurePursuitController</a>.</dd>
           </dl>
@@ -119,13 +119,13 @@
         </section>
         <section>
           <h2>Function documentation</h2>
-          <section class="m-doc-details" id="ade80259bdf48e5975ef18638aac834c3"><div>
+          <section class="m-doc-details" id="af095b6205ac9806c9b65d95bf4f69734"><div>
             <h3>
-              <span class="m-doc-wrap-bumper"> rz::<wbr />AdaptivePurePursuitController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ade80259bdf48e5975ef18638aac834c3" class="m-doc-self">AdaptivePurePursuitController</a>(</span><span class="m-doc-wrap">const std::shared_ptr&lt;OdomChassisController&gt;&amp; chassis,
+              <span class="m-doc-wrap-bumper"> rz::<wbr />AdaptivePurePursuitController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#af095b6205ac9806c9b65d95bf4f69734" class="m-doc-self">AdaptivePurePursuitController</a>(</span><span class="m-doc-wrap">const std::shared_ptr&lt;OdomChassisController&gt;&amp; chassis,
               const <a href="structrz_1_1AdaptivePurePursuitController_1_1Gains.html" class="m-doc">Gains</a>&amp; gains,
+              const TimeUtil&amp; timeUtil,
               std::unique_ptr&lt;<a href="classrz_1_1FeedforwardController.html" class="m-doc">FeedforwardController</a>&lt;QLength&gt;&gt; leftController = nullptr,
-              std::unique_ptr&lt;<a href="classrz_1_1FeedforwardController.html" class="m-doc">FeedforwardController</a>&lt;QLength&gt;&gt; rightController = nullptr,
-              const TimeUtil&amp; timeUtil)</span></span>
+              std::unique_ptr&lt;<a href="classrz_1_1FeedforwardController.html" class="m-doc">FeedforwardController</a>&lt;QLength&gt;&gt; rightController = nullptr)</span></span>
             </h3>
             <p>Constructs a new <a href="classrz_1_1AdaptivePurePursuitController.html" class="m-doc">AdaptivePurePursuitController</a>.</p>
             <table class="m-table m-fullwidth m-flat">
@@ -142,16 +142,16 @@
                   <td>The gains to use</td>
                 </tr>
                 <tr>
+                  <td>timeUtil</td>
+                  <td>The time utility to use</td>
+                </tr>
+                <tr>
                   <td>leftController</td>
                   <td>The left side feedforward velocity controller. If this is null, the controller will use vex&#x27;s internal velocity control</td>
                 </tr>
                 <tr>
                   <td>rightController</td>
                   <td>The right side feedforward velocity controller. If this is null, the controller will use vex&#x27;s internal velocity control</td>
-                </tr>
-                <tr>
-                  <td>timeUtil</td>
-                  <td>The time utility to use</td>
                 </tr>
               </tbody>
             </table>

@@ -3,8 +3,7 @@
 namespace rz {
 
 AdaptivePurePursuitController::AdaptivePurePursuitController(
-    const std::shared_ptr<OdomChassisController>& chassis, const Gains& gains,
-    const TimeUtil& timeUtil,
+    const std::shared_ptr<OdomChassisController>& chassis, const Gains& gains, const TimeUtil& timeUtil,
     std::unique_ptr<FeedforwardController<QLength>> leftController,
     std::unique_ptr<FeedforwardController<QLength>> rightController)
     : chassis(chassis), gains(gains), timeUtil(timeUtil), task([](void*) {}, 0, "AdaptivePurePursuitController") {

@@ -15,7 +15,7 @@ AdaptivePurePursuitController::AdaptivePurePursuitController(
     this->rightController = std::move(rightController);
 }
 
-void AdaptivePurePursuitController::followPath(DiscretePath& path, QTime timeout, bool isReversed) {
+void AdaptivePurePursuitController::followPath(const DiscretePath& path, QTime timeout, bool isReversed) {
     auto closestPointIter = path.begin();
     double lookaheadPointT = 0;
     Point lookAheadPoint = path.front();
@@ -69,7 +69,7 @@ void AdaptivePurePursuitController::waitUntilSettled() {
     }
 }
 
-std::optional<Translation> AdaptivePurePursuitController::getLookaheadPoint(DiscretePath& path, double& minIndex,
+std::optional<Translation> AdaptivePurePursuitController::getLookaheadPoint(const DiscretePath& path, double& minIndex,
                                                                             const Point& point, QLength radius) {
     for (int i = (int)minIndex; i < path.size(); i++) {
         const Point& start = path[i];

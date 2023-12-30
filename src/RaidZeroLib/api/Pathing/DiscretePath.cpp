@@ -103,8 +103,9 @@ QCurvature DiscretePath::getCurvature(int index) const {
     return 1 * radian / radius;
 }
 
-std::vector<Translation>::iterator closestPoint(std::vector<Translation>::iterator begin,
-                                                std::vector<Translation>::iterator end, const Point& point) {
+std::vector<Translation>::const_iterator closestPoint(std::vector<Translation>::const_iterator begin,
+                                                      std::vector<Translation>::const_iterator end,
+                                                      const Point& point) {
     const auto comparison = [point](const Point& a, const Point& b) { return a.distTo(point) < b.distTo(point); };
 
     return std::min_element(begin, end, comparison);

@@ -42,6 +42,6 @@ class DiscretePath {
     std::vector<Point> path;
 };
 
-std::vector<Translation>::iterator closestPoint(std::vector<Translation>::iterator begin,
-                                                std::vector<Translation>::iterator end, const Point& point);
+std::vector<Translation>::const_iterator closestPoint(std::vector<Translation>::const_iterator begin,
+                                                      std::vector<Translation>::const_iterator end, const Point& point);
 } // namespace rz

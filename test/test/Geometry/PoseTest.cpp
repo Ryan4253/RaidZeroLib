@@ -147,3 +147,10 @@ TEST(PoseTest, curvatureToPoint) {
 
     EXPECT_NEAR(rz::curvatureToPoint(pose, target).convert(radpm), -0.5, EPSILON);
 }
+
+TEST(PoseTest, curvatureToPointZero) {
+    rz::Pose pose(rz::Translation(4_m, 2_m), 0_deg);
+    rz::Translation target(6_m, 2_m);
+
+    EXPECT_NEAR(rz::curvatureToPoint(pose, target).convert(radpm), 0, 0);
+}

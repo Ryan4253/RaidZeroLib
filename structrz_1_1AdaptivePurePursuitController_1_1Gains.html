@@ -61,7 +61,7 @@
           <span class="m-breadcrumb"><a href="namespacerz.html">rz</a>::<wbr/></span><span class="m-breadcrumb"><a href="classrz_1_1AdaptivePurePursuitController.html">AdaptivePurePursuitController</a>::<wbr/></span>Gains <span class="m-thin">struct</span>
           <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="AdaptivePurePursuitController_8hpp.html">&lt;include/RaidZeroLib/api/Chassis/AdaptivePurePursuitController.hpp&gt;</a></div>
         </h1>
-        <p><span></span></p>
+        <p><a href="structrz_1_1AdaptivePurePursuitController_1_1Gains.html" class="m-doc">Gains</a> that characterize the behavior of the controller.</p>
         <nav class="m-block m-default">
           <h3>Contents</h3>
           <ul>
@@ -81,31 +81,31 @@
             <dt id="abc4c7e3b5b4ffae057611dbf873f6e81">
               <span class="m-doc-wrap-bumper"><a href="#abc4c7e3b5b4ffae057611dbf873f6e81" class="m-doc-self">Gains</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span></span>
             </dt>
-            <dd><span></span></dd>
+            <dd>Sets all gains to zero.</dd>
             <dt id="af408a95c6572396d2583cf8e5373448f">
               <span class="m-doc-wrap-bumper"><a href="#af408a95c6572396d2583cf8e5373448f" class="m-doc-self">~Gains</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span></span>
             </dt>
-            <dd><span></span></dd>
-            <dt id="abdb245c5449e66c1f5b60b89447e97c8">
-              <span class="m-doc-wrap-bumper"><a href="#abdb245c5449e66c1f5b60b89447e97c8" class="m-doc-self">Gains</a>(</span><span class="m-doc-wrap">QSpeed maxVelocity,
+            <dd>Destructor.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper"><a href="#abdb245c5449e66c1f5b60b89447e97c8" class="m-doc">Gains</a>(</span><span class="m-doc-wrap">QSpeed maxVelocity,
               QAcceleration maxAcceleration,
               QAngularSpeed maxTurnVelocity,
               QLength lookAhead)</span>
             </dt>
-            <dd><span></span></dd>
+            <dd>Sets all gains to the given values.</dd>
           </dl>
         </section>
         <section id="pub-methods">
           <h2><a href="#pub-methods">Public functions</a></h2>
           <dl class="m-doc">
-            <dt id="a5506be1c3cf1c9cce9b0c4c5d33e64c2">
-              <span class="m-doc-wrap-bumper">auto <a href="#a5506be1c3cf1c9cce9b0c4c5d33e64c2" class="m-doc-self">operator==</a>(</span><span class="m-doc-wrap">const <a href="structrz_1_1AdaptivePurePursuitController_1_1Gains.html" class="m-doc">Gains</a>&amp; rhs) const -&gt; bool</span>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a5506be1c3cf1c9cce9b0c4c5d33e64c2" class="m-doc">operator==</a>(</span><span class="m-doc-wrap">const <a href="structrz_1_1AdaptivePurePursuitController_1_1Gains.html" class="m-doc">Gains</a>&amp; rhs) const -&gt; bool</span>
             </dt>
-            <dd><span></span></dd>
-            <dt id="ab0ca60220df23b1b88da8e6a34a9d2d6">
-              <span class="m-doc-wrap-bumper">auto <a href="#ab0ca60220df23b1b88da8e6a34a9d2d6" class="m-doc-self">operator!=</a>(</span><span class="m-doc-wrap">const <a href="structrz_1_1AdaptivePurePursuitController_1_1Gains.html" class="m-doc">Gains</a>&amp; rhs) const -&gt; bool</span>
+            <dd>Checks if two <a href="structrz_1_1AdaptivePurePursuitController_1_1Gains.html" class="m-doc">Gains</a> objects are equal.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#ab0ca60220df23b1b88da8e6a34a9d2d6" class="m-doc">operator!=</a>(</span><span class="m-doc-wrap">const <a href="structrz_1_1AdaptivePurePursuitController_1_1Gains.html" class="m-doc">Gains</a>&amp; rhs) const -&gt; bool</span>
             </dt>
-            <dd><span></span></dd>
+            <dd>Checks if two <a href="structrz_1_1AdaptivePurePursuitController_1_1Gains.html" class="m-doc">Gains</a> objects are not equal.</dd>
           </dl>
         </section>
         <section id="pub-attribs">
@@ -128,6 +128,87 @@
             </dt>
             <dd><span></span></dd>
           </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="abdb245c5449e66c1f5b60b89447e97c8"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper"> rz::<wbr />AdaptivePurePursuitController::<wbr />Gains::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#abdb245c5449e66c1f5b60b89447e97c8" class="m-doc-self">Gains</a>(</span><span class="m-doc-wrap">QSpeed maxVelocity,
+              QAcceleration maxAcceleration,
+              QAngularSpeed maxTurnVelocity,
+              QLength lookAhead)</span></span>
+            </h3>
+            <p>Sets all gains to the given values.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">maxVelocity</td>
+                  <td>Maximum velocity</td>
+                </tr>
+                <tr>
+                  <td>maxAcceleration</td>
+                  <td>Maximum acceleration</td>
+                </tr>
+                <tr>
+                  <td>maxTurnVelocity</td>
+                  <td>Maximum turn velocity</td>
+                </tr>
+                <tr>
+                  <td>lookAhead</td>
+                  <td>Lookahead distance</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a5506be1c3cf1c9cce9b0c4c5d33e64c2"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">bool rz::<wbr />AdaptivePurePursuitController::<wbr />Gains::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a5506be1c3cf1c9cce9b0c4c5d33e64c2" class="m-doc-self">operator==</a>(</span><span class="m-doc-wrap">const <a href="structrz_1_1AdaptivePurePursuitController_1_1Gains.html" class="m-doc">Gains</a>&amp; rhs) const</span></span>
+            </h3>
+            <p>Checks if two <a href="structrz_1_1AdaptivePurePursuitController_1_1Gains.html" class="m-doc">Gains</a> objects are equal.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">rhs</td>
+                  <td>The <a href="structrz_1_1AdaptivePurePursuitController_1_1Gains.html" class="m-doc">Gains</a> object to compare to</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td>True if the two objects are equal, false otherwise</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="ab0ca60220df23b1b88da8e6a34a9d2d6"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">bool rz::<wbr />AdaptivePurePursuitController::<wbr />Gains::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ab0ca60220df23b1b88da8e6a34a9d2d6" class="m-doc-self">operator!=</a>(</span><span class="m-doc-wrap">const <a href="structrz_1_1AdaptivePurePursuitController_1_1Gains.html" class="m-doc">Gains</a>&amp; rhs) const</span></span>
+            </h3>
+            <p>Checks if two <a href="structrz_1_1AdaptivePurePursuitController_1_1Gains.html" class="m-doc">Gains</a> objects are not equal.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">rhs</td>
+                  <td>The <a href="structrz_1_1AdaptivePurePursuitController_1_1Gains.html" class="m-doc">Gains</a> object to compare to</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td>True if the two objects are not equal, false otherwise</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
         </section>
       </div>
     </div>

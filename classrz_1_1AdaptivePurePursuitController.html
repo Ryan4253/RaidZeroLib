@@ -61,7 +61,7 @@
           <span class="m-breadcrumb"><a href="namespacerz.html">rz</a>::<wbr/></span>AdaptivePurePursuitController <span class="m-thin">class</span>
           <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="AdaptivePurePursuitController_8hpp.html">&lt;include/RaidZeroLib/api/Chassis/AdaptivePurePursuitController.hpp&gt;</a></div>
         </h1>
-        <p><span></span></p>
+        <p>The AdaptivePurePurePursuitController is a controller that drives the robot along a path using the pure pursuit algorithn.</p>
         <nav class="m-block m-default">
           <h3>Contents</h3>
           <ul>
@@ -75,46 +75,115 @@
             </li>
           </ul>
         </nav>
+<p>In each iteration, the controller computes the lookahead point on the path that is one lookahead distance away from the robot. The robot then drives towards the point at constant curvature given the target velocity. This process is repeated until the end of the path is reached.</p>
         <section id="pub-types">
           <h2><a href="#pub-types">Public types</a></h2>
           <dl class="m-doc">
             <dt>
               struct <a href="structrz_1_1AdaptivePurePursuitController_1_1Gains.html" class="m-doc">Gains</a>
             </dt>
-            <dd><span></span></dd>
+            <dd><a href="structrz_1_1AdaptivePurePursuitController_1_1Gains.html" class="m-doc">Gains</a> that characterize the behavior of the controller.</dd>
           </dl>
         </section>
         <section id="typeless-methods">
           <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
-            <dt id="a1ebeba88c4bc0d3d44d50c3a8d38bb56">
-              <span class="m-doc-wrap-bumper"><a href="#a1ebeba88c4bc0d3d44d50c3a8d38bb56" class="m-doc-self">AdaptivePurePursuitController</a>(</span><span class="m-doc-wrap">const std::shared_ptr&lt;OdomChassisController&gt;&amp; chassis,
+            <dt>
+              <span class="m-doc-wrap-bumper"><a href="#a1ebeba88c4bc0d3d44d50c3a8d38bb56" class="m-doc">AdaptivePurePursuitController</a>(</span><span class="m-doc-wrap">const std::shared_ptr&lt;OdomChassisController&gt;&amp; chassis,
               const <a href="structrz_1_1AdaptivePurePursuitController_1_1Gains.html" class="m-doc">Gains</a>&amp; gains,
               std::unique_ptr&lt;<a href="classrz_1_1FeedforwardController.html" class="m-doc">FeedforwardController</a>&lt;QLength&gt;&gt; leftController = nullptr,
               std::unique_ptr&lt;<a href="classrz_1_1FeedforwardController.html" class="m-doc">FeedforwardController</a>&lt;QLength&gt;&gt; rightController = nullptr,
               const TimeUtil&amp; timeUtil = okapi::TimeUtilFactory::createDefault())</span>
             </dt>
-            <dd><span></span></dd>
+            <dd>Constructs a new <a href="classrz_1_1AdaptivePurePursuitController.html" class="m-doc">AdaptivePurePursuitController</a>.</dd>
           </dl>
         </section>
         <section id="pub-methods">
           <h2><a href="#pub-methods">Public functions</a></h2>
           <dl class="m-doc">
-            <dt id="aa505e6d3fe3b01444bbe6be796b86587">
-              <span class="m-doc-wrap-bumper">void <a href="#aa505e6d3fe3b01444bbe6be796b86587" class="m-doc-self">followPath</a>(</span><span class="m-doc-wrap"><a href="classrz_1_1DiscretePath.html" class="m-doc">DiscretePath</a>&amp; path,
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a573d6d0021cb60d3ab28be0fb6faada8" class="m-doc">followPath</a>(</span><span class="m-doc-wrap">const <a href="classrz_1_1DiscretePath.html" class="m-doc">DiscretePath</a>&amp; path,
               QTime timeout = 2_min,
               bool isReversed = false)</span>
             </dt>
-            <dd><span></span></dd>
+            <dd>Follows the given path.</dd>
             <dt id="ad22ad78881784230fb3dcf49b1607553">
               <span class="m-doc-wrap-bumper">void <a href="#ad22ad78881784230fb3dcf49b1607553" class="m-doc-self">stop</a>(</span><span class="m-doc-wrap">)</span>
             </dt>
-            <dd><span></span></dd>
+            <dd>Stops the chassis and any running movements.</dd>
             <dt id="a33197cd823648e9bb865160d8e1da5aa">
               <span class="m-doc-wrap-bumper">void <a href="#a33197cd823648e9bb865160d8e1da5aa" class="m-doc-self">waitUntilSettled</a>(</span><span class="m-doc-wrap">)</span>
             </dt>
-            <dd><span></span></dd>
+            <dd>Blocks the current movement until the movement is complete.</dd>
           </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="a1ebeba88c4bc0d3d44d50c3a8d38bb56"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper"> rz::<wbr />AdaptivePurePursuitController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a1ebeba88c4bc0d3d44d50c3a8d38bb56" class="m-doc-self">AdaptivePurePursuitController</a>(</span><span class="m-doc-wrap">const std::shared_ptr&lt;OdomChassisController&gt;&amp; chassis,
+              const <a href="structrz_1_1AdaptivePurePursuitController_1_1Gains.html" class="m-doc">Gains</a>&amp; gains,
+              std::unique_ptr&lt;<a href="classrz_1_1FeedforwardController.html" class="m-doc">FeedforwardController</a>&lt;QLength&gt;&gt; leftController = nullptr,
+              std::unique_ptr&lt;<a href="classrz_1_1FeedforwardController.html" class="m-doc">FeedforwardController</a>&lt;QLength&gt;&gt; rightController = nullptr,
+              const TimeUtil&amp; timeUtil = okapi::TimeUtilFactory::createDefault())</span></span>
+            </h3>
+            <p>Constructs a new <a href="classrz_1_1AdaptivePurePursuitController.html" class="m-doc">AdaptivePurePursuitController</a>.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">chassis</td>
+                  <td>The chassis to control</td>
+                </tr>
+                <tr>
+                  <td>gains</td>
+                  <td>The gains to use</td>
+                </tr>
+                <tr>
+                  <td>leftController</td>
+                  <td>The left side feedforward velocity controller. If this is null, the controller will use vex&#x27;s internal velocity control</td>
+                </tr>
+                <tr>
+                  <td>rightController</td>
+                  <td>The right side feedforward velocity controller. If this is null, the controller will use vex&#x27;s internal velocity control</td>
+                </tr>
+                <tr>
+                  <td>timeUtil</td>
+                  <td>The time utility to use</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a573d6d0021cb60d3ab28be0fb6faada8"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void rz::<wbr />AdaptivePurePursuitController::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a573d6d0021cb60d3ab28be0fb6faada8" class="m-doc-self">followPath</a>(</span><span class="m-doc-wrap">const <a href="classrz_1_1DiscretePath.html" class="m-doc">DiscretePath</a>&amp; path,
+              QTime timeout = 2_min,
+              bool isReversed = false)</span></span>
+            </h3>
+            <p>Follows the given path.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">path</td>
+                  <td>The path to follow</td>
+                </tr>
+                <tr>
+                  <td>timeout</td>
+                  <td>The maximum time allowed to follow the path. This is to prevent the robot from getting stuck</td>
+                </tr>
+                <tr>
+                  <td>isReversed</td>
+                  <td>Whether or not to follow the path in reverse</td>
+                </tr>
+              </tbody>
+            </table>
+<p>The path is followed until the end is reached or the timeout is exceeded.</p>
+          </div></section>
         </section>
       </div>
     </div>

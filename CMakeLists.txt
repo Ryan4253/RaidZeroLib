@@ -142,9 +142,6 @@ add_executable(RaidZeroLib
         include/RaidZeroLib/api/Trajectory/MotionProfile/TrapezoidalMotionProfile.hpp
         include/RaidZeroLib/api/Trajectory/MotionProfile/MotionProfile.hpp
         include/RaidZeroLib/api/Filter/SlewRate.hpp
-        include/RaidZeroLib/api/Geometry/CoordinateAxis.hpp
-        include/RaidZeroLib/api/Geometry/CoordinateRotation.hpp
-        include/RaidZeroLib/api/Geometry/CoordinateSystem.hpp
         include/RaidZeroLib/api/Geometry/Point.hpp
         include/RaidZeroLib/api/Geometry/Rotation.hpp
         include/RaidZeroLib/api/Geometry/Transform.hpp
@@ -167,13 +164,10 @@ add_executable(RaidZeroLib
         src/RaidZeroLib/api/Pathing/CubicBezier.cpp
         src/RaidZeroLib/api/Pathing/PiecewiseCubicBezier.cpp
         src/RaidZeroLib/api/Filter/SlewRate.cpp
-        src/RaidZeroLib/api/Geometry/CoordinateSystem.cpp
         src/RaidZeroLib/api/Geometry/Twist.cpp
         src/RaidZeroLib/api/Geometry/Point.cpp
         src/RaidZeroLib/api/Geometry/Transform.cpp
         src/RaidZeroLib/api/Geometry/Rotation.cpp
-        src/RaidZeroLib/api/Geometry/CoordinateAxis.cpp
-        src/RaidZeroLib/api/Geometry/CoordinateRotation.cpp
         src/RaidZeroLib/api/Geometry/Pose.cpp
         
         test/test/Control/Feedforward/SimpleMotorFeedforwardTest.cpp

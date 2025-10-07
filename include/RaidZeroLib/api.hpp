@@ -22,9 +22,6 @@
 
 #include "RaidZeroLib/api/Filter/SlewRate.hpp"
 
-#include "RaidZeroLib/api/Geometry/CoordinateAxis.hpp"
-#include "RaidZeroLib/api/Geometry/CoordinateRotation.hpp"
-#include "RaidZeroLib/api/Geometry/CoordinateSystem.hpp"
 #include "RaidZeroLib/api/Geometry/Point.hpp"
 #include "RaidZeroLib/api/Geometry/Pose.hpp"
 #include "RaidZeroLib/api/Geometry/Rotation.hpp"

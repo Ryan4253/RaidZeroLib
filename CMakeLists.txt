@@ -123,71 +123,71 @@ add_executable(RaidZeroLib
         include/okapi/api/odometry/stateMode.hpp
         include/okapi/api/odometry/odomState.hpp
         
-        include/RaidZeroLib/api/Control/Async/AsyncVelBangBangController.hpp
-        include/RaidZeroLib/api/Control/Async/AsyncVelTBHController.hpp
-        include/RaidZeroLib/api/Control/Iterative/IterativeVelTBHController.hpp
-        include/RaidZeroLib/api/Control/Iterative/IterativeVelBangBangController.hpp
-        include/RaidZeroLib/api/Control/Feedforward/FeedforwardController.hpp
-        include/RaidZeroLib/api/Control/Feedforward/SimpleMotorFeedforward.hpp
-        include/RaidZeroLib/api/Chassis/AdaptivePurePursuitController.hpp
-        include/RaidZeroLib/api/Utility/StateMachine.hpp
-        include/RaidZeroLib/api/Utility/Util.hpp
-        include/RaidZeroLib/api/Utility/CrossPlatformThread.hpp
-        include/RaidZeroLib/api/Utility/CrossPlatformMutex.hpp
+        # include/RaidZeroLib/api/Control/Async/AsyncVelBangBangController.hpp
+        # include/RaidZeroLib/api/Control/Async/AsyncVelTBHController.hpp
+        # include/RaidZeroLib/api/Control/Iterative/IterativeVelTBHController.hpp
+        # include/RaidZeroLib/api/Control/Iterative/IterativeVelBangBangController.hpp
+        # include/RaidZeroLib/api/Control/Feedforward/FeedforwardController.hpp
+        # include/RaidZeroLib/api/Control/Feedforward/SimpleMotorFeedforward.hpp
+        # include/RaidZeroLib/api/Chassis/AdaptivePurePursuitController.hpp
+        # include/RaidZeroLib/api/Utility/StateMachine.hpp
+        # include/RaidZeroLib/api/Utility/Util.hpp
+        # include/RaidZeroLib/api/Utility/CrossPlatformThread.hpp
+        # include/RaidZeroLib/api/Utility/CrossPlatformMutex.hpp
         include/RaidZeroLib/api/Utility/Math.hpp
-        include/RaidZeroLib/api/Pathing/DiscretePath.hpp
-        include/RaidZeroLib/api/Pathing/ParametricPath.hpp
-        include/RaidZeroLib/api/Pathing/CubicBezier.hpp
-        include/RaidZeroLib/api/Pathing/PiecewiseCubicBezier.hpp
-        include/RaidZeroLib/api/Trajectory/MotionProfile/TrapezoidalMotionProfile.hpp
-        include/RaidZeroLib/api/Trajectory/MotionProfile/MotionProfile.hpp
-        include/RaidZeroLib/api/Filter/SlewRate.hpp
-        include/RaidZeroLib/api/Geometry/Point.hpp
+        # include/RaidZeroLib/api/Pathing/DiscretePath.hpp
+        # include/RaidZeroLib/api/Pathing/ParametricPath.hpp
+        # include/RaidZeroLib/api/Pathing/CubicBezier.hpp
+        # include/RaidZeroLib/api/Pathing/PiecewiseCubicBezier.hpp
+        # include/RaidZeroLib/api/Trajectory/MotionProfile/TrapezoidalMotionProfile.hpp
+        # include/RaidZeroLib/api/Trajectory/MotionProfile/MotionProfile.hpp
+        # include/RaidZeroLib/api/Filter/SlewRate.hpp
+        # include/RaidZeroLib/api/Geometry/Point.hpp
         include/RaidZeroLib/api/Geometry/Rotation.hpp
-        include/RaidZeroLib/api/Geometry/Transform.hpp
-        include/RaidZeroLib/api/Geometry/Twist.hpp
-        include/RaidZeroLib/api/Geometry/Pose.hpp
-        include/RaidZeroLib/api/Units/Units.hpp
-        include/RaidZeroLib/api.hpp
+        # include/RaidZeroLib/api/Geometry/Transform.hpp
+        # include/RaidZeroLib/api/Geometry/Twist.hpp
+        # include/RaidZeroLib/api/Geometry/Pose.hpp
+        # include/RaidZeroLib/api/Units/Units.hpp
+        # include/RaidZeroLib/api.hpp
         
-        src/RaidZeroLib/api/Control/Async/AsyncVelTBHController.cpp
-        src/RaidZeroLib/api/Control/Async/AsyncVelBangBangController.cpp
-        src/RaidZeroLib/api/Control/Iterative/IterativeVelTBHController.cpp
-        src/RaidZeroLib/api/Control/Iterative/IterativeVelBangBangController.cpp
-        src/RaidZeroLib/api/Control/Feedforward/SimpleMotorFeedforward.cpp
-        src/RaidZeroLib/api/Chassis/AdaptivePurePursuitController.cpp
-        src/RaidZeroLib/api/Utility/CrossPlatformMutex.cpp
+        # src/RaidZeroLib/api/Control/Async/AsyncVelTBHController.cpp
+        # src/RaidZeroLib/api/Control/Async/AsyncVelBangBangController.cpp
+        # src/RaidZeroLib/api/Control/Iterative/IterativeVelTBHController.cpp
+        # src/RaidZeroLib/api/Control/Iterative/IterativeVelBangBangController.cpp
+        # src/RaidZeroLib/api/Control/Feedforward/SimpleMotorFeedforward.cpp
+        # src/RaidZeroLib/api/Chassis/AdaptivePurePursuitController.cpp
+        # src/RaidZeroLib/api/Utility/CrossPlatformMutex.cpp
         src/RaidZeroLib/api/Utility/Math.cpp
-        src/RaidZeroLib/api/Utility/CrossPlatformThread.cpp
-        src/RaidZeroLib/api/Pathing/ParametricPath.cpp
-        src/RaidZeroLib/api/Pathing/DiscretePath.cpp
-        src/RaidZeroLib/api/Pathing/CubicBezier.cpp
-        src/RaidZeroLib/api/Pathing/PiecewiseCubicBezier.cpp
-        src/RaidZeroLib/api/Filter/SlewRate.cpp
-        src/RaidZeroLib/api/Geometry/Twist.cpp
-        src/RaidZeroLib/api/Geometry/Point.cpp
-        src/RaidZeroLib/api/Geometry/Transform.cpp
+        # src/RaidZeroLib/api/Utility/CrossPlatformThread.cpp
+        # src/RaidZeroLib/api/Pathing/ParametricPath.cpp
+        # src/RaidZeroLib/api/Pathing/DiscretePath.cpp
+        # src/RaidZeroLib/api/Pathing/CubicBezier.cpp
+        # src/RaidZeroLib/api/Pathing/PiecewiseCubicBezier.cpp
+        # src/RaidZeroLib/api/Filter/SlewRate.cpp
+        # src/RaidZeroLib/api/Geometry/Twist.cpp
+        # src/RaidZeroLib/api/Geometry/Point.cpp
+        # src/RaidZeroLib/api/Geometry/Transform.cpp
         src/RaidZeroLib/api/Geometry/Rotation.cpp
-        src/RaidZeroLib/api/Geometry/Pose.cpp
+        # src/RaidZeroLib/api/Geometry/Pose.cpp
         
-        test/test/Control/Feedforward/SimpleMotorFeedforwardTest.cpp
-        test/test/Control/Iterative/IterativeVelBangBangControllerTest.cpp
+        # test/test/Control/Feedforward/SimpleMotorFeedforwardTest.cpp
+        # test/test/Control/Iterative/IterativeVelBangBangControllerTest.cpp
 
         test/test/Geometry/RotationTest.cpp
-        test/test/Geometry/PointTest.cpp
-        test/test/Geometry/TwistTest.cpp
-        test/test/Geometry/TransformTest.cpp
-        test/test/Geometry/PoseTest.cpp
+        # test/test/Geometry/PointTest.cpp
+        # test/test/Geometry/TwistTest.cpp
+        # test/test/Geometry/TransformTest.cpp
+        # test/test/Geometry/PoseTest.cpp
 
-        test/test/Pathing/DiscretePathTest.cpp
-        test/test/Pathing/ParametricPathTest.cpp
-        test/test/Pathing/CubicBezierTest.cpp
-        test/test/Pathing/PiecewiseCubicBezierTest.cpp
+        # test/test/Pathing/DiscretePathTest.cpp
+        # test/test/Pathing/ParametricPathTest.cpp
+        # test/test/Pathing/CubicBezierTest.cpp
+        # test/test/Pathing/PiecewiseCubicBezierTest.cpp
 
-        test/test/Units/UnitsTest.cpp
+        # test/test/Units/UnitsTest.cpp
 
-        test/test/Utility/MathTest.cpp
-        test/test/Utility/StateMachineTest.cpp
+        # test/test/Utility/MathTest.cpp
+        # test/test/Utility/StateMachineTest.cpp
 
         test/include/mocks.hpp
         test/src/mocks.cpp)

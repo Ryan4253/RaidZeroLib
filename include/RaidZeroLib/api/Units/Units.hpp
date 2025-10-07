@@ -10,6 +10,8 @@
 #include "okapi/api/units/QTime.hpp"
 #include "okapi/api/units/RQuantity.hpp"
 
+#include "au/au.hpp"
+
 /*
  * The unit library we uses allows us to check our math during compile time
  * compile time using dimensional analysis. This file includes expansion

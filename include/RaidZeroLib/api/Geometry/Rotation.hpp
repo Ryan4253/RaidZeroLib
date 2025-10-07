@@ -1,55 +1,38 @@
 #pragma once
-#include "RaidZeroLib/api/Utility/Math.hpp"
-#include "okapi/api/units/QAngle.hpp"
-#include "okapi/api/units/QLength.hpp"
+#include "au/au.hpp"
 
 namespace rz {
-using namespace okapi;
 
 class Rotation {
     public:
-    constexpr Rotation() = default;
+    constexpr Rotation() noexcept = default;
 
-    Rotation(QAngle iTheta);
+    explicit Rotation(au::QuantityD<au::Radians> theta) noexcept;
 
-    Rotation(QLength iX, QLength iY);
+    Rotation(au::QuantityD<au::Meters> x, au::QuantityD<au::Meters> y) noexcept;
 
-    Rotation(double iX, double iY);
+    au::QuantityD<au::Radians> Theta() const noexcept;
 
-    Rotation(const Rotation& rhs);
+    double Sin() const noexcept;
 
-    ~Rotation() = default;
+    double Cos() const noexcept;
 
-    QAngle Theta() const;
+    double Tan() const noexcept;
 
-    double Sin() const;
+    Rotation operator+(const Rotation& rhs) const noexcept;
 
-    double Cos() const;
+    Rotation operator-(const Rotation& rhs) const noexcept;
 
-    double Tan() const;
+    Rotation operator-() const noexcept;
 
-    Rotation operator+(const Rotation& rhs) const;
+    Rotation operator*(double scalar) const noexcept;
 
-    Rotation operator-(const Rotation& rhs) const;
+    Rotation operator/(double scalar) const noexcept;
 
-    Rotation operator-() const;
-
-    Rotation operator*(double scalar) const;
-
-    Rotation operator/(double scalar) const;
-
-    bool operator==(const Rotation& rhs) const;
-
-    bool operator!=(const Rotation& rhs) const;
-
-    void operator=(const Rotation& rhs);
-
-    Rotation rotateBy(const Rotation& rhs) const;
+    bool isApprox(const Rotation& rhs, au::QuantityD<au::Radians> tol = au::radians(1e-12)) const noexcept;
 
     private:
-    QAngle theta{0.0};
-    double cosine{1.0};
-    double sine{0.0};
+    au::QuantityD<au::Radians> theta = au::ZERO;
 };
 
 } // namespace rz

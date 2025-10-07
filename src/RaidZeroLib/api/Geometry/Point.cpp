@@ -1,130 +1,115 @@
 #include "RaidZeroLib/api/Geometry/Point.hpp"
+#include "RaidZeroLib/api/Utility/Math.hpp"
+
 namespace rz {
 
-Translation::Translation(QLength iX, QLength iY) : x(iX), y(iY) {
+Point::Point(au::QuantityD<au::Meters> x, au::QuantityD<au::Meters> y) noexcept : x(x), y(y) {
 }
 
-Translation::Translation(QLength iMag, const Rotation& iAngle) : x(iMag * iAngle.Cos()), y(iMag * iAngle.Sin()) {
-}
+Point::Point(au::QuantityD<au::Meters> magnitude, const Rotation& angle) noexcept
+    : x(magnitude * angle.Cos()), y(magnitude * angle.Sin()) {}
 
-Translation::Translation(const Translation& rhs) : x(rhs.x), y(rhs.y) {
-}
-
-QLength Translation::X() const {
+au::QuantityD<au::Meters> Point::X() const noexcept {
     return x;
 }
 
-QLength Translation::Y() const {
+au::QuantityD<au::Meters> Point::Y() const noexcept {
     return y;
 }
 
-void Translation::setX(QLength iX) {
-    x = iX;
-}
-
-void Translation::setY(QLength iY) {
-    y = iY;
-}
-
-Translation Translation::operator+(const Translation& rhs) const {
+Point Point::operator+(const Point& rhs) const noexcept {
     return Point(x + rhs.x, y + rhs.y);
 }
 
-Translation Translation::operator-(const Translation& rhs) const {
+Point Point::operator-(const Point& rhs) const noexcept {
     return -rhs + *this;
 }
 
-Translation Translation::operator-() const {
+Point Point::operator-() const noexcept {
     return *this * -1;
 }
 
-Translation Translation::operator*(double scalar) const {
+Point Point::operator*(double scalar) const noexcept {
     return Point(x * scalar, y * scalar);
 }
 
-Translation Translation::operator/(double scalar) const {
+Point Point::operator/(double scalar) const noexcept {
     return *this * (1.0 / scalar);
 }
 
-bool Translation::operator==(const Translation& rhs) const {
-    return abs(x - rhs.x) < 1E-9 * meter && abs(y - rhs.y) < 1E-9 * meter;
+au::QuantityD<au::Radians> Point::theta() const noexcept {
+    if(x == au::ZERO && y == au::ZERO){
+        return au::ZERO;
+    }
+
+    return au::arctan2(y, x);
 }
 
-bool Translation::operator!=(const Translation& rhs) const {
-    return !(*this == rhs);
+au::QuantityD<au::Meters> Point::mag() const noexcept {
+    return au::hypot(x, y);
 }
 
-void Translation::operator=(const Translation& rhs) {
-    x = rhs.x, y = rhs.y;
+au::QuantityD<au::Meters> Point::distTo(const Point& rhs) const noexcept {
+    return au::hypot(rhs.x - x, rhs.y - y);
 }
 
-QAngle Translation::theta() const {
-    return atan2(y, x);
-}
-
-QLength Translation::mag() const {
-    return hypot(x, y);
-}
-
-QLength Translation::distTo(const Translation& rhs) const {
-    return hypot(rhs.x - x, rhs.y - y);
-}
-
-QAngle Translation::angleTo(const Translation& rhs) const {
+au::QuantityD<au::Radians> Point::angleTo(const Point& rhs) const noexcept {
     return constrainAngle180(rhs.theta() - theta());
 }
 
-QArea Translation::dot(const Translation& rhs) const {
+au::QuantityD<au::Squared<au::Meters>> Point::dot(const Point& rhs) const noexcept {
     return x * rhs.x + y * rhs.y;
 }
 
-QArea Translation::wedge(const Translation& rhs) const {
+au::QuantityD<au::Squared<au::Meters>> Point::wedge(const Point& rhs) const noexcept {
     return x * rhs.y - y * rhs.x;
 }
 
-Translation Translation::project(const Translation& rhs) const {
-    return rhs * (this->dot(rhs) / rhs.dot(rhs)).convert(number);
+Point Point::project(const Point& rhs) const noexcept {
+    return rhs * (this->dot(rhs) / rhs.dot(rhs));
 }
 
-Translation Translation::rotateBy(const Rotation& rhs) const {
-    return {x * rhs.Cos() - y * rhs.Sin(), x * rhs.Sin() + y * rhs.Cos()};
+Point Point::rotateBy(const Rotation& rhs) const noexcept {
+    const double c = rhs.Cos();
+    const double s = rhs.Sin();
+    return Point(x * c - y * s, x * s + y * c);
 }
 
-QLength circumradius(const Translation& iLeft, const Translation& iMid, const Translation& iRight) {
-    Point A = iLeft;
-    Point B = iMid;
-    Point C = iRight;
-
-    QLength a = B.distTo(C);
-    QLength b = A.distTo(C);
-    QLength c = A.distTo(B);
-    auto a2 = a * a, b2 = b * b, c2 = c * c;
-
-    Point pa = A * (a2 * (b2 + c2 - a2) / ((b + c) * (b + c) - a2) / (a2 - (b - c) * (b - c))).convert(number);
-    Point pb = B * (b2 * (a2 + c2 - b2) / ((a + c) * (a + c) - b2) / (b2 - (a - c) * (a - c))).convert(number);
-    Point pc = C * (c2 * (a2 + b2 - c2) / ((a + b) * (a + b) - c2) / (c2 - (a - b) * (a - b))).convert(number);
-
-    Point center = pa + pb + pc;
-
-    QLength radius = center.distTo(A);
-
-    return radius;
+bool Point::isApprox(const Point& rhs, au::QuantityD<au::Meters> tol) const noexcept {
+    return this->distTo(rhs) <= tol;
 }
 
-std::optional<double> circleLineIntersection(const Translation& start, const Translation& end, const Translation& point,
-                                             QLength radius) {
+au::QuantityD<au::Meters> circumradius(const Point& A, const Point& B, const Point& C) noexcept {
+    // Circumradius of a triangle with vertex A, B, C is (a * b * c) / (4 * area)
+    // https://artofproblemsolving.com/wiki/index.php/Circumradius
+
+    const auto a = B.distTo(C);
+    const auto b = A.distTo(C);
+    const auto c = A.distTo(B); 
+
+    const auto area = au::abs((B - A).wedge(C - A)) / 2;
+
+    if (area == au::ZERO) {
+        return au::meters(0.0);
+    }
+
+    return (a * b * c) / (area * 4);
+}
+
+std::optional<double> circleLineIntersection(const Point& start, const Point& end, const Point& center,
+                                             au::QuantityD<au::Meters> radius) noexcept {
     const Point d = end - start;
-    const Point f = start - point;
+    const Point f = start - center;
 
     const auto a = d.dot(d);
     const auto b = 2 * (f.dot(d));
     const auto c = f.dot(f) - radius * radius;
     const auto discriminant = b * b - 4 * a * c;
 
-    if (discriminant.getValue() >= 0) {
+    if (discriminant >= au::ZERO) {
         const auto dis = sqrt(discriminant);
-        const double t1 = ((-1 * b - dis) / (2 * a)).convert(number);
-        const double t2 = ((-1 * b + dis) / (2 * a)).convert(number);
+        const double t1 = ((-1 * b - dis) / (2 * a));
+        const double t2 = ((-1 * b + dis) / (2 * a));
 
         if (t2 >= 0 && t2 <= 1) {
             return t2;

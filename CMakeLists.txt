@@ -142,7 +142,7 @@ add_executable(RaidZeroLib
         # include/RaidZeroLib/api/Trajectory/MotionProfile/TrapezoidalMotionProfile.hpp
         # include/RaidZeroLib/api/Trajectory/MotionProfile/MotionProfile.hpp
         # include/RaidZeroLib/api/Filter/SlewRate.hpp
-        # include/RaidZeroLib/api/Geometry/Point.hpp
+        include/RaidZeroLib/api/Geometry/Point.hpp
         include/RaidZeroLib/api/Geometry/Rotation.hpp
         # include/RaidZeroLib/api/Geometry/Transform.hpp
         # include/RaidZeroLib/api/Geometry/Twist.hpp
@@ -165,7 +165,7 @@ add_executable(RaidZeroLib
         # src/RaidZeroLib/api/Pathing/PiecewiseCubicBezier.cpp
         # src/RaidZeroLib/api/Filter/SlewRate.cpp
         # src/RaidZeroLib/api/Geometry/Twist.cpp
-        # src/RaidZeroLib/api/Geometry/Point.cpp
+        src/RaidZeroLib/api/Geometry/Point.cpp
         # src/RaidZeroLib/api/Geometry/Transform.cpp
         src/RaidZeroLib/api/Geometry/Rotation.cpp
         # src/RaidZeroLib/api/Geometry/Pose.cpp
@@ -174,7 +174,7 @@ add_executable(RaidZeroLib
         # test/test/Control/Iterative/IterativeVelBangBangControllerTest.cpp
 
         test/test/Geometry/RotationTest.cpp
-        # test/test/Geometry/PointTest.cpp
+        test/test/Geometry/PointTest.cpp
         # test/test/Geometry/TwistTest.cpp
         # test/test/Geometry/TransformTest.cpp
         # test/test/Geometry/PoseTest.cpp

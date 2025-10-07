@@ -1,214 +1,168 @@
 #include "RaidZeroLib/api/Geometry/Point.hpp"
 #include <cmath>
 #include <gtest/gtest.h>
-using namespace okapi;
 
 const double EPSILON = 0.0001;
 
-TEST(TranslationTest, defaultConstructor) {
-    rz::Translation point;
+TEST(PointTest, cartesianConstructor) {
+    rz::Point point(au::meters(3), au::meters(4));
 
-    EXPECT_EQ(point.X(), 0_m);
-    EXPECT_EQ(point.Y(), 0_m);
+    EXPECT_EQ(point.X(), au::meters(3));
+    EXPECT_EQ(point.Y(), au::meters(4));
 }
 
-TEST(TranslationTest, cartesianConstructor) {
-    rz::Translation point(3_m, 4_m);
+TEST(PointTest, polarConstructor) {
+    rz::Point point(au::meters(3), rz::Rotation(au::degrees(45)));
 
-    EXPECT_EQ(point.X(), 3_m);
-    EXPECT_EQ(point.Y(), 4_m);
+    EXPECT_NEAR(point.X().in(au::meter), 3 * sqrt(2) / 2, EPSILON);
+    EXPECT_NEAR(point.Y().in(au::meter), 3 * sqrt(2) / 2, EPSILON);
 }
 
-TEST(TranslationTest, polarConstructor) {
-    rz::Translation point(3_m, 45_deg);
+TEST(PointTest, addition) {
+    rz::Point p1(au::meters(3), au::meters(4));
+    rz::Point p2(au::meters(5), au::meters(6));
+    rz::Point sum = p1 + p2;
 
-    EXPECT_NEAR(point.X().convert(meter), 3 * sqrt(2) / 2, EPSILON);
-    EXPECT_NEAR(point.Y().convert(meter), 3 * sqrt(2) / 2, EPSILON);
+    EXPECT_NEAR(sum.X().in(au::meters), 8.0, EPSILON);
+    EXPECT_NEAR(sum.Y().in(au::meters), 10.0, EPSILON);
 }
 
-TEST(TranslationTest, copyConstructor) {
-    rz::Translation point1(3_m, 4_m);
-    rz::Translation point2(point1);
+TEST(PointTest, subtraction) {
+    rz::Point p1(au::meters(3), au::meters(4));
+    rz::Point p2(au::meters(5), au::meters(5));
+    rz::Point diff = p1 - p2;
 
-    EXPECT_EQ(point2.X(), 3_m);
-    EXPECT_EQ(point2.Y(), 4_m);
+    EXPECT_NEAR(diff.X().in(au::meters), -2.0, EPSILON);
+    EXPECT_NEAR(diff.Y().in(au::meters), -1.0, EPSILON);
 }
 
-TEST(TranslationTest, setX) {
-    rz::Translation point(3_m, 4_m);
-    point.setX(5_m);
+TEST(PointTest, negation) {
+    rz::Point p(au::meters(3), au::meters(4));
+    p = -p;
 
-    EXPECT_EQ(point.X(), 5_m);
+    EXPECT_NEAR(p.X().in(au::meters), -3.0, EPSILON);
+    EXPECT_NEAR(p.Y().in(au::meters), -4.0, EPSILON);
 }
 
-TEST(TranslationTest, setY) {
-    rz::Translation point(3_m, 4_m);
-    point.setY(5_m);
+TEST(PointTest, scalarMultiplication) {
+    rz::Point p(au::meters(3), au::meters(4));
+    rz::Point scaled = p * 2.0;
 
-    EXPECT_EQ(point.Y(), 5_m);
+    EXPECT_NEAR(scaled.X().in(au::meters), 6.0, EPSILON);
+    EXPECT_NEAR(scaled.Y().in(au::meters), 8.0, EPSILON);
 }
 
-TEST(TranslationTest, addition) {
-    rz::Translation point1(3_m, 4_m);
-    rz::Translation point2(5_m, 6_m);
-    rz::Translation sum = point1 + point2;
+TEST(PointTest, scalarDivision) {
+    rz::Point p(au::meters(3), au::meters(4));
+    rz::Point scaled = p / 2.0;
 
-    ASSERT_NEAR(sum.X().convert(meter), 8, EPSILON);
-    ASSERT_NEAR(sum.Y().convert(meter), 10, EPSILON);
+    EXPECT_NEAR(scaled.X().in(au::meters), 1.5, EPSILON);
+    EXPECT_NEAR(scaled.Y().in(au::meters), 2.0, EPSILON);
 }
 
-TEST(TranslationTest, subtraction) {
-    rz::Translation point1(3_m, 4_m);
-    rz::Translation point2(5_m, 6_m);
-    rz::Translation diff = point1 - point2;
+TEST(PointTest, theta) {
+    rz::Point p(au::meters(0.5), au::meters(std::sqrt(3) / 2.0));
 
-    ASSERT_NEAR(diff.X().convert(meter), -2, EPSILON);
-    ASSERT_NEAR(diff.Y().convert(meter), -2, EPSILON);
+    EXPECT_NEAR(p.theta().in(au::degrees), 60.0, EPSILON);
 }
 
-TEST(TranslationTest, negation) {
-    rz::Translation point(3_m, 4_m);
-    point = -point;
+TEST(PointTest, magnitude) {
+    rz::Point p(au::meters(3), au::meters(4));
 
-    ASSERT_NEAR(point.X().convert(meter), -3, EPSILON);
-    ASSERT_NEAR(point.Y().convert(meter), -4, EPSILON);
+    EXPECT_NEAR(p.mag().in(au::meters), 5.0, EPSILON);
 }
 
-TEST(TranslationTest, scalarMultiplication) {
-    rz::Translation point(3_m, 4_m);
-    rz::Translation scaled = point * 2;
+TEST(PointTest, distTo) {
+    rz::Point p1(au::meters(1), au::meters(2));
+    rz::Point p2(au::meters(4), au::meters(6));
 
-    ASSERT_NEAR(scaled.X().convert(meter), 6, EPSILON);
-    ASSERT_NEAR(scaled.Y().convert(meter), 8, EPSILON);
+    EXPECT_NEAR(p1.distTo(p2).in(au::meters), 5.0, EPSILON);
 }
 
-TEST(TranslationTest, scalarDivision) {
-    rz::Translation point(3_m, 4_m);
-    rz::Translation scaled = point / 2;
+TEST(PointTest, angleTo) {
+    rz::Point p1(au::meters(2), au::meters(2));
+    rz::Point p2(au::meters(-1), au::meters(-std::sqrt(3)));
 
-    ASSERT_NEAR(scaled.X().convert(meter), 1.5, EPSILON);
-    ASSERT_NEAR(scaled.Y().convert(meter), 2, EPSILON);
+    EXPECT_NEAR(p1.angleTo(p2).in(au::degrees), -165.0, EPSILON);
+    EXPECT_NEAR(p2.angleTo(p1).in(au::degrees), 165.0, EPSILON);
 }
 
-TEST(TranslationTest, equality) {
-    rz::Translation point1(3_m, 4_m);
-    rz::Translation point2(3_m, 4_m);
-    rz::Translation point3(5_m, 6_m);
+TEST(PointTest, dot) {
+    rz::Point p1(au::meters(3), au::meters(4));
+    rz::Point p2(au::meters(5), au::meters(6));
 
-    ASSERT_TRUE(point1 == point2);
-    ASSERT_FALSE(point1 == point3);
+    EXPECT_NEAR(p1.dot(p2).in(au::squared(au::meters)), 39.0, EPSILON);
 }
 
-TEST(TranslationTest, inequality) {
-    rz::Translation point1(3_m, 4_m);
-    rz::Translation point2(3_m, 4_m);
-    rz::Translation point3(5_m, 6_m);
+TEST(PointTest, wedge) {
+    rz::Point p1(au::meters(3), au::meters(4));
+    rz::Point p2(au::meters(5), au::meters(6));
 
-    ASSERT_FALSE(point1 != point2);
-    ASSERT_TRUE(point1 != point3);
+    EXPECT_NEAR(p1.wedge(p2).in(au::squared(au::meters)), -2.0, EPSILON);
 }
 
-TEST(TranslationTest, assignment) {
-    rz::Translation point1(3_m, 4_m);
-    rz::Translation point2(5_m, 6_m);
-    point1 = point2;
+TEST(PointTest, project) {
+    rz::Point p1(au::meters(3), au::meters(4));
+    rz::Point p2(au::meters(12), au::meters(8));
+    rz::Point proj = p1.project(p2);
 
-    ASSERT_NEAR(point1.X().convert(meter), 5, EPSILON);
-    ASSERT_NEAR(point1.Y().convert(meter), 6, EPSILON);
+    EXPECT_NEAR(proj.X().in(au::meters), 51.0 / 13.0, EPSILON);
+    EXPECT_NEAR(proj.Y().in(au::meters), 34.0 / 13.0, EPSILON);
 }
 
-TEST(TranslationTest, theta) {
-    rz::Translation point(0.5 * meter, sqrt(3) / 2 * meter);
+TEST(PointTest, rotateBy) {
+    rz::Point p(au::meters(1), au::meters(1));
+    rz::Rotation rot(au::degrees(45));
+    rz::Point rotated = p.rotateBy(rot);
 
-    ASSERT_NEAR(point.theta().convert(degree), 60, EPSILON);
+    EXPECT_NEAR(rotated.X().in(au::meters), 0.0, EPSILON);
+    EXPECT_NEAR(rotated.Y().in(au::meters), std::sqrt(2.0), EPSILON);
 }
 
-TEST(TranslationTest, magnitude) {
-    rz::Translation point(3_m, 4_m);
+TEST(PointTest, isApprox) {
+    rz::Point p1(au::meters(3), au::meters(4));
+    rz::Point p2(au::meters(3), au::meters(4));
+    rz::Point p3(au::meters(5), au::meters(6));
 
-    ASSERT_NEAR(point.mag().convert(meter), 5, EPSILON);
+    EXPECT_TRUE(p1.isApprox(p2));
+    EXPECT_FALSE(p1.isApprox(p3));
 }
 
-TEST(TranslationTest, distTo) {
-    rz::Translation point1(1_m, 2_m);
-    rz::Translation point2(4_m, 6_m);
+TEST(PointTest, circumradius) {
+    rz::Point A(au::meters(2), au::meters(8));
+    rz::Point B(au::meters(6), au::meters(6));
+    rz::Point C(au::meters(6), au::meters(0));
 
-    ASSERT_NEAR(point1.distTo(point2).convert(meter), 5, EPSILON);
+    EXPECT_NEAR(circumradius(A, B, C).in(au::meters), 5.0, EPSILON);
 }
 
-TEST(TranslationTest, angleTo) {
-    rz::Translation point1(2_m, 2_m);
-    rz::Translation point2(-1_m, -sqrt(3) * meter);
+TEST(PointTest, circleLineIntersectionTwo) {
+    rz::Point start(au::meters(0), au::meters(-4));
+    rz::Point end(au::meters(2), au::meters(2));
+    rz::Point center(au::meters(2.3), au::meters(-1.4));
+    auto radius = au::meters(3);
+    auto res = circleLineIntersection(start, end, center, radius);
 
-    ASSERT_NEAR(point1.angleTo(point2).convert(degree), -165, EPSILON);
-    ASSERT_NEAR(point2.angleTo(point1).convert(degree), 165, EPSILON);
+    ASSERT_TRUE(res.has_value());
+    EXPECT_NEAR(res.value(), 0.926, 0.01);
 }
 
-TEST(TranslationTest, dot) {
-    rz::Point point1(3_m, 4_m);
-    rz::Point point2(5_m, 6_m);
+TEST(PointTest, circleLineIntersectionOne) {
+    rz::Point start(au::meters(0), au::meters(-4));
+    rz::Point end(au::meters(2), au::meters(2));
+    rz::Point center(au::meters(3.5), au::meters(0));
+    auto radius = au::meters(3);
+    auto res = circleLineIntersection(start, end, center, radius);
 
-    ASSERT_NEAR(point1.dot(point2).convert(meter2), 39, EPSILON);
+    ASSERT_TRUE(res.has_value());
+    EXPECT_NEAR(res.value(), 0.4295, 0.01);
 }
 
-TEST(TranslationTest, wedge) {
-    rz::Point point1(3_m, 4_m);
-    rz::Point point2(5_m, 6_m);
+TEST(PointTest, circleLineIntersectionNone) {
+    rz::Point start(au::meters(0), au::meters(-4));
+    rz::Point end(au::meters(2), au::meters(2));
+    rz::Point center(au::meters(4.8), au::meters(0));
+    auto radius = au::meters(3);
 
-    ASSERT_NEAR(point1.wedge(point2).convert(meter2), -2, EPSILON);
-}
-
-TEST(TranslationTest, project) {
-    rz::Point point1(3_m, 4_m);
-    rz::Point point2(12_m, 8_m);
-    rz::Point projection = point1.project(point2);
-
-    ASSERT_NEAR(projection.X().convert(meter), 51.0 / 13, EPSILON);
-    ASSERT_NEAR(projection.Y().convert(meter), 34.0 / 13, EPSILON);
-}
-
-TEST(TranslationTest, rotateBy) {
-    rz::Point point(1_m, 1_m);
-    rz::Rotation angle(45_deg);
-    rz::Point rotated = point.rotateBy(angle);
-
-    ASSERT_NEAR(rotated.X().convert(meter), 0, EPSILON);
-    ASSERT_NEAR(rotated.Y().convert(meter), sqrt(2), EPSILON);
-}
-
-TEST(TranslationTest, circumradius) {
-    rz::Point point1(2_m, 8_m);
-    rz::Point point2(6_m, 6_m);
-    rz::Point point3(6_m, 0_m);
-
-    ASSERT_NEAR(circumradius(point1, point2, point3).convert(meter), 5, EPSILON);
-}
-
-TEST(TranslationTest, circleLineIntersectionTwo) {
-    rz::Point start(0_m, -4_m);
-    rz::Point end(2_m, 2_m);
-    rz::Point point(2.3_m, -1.4_m);
-    rz::QLength radius = 3_m;
-
-    ASSERT_TRUE(rz::circleLineIntersection(start, end, point, radius).has_value());
-    ASSERT_NEAR(rz::circleLineIntersection(start, end, point, radius).value(), 0.926, 0.01);
-}
-
-TEST(TranslationTest, circleLineIntersectionOne) {
-    rz::Point start(0_m, -4_m);
-    rz::Point end(2_m, 2_m);
-    rz::Point point(3.5_m, 0_m);
-    rz::QLength radius = 3_m;
-
-    ASSERT_TRUE(rz::circleLineIntersection(start, end, point, radius).has_value());
-    ASSERT_NEAR(rz::circleLineIntersection(start, end, point, radius).value(), 0.4295, 0.01);
-}
-
-TEST(TranslationTest, circleLineIntersectionNone) {
-    rz::Point start(0_m, -4_m);
-    rz::Point end(2_m, 2_m);
-    rz::Point point(4.8_m, 0_m);
-    rz::QLength radius = 3_m;
-
-    ASSERT_FALSE(rz::circleLineIntersection(start, end, point, radius).has_value());
+    EXPECT_FALSE(circleLineIntersection(start, end, center, radius).has_value());
 }

@@ -1,74 +1,59 @@
 #pragma once
 #include "RaidZeroLib/api/Geometry/Rotation.hpp"
-#include "okapi/api/units/QArea.hpp"
 #include <optional>
 
 namespace rz {
-using namespace okapi;
+
 class Rotation;
 
-class Translation {
+class Point {
     public:
-    constexpr Translation() = default;
+    constexpr Point() noexcept = default;
 
-    Translation(QLength iX, QLength iY);
+    Point(au::QuantityD<au::Meters> x, au::QuantityD<au::Meters> y) noexcept;
 
-    Translation(QLength iMag, const Rotation& iAngle);
+    Point(au::QuantityD<au::Meters> magnitude, const Rotation& rotation) noexcept;
 
-    Translation(const Translation& rhs);
+    au::QuantityD<au::Meters> X() const noexcept;
 
-    ~Translation() = default;
+    au::QuantityD<au::Meters> Y() const noexcept;
 
-    QLength X() const;
+    Point operator+(const Point& rhs) const noexcept;
 
-    QLength Y() const;
+    Point operator-(const Point& rhs) const noexcept;
 
-    void setX(QLength iX);
+    Point operator-() const noexcept;
 
-    void setY(QLength iY);
+    Point operator*(double scalar) const noexcept;
 
-    Translation operator+(const Translation& rhs) const;
+    Point operator/(double scalar) const noexcept;
 
-    Translation operator-(const Translation& rhs) const;
+    au::QuantityD<au::Radians> theta() const noexcept;
 
-    Translation operator-() const;
+    au::QuantityD<au::Meters> mag() const noexcept;
 
-    Translation operator*(double scalar) const;
+    au::QuantityD<au::Meters> distTo(const Point& rhs) const noexcept;
 
-    Translation operator/(double scalar) const;
+    au::QuantityD<au::Radians> angleTo(const Point& rhs) const noexcept;
 
-    bool operator==(const Translation& rhs) const;
+    au::QuantityD<au::Squared<au::Meters>> dot(const Point& rhs) const noexcept;
 
-    bool operator!=(const Translation& rhs) const;
+    au::QuantityD<au::Squared<au::Meters>> wedge(const Point& rhs) const noexcept;
 
-    void operator=(const Translation& rhs);
+    Point project(const Point& rhs) const noexcept;
 
-    QAngle theta() const;
+    Point rotateBy(const Rotation& rhs) const noexcept;
 
-    QLength mag() const;
-
-    QLength distTo(const Translation& rhs) const;
-
-    QAngle angleTo(const Translation& rhs) const;
-
-    QArea dot(const Translation& rhs) const;
-
-    QArea wedge(const Translation& rhs) const;
-
-    Translation project(const Translation& rhs) const;
-
-    Translation rotateBy(const Rotation& rhs) const;
+    bool isApprox(const Point& rhs, au::QuantityD<au::Meters> tol = au::meters(1e-12)) const noexcept;
 
     private:
-    QLength x{0.0};
-    QLength y{0.0};
+    au::QuantityD<au::Meters> x = au::ZERO;
+    au::QuantityD<au::Meters> y = au::ZERO;
 };
 
-using Point = Translation;
+au::QuantityD<au::Meters> circumradius(const Point& A, const Point& B, const Point& C) noexcept;
 
-QLength circumradius(const Translation& iLeft, const Translation& iMid, const Translation& iRight);
-
-std::optional<double> circleLineIntersection(const Translation& start, const Translation& end, const Translation& point,
-                                             QLength radius);
+std::optional<double> circleLineIntersection(const Point& start, const Point& end, const Point& center,
+                                             au::QuantityD<au::Meters> radius) noexcept;
 
 } // namespace rz

@@ -1,5 +1,5 @@
 #pragma once
-#include "RaidZeroLib/api/Geometry/Rotation.hpp"
+#include "au/au.hpp"
 #include <optional>
 
 namespace rz {
@@ -44,7 +44,7 @@ class Point {
 
     Point rotateBy(const Rotation& rhs) const noexcept;
 
-    bool isApprox(const Point& rhs, au::QuantityD<au::Meters> tol = au::meters(1e-12)) const noexcept;
+    bool isApprox(const Point& rhs) const noexcept;
 
     private:
     au::QuantityD<au::Meters> x = au::ZERO;

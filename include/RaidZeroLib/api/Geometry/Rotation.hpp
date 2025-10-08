@@ -11,6 +11,8 @@ class Rotation {
 
     Rotation(au::QuantityD<au::Meters> x, au::QuantityD<au::Meters> y) noexcept;
 
+    Rotation(double x, double y) noexcept;
+
     au::QuantityD<au::Radians> Theta() const noexcept;
 
     double Sin() const noexcept;
@@ -29,7 +31,7 @@ class Rotation {
 
     Rotation operator/(double scalar) const noexcept;
 
-    bool isApprox(const Rotation& rhs, au::QuantityD<au::Radians> tol = au::radians(1e-12)) const noexcept;
+    bool isApprox(const Rotation& rhs) const noexcept;
 
     private:
     au::QuantityD<au::Radians> theta = au::ZERO;

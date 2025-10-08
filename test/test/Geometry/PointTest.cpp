@@ -1,4 +1,5 @@
 #include "RaidZeroLib/api/Geometry/Point.hpp"
+#include "RaidZeroLib/api/Geometry/Rotation.hpp"
 #include <cmath>
 #include <gtest/gtest.h>
 

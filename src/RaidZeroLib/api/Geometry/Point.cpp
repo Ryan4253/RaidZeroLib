@@ -1,5 +1,6 @@
 #include "RaidZeroLib/api/Geometry/Point.hpp"
 #include "RaidZeroLib/api/Utility/Math.hpp"
+#include "RaidZeroLib/api/Geometry/Rotation.hpp"
 
 namespace rz {
 
@@ -75,8 +76,8 @@ Point Point::rotateBy(const Rotation& rhs) const noexcept {
     return Point(x * c - y * s, x * s + y * c);
 }
 
-bool Point::isApprox(const Point& rhs, au::QuantityD<au::Meters> tol) const noexcept {
-    return this->distTo(rhs) <= tol;
+bool Point::isApprox(const Point& rhs) const noexcept {
+    return this->distTo(rhs) <= au::meters(1e-9);
 }
 
 au::QuantityD<au::Meters> circumradius(const Point& A, const Point& B, const Point& C) noexcept {

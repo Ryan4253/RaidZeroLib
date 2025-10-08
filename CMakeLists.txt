@@ -144,9 +144,9 @@ add_executable(RaidZeroLib
         # include/RaidZeroLib/api/Filter/SlewRate.hpp
         include/RaidZeroLib/api/Geometry/Point.hpp
         include/RaidZeroLib/api/Geometry/Rotation.hpp
-        # include/RaidZeroLib/api/Geometry/Transform.hpp
-        # include/RaidZeroLib/api/Geometry/Twist.hpp
-        # include/RaidZeroLib/api/Geometry/Pose.hpp
+        include/RaidZeroLib/api/Geometry/Transform.hpp
+        include/RaidZeroLib/api/Geometry/Twist.hpp
+        include/RaidZeroLib/api/Geometry/Pose.hpp
         # include/RaidZeroLib/api/Units/Units.hpp
         # include/RaidZeroLib/api.hpp
         
@@ -164,20 +164,20 @@ add_executable(RaidZeroLib
         # src/RaidZeroLib/api/Pathing/CubicBezier.cpp
         # src/RaidZeroLib/api/Pathing/PiecewiseCubicBezier.cpp
         # src/RaidZeroLib/api/Filter/SlewRate.cpp
-        # src/RaidZeroLib/api/Geometry/Twist.cpp
+        src/RaidZeroLib/api/Geometry/Twist.cpp
         src/RaidZeroLib/api/Geometry/Point.cpp
-        # src/RaidZeroLib/api/Geometry/Transform.cpp
+        src/RaidZeroLib/api/Geometry/Transform.cpp
         src/RaidZeroLib/api/Geometry/Rotation.cpp
-        # src/RaidZeroLib/api/Geometry/Pose.cpp
+        src/RaidZeroLib/api/Geometry/Pose.cpp
         
         # test/test/Control/Feedforward/SimpleMotorFeedforwardTest.cpp
         # test/test/Control/Iterative/IterativeVelBangBangControllerTest.cpp
 
         test/test/Geometry/RotationTest.cpp
         test/test/Geometry/PointTest.cpp
-        # test/test/Geometry/TwistTest.cpp
-        # test/test/Geometry/TransformTest.cpp
-        # test/test/Geometry/PoseTest.cpp
+        test/test/Geometry/TwistTest.cpp
+        test/test/Geometry/TransformTest.cpp
+        test/test/Geometry/PoseTest.cpp
 
         # test/test/Pathing/DiscretePathTest.cpp
         # test/test/Pathing/ParametricPathTest.cpp

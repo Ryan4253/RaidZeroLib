@@ -1,34 +1,24 @@
 #pragma once
-#include "okapi/api/units/QAngle.hpp"
-#include "okapi/api/units/QLength.hpp"
+#include "au/au.hpp"
 
 namespace rz {
-using namespace okapi;
 
 class Twist {
     public:
-    Twist(QLength dX, QLength dY, QAngle dTheta);
+    Twist(au::QuantityD<au::Meters> dx, au::QuantityD<au::Meters> dy, au::QuantityD<au::Radians> dtheta) noexcept;
 
-    Twist(const Twist& rhs);
+    au::QuantityD<au::Meters> dX() const noexcept;
 
-    ~Twist() = default;
+    au::QuantityD<au::Meters> dY() const noexcept;
 
-    QLength dX() const;
+    au::QuantityD<au::Radians> dTheta() const noexcept;
 
-    QLength dY() const;
-
-    QAngle dTheta() const;
-
-    bool operator==(const Twist& rhs) const;
-
-    bool operator!=(const Twist& rhs) const;
-
-    void operator=(const Twist& rhs);
+    bool isApprox(const Twist& rhs) const noexcept;
 
     private:
-    QLength dx{0.0};
-    QLength dy{0.0};
-    QAngle dtheta{0.0};
+    au::QuantityD<au::Meters> dx = au::ZERO;
+    au::QuantityD<au::Meters> dy = au::ZERO;
+    au::QuantityD<au::Radians> dtheta = au::ZERO;
 };
 
 } // namespace rz

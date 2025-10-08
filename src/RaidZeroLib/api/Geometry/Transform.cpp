@@ -1,63 +1,46 @@
 #include "RaidZeroLib/api/Geometry/Transform.hpp"
+#include "RaidZeroLib/api/Geometry/Pose.hpp"
+#include "au/au.hpp"
 
 namespace rz {
 
-Transform::Transform(const Pose& iInitial, const Pose& iFinal) {
-    translation = (iFinal.getTranslation() - iInitial.getTranslation()).rotateBy(-iInitial.getRotation());
-    rotation = iFinal.getRotation() - iInitial.getRotation();
+Transform::Transform(const Pose& initial, const Pose& final) noexcept 
+    : point((final.getPoint() - initial.getPoint()).rotateBy(-initial.getRotation())), 
+      rotation(final.getRotation() - initial.getRotation()){}
+
+Transform::Transform(const Point& point, const Rotation& rotation) noexcept
+    : point(point), rotation(rotation) {}
+
+const Point& Transform::getPoint() const noexcept {
+    return point;
 }
 
-Transform::Transform(const Translation& iTranslation, const Rotation& iRotation)
-    : translation(iTranslation), rotation(iRotation) {
-}
-
-const Translation& Transform::getTranslation() const {
-    return translation;
-}
-
-const Rotation& Transform::getRotation() const {
+const Rotation& Transform::getRotation() const noexcept {
     return rotation;
 }
 
-okapi::QLength Transform::X() const {
-    return translation.X();
+au::QuantityD<au::Meters> Transform::X() const noexcept {
+    return point.X();
 }
 
-okapi::QLength Transform::Y() const {
-    return translation.Y();
+au::QuantityD<au::Meters> Transform::Y() const noexcept {
+    return point.Y();
 }
 
-QAngle Transform::Theta() const {
+au::QuantityD<au::Radians> Transform::Theta() const noexcept {
     return rotation.Theta();
 }
 
-Transform Transform::operator+(const Transform& rhs) const {
+Transform Transform::operator+(const Transform& rhs) const noexcept {
     return Transform(Pose(), Pose().transformBy(*this).transformBy(rhs));
 }
 
-Transform Transform::operator*(double scalar) const {
-    return Transform(translation * scalar, rotation * scalar);
+Transform Transform::inverse() const noexcept {
+    return Transform((-point).rotateBy(-rotation), -rotation);
 }
 
-Transform Transform::operator/(double scalar) const {
-    return *this * (1.0 / scalar);
-}
-
-bool Transform::operator==(const Transform& rhs) const {
-    return translation == rhs.translation && rotation == rhs.rotation;
-}
-
-bool Transform::operator!=(const Transform& rhs) const {
-    return !operator==(rhs);
-}
-
-void Transform::operator=(const Transform& rhs) {
-    translation = rhs.getTranslation();
-    rotation = rhs.getRotation();
-}
-
-Transform Transform::inverse() const {
-    return Transform((-translation).rotateBy(-rotation), -rotation);
+bool Transform::isApprox(const Transform& rhs) const noexcept {
+    return point.isApprox(rhs.point) && rotation.isApprox(rhs.rotation);
 }
 
 } // namespace rz

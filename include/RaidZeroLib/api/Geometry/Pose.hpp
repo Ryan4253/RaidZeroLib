@@ -1,63 +1,53 @@
 #pragma once
 #include "RaidZeroLib/api/Geometry/Point.hpp"
-#include "RaidZeroLib/api/Geometry/Transform.hpp"
-#include "RaidZeroLib/api/Geometry/Twist.hpp"
-#include "RaidZeroLib/api/Units/Units.hpp"
-#include "okapi/api/odometry/odomState.hpp"
+#include "RaidZeroLib/api/Geometry/Rotation.hpp"
+
+namespace okapi {
+class OdomState;
+} // namespace okapi
 
 namespace rz {
-using namespace okapi;
+
 class Transform;
+class Twist;
 
 class Pose {
     public:
-    constexpr Pose() = default;
+    constexpr Pose() noexcept = default;
 
-    Pose(const Translation& iTranslation, const Rotation& iRotation);
+    Pose(const Point& point, const Rotation& rotation) noexcept;
 
-    Pose(QLength iX, QLength iY, const Rotation& iRotation);
+    Pose(au::QuantityD<au::Meters> x, au::QuantityD<au::Meters> y, const Rotation& rotation) noexcept;
 
-    Pose(const OdomState& iState);
+    Pose(au::QuantityD<au::Meters> x, au::QuantityD<au::Meters> y, au::QuantityD<au::Radians> angle) noexcept;
 
-    ~Pose() = default;
+    Pose(const okapi::OdomState& state) noexcept;
 
-    const Translation& getTranslation() const;
+    const Point& getPoint() const noexcept;
 
-    const Rotation& getRotation() const;
+    const Rotation& getRotation() const noexcept;
 
-    QLength X() const;
+    au::QuantityD<au::Meters> X() const noexcept;
 
-    QLength Y() const;
+    au::QuantityD<au::Meters> Y() const noexcept;
 
-    QAngle Theta() const;
+    au::QuantityD<au::Radians> Theta() const noexcept;
 
-    Pose operator+(const Transform& rhs) const;
+    Pose transformBy(const Transform& rhs) const noexcept;
 
-    Transform operator-(const Pose& rhs) const;
+    Transform relativeTo(const Pose& rhs) const noexcept;
 
-    Pose operator*(double scalar) const;
+    Pose exp(const Twist& rhs) const noexcept;
 
-    Pose operator/(double scalar) const;
+    Twist log(const Pose& rhs) const noexcept;
 
-    bool operator==(const Pose& rhs) const;
-
-    bool operator!=(const Pose& rhs) const;
-
-    void operator=(const Pose& rhs);
-
-    Pose transformBy(const Transform& rhs) const;
-
-    Pose relativeTo(const Pose& rhs) const;
-
-    Pose exp(const Twist& rhs) const;
-
-    Twist log(const Pose& rhs) const;
+    bool isApprox(const Pose& rhs) const noexcept;
 
     private:
-    Translation translation;
+    Point point;
     Rotation rotation;
 };
 
-QCurvature curvatureToPoint(const Pose& position, const Point& point);
+au::QuantityD<au::Inverse<au::Meters>> curvatureToPoint(const Pose& pose, const Point& point) noexcept;
 
 } // namespace rz

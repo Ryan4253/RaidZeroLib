@@ -1,47 +1,37 @@
 #pragma once
 #include "RaidZeroLib/api/Geometry/Point.hpp"
-#include "RaidZeroLib/api/Geometry/Pose.hpp"
+#include "RaidZeroLib/api/Geometry/Rotation.hpp"
 
 namespace rz {
+
 class Pose;
-using namespace okapi;
 
 class Transform {
     public:
-    constexpr Transform() = default;
+    constexpr Transform() noexcept = default;
 
-    Transform(const Pose& iInitial, const Pose& iFinal);
+    Transform(const Pose& initial, const Pose& final) noexcept;
 
-    Transform(const Translation& iTranslation, const Rotation& iRotation);
+    Transform(const Point& point, const Rotation& rotation) noexcept;
 
-    ~Transform() = default;
+    const Point& getPoint() const noexcept;
 
-    const Translation& getTranslation() const;
+    const Rotation& getRotation() const noexcept;
 
-    const Rotation& getRotation() const;
+    au::QuantityD<au::Meters> X() const noexcept;
 
-    QLength X() const;
+    au::QuantityD<au::Meters> Y() const noexcept;
 
-    QLength Y() const;
+    au::QuantityD<au::Radians> Theta() const noexcept;
 
-    QAngle Theta() const;
+    Transform operator+(const Transform& rhs) const noexcept;
 
-    Transform operator+(const Transform& rhs) const;
+    Transform inverse() const noexcept;
 
-    Transform operator*(double scalar) const;
-
-    Transform operator/(double scalar) const;
-
-    bool operator==(const Transform& rhs) const;
-
-    bool operator!=(const Transform& rhs) const;
-
-    void operator=(const Transform& rhs);
-
-    Transform inverse() const;
+    bool isApprox(const Transform& rhs) const noexcept;
 
     private:
-    Translation translation;
+    Point point;
     Rotation rotation;
 };
 

@@ -1,38 +1,32 @@
 #include "RaidZeroLib/api/Geometry/Twist.hpp"
+#include "RaidZeroLib/api/Geometry/Point.hpp"
+#include "RaidZeroLib/api/Geometry/Rotation.hpp"
+#include "RaidZeroLib/api/Utility/Math.hpp"
 
 namespace rz {
 
-Twist::Twist(QLength dX, QLength dY, QAngle dTheta) : dx(dX), dy(dY), dtheta(dTheta) {
-}
+Twist::Twist(au::QuantityD<au::Meters> dX, au::QuantityD<au::Meters> dY, au::QuantityD<au::Radians> dTheta) noexcept 
+    : dx(dX), dy(dY), dtheta(constrainAngle180(dTheta)) {}
 
-Twist::Twist(const Twist& rhs) : dx(rhs.dx), dy(rhs.dy), dtheta(rhs.dtheta) {
-}
-
-QLength Twist::dX() const {
+au::QuantityD<au::Meters> Twist::dX() const noexcept{
     return dx;
 }
 
-QLength Twist::dY() const {
+au::QuantityD<au::Meters> Twist::dY() const noexcept {
     return dy;
 }
 
-QAngle Twist::dTheta() const {
+au::QuantityD<au::Radians> Twist::dTheta() const noexcept {
     return dtheta;
 }
 
-bool Twist::operator==(const Twist& rhs) const {
-    return abs(dx - rhs.dx) < 1E-9 * okapi::meter && abs(dy - rhs.dy) < 1E-9 * okapi::meter &&
-           abs(dtheta - rhs.dtheta) < 1E-9 * okapi::radian;
-}
+bool Twist::isApprox(const Twist& rhs) const noexcept {
+    const Point point(dx, dy);
+    const Point rhsPoint(rhs.dx, rhs.dy);
+    const Rotation rotation(dtheta);
+    const Rotation rhsRotation(rhs.dtheta);
 
-bool Twist::operator!=(const Twist& rhs) const {
-    return !operator==(rhs);
-}
-
-void Twist::operator=(const Twist& rhs) {
-    dx = rhs.dX();
-    dy = rhs.dY();
-    dtheta = rhs.dTheta();
+    return point.isApprox(rhsPoint) && rotation.isApprox(rhsRotation);
 }
 
 } // namespace rz

@@ -35,7 +35,7 @@ Transform Transform::operator+(const Transform& rhs) const noexcept {
     return Transform(Pose(), Pose().transformBy(*this).transformBy(rhs));
 }
 
-Transform Transform::inverse() const noexcept {
+Transform Transform::operator-() const noexcept {
     return Transform((-point).rotateBy(-rotation), -rotation);
 }
 

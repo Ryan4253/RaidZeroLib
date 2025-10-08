@@ -57,5 +57,5 @@ TEST(transformTest, inverse) {
     rz::Pose end  (au::inches(3.0), au::inches(4.0), rz::Rotation(au::degrees(180)));
     rz::Transform transform(start, end);
 
-    EXPECT_TRUE(start.isApprox(end.transformBy(transform.inverse())));
+    EXPECT_TRUE(start.isApprox(end.transformBy(-transform)));
 }

@@ -2,6 +2,7 @@
 #include "RaidZeroLib/api/Geometry/Transform.hpp"
 #include "RaidZeroLib/api/Geometry/Twist.hpp"
 #include "okapi/api/odometry/odomState.hpp"
+#include <functional>
 
 namespace rz {
 

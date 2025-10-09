@@ -8,9 +8,7 @@ namespace rz {
  * @brief Cubic Bézier parametric path segment.
  *
  * A `CubicBezier` represents a smooth parametric curve defined by four control points:
- * \f[
- * P(t) = (1-t)^3 c_0 + 3(1-t)^2 t c_1 + 3(1-t)t^2 c_2 + t^3 c_3, \quad t \in [0, 1].
- * \f]
+ * P(t) = (1-t)^3 c_0 + 3(1-t)^2 t c_1 + 3(1-t)t^2 c_2 + t^3 c_3.
  *
  * Each segment is constructed from two knots, which encode both position
  * and tangent direction/length at their endpoints. The constructor expands those into
@@ -99,10 +97,7 @@ class CubicBezier : public ParametricPath {
     /**
      * @brief Computes the first derivative dP/dt at parameter t.
      *
-     * The derivative is given by:
-     * \f[
      * P'(t) = 3(1-t)^2 (c_1 - c_0) + 6(1-t)t (c_2 - c_1) + 3t^2 (c_3 - c_2)
-     * \f]
      *
      * @param t Normalized parameter ∈ [0, 1].
      * @return Velocity vector (meters per unit t).
@@ -112,10 +107,7 @@ class CubicBezier : public ParametricPath {
     /**
      * @brief Computes the second derivative d²P/dt² at parameter t.
      *
-     * The expression is:
-     * \f[
      * P''(t) = 6(1-t)(c_2 - 2c_1 + c_0) + 6t(c_3 - 2c_2 + c_1)
-     * \f]
      *
      * @param t Normalized parameter ∈ [0, 1].
      * @return Acceleration vector (meters per unit t²).

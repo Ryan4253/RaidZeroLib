@@ -101,21 +101,21 @@ bool Pose::isApprox(const Pose& rhs) const noexcept {
 }
 
 au::QuantityD<au::Inverse<au::Meters>> curvatureToPoint(const Pose& pose, const Point& point) noexcept {
-    const double a = -au::tan(pose.Theta());
-    const double b = 1;
-    const auto c = au::tan(pose.Theta()) * pose.X() - pose.Y();
-
-    const auto x = au::abs(point.X() * a + point.Y() * b + c) / au::sqrt(a * a + b * b);
-    const au::QuantityD<au::Meters> sideL =
-        au::sin(pose.Theta()) * (point.X() - pose.X()) - cos(pose.Theta()) * (point.Y() - pose.Y());
+    const auto dx = point.X() - pose.X();
+    const auto dy = point.Y() - pose.Y();
+    const auto sideL = sin(pose.Theta()) * dx - cos(pose.Theta()) * dy;
 
     if(sideL == au::ZERO){
         return au::ZERO;
     }
 
-    const double side = sideL / au::abs(sideL);
-    const au::QuantityD<au::Meters> chord = pose.getPoint().distTo(point);
+    const auto chord = pose.getPoint().distTo(point);
+    if (chord == au::ZERO){
+        return au::ZERO;
+    }
 
+    const auto x = abs(sideL);
+    const auto side = sideL / abs(sideL);
     return (2 * x) / (chord * chord) * side;
 }
 

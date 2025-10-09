@@ -135,7 +135,7 @@ add_executable(RaidZeroLib
         # include/RaidZeroLib/api/Utility/CrossPlatformThread.hpp
         # include/RaidZeroLib/api/Utility/CrossPlatformMutex.hpp
         include/RaidZeroLib/api/Utility/Math.hpp
-        # include/RaidZeroLib/api/Pathing/DiscretePath.hpp
+        include/RaidZeroLib/api/Pathing/DiscretePath.hpp
         # include/RaidZeroLib/api/Pathing/ParametricPath.hpp
         # include/RaidZeroLib/api/Pathing/CubicBezier.hpp
         # include/RaidZeroLib/api/Pathing/PiecewiseCubicBezier.hpp
@@ -160,7 +160,7 @@ add_executable(RaidZeroLib
         src/RaidZeroLib/api/Utility/Math.cpp
         # src/RaidZeroLib/api/Utility/CrossPlatformThread.cpp
         # src/RaidZeroLib/api/Pathing/ParametricPath.cpp
-        # src/RaidZeroLib/api/Pathing/DiscretePath.cpp
+        src/RaidZeroLib/api/Pathing/DiscretePath.cpp
         # src/RaidZeroLib/api/Pathing/CubicBezier.cpp
         # src/RaidZeroLib/api/Pathing/PiecewiseCubicBezier.cpp
         # src/RaidZeroLib/api/Filter/SlewRate.cpp
@@ -179,7 +179,7 @@ add_executable(RaidZeroLib
         test/test/Geometry/TransformTest.cpp
         test/test/Geometry/PoseTest.cpp
 
-        # test/test/Pathing/DiscretePathTest.cpp
+        test/test/Pathing/DiscretePathTest.cpp
         # test/test/Pathing/ParametricPathTest.cpp
         # test/test/Pathing/CubicBezierTest.cpp
         # test/test/Pathing/PiecewiseCubicBezierTest.cpp

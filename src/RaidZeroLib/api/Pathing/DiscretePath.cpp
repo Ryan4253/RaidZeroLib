@@ -1,114 +1,80 @@
 #include "RaidZeroLib/api/Pathing/DiscretePath.hpp"
+#include <algorithm>
 
 namespace rz {
-DiscretePath::DiscretePath(const std::initializer_list<Point>& waypoint) : path(waypoint) {
-}
-
-DiscretePath::DiscretePath(const std::vector<Point>& waypoint) : path(waypoint) {
+DiscretePath::DiscretePath(std::initializer_list<Point> waypoints) : path(waypoints) {
+    assert(!path.empty() && "DiscretePath cannot be empty");
 }
 
 DiscretePath DiscretePath::operator+(const DiscretePath& rhs) const {
-    DiscretePath result(path);
-    result.path.insert(result.path.end(), rhs.path.begin(), rhs.path.end());
-    return result;
+    std::vector<Point> result;
+    result.reserve(size() + rhs.size());
+
+    result.insert(result.end(), path.begin(), path.end());
+    result.insert(result.end(), rhs.path.begin(), rhs.path.end());
+    return DiscretePath(result);
 }
 
 DiscretePath DiscretePath::operator+(const Point& rhs) const {
-    DiscretePath result(path);
-    result.path.emplace_back(rhs);
-    return result;
+    std::vector<Point> result;
+    result.reserve(size() + 1);
+
+    result.insert(result.end(), path.begin(), path.end());
+    result.push_back(rhs);
+    return DiscretePath(result);
 }
 
-DiscretePath& DiscretePath::operator+=(const DiscretePath& rhs) {
-    path.insert(path.end(), rhs.path.begin(), rhs.path.end());
-    return *this;
-}
-
-DiscretePath& DiscretePath::operator+=(const Point& rhs) {
-    path.emplace_back(rhs);
-    return *this;
-}
-
-std::vector<Point>::iterator DiscretePath::begin() {
+DiscretePath::const_iterator DiscretePath::begin() const noexcept {
     return path.begin();
 }
 
-std::vector<Point>::iterator DiscretePath::end() {
+DiscretePath::const_iterator DiscretePath::end() const noexcept {
     return path.end();
 }
 
-std::vector<Point>::reverse_iterator DiscretePath::rbegin() {
+DiscretePath::const_reverse_iterator DiscretePath::rbegin() const noexcept {
     return path.rbegin();
 }
 
-std::vector<Point>::reverse_iterator DiscretePath::rend() {
+DiscretePath::const_reverse_iterator DiscretePath::rend() const noexcept {
     return path.rend();
 }
 
-std::vector<Point>::const_iterator DiscretePath::begin() const {
-    return path.begin();
-}
-
-std::vector<Point>::const_iterator DiscretePath::end() const {
-    return path.end();
-}
-
-std::vector<Point>::const_reverse_iterator DiscretePath::rbegin() const {
-    return path.rbegin();
-}
-
-std::vector<Point>::const_reverse_iterator DiscretePath::rend() const {
-    return path.rend();
-}
-
-Point& DiscretePath::operator[](int index) {
+const Point& DiscretePath::operator[](std::size_t index) const noexcept {
     return path[index];
 }
 
-const Point& DiscretePath::operator[](int index) const {
-    return path[index];
-}
-
-Point& DiscretePath::front() {
+const Point& DiscretePath::front() const noexcept {
     return path.front();
 }
 
-const Point& DiscretePath::front() const {
-    return path.front();
-}
-
-Point& DiscretePath::back() {
+const Point& DiscretePath::back() const noexcept {
     return path.back();
 }
 
-const Point& DiscretePath::back() const {
-    return path.back();
+std::size_t DiscretePath::size() const noexcept {
+    return path.size();
 }
 
-int DiscretePath::size() const {
-    return (int)path.size();
-}
-
-QCurvature DiscretePath::getCurvature(int index) const {
-    if (index <= 0 || index >= (int)path.size() - 1) {
-        return 0 * radpm;
+au::QuantityD<au::Inverse<au::Meters>>  DiscretePath::getCurvature(std::size_t index) const noexcept {
+    if (index == 0 || index >= path.size() - 1) {
+        return au::ZERO;
     }
 
-    QLength radius = circumradius(path[index - 1], path[index], path[index + 1]);
+    const auto radius = circumradius(path[index - 1], path[index], path[index + 1]);
 
-    if (std::isnan(radius.getValue()) || radius.getValue() == 0) {
-        return 0 * radpm;
+    if (radius == au::ZERO) {
+        return au::ZERO;
     }
 
-    return 1 * radian / radius;
+    return 1.0 / radius;
 }
 
-std::vector<Translation>::const_iterator closestPoint(std::vector<Translation>::const_iterator begin,
-                                                      std::vector<Translation>::const_iterator end,
-                                                      const Point& point) {
-    const auto comparison = [point](const Point& a, const Point& b) { return a.distTo(point) < b.distTo(point); };
-
-    return std::min_element(begin, end, comparison);
+DiscretePath::const_iterator closestPoint(DiscretePath::const_iterator begin,
+                                          DiscretePath::const_iterator end,
+                                          const Point& point) {
+    const auto proj = [&point](const Point& p) { return p.distTo(point); };
+    return std::ranges::min_element(begin, end, std::less<>{}, proj);
 }
 
 } // namespace rz
